@@ -213,7 +213,7 @@
       border-bottom: 1px solid var(--border-default);
       cursor: default;
       font-size: 0.9375rem;
-      color: var(--blue-france);
+      color: var(--text-default);
       transition: background-color 0.15s ease;
     }
 
@@ -223,8 +223,6 @@
 
     .search-results__name {
       font-weight: 400;
-      text-decoration: underline;
-      text-underline-offset: 3px;
     }
 
     /* Section Catégories */
@@ -274,9 +272,11 @@
       justify-content: center;
     }
 
+    .category-card__icon img,
     .category-card__icon svg {
       width: 100%;
       height: 100%;
+      object-fit: contain;
     }
 
     .category-card__name {
@@ -681,7 +681,11 @@
       border-width: 0;
     }
 
-    /* Masquer sections quand panneau ouvert */
+    /* Quand le panneau de recherche est ouvert */
+    .iframe-container.search-active .search-section {
+      background-color: var(--background-default);
+    }
+
     .iframe-container.search-active .stats-section,
     .iframe-container.search-active .accordion-section,
     .iframe-container.search-active .footer {
@@ -737,14 +741,7 @@
           <!-- Petit électroménager -->
           <div class="category-card" data-category="petit-electromenager">
             <div class="category-card__icon">
-              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="32" cy="56" rx="14" ry="2" fill="#b8e6dc"/>
-                <rect x="20" y="8" width="24" height="38" rx="4" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
-                <path d="M20 16h24" stroke="#37635f" stroke-width="1.5"/>
-                <rect x="26" y="10" width="2" height="4" rx="1" fill="#37635f"/>
-                <path d="M28 46c0-4.4 3.6-8 8-8h0" stroke="#37635f" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="36" cy="38" r="1.5" fill="#37635f"/>
-              </svg>
+              <img src="src/assets/bouilloire.svg" alt="" aria-hidden="true">
             </div>
             <span class="category-card__name">Petits électroménagers</span>
             <span class="category-card__count">347 solutions</span>
@@ -753,14 +750,7 @@
           <!-- Médicaments -->
           <div class="category-card" data-category="medicaments">
             <div class="category-card__icon">
-              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="32" cy="56" rx="14" ry="2" fill="#b8e6dc"/>
-                <rect x="12" y="20" width="18" height="28" rx="9" transform="rotate(-30 12 20)" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
-                <circle cx="42" cy="24" r="8" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
-                <line x1="42" y1="20" x2="42" y2="28" stroke="#37635f" stroke-width="2"/>
-                <line x1="38" y1="24" x2="46" y2="24" stroke="#37635f" stroke-width="2"/>
-                <circle cx="46" cy="36" r="6" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
-              </svg>
+              <img src="src/assets/medicaments.svg" alt="" aria-hidden="true">
             </div>
             <span class="category-card__name">Médicaments</span>
             <span class="category-card__count">8 392 solutions</span>
@@ -769,14 +759,7 @@
           <!-- Meubles -->
           <div class="category-card" data-category="meubles">
             <div class="category-card__icon">
-              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="32" cy="56" rx="14" ry="2" fill="#b8e6dc"/>
-                <rect x="10" y="24" width="44" height="18" rx="4" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
-                <path d="M14 24V18a4 4 0 014-4h28a4 4 0 014 4v6" stroke="#37635f" stroke-width="2"/>
-                <line x1="14" y1="42" x2="14" y2="50" stroke="#37635f" stroke-width="2.5" stroke-linecap="round"/>
-                <line x1="50" y1="42" x2="50" y2="50" stroke="#37635f" stroke-width="2.5" stroke-linecap="round"/>
-                <path d="M10 30h44" stroke="#37635f" stroke-width="1.5"/>
-              </svg>
+              <img src="src/assets/canapetextile.svg" alt="" aria-hidden="true">
             </div>
             <span class="category-card__name">Meubles</span>
             <span class="category-card__count">28 293 solutions</span>
@@ -785,14 +768,7 @@
           <!-- Déchets alimentaires -->
           <div class="category-card" data-category="dechets-alimentaires">
             <div class="category-card__icon">
-              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <ellipse cx="32" cy="56" rx="14" ry="2" fill="#b8e6dc"/>
-                <path d="M28 48c-2-6-8-10-8-20a12 12 0 0124 0c0 10-6 14-8 20" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
-                <path d="M28 48h8" stroke="#37635f" stroke-width="2" stroke-linecap="round"/>
-                <line x1="32" y1="20" x2="32" y2="36" stroke="#37635f" stroke-width="1.5"/>
-                <line x1="28" y1="24" x2="32" y2="28" stroke="#37635f" stroke-width="1.5"/>
-                <line x1="36" y1="24" x2="32" y2="28" stroke="#37635f" stroke-width="1.5"/>
-              </svg>
+              <img src="src/assets/poireau.svg" alt="" aria-hidden="true">
             </div>
             <span class="category-card__name">Déchets alimentaires</span>
             <span class="category-card__count">183 829 solutions</span>
