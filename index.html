@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'assistant au tri, au réemploi et à la réparation</title>
+  <link rel="stylesheet" href="src/css/fonts.css">
+  <style>
+    /* ============================================
+       DSFR-based Design Tokens
+       ============================================ */
+    :root {
+      /* Couleurs DSFR */
+      --blue-france: #000091;
+      --blue-france-hover: #1212FF;
+      --blue-france-active: #2323FF;
+      --red-marianne: #E1000F;
+
+      /* Couleurs fonctionnelles */
+      --text-default: #161616;
+      --text-mention-grey: #666666;
+      --text-label-grey: #3A3A3A;
+      --text-inverted: #FFFFFF;
+
+      --background-default: #FFFFFF;
+      --background-alt-grey: #F6F6F6;
+      --background-contrast-grey: #EEEEEE;
+      --background-action-low-blue: #F5F5FE;
+
+      --border-default: #DDDDDD;
+      --border-plain: #CECECE;
+      --border-active-blue: #000091;
+
+      /* Couleurs DSFR - Green Menthe */
+      --green-menthe-975: #dffdf7;
+      --green-menthe-sun-373: #37635f;
+      --green-menthe-main: #009081;
+
+      /* Espacement DSFR (multiples de 4px) */
+      --spacing-1v: 0.25rem;   /* 4px */
+      --spacing-2v: 0.5rem;    /* 8px */
+      --spacing-3v: 0.75rem;   /* 12px */
+      --spacing-4v: 1rem;      /* 16px */
+      --spacing-5v: 1.25rem;   /* 20px */
+      --spacing-6v: 1.5rem;    /* 24px */
+      --spacing-7v: 1.75rem;   /* 28px */
+      --spacing-8v: 2rem;      /* 32px */
+      --spacing-9v: 2.25rem;   /* 36px */
+      --spacing-10v: 2.5rem;   /* 40px */
+      --spacing-12v: 3rem;     /* 48px */
+
+      /* Ombres */
+      --shadow-raised: 0 2px 6px 0 rgba(0, 0, 18, 0.16);
+      --shadow-overlap: 0 4px 12px 0 rgba(0, 0, 18, 0.16);
+
+      /* Rayons */
+      --radius-sm: 0.25rem;
+      --radius-md: 0.5rem;
+    }
+
+    /* ============================================
+       Reset & Base
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Marianne', arial, sans-serif;
+      color: var(--text-default);
+      background-color: var(--background-default);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* ============================================
+       Layout principal de l'iframe
+       ============================================ */
+    .iframe-container {
+      width: 100%;
+      max-width: 900px;
+      min-width: 260px;
+      margin: 0 auto;
+      min-height: 100vh;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    /* ============================================
+       Section Recherche (Hero)
+       ============================================ */
+    .search-section {
+      background-color: var(--green-menthe-975);
+      padding: var(--spacing-6v) var(--spacing-4v) 0;
+    }
+
+    .search-section__title {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-4v);
+    }
+
+    /* Barre de recherche custom */
+    .search-bar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background-color: var(--background-default);
+      border: 2px solid var(--green-menthe-sun-373);
+      border-radius: var(--radius-sm);
+      transition: border-color 0.2s ease;
+      cursor: text;
+    }
+
+    .search-bar:focus-within {
+      border-color: var(--green-menthe-sun-373);
+      outline: 2px solid var(--green-menthe-sun-373);
+      outline-offset: -2px;
+    }
+
+    .search-bar__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: var(--spacing-3v);
+      color: var(--green-menthe-sun-373);
+      flex-shrink: 0;
+    }
+
+    .search-bar__icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .search-bar__input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      background: transparent;
+      padding: var(--spacing-3v) var(--spacing-3v);
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 1rem;
+      color: var(--text-default);
+      outline: none;
+    }
+
+    .search-bar__input::placeholder {
+      color: var(--text-mention-grey);
+      font-style: italic;
+    }
+
+    /* ============================================
+       Panneau de recherche (overlay)
+       ============================================ */
+    .search-panel {
+      display: none;
+      background-color: var(--background-default);
+      padding: 0 var(--spacing-4v) var(--spacing-4v);
+      animation: slideDown 0.25s ease-out;
+    }
+
+    .search-panel.is-open {
+      display: block;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .search-panel__hint {
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--text-mention-grey);
+      padding: var(--spacing-3v) 0 var(--spacing-4v);
+    }
+
+    /* Résultats de recherche */
+    .search-results {
+      display: none;
+      list-style: none;
+    }
+
+    .search-results.is-visible {
+      display: block;
+    }
+
+    .search-results__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-3v) var(--spacing-1v);
+      border-bottom: 1px solid var(--border-default);
+      cursor: default;
+      font-size: 0.9375rem;
+      color: var(--blue-france);
+      transition: background-color 0.15s ease;
+    }
+
+    .search-results__item:hover {
+      background-color: var(--background-alt-grey);
+    }
+
+    .search-results__name {
+      font-weight: 400;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Section Catégories */
+    .search-categories {
+      padding-top: var(--spacing-2v);
+    }
+
+    .search-categories__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-3v);
+    }
+
+    .search-categories__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-3v);
+      margin-bottom: var(--spacing-6v);
+    }
+
+    .category-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: var(--spacing-4v) var(--spacing-2v) var(--spacing-3v);
+      background-color: var(--green-menthe-975);
+      border: 1px solid var(--green-menthe-sun-373);
+      border-radius: var(--radius-md);
+      cursor: default;
+      text-align: center;
+      transition: background-color 0.15s ease;
+      min-height: 8rem;
+    }
+
+    .category-card:hover {
+      background-color: #d0f9ef;
+    }
+
+    .category-card__icon {
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: var(--spacing-2v);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .category-card__icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .category-card__name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-default);
+      line-height: 1.3;
+      margin-bottom: var(--spacing-1v);
+    }
+
+    .category-card__count {
+      font-size: 0.75rem;
+      color: var(--text-mention-grey);
+    }
+
+    /* Section Populaires */
+    .search-popular {
+      padding-top: var(--spacing-2v);
+    }
+
+    .search-popular__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-3v);
+    }
+
+    .search-popular__list {
+      list-style: none;
+    }
+
+    .search-popular__item {
+      padding: var(--spacing-3v) 0;
+      border-bottom: 1px solid var(--border-default);
+      font-size: 0.9375rem;
+      color: var(--text-default);
+      cursor: default;
+      transition: background-color 0.15s ease;
+    }
+
+    .search-popular__item:hover {
+      background-color: var(--background-alt-grey);
+    }
+
+    /* ============================================
+       Section Données / Statistiques
+       ============================================ */
+    .stats-section {
+      background-color: var(--green-menthe-975);
+      padding: var(--spacing-4v) var(--spacing-4v) var(--spacing-4v);
+    }
+
+    .stats-intro {
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--green-menthe-sun-373);
+      margin-bottom: var(--spacing-4v);
+    }
+
+    .stats-intro strong {
+      font-weight: 700;
+      color: var(--green-menthe-sun-373);
+    }
+
+    .stats-list {
+      list-style: none;
+    }
+
+    .stats-list__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--spacing-3v) 0;
+      border-bottom: 1px solid var(--green-menthe-sun-373);
+    }
+
+    .stats-list__item:first-child {
+      border-top: 1px solid var(--green-menthe-sun-373);
+    }
+
+    .stats-list__label {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2v);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--green-menthe-sun-373);
+    }
+
+    .stats-list__label-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.25rem;
+      height: 1.25rem;
+      color: var(--green-menthe-sun-373);
+      flex-shrink: 0;
+    }
+
+    .stats-list__label-icon svg {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+
+    .stats-list__value {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--green-menthe-sun-373);
+    }
+
+    /* ============================================
+       Section Accordéon
+       ============================================ */
+    .accordion-section {
+      padding: var(--spacing-6v) var(--spacing-4v);
+    }
+
+    .accordion {
+      border: none;
+    }
+
+    .accordion__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background-color: var(--background-action-low-blue);
+      border: none;
+      padding: var(--spacing-4v);
+      cursor: pointer;
+      text-align: left;
+      font-family: 'Marianne', arial, sans-serif;
+      border-radius: var(--radius-sm);
+      transition: background-color 0.2s ease;
+    }
+
+    .accordion__header:hover {
+      background-color: #EBEBFF;
+    }
+
+    .accordion__header:focus-visible {
+      outline: 2px solid var(--border-active-blue);
+      outline-offset: 2px;
+    }
+
+    .accordion__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-france);
+      line-height: 1.4;
+      padding-right: var(--spacing-4v);
+    }
+
+    .accordion__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--blue-france);
+      transition: transform 0.3s ease;
+    }
+
+    .accordion__icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .accordion[open] .accordion__icon {
+      transform: rotate(180deg);
+    }
+
+    .accordion[open] .accordion__header {
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    }
+
+    .accordion__content {
+      padding: var(--spacing-4v);
+      background-color: var(--background-default);
+      border: 1px solid var(--border-default);
+      border-top: none;
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    }
+
+    .accordion__text {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-4v);
+    }
+
+    /* Bouton DSFR Secondary Small */
+    .btn-secondary-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-2v);
+      padding: var(--spacing-1v) var(--spacing-3v);
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--blue-france);
+      background-color: transparent;
+      border: 1px solid var(--blue-france);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-decoration: none;
+      line-height: 1.5;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .btn-secondary-sm:hover {
+      background-color: var(--background-action-low-blue);
+    }
+
+    .btn-secondary-sm:focus-visible {
+      outline: 2px solid var(--border-active-blue);
+      outline-offset: 2px;
+    }
+
+    .btn-secondary-sm:active {
+      background-color: #DDDDFB;
+    }
+
+    .btn-secondary-sm__icon {
+      display: flex;
+      align-items: center;
+    }
+
+    .btn-secondary-sm__icon svg {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+
+    /* ============================================
+       Footer
+       ============================================ */
+    .footer {
+      padding: var(--spacing-6v) var(--spacing-4v);
+      border-top: 1px solid var(--border-default);
+    }
+
+    .footer__description {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-4v);
+    }
+
+    .footer__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-1v);
+      color: var(--blue-france);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      margin-bottom: var(--spacing-6v);
+    }
+
+    .footer__link:hover {
+      text-decoration: underline;
+    }
+
+    .footer__link svg {
+      width: 0.875rem;
+      height: 0.875rem;
+      flex-shrink: 0;
+    }
+
+    .footer__logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--spacing-6v);
+    }
+
+    .footer__logos img {
+      height: 2.25rem;
+      width: auto;
+    }
+
+    /* Boutons footer (Partager / Intégrer) */
+    .footer__actions {
+      display: flex;
+      gap: var(--spacing-3v);
+    }
+
+    .btn-footer {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-2v);
+      padding: var(--spacing-2v) var(--spacing-4v);
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-decoration: none;
+      line-height: 1.5;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-footer--share {
+      color: var(--blue-france);
+      background-color: transparent;
+      border: 1px solid var(--blue-france);
+    }
+
+    .btn-footer--share:hover {
+      background-color: var(--background-action-low-blue);
+    }
+
+    .btn-footer--embed {
+      color: var(--text-inverted);
+      background-color: var(--blue-france);
+      border: 1px solid var(--blue-france);
+    }
+
+    .btn-footer--embed:hover {
+      background-color: var(--blue-france-hover);
+    }
+
+    .btn-footer:focus-visible {
+      outline: 2px solid var(--border-active-blue);
+      outline-offset: 2px;
+    }
+
+    .btn-footer svg {
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+    }
+
+    /* ============================================
+       Responsive
+       ============================================ */
+    @media (min-width: 576px) {
+      .search-section {
+        padding: var(--spacing-8v) var(--spacing-6v) 0;
+      }
+
+      .search-panel {
+        padding: 0 var(--spacing-6v) var(--spacing-6v);
+      }
+
+      .stats-section {
+        padding: var(--spacing-6v) var(--spacing-6v) var(--spacing-6v);
+      }
+
+      .accordion-section {
+        padding: var(--spacing-8v) var(--spacing-6v);
+      }
+
+      .footer {
+        padding: var(--spacing-8v) var(--spacing-6v);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .search-section {
+        padding: var(--spacing-10v) var(--spacing-12v) 0;
+      }
+
+      .search-panel {
+        padding: 0 var(--spacing-12v) var(--spacing-8v);
+      }
+
+      .stats-section {
+        padding: var(--spacing-8v) var(--spacing-12v) var(--spacing-8v);
+      }
+
+      .accordion-section {
+        padding: var(--spacing-10v) var(--spacing-12v);
+      }
+
+      .footer {
+        padding: var(--spacing-10v) var(--spacing-12v);
+      }
+
+      .footer__actions {
+        max-width: 28rem;
+      }
+
+      .search-categories__grid {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+      }
+    }
+
+    /* ============================================
+       Utilitaires
+       ============================================ */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* Masquer sections quand panneau ouvert */
+    .iframe-container.search-active .stats-section,
+    .iframe-container.search-active .accordion-section,
+    .iframe-container.search-active .footer {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="iframe-container" role="main">
+
+    <!-- =============================================
+         Section Recherche
+         ============================================= -->
+    <section class="search-section" aria-labelledby="search-title">
+      <h1 class="search-section__title" id="search-title">
+        Pour quel objet ou déchet recherchez-vous des recommandations et des solutions&nbsp;?
+      </h1>
+
+      <div class="search-bar" role="search">
+        <div class="search-bar__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </div>
+        <label for="search-input" class="sr-only">Rechercher un objet ou un déchet</label>
+        <input
+          type="search"
+          id="search-input"
+          class="search-bar__input"
+          placeholder="exemple : vis, téléphone, CD-ROM..."
+          autocomplete="off"
+        >
+      </div>
+    </section>
+
+    <!-- =============================================
+         Panneau de recherche (s'ouvre au clic)
+         ============================================= -->
+    <div class="search-panel" id="search-panel">
+      <p class="search-panel__hint">
+        Une fois votre recherche effectuée, sélectionnez un résultat dans la liste pour passer à l'étape suivante.
+      </p>
+
+      <!-- Résultats de recherche dynamiques -->
+      <ul class="search-results" id="search-results" aria-label="Résultats de recherche"></ul>
+
+      <!-- Par catégorie -->
+      <div class="search-categories" id="search-categories">
+        <h2 class="search-categories__title">Par catégorie</h2>
+        <div class="search-categories__grid">
+
+          <!-- Petit électroménager -->
+          <div class="category-card" data-category="petit-electromenager">
+            <div class="category-card__icon">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="32" cy="56" rx="14" ry="2" fill="#b8e6dc"/>
+                <rect x="20" y="8" width="24" height="38" rx="4" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
+                <path d="M20 16h24" stroke="#37635f" stroke-width="1.5"/>
+                <rect x="26" y="10" width="2" height="4" rx="1" fill="#37635f"/>
+                <path d="M28 46c0-4.4 3.6-8 8-8h0" stroke="#37635f" stroke-width="2" stroke-linecap="round"/>
+                <circle cx="36" cy="38" r="1.5" fill="#37635f"/>
+              </svg>
+            </div>
+            <span class="category-card__name">Petits électroménagers</span>
+            <span class="category-card__count">347 solutions</span>
+          </div>
+
+          <!-- Médicaments -->
+          <div class="category-card" data-category="medicaments">
+            <div class="category-card__icon">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="32" cy="56" rx="14" ry="2" fill="#b8e6dc"/>
+                <rect x="12" y="20" width="18" height="28" rx="9" transform="rotate(-30 12 20)" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
+                <circle cx="42" cy="24" r="8" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
+                <line x1="42" y1="20" x2="42" y2="28" stroke="#37635f" stroke-width="2"/>
+                <line x1="38" y1="24" x2="46" y2="24" stroke="#37635f" stroke-width="2"/>
+                <circle cx="46" cy="36" r="6" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
+              </svg>
+            </div>
+            <span class="category-card__name">Médicaments</span>
+            <span class="category-card__count">8 392 solutions</span>
+          </div>
+
+          <!-- Meubles -->
+          <div class="category-card" data-category="meubles">
+            <div class="category-card__icon">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="32" cy="56" rx="14" ry="2" fill="#b8e6dc"/>
+                <rect x="10" y="24" width="44" height="18" rx="4" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
+                <path d="M14 24V18a4 4 0 014-4h28a4 4 0 014 4v6" stroke="#37635f" stroke-width="2"/>
+                <line x1="14" y1="42" x2="14" y2="50" stroke="#37635f" stroke-width="2.5" stroke-linecap="round"/>
+                <line x1="50" y1="42" x2="50" y2="50" stroke="#37635f" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M10 30h44" stroke="#37635f" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <span class="category-card__name">Meubles</span>
+            <span class="category-card__count">28 293 solutions</span>
+          </div>
+
+          <!-- Déchets alimentaires -->
+          <div class="category-card" data-category="dechets-alimentaires">
+            <div class="category-card__icon">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="32" cy="56" rx="14" ry="2" fill="#b8e6dc"/>
+                <path d="M28 48c-2-6-8-10-8-20a12 12 0 0124 0c0 10-6 14-8 20" fill="#c8eee6" stroke="#37635f" stroke-width="2"/>
+                <path d="M28 48h8" stroke="#37635f" stroke-width="2" stroke-linecap="round"/>
+                <line x1="32" y1="20" x2="32" y2="36" stroke="#37635f" stroke-width="1.5"/>
+                <line x1="28" y1="24" x2="32" y2="28" stroke="#37635f" stroke-width="1.5"/>
+                <line x1="36" y1="24" x2="32" y2="28" stroke="#37635f" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <span class="category-card__name">Déchets alimentaires</span>
+            <span class="category-card__count">183 829 solutions</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Les plus populaires -->
+      <div class="search-popular" id="search-popular">
+        <h2 class="search-popular__title">Les plus populaires</h2>
+        <ul class="search-popular__list">
+          <li class="search-popular__item">CD, DVD ou cassettes VHS</li>
+          <li class="search-popular__item">Chaussures</li>
+          <li class="search-popular__item">Marteau</li>
+          <li class="search-popular__item">Seringue avec aiguille</li>
+          <li class="search-popular__item">Trottinette électrique</li>
+          <li class="search-popular__item">Brique alimentaire (jus, lait…)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- =============================================
+         Section Statistiques
+         ============================================= -->
+    <section class="stats-section" aria-labelledby="stats-intro">
+      <p class="stats-intro" id="stats-intro">
+        <strong>353&nbsp;811 solutions</strong> partout en France pour prolonger la vie de vos objets, faire des économies et réduire vos déchets.
+      </p>
+
+      <ul class="stats-list" aria-label="Répartition des solutions">
+        <li class="stats-list__item">
+          <span class="stats-list__label">
+            <span class="stats-list__label-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </span>
+            Lieux
+          </span>
+          <span class="stats-list__value">352&nbsp;500</span>
+        </li>
+        <li class="stats-list__item">
+          <span class="stats-list__label">
+            <span class="stats-list__label-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+              </svg>
+            </span>
+            Services à domicile
+          </span>
+          <span class="stats-list__value">900</span>
+        </li>
+        <li class="stats-list__item">
+          <span class="stats-list__label">
+            <span class="stats-list__label-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </span>
+            Solutions en ligne
+          </span>
+          <span class="stats-list__value">411</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- =============================================
+         Section Accordéon
+         ============================================= -->
+    <section class="accordion-section">
+      <details class="accordion">
+        <summary class="accordion__header" aria-expanded="false">
+          <span class="accordion__title">Je cherche à acheter, louer ou emprunter un objet</span>
+          <span class="accordion__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </span>
+        </summary>
+        <div class="accordion__content">
+          <p class="accordion__text">
+            Vous êtes à la recherche d'un lieu près de chez vous ou d'un site Internet où acheter, louer ou emprunter un objet&nbsp;? Trouvez sur notre site Internet de nombreuses solutions.
+          </p>
+          <a
+            href="https://quefairedemesdechets.ademe.fr/nos-outils/la-carte-nationale-de-la-consommation-responsable/"
+            class="btn-secondary-sm"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Acheter, louer ou emprunter
+            <span class="btn-secondary-sm__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </details>
+    </section>
+
+    <!-- =============================================
+         Footer
+         ============================================= -->
+    <footer class="footer">
+      <p class="footer__description">
+        Que faire de mes objets et déchets est un outil numérique public qui vous aide à prolonger la vie de vos objets, pour faire des économies et réduire vos déchets. Rejoignez nos 1,5&nbsp;millions d'usagers annuels&nbsp;!
+      </p>
+
+      <a
+        href="https://www.quefairedemesdechets.ademe.fr"
+        class="footer__link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        En savoir plus
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </a>
+
+      <div class="footer__logos">
+        <img src="src/assets/logos.svg" alt="République Française — ADEME — Que faire de mes objets et déchets ?">
+      </div>
+
+      <div class="footer__actions">
+        <button type="button" class="btn-footer btn-footer--share" aria-label="Partager">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"/>
+            <circle cx="6" cy="12" r="3"/>
+            <circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          Partager
+        </button>
+        <button type="button" class="btn-footer btn-footer--embed" aria-label="Intégrer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+          Intégrer
+        </button>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    // =============================================
+    // Data Store — Fiches objets/déchets
+    // =============================================
+    const fichesData = [
+      {
+        id: 'petit-electromenager',
+        nom: 'Petit électroménager',
+        categorie: 'petit-electromenager',
+        keywords: ['bouilloire', 'grille-pain', 'cafetière', 'machine à café', 'mixeur', 'blender', 'fer à repasser', 'aspirateur', 'robot culinaire', 'sèche-cheveux', 'rasoir électrique', 'balance de cuisine', 'petit électroménager', 'petit electromenager', 'toaster', 'friteuse']
+      },
+      {
+        id: 'medicaments',
+        nom: 'Médicaments',
+        categorie: 'medicaments',
+        keywords: ['médicament', 'medicament', 'médicaments', 'medicaments', 'comprimé', 'gélule', 'sirop', 'pilule', 'pommade', 'pharmacie']
+      },
+      {
+        id: 'meubles',
+        nom: 'Meubles',
+        categorie: 'meubles',
+        keywords: ['meuble', 'meubles', 'chaise', 'table', 'armoire', 'étagère', 'etagere', 'bureau', 'commode', 'canapé', 'canape', 'lit', 'bibliothèque', 'bibliotheque', 'buffet', 'fauteuil', 'tabouret']
+      },
+      {
+        id: 'dechets-alimentaires',
+        nom: 'Déchets alimentaires',
+        categorie: 'dechets-alimentaires',
+        keywords: ['déchet alimentaire', 'déchets alimentaires', 'biodéchet', 'compost', 'épluchure', 'épluchures', 'reste de repas', 'restes de repas', 'banane', 'fruit', 'légume', 'legume', 'marc de café', 'alimentaire', 'nourriture']
+      },
+      {
+        id: 'cd-dvd-vhs',
+        nom: 'CD, DVD ou cassettes VHS',
+        categorie: 'cd-dvd-vhs',
+        keywords: ['cd', 'dvd', 'cassette', 'cassettes', 'vhs', 'cd-rom', 'disque', 'disquette', 'vinyle']
+      },
+      {
+        id: 'chaussures',
+        nom: 'Chaussures',
+        categorie: 'chaussures',
+        keywords: ['chaussure', 'chaussures', 'basket', 'baskets', 'botte', 'bottes', 'sandale', 'sandales', 'talon', 'talons', 'mocassin']
+      },
+      {
+        id: 'marteau',
+        nom: 'Marteau',
+        categorie: 'marteau',
+        keywords: ['marteau', 'outil', 'outils', 'bricolage']
+      },
+      {
+        id: 'aiguille-medicale',
+        nom: 'Seringue avec aiguille',
+        categorie: 'aiguille-medicale',
+        keywords: ['aiguille', 'seringue', 'aiguille médicale', 'aiguille medicale', 'dasri', 'piquant', 'injection']
+      },
+      {
+        id: 'trottinette-electrique',
+        nom: 'Trottinette électrique',
+        categorie: 'trottinette-electrique',
+        keywords: ['trottinette', 'trottinette électrique', 'trottinette electrique', 'mobilité électrique']
+      },
+      {
+        id: 'vetements',
+        nom: 'Vêtements',
+        categorie: 'vetements',
+        keywords: ['vêtement', 'vetement', 'vêtements', 'vetements', 't-shirt', 'tshirt', 'pantalon', 'jupe', 'robe', 'pull', 'manteau', 'blouson', 'chemise', 'veste', 'short', 'jean', 'textile']
+      },
+      {
+        id: 'livres',
+        nom: 'Livres',
+        categorie: 'livres',
+        keywords: ['livre', 'livres', 'bouquin', 'roman', 'magazine', 'revue', 'bande dessinée', 'bd', 'manga']
+      },
+      {
+        id: 'poeles-casseroles',
+        nom: 'Poêles et casseroles',
+        categorie: 'poeles-casseroles',
+        keywords: ['poêle', 'poele', 'casserole', 'casseroles', 'poêles', 'poeles', 'ustensile de cuisine', 'fait-tout', 'cocotte', 'wok']
+      },
+      {
+        id: 'sapin-de-noel',
+        nom: 'Sapin de Noël',
+        categorie: 'sapin-de-noel',
+        keywords: ['sapin', 'sapin de noël', 'sapin de noel', 'sapin artificiel', 'sapin naturel', 'arbre de noël']
+      },
+      {
+        id: 'brique-alimentaire',
+        nom: 'Brique alimentaire (jus, lait…)',
+        categorie: 'brique-alimentaire',
+        keywords: ['brique alimentaire', 'brique', 'tetra pak', 'brique de lait', 'brique de jus', 'emballage alimentaire']
+      },
+      {
+        id: 'gros-electromenager',
+        nom: 'Gros électroménager',
+        categorie: 'gros-electromenager',
+        keywords: ['machine à laver', 'machine a laver', 'lave-linge', 'lave linge', 'lave-vaisselle', 'lave vaisselle', 'réfrigérateur', 'refrigerateur', 'frigo', 'four', 'congélateur', 'congelateur', 'sèche-linge', 'seche linge', 'gros électroménager', 'gros electromenager', 'plaque de cuisson', 'hotte', 'chauffe-eau']
+      }
+    ];
+
+    // =============================================
+    // Logique de recherche
+    // =============================================
+    const searchInput = document.getElementById('search-input');
+    const searchPanel = document.getElementById('search-panel');
+    const searchResults = document.getElementById('search-results');
+    const searchCategories = document.getElementById('search-categories');
+    const searchPopular = document.getElementById('search-popular');
+    const container = document.querySelector('.iframe-container');
+
+    function normalize(str) {
+      return str.toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9\s-]/g, '')
+        .trim();
+    }
+
+    function openSearchPanel() {
+      searchPanel.classList.add('is-open');
+      container.classList.add('search-active');
+    }
+
+    function closeSearchPanel() {
+      searchPanel.classList.remove('is-open');
+      container.classList.remove('search-active');
+      searchResults.classList.remove('is-visible');
+      searchResults.innerHTML = '';
+    }
+
+    function performSearch(query) {
+      const normalizedQuery = normalize(query);
+
+      if (normalizedQuery.length < 2) {
+        searchResults.classList.remove('is-visible');
+        searchResults.innerHTML = '';
+        searchCategories.style.display = '';
+        searchPopular.style.display = '';
+        return;
+      }
+
+      const results = [];
+
+      fichesData.forEach(fiche => {
+        // Chercher dans le nom
+        if (normalize(fiche.nom).includes(normalizedQuery)) {
+          results.push({ nom: fiche.nom, id: fiche.id, score: 1 });
+          return;
+        }
+        // Chercher dans les keywords
+        const matchingKeyword = fiche.keywords.find(kw => normalize(kw).includes(normalizedQuery));
+        if (matchingKeyword) {
+          // Afficher le keyword qui matche + le nom de la fiche
+          results.push({ nom: matchingKeyword.charAt(0).toUpperCase() + matchingKeyword.slice(1), id: fiche.id, score: 2 });
+        }
+      });
+
+      // Trier : nom exact d'abord, puis keywords
+      results.sort((a, b) => a.score - b.score);
+
+      // Dédupliquer par id
+      const seen = new Set();
+      const uniqueResults = results.filter(r => {
+        if (seen.has(r.id)) return false;
+        seen.add(r.id);
+        return true;
+      });
+
+      if (uniqueResults.length > 0) {
+        searchResults.innerHTML = uniqueResults.map(r =>
+          `<li class="search-results__item"><span class="search-results__name">${r.nom}</span></li>`
+        ).join('');
+        searchResults.classList.add('is-visible');
+        searchCategories.style.display = 'none';
+        searchPopular.style.display = 'none';
+      } else {
+        searchResults.classList.remove('is-visible');
+        searchResults.innerHTML = '';
+        searchCategories.style.display = '';
+        searchPopular.style.display = '';
+      }
+    }
+
+    // Événements
+    searchInput.addEventListener('focus', () => {
+      openSearchPanel();
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      performSearch(e.target.value);
+    });
+
+    // Fermer quand on clique en dehors
+    document.addEventListener('click', (e) => {
+      const isInsideSearch = e.target.closest('.search-section') || e.target.closest('.search-panel');
+      if (!isInsideSearch && searchPanel.classList.contains('is-open')) {
+        closeSearchPanel();
+        searchInput.value = '';
+      }
+    });
+
+    // Gestion de l'accordéon
+    document.querySelectorAll('.accordion').forEach(details => {
+      details.addEventListener('toggle', () => {
+        const summary = details.querySelector('.accordion__header');
+        summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
+      });
+    });
+  </script>
+</body>
+</html>
