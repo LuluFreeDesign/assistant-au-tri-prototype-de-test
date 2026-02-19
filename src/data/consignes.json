@@ -2,453 +2,366 @@
   "meta": {
     "source": "quefairedemesdechets.ademe.fr",
     "dateRecuperation": "2025-02-19",
-    "description": "Consignes de tri, réemploi et réparation par catégorie d'objet/déchet"
+    "description": "Consignes de tri, réemploi et réparation par catégorie d'objet/déchet. Structure adaptée pour affichage en accordéons sur la fiche résultat."
   },
   "fiches": [
     {
       "id": "petit-electromenager",
       "nom": "Petit électroménager",
       "url": "https://quefairedemesdechets.ademe.fr/categories/petit-electromenager/",
-      "onglets": ["bon-etat", "mauvais-etat"],
-      "consignes": {
-        "bon-etat": [
-          {
-            "action": "Réparer",
-            "description": "Réparer vos appareils électroménagers chez un réparateur. Certains bénéficient du Bonus Réparation (jusqu'à 40\u00a0€)."
-          },
-          {
-            "action": "Donner",
-            "description": "Donner vos appareils à une association ou à une structure de réemploi."
-          },
-          {
-            "action": "Revendre",
-            "description": "Revendre via un dépôt-vente ou une plateforme de seconde main."
-          }
-        ],
-        "mauvais-etat": [
-          {
-            "action": "Déposer en magasin",
-            "description": "Déposer votre appareil dans un bac de collecte en magasin."
-          },
-          {
-            "action": "Déposer en déchèterie",
-            "description": "Déposer votre appareil dans la benne dédiée aux Équipements Électriques et Électroniques (EEE)."
-          }
-        ]
-      }
+      "infoTri": "petit-electromenager.svg",
+      "accordeons": [
+        {
+          "titre": "Donner ou revendre",
+          "icone": "donner",
+          "consigne": "Donnez gratuitement votre appareil à une structure de réemploi (recyclerie, ressourcerie, association). Vous pouvez aussi le revendre via un dépôt-vente ou une plateforme de seconde main.",
+          "condition": "En bon état"
+        },
+        {
+          "titre": "Réparer",
+          "icone": "reparer",
+          "consigne": "Faites réparer votre appareil chez un réparateur agréé. Certains bénéficient du Bonus Réparation, jusqu'à 40\u00a0€ de réduction sur la facture.",
+          "condition": "Réparable"
+        },
+        {
+          "titre": "Déposer",
+          "icone": "deposer",
+          "consigne": "Déposez votre appareil dans un bac de collecte en magasin ou apportez-le en déchèterie, dans la benne dédiée aux équipements électriques et électroniques (DEEE).",
+          "condition": "Hors d'usage"
+        }
+      ]
     },
     {
       "id": "medicaments",
       "nom": "Médicaments",
       "url": "https://quefairedemesdechets.ademe.fr/categories/medicaments/",
-      "onglets": null,
-      "consignes": {
-        "default": [
-          {
-            "action": "Rapporter en pharmacie",
-            "description": "Rapporter les médicaments périmés, entamés ou inutilisés en pharmacie, gratuitement."
-          },
-          {
-            "action": "Trier les emballages",
-            "description": "Retirer les boîtes en carton, les notices et les blisters, puis les placer dans les conteneurs de tri."
-          },
-          {
-            "action": "Déposer le verre",
-            "description": "Flacons, bouteilles et ampoules vides vont au conteneur verre (après retrait des bouchons)."
-          }
-        ],
-        "a-eviter": [
-          "Ne pas jeter à la poubelle ni aux toilettes.",
-          "Ne pas donner à des proches (interdit légalement).",
-          "Ne pas confondre avec compléments alimentaires ou cosmétiques."
-        ]
-      }
+      "infoTri": "medicaments.svg",
+      "accordeons": [
+        {
+          "titre": "Rapporter en pharmacie",
+          "icone": "deposer",
+          "consigne": "Rapportez vos médicaments périmés, entamés ou inutilisés en pharmacie. C'est gratuit. Retirez d'abord les boîtes en carton, les notices et les blisters vides\u00a0: ils se trient avec les emballages.",
+          "condition": null
+        },
+        {
+          "titre": "Trier les emballages",
+          "icone": "trier",
+          "consigne": "Placez les boîtes en carton, les notices en papier et les blisters vides dans le bac de tri (papiers et emballages). Les flacons et ampoules en verre vont au conteneur à verre, sans les bouchons.",
+          "condition": null
+        }
+      ],
+      "avertissements": [
+        "Ne jetez jamais de médicaments à la poubelle ni dans les toilettes.",
+        "Ne donnez pas vos médicaments à un proche\u00a0: c'est interdit par la loi."
+      ]
     },
     {
       "id": "meubles",
       "nom": "Meubles",
       "url": "https://quefairedemesdechets.ademe.fr/categories/meubles/",
-      "onglets": ["bon-etat", "reparable", "mauvais-etat"],
-      "consignes": {
-        "bon-etat": [
-          {
-            "action": "Donner",
-            "description": "Donner votre meuble à une structure de réemploi (recyclerie, ressourcerie). Certaines proposent la récupération à domicile."
-          },
-          {
-            "action": "Revendre",
-            "description": "Revendre via un dépôt-vente ou une plateforme de seconde main."
-          }
-        ],
-        "reparable": [
-          {
-            "action": "Réparer",
-            "description": "Réparer votre meuble chez un réparateur ou le relooker. Bonus Réparation possible (jusqu'à 65\u00a0€)."
-          }
-        ],
-        "mauvais-etat": [
-          {
-            "action": "Faire reprendre en magasin",
-            "description": "Demander la reprise en magasin lors d'un nouvel achat."
-          },
-          {
-            "action": "Déposer en déchèterie",
-            "description": "Déposer dans un point de collecte ou en déchèterie."
-          },
-          {
-            "action": "Encombrants",
-            "description": "Utiliser le service des encombrants s'il est proposé sur votre territoire."
-          }
-        ]
-      }
+      "infoTri": "meubles.svg",
+      "accordeons": [
+        {
+          "titre": "Donner ou revendre",
+          "icone": "donner",
+          "consigne": "Donnez votre meuble gratuitement à une structure de réemploi\u00a0: recyclerie, ressourcerie… Certaines proposent la récupération à domicile. Vous pouvez aussi le revendre via un dépôt-vente ou une plateforme de seconde main.",
+          "condition": "En bon état"
+        },
+        {
+          "titre": "Réparer",
+          "icone": "reparer",
+          "consigne": "Faites réparer ou relooker votre meuble chez un professionnel. Le Bonus Réparation peut couvrir jusqu'à 65\u00a0€ de la facture.",
+          "condition": "Réparable"
+        },
+        {
+          "titre": "Déposer",
+          "icone": "deposer",
+          "consigne": "Demandez la reprise en magasin lors d'un nouvel achat, déposez dans un point de collecte ou en déchèterie. Le service des encombrants peut aussi être disponible dans votre commune.",
+          "condition": "Hors d'usage"
+        }
+      ]
     },
     {
       "id": "dechets-alimentaires",
       "nom": "Déchets alimentaires",
       "url": "https://quefairedemesdechets.ademe.fr/categories/biodechets/dechets-alimentaires/",
-      "onglets": null,
-      "consignes": {
-        "default": [
-          {
-            "action": "Composter",
-            "description": "Composter via un composteur individuel, un composteur partagé de quartier, ou la collecte séparée par la commune."
-          }
-        ],
-        "a-composter": [
-          "Épluchures, fanes, fruits et légumes abîmés.",
-          "Restes de repas ou produits périmés, pain, laitages, croûtes de fromage.",
-          "Marc de café, filtres à café en papier."
-        ],
-        "en-petites-quantites": [
-          "Os et restes de viande.",
-          "Arêtes et peaux de poisson, fruits de mer.",
-          "Coquillages et coquilles d'œuf."
-        ],
-        "a-eviter": [
-          "Les huiles alimentaires usagées ne se compostent pas (ne pas verser à l'évier).",
-          "Les déchets non alimentaires ne se compostent pas (verre, métaux, plastiques)."
-        ],
-        "info": "Depuis le 1er janvier 2024, le tri des biodéchets est obligatoire pour tous les particuliers et professionnels."
-      }
+      "infoTri": "dechets-alimentaires.svg",
+      "accordeons": [
+        {
+          "titre": "Composter",
+          "icone": "deposer",
+          "consigne": "Compostez vos déchets alimentaires\u00a0: composteur individuel, composteur partagé de quartier ou collecte séparée organisée par votre commune. Depuis le 1er\u00a0janvier 2024, le tri des biodéchets est obligatoire pour tous.",
+          "condition": null
+        }
+      ],
+      "details": [
+        {
+          "label": "À composter",
+          "items": ["Épluchures, fanes, fruits et légumes abîmés", "Restes de repas, produits périmés, pain, laitages, croûtes de fromage", "Marc de café et filtres en papier"]
+        },
+        {
+          "label": "En petites quantités",
+          "items": ["Os et restes de viande", "Arêtes et peaux de poisson, fruits de mer", "Coquillages et coquilles d'œuf"]
+        }
+      ],
+      "avertissements": [
+        "Les huiles alimentaires usagées ne se compostent pas\u00a0: ne les versez pas à l'évier.",
+        "Les déchets non alimentaires (verre, métaux, plastiques) ne se compostent pas."
+      ]
     },
     {
       "id": "cd-dvd-vhs",
       "nom": "CD, DVD ou cassettes VHS",
       "url": "https://quefairedemesdechets.ademe.fr/categories/cd-dvd-cassettes-vhs/",
-      "onglets": ["bon-etat", "mauvais-etat"],
-      "consignes": {
-        "bon-etat": [
-          {
-            "action": "Donner",
-            "description": "Donner à une association, une bibliothèque, une médiathèque ou une structure de réemploi."
-          },
-          {
-            "action": "Revendre",
-            "description": "Revendre auprès d'un disquaire, d'un commerce d'achat-vente ou d'un site de seconde main."
-          }
-        ],
-        "mauvais-etat": [
-          {
-            "action": "Déposer en déchèterie",
-            "description": "Apporter en déchèterie si vous en avez beaucoup ou si vous y allez prochainement."
-          },
-          {
-            "action": "Jeter aux ordures ménagères",
-            "description": "Jeter dans la poubelle des ordures ménagères. Les boîtiers en plastique aussi (pas de filière de recyclage nationale)."
-          }
-        ]
-      }
+      "infoTri": "cd-dvd-vhs.svg",
+      "accordeons": [
+        {
+          "titre": "Donner ou revendre",
+          "icone": "donner",
+          "consigne": "Donnez à une association, une bibliothèque, une médiathèque ou une structure de réemploi. Vous pouvez aussi revendre auprès d'un disquaire, d'un commerce d'achat-vente ou sur un site de seconde main.",
+          "condition": "En bon état"
+        },
+        {
+          "titre": "Déposer",
+          "icone": "deposer",
+          "consigne": "Apportez-les en déchèterie si vous en avez beaucoup. Sinon, jetez-les dans la poubelle des ordures ménagères\u00a0: les boîtiers en plastique aussi, car il n'existe pas de filière nationale de recyclage.",
+          "condition": "Hors d'usage"
+        }
+      ]
     },
     {
       "id": "chaussures",
       "nom": "Chaussures",
       "url": "https://quefairedemesdechets.ademe.fr/dechet/chaussures/",
-      "onglets": ["bon-etat", "mauvais-etat"],
-      "consignes": {
-        "bon-etat": [
-          {
-            "action": "Donner ou revendre",
-            "description": "Proposer à un proche, déposer dans une boutique de seconde main, une association, ou revendre."
-          },
-          {
-            "action": "Déposer en point textile",
-            "description": "Déposer dans un sac fermé dans des conteneurs dédiés aux textiles."
-          }
-        ],
-        "mauvais-etat": [
-          {
-            "action": "Réparer",
-            "description": "Faire réparer grâce au Bonus Réparation pour prolonger leur durée de vie."
-          },
-          {
-            "action": "Déposer en point textile",
-            "description": "Déposer dans des conteneurs dédiés aux textiles ou en déchèterie, assemblées par paires dans un sac."
-          }
-        ],
-        "info": "Dans tous les cas, assembler les chaussures par paires pour simplifier le tri."
-      }
+      "infoTri": "chaussures.svg",
+      "accordeons": [
+        {
+          "titre": "Donner ou revendre",
+          "icone": "donner",
+          "consigne": "Proposez-les à un proche, déposez-les dans une boutique de seconde main, une association, ou revendez-les. Vous pouvez aussi les déposer dans un conteneur à textiles, dans un sac fermé.",
+          "condition": "En bon état"
+        },
+        {
+          "titre": "Réparer",
+          "icone": "reparer",
+          "consigne": "Faites réparer vos chaussures chez un cordonnier. Le Bonus Réparation peut s'appliquer pour prolonger leur durée de vie.",
+          "condition": "Réparable"
+        },
+        {
+          "titre": "Déposer",
+          "icone": "deposer",
+          "consigne": "Déposez-les dans un conteneur à textiles ou en déchèterie, assemblées par paires dans un sac fermé. Même abîmées, elles seront recyclées.",
+          "condition": "Hors d'usage"
+        }
+      ],
+      "avertissements": [
+        "Assemblez toujours les chaussures par paires pour simplifier le tri."
+      ]
     },
     {
       "id": "marteau",
       "nom": "Marteau",
       "url": "https://quefairedemesdechets.ademe.fr/dechet/marteau/",
-      "onglets": ["bon-etat", "mauvais-etat"],
-      "consignes": {
-        "bon-etat": [
-          {
-            "action": "Réparer",
-            "description": "Faire réparer chez un réparateur."
-          },
-          {
-            "action": "Donner",
-            "description": "Proposer à un proche ou donner à une association ou une structure de réemploi."
-          },
-          {
-            "action": "Revendre",
-            "description": "Essayer de revendre."
-          }
-        ],
-        "mauvais-etat": [
-          {
-            "action": "Déposer en magasin",
-            "description": "Apporter en magasin dans un bac de collecte ou remettre à un vendeur."
-          },
-          {
-            "action": "Déposer en déchèterie",
-            "description": "Apporter en déchèterie."
-          }
-        ]
-      }
+      "infoTri": "marteau.svg",
+      "accordeons": [
+        {
+          "titre": "Donner ou revendre",
+          "icone": "donner",
+          "consigne": "Proposez votre outil à un proche, donnez-le à une association ou une structure de réemploi. Vous pouvez aussi essayer de le revendre.",
+          "condition": "En bon état"
+        },
+        {
+          "titre": "Réparer",
+          "icone": "reparer",
+          "consigne": "Faites réparer votre outil chez un professionnel.",
+          "condition": "Réparable"
+        },
+        {
+          "titre": "Déposer",
+          "icone": "deposer",
+          "consigne": "Apportez-le en magasin (bac de collecte) ou en déchèterie.",
+          "condition": "Hors d'usage"
+        }
+      ]
     },
     {
       "id": "aiguille-medicale",
       "nom": "Seringue avec aiguille",
       "url": "https://quefairedemesdechets.ademe.fr/dechet/seringue-avec-aiguille/",
-      "onglets": null,
-      "consignes": {
-        "default": [
-          {
-            "action": "Déposer en pharmacie",
-            "description": "Déposer dans la boîte jaune (au couvercle vert) destinée aux patients en auto-traitement, disponible gratuitement dans toutes les pharmacies."
-          }
-        ],
-        "a-eviter": [
-          "Ne jamais jeter dans la poubelle ordinaire.",
-          "Ne jamais jeter dans le bac de tri."
-        ],
-        "info": "Une fois la boîte pleine, la rapporter en pharmacie pour collecte. Traitement par incinération avec valorisation énergétique (filière DASRI)."
-      }
+      "infoTri": "aiguille-medicale.svg",
+      "accordeons": [
+        {
+          "titre": "Déposer en pharmacie",
+          "icone": "deposer",
+          "consigne": "Placez vos seringues et aiguilles usagées dans la boîte jaune à couvercle vert (boîte DASRI), disponible gratuitement en pharmacie. Une fois pleine, rapportez-la en pharmacie pour collecte sécurisée. Les déchets sont incinérés avec valorisation énergétique.",
+          "condition": null
+        }
+      ],
+      "avertissements": [
+        "Ne jetez jamais de seringues ou d'aiguilles à la poubelle ni dans le bac de tri."
+      ]
     },
     {
       "id": "trottinette-electrique",
       "nom": "Trottinette électrique",
       "url": "https://quefairedemesdechets.ademe.fr/dechet/trottinette-electrique/",
-      "onglets": ["bon-etat", "mauvais-etat"],
-      "consignes": {
-        "bon-etat": [
-          {
-            "action": "Réparer",
-            "description": "Faire réparer grâce au Bonus Réparation pour prolonger sa durée de vie et économiser."
-          },
-          {
-            "action": "Donner",
-            "description": "Proposer à un proche ou donner à une association ou une structure de réemploi."
-          },
-          {
-            "action": "Revendre",
-            "description": "Essayer de revendre."
-          }
-        ],
-        "mauvais-etat": [
-          {
-            "action": "Déposer en magasin",
-            "description": "Apporter en magasin dans un bac de collecte ou remettre au vendeur."
-          },
-          {
-            "action": "Déposer en déchèterie",
-            "description": "Apporter en déchèterie (filière DEEE : démantèlement, dépollution, recyclage des matériaux)."
-          }
-        ]
-      }
+      "infoTri": "trottinette-electrique.svg",
+      "accordeons": [
+        {
+          "titre": "Donner ou revendre",
+          "icone": "donner",
+          "consigne": "Proposez votre trottinette à un proche, donnez-la à une association ou une structure de réemploi. Vous pouvez aussi la revendre.",
+          "condition": "En bon état"
+        },
+        {
+          "titre": "Réparer",
+          "icone": "reparer",
+          "consigne": "Faites réparer votre trottinette grâce au Bonus Réparation pour prolonger sa durée de vie et économiser.",
+          "condition": "Réparable"
+        },
+        {
+          "titre": "Déposer",
+          "icone": "deposer",
+          "consigne": "Apportez-la en magasin (bac de collecte ou remise au vendeur) ou en déchèterie. Elle sera démontée, dépolluée et ses matériaux recyclés (filière DEEE).",
+          "condition": "Hors d'usage"
+        }
+      ]
     },
     {
       "id": "vetements",
       "nom": "Vêtements",
       "url": "https://quefairedemesdechets.ademe.fr/categories/vetements/",
-      "onglets": ["bon-etat", "reparable", "mauvais-etat"],
-      "consignes": {
-        "bon-etat": [
-          {
-            "action": "Donner",
-            "description": "Remettre vos vêtements à une association, recyclerie ou structure de réemploi."
-          },
-          {
-            "action": "Revendre",
-            "description": "Vendre en boutique ou plateforme de seconde main."
-          },
-          {
-            "action": "Déposer en point de collecte",
-            "description": "Déposer vos vêtements propres et secs, dans un sac fermé, en point de collecte."
-          }
-        ],
-        "reparable": [
-          {
-            "action": "Réparer",
-            "description": "Faire réparer chez un couturier ou retoucheur. Bonus Réparation possible (jusqu'à 25\u00a0€)."
-          }
-        ],
-        "mauvais-etat": [
-          {
-            "action": "Déposer en point textile",
-            "description": "Déposer vêtements propres et secs dans conteneurs textiles sur voie publique ou en déchèterie."
-          }
-        ],
-        "info": "Les textiles doivent être propres, secs et dans un sac fermé. Inclus : linge de maison, sous-vêtements, chaussures appairées. Exclus : textiles mouillés, souillés ou contaminés chimiquement (ceux-ci vont en déchèterie uniquement)."
-      }
+      "infoTri": "vetements.svg",
+      "accordeons": [
+        {
+          "titre": "Donner ou revendre",
+          "icone": "donner",
+          "consigne": "Remettez vos vêtements à une association, une recyclerie ou une structure de réemploi. Vous pouvez aussi les vendre en boutique ou sur une plateforme de seconde main, ou les déposer dans un point de collecte textile.",
+          "condition": "En bon état"
+        },
+        {
+          "titre": "Réparer",
+          "icone": "reparer",
+          "consigne": "Faites réparer vos vêtements chez un couturier ou retoucheur. Le Bonus Réparation peut couvrir jusqu'à 25\u00a0€ de la facture.",
+          "condition": "Réparable"
+        },
+        {
+          "titre": "Déposer",
+          "icone": "deposer",
+          "consigne": "Déposez vos vêtements propres et secs dans un conteneur à textiles sur la voie publique ou en déchèterie. Même abîmés, ils seront recyclés en chiffons ou isolants.",
+          "condition": "Hors d'usage"
+        }
+      ],
+      "avertissements": [
+        "Les textiles doivent être propres, secs et dans un sac fermé.",
+        "Les textiles mouillés, souillés ou contaminés chimiquement vont en déchèterie uniquement."
+      ]
     },
     {
       "id": "livres",
       "nom": "Livres",
       "url": "https://quefairedemesdechets.ademe.fr/categories/livres/",
-      "onglets": ["bon-etat", "mauvais-etat"],
-      "consignes": {
-        "bon-etat": [
-          {
-            "action": "Donner",
-            "description": "Donner à une association, structure de réemploi ou dans une boîte à livres."
-          },
-          {
-            "action": "Revendre",
-            "description": "Revendre via librairies de seconde main, plateformes entre particuliers ou services de reprise en ligne."
-          }
-        ],
-        "mauvais-etat": [
-          {
-            "action": "Déposer au tri",
-            "description": "Déposer avec les papiers et emballages dans le bac, le sac ou le conteneur de tri."
-          }
-        ]
-      }
+      "infoTri": ["livres-1.svg", "livres-2.svg"],
+      "accordeons": [
+        {
+          "titre": "Donner ou revendre",
+          "icone": "donner",
+          "consigne": "Donnez à une association, une structure de réemploi ou déposez dans une boîte à livres. Vous pouvez aussi revendre en librairie de seconde main, sur une plateforme entre particuliers ou via un service de reprise en ligne.",
+          "condition": "En bon état"
+        },
+        {
+          "titre": "Déposer au tri",
+          "icone": "deposer",
+          "consigne": "Déposez vos livres abîmés avec les papiers et emballages, dans le bac, le sac ou le conteneur de tri.",
+          "condition": "Hors d'usage"
+        }
+      ]
     },
     {
       "id": "poeles-casseroles",
       "nom": "Poêles et casseroles",
       "url": "https://quefairedemesdechets.ademe.fr/categories/poeles-et-casseroles/",
-      "onglets": ["bon-etat", "mauvais-etat"],
-      "consignes": {
-        "bon-etat": [
-          {
-            "action": "Donner",
-            "description": "Donner à une association ou à une structure de réemploi."
-          },
-          {
-            "action": "Revendre",
-            "description": "Revendre d'occasion, à l'unité ou en lot."
-          }
-        ],
-        "mauvais-etat": [
-          {
-            "action": "Déposer en point de collecte",
-            "description": "Apporter dans un point de collecte (bureaux de Poste, déchèteries, enseignes spécialisées)."
-          },
-          {
-            "action": "Jeter aux ordures ménagères",
-            "description": "En dernier recours uniquement, si aucun point de collecte à proximité."
-          }
-        ],
-        "info": "Le recyclage de l'aluminium économise 95\u00a0% d'énergie par rapport à sa production."
-      }
+      "infoTri": "poeles-casseroles.svg",
+      "accordeons": [
+        {
+          "titre": "Donner ou revendre",
+          "icone": "donner",
+          "consigne": "Donnez à une association ou une structure de réemploi. Vous pouvez aussi revendre d'occasion, à l'unité ou en lot.",
+          "condition": "En bon état"
+        },
+        {
+          "titre": "Déposer",
+          "icone": "deposer",
+          "consigne": "Apportez dans un point de collecte (bureaux de Poste, déchèteries, enseignes spécialisées). En dernier recours uniquement, jetez aux ordures ménagères. Le recyclage de l'aluminium économise 95\u00a0% d'énergie par rapport à sa production.",
+          "condition": "Hors d'usage"
+        }
+      ]
     },
     {
       "id": "sapin-de-noel",
       "nom": "Sapin de Noël",
       "url": "https://quefairedemesdechets.ademe.fr/categories/biodechets/sapin-de-noel/",
-      "onglets": ["sapin-naturel", "sapin-artificiel"],
-      "consignes": {
-        "sapin-naturel": [
-          {
-            "action": "Retirer les décorations",
-            "description": "Retirer toutes les décorations, guirlandes, boules et accessoires."
-          },
-          {
-            "action": "Déposer en collecte",
-            "description": "Déposer dans un point de collecte dédié ou en déchèterie (collectes organisées après les fêtes)."
-          },
-          {
-            "action": "Broyer ou composter",
-            "description": "Broyer pour transformer en compost ou pour pailler autour des végétaux si vous avez un jardin."
-          },
-          {
-            "action": "Replanter",
-            "description": "Replanter le sapin s'il est en pot."
-          }
-        ],
-        "sapin-artificiel": {
-          "bon-etat": [
-            {
-              "action": "Conserver ou réemployer",
-              "description": "Conserver pour l'année suivante, revendre ou donner à une structure de réemploi."
-            }
-          ],
-          "mauvais-etat": [
-            {
-              "action": "Déposer en déchèterie",
-              "description": "Déposer en déchèterie."
-            }
-          ]
+      "infoTri": "sapin-de-noel.svg",
+      "accordeons": [
+        {
+          "titre": "Sapin naturel",
+          "icone": "deposer",
+          "consigne": "Retirez toutes les décorations, guirlandes et boules. Déposez-le dans un point de collecte dédié (collectes organisées après les fêtes) ou en déchèterie. Si vous avez un jardin, broyez-le pour en faire du compost ou du paillage. S'il est en pot, replantez-le\u00a0!",
+          "condition": null
         },
-        "a-eviter": [
-          "Les sapins floqués ou colorés ne peuvent pas être recyclés : à déposer aux ordures ménagères ou en déchèterie."
-        ]
-      }
+        {
+          "titre": "Sapin artificiel",
+          "icone": "donner",
+          "consigne": "En bon état\u00a0: conservez-le pour l'année suivante, revendez-le ou donnez-le. Hors d'usage\u00a0: déposez-le en déchèterie.",
+          "condition": null
+        }
+      ],
+      "avertissements": [
+        "Les sapins floqués ou colorés ne sont pas recyclables\u00a0: à déposer aux ordures ménagères ou en déchèterie."
+      ]
     },
     {
       "id": "brique-alimentaire",
-      "nom": "Brique alimentaire (jus, lait\u2026)",
+      "nom": "Brique alimentaire (jus, lait…)",
       "url": "https://quefairedemesdechets.ademe.fr/dechet/brique-alimentaire-jus-lait/",
-      "onglets": null,
-      "consignes": {
-        "default": [
-          {
-            "action": "Déposer au tri",
-            "description": "Déposer la brique vide dans le bac, le sac ou le conteneur de collecte séparée des papiers et emballages."
-          }
-        ],
-        "info": "Les briques sont triées mécaniquement : le carton devient essuie-tout ou boîtes, le mélange plastique-aluminium sert au mobilier urbain ou à la valorisation énergétique. Privilégier les grands conditionnements ou le vrac."
-      }
+      "infoTri": "brique-alimentaire.svg",
+      "accordeons": [
+        {
+          "titre": "Déposer au tri",
+          "icone": "trier",
+          "consigne": "Déposez la brique vide (inutile de la rincer) dans le bac, le sac ou le conteneur de collecte séparée des papiers et emballages. Le carton sera recyclé en essuie-tout ou boîtes, le mélange plastique-aluminium servira au mobilier urbain ou à la valorisation énergétique.",
+          "condition": null
+        }
+      ],
+      "avertissements": [
+        "Privilégiez les grands formats ou le vrac pour réduire les emballages."
+      ]
     },
     {
       "id": "gros-electromenager",
       "nom": "Gros électroménager",
       "url": "https://quefairedemesdechets.ademe.fr/categories/gros-electromenager/",
-      "onglets": ["bon-etat", "mauvais-etat"],
-      "consignes": {
-        "bon-etat": [
-          {
-            "action": "Réparer",
-            "description": "Réparer pour utiliser plus longtemps et faire des économies. Bonus Réparation possible (jusqu'à 50\u00a0€)."
-          },
-          {
-            "action": "Donner",
-            "description": "Donner à une association ou structure de réemploi. L'enlèvement à domicile est parfois proposé."
-          },
-          {
-            "action": "Revendre",
-            "description": "Revendre en dépôt-vente ou sur une plateforme de seconde main."
-          }
-        ],
-        "mauvais-etat": [
-          {
-            "action": "Déposer en magasin",
-            "description": "Déposer dans un bac de collecte en magasin, remettre au vendeur ou au livreur lors d'un remplacement."
-          },
-          {
-            "action": "Déposer en déchèterie",
-            "description": "Déposer dans la benne dédiée aux Équipements Électriques et Électroniques (EEE)."
-          }
-        ],
-        "info": "50 à 70\u00a0% des pannes d'électroménagers sont causées par un manque d'entretien. Détartrer, dégraisser les filtres, vérifier les tuyaux régulièrement."
-      }
+      "infoTri": "gros-electromenager.svg",
+      "accordeons": [
+        {
+          "titre": "Donner ou revendre",
+          "icone": "donner",
+          "consigne": "Donnez votre appareil à une association ou une structure de réemploi. L'enlèvement à domicile est parfois proposé. Vous pouvez aussi le revendre en dépôt-vente ou sur une plateforme de seconde main.",
+          "condition": "En bon état"
+        },
+        {
+          "titre": "Réparer",
+          "icone": "reparer",
+          "consigne": "Faites réparer pour utiliser plus longtemps et économiser. Le Bonus Réparation peut couvrir jusqu'à 50\u00a0€ de la facture. Pensez aussi à l'entretien régulier\u00a0: 50 à 70\u00a0% des pannes sont causées par un manque d'entretien.",
+          "condition": "Réparable"
+        },
+        {
+          "titre": "Déposer",
+          "icone": "deposer",
+          "consigne": "Déposez en magasin (bac de collecte, remise au vendeur ou au livreur lors d'un remplacement) ou en déchèterie dans la benne dédiée aux équipements électriques et électroniques (DEEE).",
+          "condition": "Hors d'usage"
+        }
+      ]
     }
   ]
 }
