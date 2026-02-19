@@ -104,6 +104,7 @@
     .search-section {
       background-color: var(--green-menthe-975);
       padding: var(--spacing-6v) var(--spacing-4v) 0;
+      position: relative;
     }
 
     .search-section__title {
@@ -188,11 +189,49 @@
       }
     }
 
+    /* Bouton fermer recherche — positionné en haut à droite de search-section */
+    .search-section__close {
+      display: none; /* Visible uniquement quand search-active */
+      position: absolute;
+      top: var(--spacing-2v);
+      right: var(--spacing-2v);
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: none;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      color: var(--text-mention-grey);
+      transition: background-color 0.15s ease, color 0.15s ease;
+      z-index: 20;
+    }
+
+    .iframe-container.search-active .search-section__close {
+      display: flex;
+    }
+
+    .search-section__close:hover {
+      background-color: var(--background-contrast-grey);
+      color: var(--text-default);
+    }
+
+    .search-section__close:focus-visible {
+      outline: 2px solid var(--green-menthe-sun-373);
+      outline-offset: 2px;
+    }
+
+    .search-section__close svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
     .search-panel__hint {
       font-size: 0.875rem;
       line-height: 1.5;
       color: var(--text-mention-grey);
-      padding: var(--spacing-3v) 0 var(--spacing-4v);
+      padding: 0 0 var(--spacing-4v);
     }
 
     /* Résultats de recherche */
@@ -211,7 +250,7 @@
       justify-content: space-between;
       padding: var(--spacing-3v) var(--spacing-1v);
       border-bottom: 1px solid var(--border-default);
-      cursor: default;
+      cursor: pointer;
       font-size: 0.9375rem;
       color: var(--text-default);
       transition: background-color 0.15s ease;
@@ -221,8 +260,20 @@
       background-color: var(--background-alt-grey);
     }
 
+    .search-results__item:focus-visible {
+      outline: 2px solid var(--green-menthe-sun-373);
+      outline-offset: -2px;
+    }
+
     .search-results__name {
       font-weight: 400;
+    }
+
+    .search-results__arrow {
+      display: flex;
+      align-items: center;
+      color: var(--text-mention-grey);
+      flex-shrink: 0;
     }
 
     /* Section Catégories */
@@ -253,7 +304,7 @@
       background-color: var(--green-menthe-975);
       border: 1px solid var(--green-menthe-sun-373);
       border-radius: var(--radius-md);
-      cursor: default;
+      cursor: pointer;
       text-align: center;
       transition: background-color 0.15s ease;
       min-height: 8rem;
@@ -309,12 +360,27 @@
     }
 
     .search-popular__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: var(--spacing-3v) 0;
       border-bottom: 1px solid var(--border-default);
       font-size: 0.9375rem;
       color: var(--text-default);
-      cursor: default;
+      cursor: pointer;
       transition: background-color 0.15s ease;
+    }
+
+    .search-popular__item:focus-visible {
+      outline: 2px solid var(--green-menthe-sun-373);
+      outline-offset: -2px;
+    }
+
+    .search-popular__arrow {
+      display: flex;
+      align-items: center;
+      color: var(--text-mention-grey);
+      flex-shrink: 0;
     }
 
     .search-popular__item:hover {
@@ -667,6 +733,368 @@
     }
 
     /* ============================================
+       Étape 3 — Fiche résultat
+       ============================================ */
+
+    .fiche-section {
+      display: none;
+    }
+
+    .iframe-container.step-fiche .search-section,
+    .iframe-container.step-fiche .search-panel,
+    .iframe-container.step-fiche .stats-section,
+    .iframe-container.step-fiche .accordion-section,
+    .iframe-container.step-fiche .territory-section {
+      display: none;
+    }
+
+    .iframe-container.step-fiche .fiche-section {
+      display: block;
+    }
+
+    .iframe-container.step-fiche .footer {
+      display: block;
+    }
+
+    /* En-tête fiche */
+    .fiche-header {
+      background-color: var(--green-menthe-975);
+      padding: var(--spacing-6v) var(--spacing-4v);
+    }
+
+    .fiche-header__searchbox {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--background-default);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      padding: var(--spacing-3v) var(--spacing-4v);
+      cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      margin-bottom: var(--spacing-3v);
+      text-align: left;
+      font-family: 'Marianne', arial, sans-serif;
+      width: 100%;
+    }
+
+    .fiche-header__searchbox:hover {
+      border-color: var(--border-plain);
+      box-shadow: var(--shadow-raised);
+    }
+
+    .fiche-header__searchbox:focus-visible {
+      outline: 2px solid var(--green-menthe-sun-373);
+      outline-offset: 2px;
+    }
+
+    .fiche-header__object-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-default);
+      line-height: 1.5;
+    }
+
+    .fiche-header__object-address {
+      font-size: 0.875rem;
+      color: var(--text-mention-grey);
+      margin-top: 2px;
+    }
+
+    .fiche-header__total {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--green-menthe-sun-373);
+      line-height: 1.5;
+    }
+
+    /* Info-tri */
+    .fiche-infotri {
+      padding: var(--spacing-6v) var(--spacing-4v);
+      background-color: var(--background-default);
+    }
+
+    .fiche-infotri__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-4v);
+    }
+
+    .fiche-infotri__images {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-3v);
+    }
+
+    .fiche-infotri__img {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+    }
+
+    /* Accordéons fiche — style DSFR */
+    .fiche-accordeons {
+      padding: var(--spacing-4v) var(--spacing-4v) var(--spacing-2v);
+    }
+
+    .fiche-accordion {
+      border: none;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .fiche-accordion__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      padding: var(--spacing-3v) 0;
+      cursor: pointer;
+      text-align: left;
+      font-family: 'Marianne', arial, sans-serif;
+    }
+
+    .fiche-accordion__header:focus-visible {
+      outline: 2px solid var(--border-active-blue);
+      outline-offset: 2px;
+    }
+
+    .fiche-accordion__header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .fiche-accordion__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-france);
+      line-height: 1.5;
+    }
+
+    .fiche-accordion__subtitle {
+      font-size: 0.8125rem;
+      color: var(--text-mention-grey);
+      font-weight: 400;
+    }
+
+    .fiche-accordion__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--blue-france);
+      transition: transform 0.3s ease;
+    }
+
+    .fiche-accordion__icon svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+
+    .fiche-accordion[open] .fiche-accordion__icon {
+      transform: rotate(180deg);
+    }
+
+    .fiche-accordion__content {
+      padding: 0 0 var(--spacing-4v);
+      background-color: var(--background-default);
+    }
+
+    .fiche-accordion__consigne {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-default);
+    }
+
+    .fiche-accordion__condition {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--blue-france);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: var(--spacing-2v);
+    }
+
+    /* Avertissements */
+    .fiche-warnings {
+      padding: 0 var(--spacing-4v) var(--spacing-4v);
+    }
+
+    .fiche-warnings__list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2v);
+    }
+
+    .fiche-warnings__item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-2v);
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      color: var(--text-label-grey);
+      background-color: #FEF3CD;
+      border-radius: var(--radius-sm);
+      padding: var(--spacing-3v);
+    }
+
+    .fiche-warnings__icon {
+      flex-shrink: 0;
+      width: 1rem;
+      height: 1rem;
+      color: #856404;
+      margin-top: 1px;
+    }
+
+    /* Section carte */
+    .fiche-map {
+      padding: var(--spacing-4v);
+    }
+
+    .fiche-map__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-4v);
+    }
+
+    .fiche-map__container {
+      min-height: 400px;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .fiche-map__container iframe,
+    .fiche-map__container > div {
+      width: 100%;
+      min-height: 400px;
+    }
+
+    /* Solutions cards */
+    .fiche-solutions {
+      padding: var(--spacing-4v);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-3v);
+    }
+
+    .fiche-solution-card {
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      padding: var(--spacing-4v);
+    }
+
+    .fiche-solution-card__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--blue-france);
+      margin-bottom: var(--spacing-2v);
+    }
+
+    .fiche-solution-card__desc {
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      color: var(--text-mention-grey);
+      margin-bottom: var(--spacing-3v);
+    }
+
+    .fiche-solution-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-2v);
+      padding: var(--spacing-2v) var(--spacing-3v);
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--blue-france);
+      background-color: transparent;
+      border: 1px solid var(--blue-france);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      text-decoration: none;
+      line-height: 1.5;
+      transition: background-color 0.2s ease;
+    }
+
+    .fiche-solution-card__link:hover {
+      background-color: var(--background-action-low-blue);
+    }
+
+    .fiche-solution-card__link:focus-visible {
+      outline: 2px solid var(--border-active-blue);
+      outline-offset: 2px;
+    }
+
+    .fiche-solution-card__link svg {
+      width: 0.875rem;
+      height: 0.875rem;
+      flex-shrink: 0;
+    }
+
+    /* Responsive fiche */
+    @media (min-width: 576px) {
+      .fiche-header {
+        padding: var(--spacing-8v) var(--spacing-6v);
+      }
+
+      .fiche-infotri {
+        padding: var(--spacing-6v) var(--spacing-6v);
+      }
+
+      .fiche-accordeons {
+        padding: 0 var(--spacing-6v) var(--spacing-6v);
+      }
+
+      .fiche-warnings {
+        padding: 0 var(--spacing-6v) var(--spacing-6v);
+      }
+
+      .fiche-map {
+        padding: var(--spacing-6v);
+      }
+
+      .fiche-solutions {
+        padding: var(--spacing-6v);
+        flex-direction: row;
+      }
+
+      .fiche-solution-card {
+        flex: 1;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .fiche-header {
+        padding: var(--spacing-10v) var(--spacing-12v);
+      }
+
+      .fiche-infotri {
+        padding: var(--spacing-8v) var(--spacing-12v);
+      }
+
+      .fiche-accordeons {
+        padding: 0 var(--spacing-12v) var(--spacing-8v);
+      }
+
+      .fiche-warnings {
+        padding: 0 var(--spacing-12v) var(--spacing-8v);
+      }
+
+      .fiche-map {
+        padding: var(--spacing-8v) var(--spacing-12v);
+      }
+
+      .fiche-solutions {
+        padding: var(--spacing-8v) var(--spacing-12v);
+      }
+    }
+
+    /* ============================================
        Utilitaires
        ============================================ */
     .sr-only {
@@ -691,6 +1119,169 @@
     .iframe-container.search-active .footer {
       display: none;
     }
+
+    /* ============================================
+       Étape 2 — Section Territoire
+       ============================================ */
+
+    /* Visibilité par étape */
+    .territory-section {
+      display: none;
+    }
+
+    .iframe-container.step-territory .search-section,
+    .iframe-container.step-territory .search-panel,
+    .iframe-container.step-territory .stats-section,
+    .iframe-container.step-territory .accordion-section {
+      display: none;
+    }
+
+    .iframe-container.step-territory .territory-section {
+      display: block;
+    }
+
+    /* Header territoire (fond vert menthe) */
+    .territory-section__header {
+      background-color: var(--green-menthe-975);
+      padding: var(--spacing-6v) var(--spacing-4v) 0;
+    }
+
+    /* Chip objet sélectionné */
+    .selected-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-2v);
+      padding: var(--spacing-2v) var(--spacing-3v);
+      background-color: var(--background-default);
+      border: 1px solid var(--green-menthe-sun-373);
+      border-radius: 2rem;
+      color: var(--text-default);
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      line-height: 1.4;
+    }
+
+    .selected-chip:hover {
+      background-color: var(--green-menthe-975);
+    }
+
+    .selected-chip:focus-visible {
+      outline: 2px solid var(--green-menthe-sun-373);
+      outline-offset: 2px;
+    }
+
+    .selected-chip__icon {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      color: var(--green-menthe-sun-373);
+    }
+
+    .selected-chip__icon svg {
+      width: 0.875rem;
+      height: 0.875rem;
+    }
+
+    /* Recherche adresse */
+    .territory-search {
+      background-color: var(--green-menthe-975);
+      padding: var(--spacing-4v) var(--spacing-4v) var(--spacing-6v);
+      position: relative;
+    }
+
+    .territory-search__title {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-4v);
+    }
+
+    /* Dropdown autocomplétion adresse */
+    .address-results {
+      display: none;
+      list-style: none;
+      background-color: var(--background-default);
+      border: 2px solid var(--green-menthe-sun-373);
+      border-top: 1px solid var(--border-default);
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      max-height: 15rem;
+      overflow-y: auto;
+      margin-top: -2px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .address-results.is-visible {
+      display: block;
+    }
+
+    .address-results__item {
+      padding: var(--spacing-3v) var(--spacing-4v);
+      font-size: 0.875rem;
+      color: var(--text-default);
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-default);
+      transition: background-color 0.1s ease;
+    }
+
+    .address-results__item:last-child {
+      border-bottom: none;
+    }
+
+    .address-results__item:hover,
+    .address-results__item.is-focused {
+      background-color: var(--background-alt-grey);
+    }
+
+    /* Stats territoire (dynamique) */
+    .stats-section--territory {
+      background-color: var(--green-menthe-975);
+      padding: 0 var(--spacing-4v) var(--spacing-4v);
+    }
+
+    .stats-section--territory .stats-intro {
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--green-menthe-sun-373);
+      margin-bottom: var(--spacing-4v);
+    }
+
+    .stats-section--territory .stats-intro strong {
+      font-weight: 700;
+    }
+
+    /* Responsive territoire */
+    @media (min-width: 576px) {
+      .territory-section__header {
+        padding: var(--spacing-8v) var(--spacing-6v) 0;
+      }
+
+      .territory-search {
+        padding: var(--spacing-4v) var(--spacing-6v) var(--spacing-6v);
+      }
+
+      .stats-section--territory {
+        padding: 0 var(--spacing-6v) var(--spacing-6v);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .territory-section__header {
+        padding: var(--spacing-10v) var(--spacing-12v) 0;
+      }
+
+      .territory-search {
+        padding: var(--spacing-4v) var(--spacing-12v) var(--spacing-8v);
+      }
+
+      .stats-section--territory {
+        padding: 0 var(--spacing-12v) var(--spacing-8v);
+      }
+    }
   </style>
 </head>
 <body>
@@ -700,6 +1291,12 @@
          Section Recherche
          ============================================= -->
     <section class="search-section" aria-labelledby="search-title">
+      <button class="search-section__close" id="search-panel-close" type="button" aria-label="Fermer la recherche">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
       <h1 class="search-section__title" id="search-title">
         Pour quel objet ou déchet recherchez-vous des recommandations et des solutions&nbsp;?
       </h1>
@@ -781,15 +1378,121 @@
       <div class="search-popular" id="search-popular">
         <h2 class="search-popular__title">Les plus populaires</h2>
         <ul class="search-popular__list">
-          <li class="search-popular__item">CD, DVD ou cassettes VHS</li>
-          <li class="search-popular__item">Chaussures</li>
-          <li class="search-popular__item">Marteau</li>
-          <li class="search-popular__item">Seringue avec aiguille</li>
-          <li class="search-popular__item">Trottinette électrique</li>
-          <li class="search-popular__item">Brique alimentaire (jus, lait…)</li>
+          <li class="search-popular__item" data-fiche-id="cd-dvd-vhs" role="button" tabindex="0">
+            <span>CD, DVD ou cassettes VHS</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="chaussures" role="button" tabindex="0">
+            <span>Chaussures</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="marteau" role="button" tabindex="0">
+            <span>Marteau</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="aiguille-medicale" role="button" tabindex="0">
+            <span>Seringue avec aiguille</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="trottinette-electrique" role="button" tabindex="0">
+            <span>Trottinette électrique</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="brique-alimentaire" role="button" tabindex="0">
+            <span>Brique alimentaire (jus, lait…)</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
         </ul>
       </div>
     </div>
+
+    <!-- =============================================
+         Section Territoire (Étape 2)
+         ============================================= -->
+    <section class="territory-section" id="territory-section">
+
+      <!-- Chip objet sélectionné -->
+      <div class="territory-section__header">
+        <button class="selected-chip" id="selected-chip" type="button" aria-label="Modifier la recherche">
+          <span class="selected-chip__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </span>
+          <span id="selected-chip-label"></span>
+        </button>
+      </div>
+
+      <!-- Recherche d'adresse -->
+      <div class="territory-search">
+        <h2 class="territory-search__title" id="territory-title">
+          Sur quel territoire souhaitez-vous consulter les informations pour cet objet ou ce déchet&nbsp;?
+        </h2>
+        <div class="search-bar" role="search">
+          <div class="search-bar__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+          <label for="address-input" class="sr-only">Rechercher une adresse ou une commune</label>
+          <input
+            type="search"
+            id="address-input"
+            class="search-bar__input"
+            placeholder="exemple : Marseille, La Rochelle..."
+            autocomplete="off"
+          >
+        </div>
+        <!-- Résultats autocomplétion -->
+        <ul class="address-results" id="address-results" role="listbox" aria-label="Suggestions d'adresses"></ul>
+      </div>
+
+      <!-- Statistiques dynamiques -->
+      <div class="stats-section--territory" id="territory-stats" aria-live="polite">
+        <p class="stats-intro" id="territory-stats-intro"></p>
+        <ul class="stats-list" aria-label="Répartition des solutions">
+          <li class="stats-list__item">
+            <span class="stats-list__label">
+              <span class="stats-list__label-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </span>
+              Lieux
+            </span>
+            <span class="stats-list__value" id="stat-lieux">--</span>
+          </li>
+          <li class="stats-list__item">
+            <span class="stats-list__label">
+              <span class="stats-list__label-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                  <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+              </span>
+              Services à domicile
+            </span>
+            <span class="stats-list__value" id="stat-services">--</span>
+          </li>
+          <li class="stats-list__item">
+            <span class="stats-list__label">
+              <span class="stats-list__label-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <line x1="2" y1="12" x2="22" y2="12"/>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                </svg>
+              </span>
+              Solutions en ligne
+            </span>
+            <span class="stats-list__value" id="stat-en-ligne">--</span>
+          </li>
+        </ul>
+      </div>
+
+    </section>
 
     <!-- =============================================
          Section Statistiques
@@ -874,6 +1577,72 @@
           </a>
         </div>
       </details>
+    </section>
+
+    <!-- =============================================
+         Section Fiche (Étape 3)
+         ============================================= -->
+    <section class="fiche-section" id="fiche-section">
+
+      <!-- En-tête -->
+      <div class="fiche-header">
+        <button class="fiche-header__searchbox" id="fiche-back-chip" type="button" aria-label="Modifier la recherche">
+          <div class="fiche-header__object-name" id="fiche-object-name"></div>
+          <div class="fiche-header__object-address" id="fiche-object-address"></div>
+        </button>
+
+        <p class="fiche-header__total" id="fiche-total-solutions"></p>
+      </div>
+
+      <!-- Info-tri -->
+      <div class="fiche-infotri" id="fiche-infotri">
+        <h2 class="fiche-infotri__title">Recommandations &amp; consignes</h2>
+        <div class="fiche-infotri__images" id="fiche-infotri-images"></div>
+      </div>
+
+      <!-- Accordéons consignes -->
+      <div class="fiche-accordeons" id="fiche-accordeons">
+      </div>
+
+      <!-- Avertissements -->
+      <div class="fiche-warnings" id="fiche-warnings" style="display: none;">
+        <ul class="fiche-warnings__list" id="fiche-warnings-list"></ul>
+      </div>
+
+      <!-- Carte des solutions -->
+      <div class="fiche-map">
+        <h2 class="fiche-map__title">Les solutions existantes</h2>
+        <div class="fiche-map__container" id="fiche-map-container"></div>
+      </div>
+
+      <!-- Solutions à domicile & en ligne -->
+      <div class="fiche-solutions">
+        <div class="fiche-solution-card">
+          <h3 class="fiche-solution-card__title">Les services à domicile</h3>
+          <p class="fiche-solution-card__desc" id="fiche-sol-domicile-desc"></p>
+          <a class="fiche-solution-card__link" id="fiche-sol-domicile-link" href="#" target="_blank" rel="noopener noreferrer">
+            Je découvre les solutions
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </a>
+        </div>
+        <div class="fiche-solution-card">
+          <h3 class="fiche-solution-card__title">Les solutions en ligne</h3>
+          <p class="fiche-solution-card__desc" id="fiche-sol-enligne-desc"></p>
+          <a class="fiche-solution-card__link" id="fiche-sol-enligne-link" href="#" target="_blank" rel="noopener noreferrer">
+            Je découvre les sites Internet
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
     </section>
 
     <!-- =============================================
@@ -1023,7 +1792,19 @@
     ];
 
     // =============================================
-    // Logique de recherche
+    // State Management
+    // =============================================
+    const appState = {
+      currentStep: 'search',     // 'search' | 'territory' | 'fiche'
+      selectedFiche: null,       // { id, nom, categorie, keywords }
+      selectedAddress: null,     // { label, citycode, postcode, lat, lon }
+      categoryCounts: null,      // données chargées depuis counts.json
+      consignesData: null,       // données chargées depuis consignes.json
+      searchOrigin: 'home'       // 'home' | 'territory' — d'où vient l'ouverture de la recherche
+    };
+
+    // =============================================
+    // Références DOM
     // =============================================
     const searchInput = document.getElementById('search-input');
     const searchPanel = document.getElementById('search-panel');
@@ -1032,6 +1813,15 @@
     const searchPopular = document.getElementById('search-popular');
     const container = document.querySelector('.iframe-container');
 
+    // Étape 2
+    const addressInput = document.getElementById('address-input');
+    const addressResults = document.getElementById('address-results');
+    const selectedChip = document.getElementById('selected-chip');
+    const selectedChipLabel = document.getElementById('selected-chip-label');
+
+    // =============================================
+    // Utilitaires
+    // =============================================
     function normalize(str) {
       return str.toLowerCase()
         .normalize('NFD')
@@ -1040,9 +1830,195 @@
         .trim();
     }
 
+    function formatNumber(n) {
+      return n.toLocaleString('fr-FR');
+    }
+
+    // =============================================
+    // Chargement des comptages
+    // =============================================
+    async function loadCategoryCounts() {
+      try {
+        const response = await fetch('src/data/counts.json');
+        appState.categoryCounts = await response.json();
+      } catch (error) {
+        console.error('Erreur chargement counts.json:', error);
+        appState.categoryCounts = { national: {} };
+      }
+    }
+
+    async function loadConsignes() {
+      try {
+        const response = await fetch('src/data/consignes.json');
+        const data = await response.json();
+        appState.consignesData = data;
+      } catch (error) {
+        console.error('Erreur chargement consignes.json:', error);
+        appState.consignesData = { fiches: [] };
+      }
+    }
+
+    // Charger au démarrage
+    loadCategoryCounts();
+    loadConsignes();
+
+    // =============================================
+    // Navigation entre étapes
+    // =============================================
+    function goToStep2(ficheId) {
+      const fiche = fichesData.find(f => f.id === ficheId);
+      if (!fiche) return;
+
+      appState.currentStep = 'territory';
+      appState.selectedFiche = fiche;
+      appState.selectedAddress = null;
+
+      // Mettre à jour le chip
+      selectedChipLabel.textContent = fiche.nom;
+
+      // Mettre à jour les stats
+      updateStatsDisplay();
+
+      // Nettoyer l'adresse
+      addressInput.value = '';
+      addressResults.classList.remove('is-visible');
+      addressResults.innerHTML = '';
+
+      // Basculer la vue
+      container.classList.remove('search-active');
+      searchPanel.classList.remove('is-open');
+      container.classList.add('step-territory');
+
+      // Scroll en haut
+      window.scrollTo(0, 0);
+
+      // Focus sur le champ adresse
+      setTimeout(() => addressInput.focus(), 150);
+
+      // Historique navigateur
+      history.pushState({ step: 'territory', ficheId: ficheId }, '');
+    }
+
+    function goToStep1() {
+      appState.currentStep = 'search';
+      appState.selectedFiche = null;
+      appState.selectedAddress = null;
+      appState.searchOrigin = 'home';
+
+      // Basculer la vue
+      container.classList.remove('step-territory');
+      container.classList.remove('search-active');
+      searchPanel.classList.remove('is-open');
+
+      // Scroll en haut
+      window.scrollTo(0, 0);
+
+      // Focus sur le champ de recherche
+      setTimeout(() => {
+        searchInput.value = '';
+        searchInput.focus();
+      }, 150);
+    }
+
+    // Ouvrir la recherche depuis l'étape 2 (chip cliqué)
+    function openSearchFromTerritory() {
+      appState.searchOrigin = 'territory';
+
+      // Masquer l'étape 2, montrer la recherche
+      container.classList.remove('step-territory');
+      container.classList.add('search-active');
+      searchPanel.classList.add('is-open');
+
+      // Réinitialiser l'affichage des éléments de recherche facilitée
+      searchResults.classList.remove('is-visible');
+      searchResults.innerHTML = '';
+      searchCategories.style.display = '';
+      searchPopular.style.display = '';
+
+      // Scroll en haut
+      window.scrollTo(0, 0);
+
+      // Focus et vider le champ
+      setTimeout(() => {
+        searchInput.value = '';
+        searchInput.focus();
+      }, 150);
+    }
+
+    // Fermer la recherche et revenir à l'étape 2 (sans changer de fiche)
+    function closeSearchBackToTerritory() {
+      container.classList.remove('search-active');
+      searchPanel.classList.remove('is-open');
+      searchResults.classList.remove('is-visible');
+      searchResults.innerHTML = '';
+      searchInput.value = '';
+
+      // Réafficher l'étape 2
+      container.classList.add('step-territory');
+      appState.searchOrigin = 'home';
+    }
+
+    // Gestion du bouton retour navigateur
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.step === 'fiche') {
+        const fiche = fichesData.find(f => f.id === e.state.ficheId);
+        if (fiche) {
+          appState.selectedFiche = fiche;
+          appState.selectedAddress = e.state.address;
+          appState.currentStep = 'fiche';
+          container.classList.remove('step-territory', 'search-active');
+          container.classList.add('step-fiche');
+          renderFiche();
+        }
+      } else if (e.state && e.state.step === 'territory') {
+        container.classList.remove('step-fiche');
+        goToStep2(e.state.ficheId);
+      } else {
+        appState.currentStep = 'search';
+        appState.selectedFiche = null;
+        container.classList.remove('step-territory', 'step-fiche');
+      }
+    });
+
+    // =============================================
+    // Statistiques dynamiques
+    // =============================================
+    function updateStatsDisplay() {
+      const ficheId = appState.selectedFiche?.id;
+      if (!ficheId || !appState.categoryCounts) return;
+
+      const counts = appState.categoryCounts.national[ficheId] || {
+        lieux: 0,
+        services_a_domicile: 0,
+        solutions_en_ligne: 0
+      };
+
+      const total = counts.lieux + counts.services_a_domicile + counts.solutions_en_ligne;
+
+      const introEl = document.getElementById('territory-stats-intro');
+      introEl.innerHTML = `<strong>${formatNumber(total)}\u00a0solutions</strong> d\u00e9j\u00e0 d\u00e9tect\u00e9es dans toute la France pour votre recherche. Affinez votre recherche pour trouver les r\u00e9sultats les plus pertinents pour vous.`;
+
+      document.getElementById('stat-lieux').textContent = formatNumber(counts.lieux);
+      document.getElementById('stat-services').textContent = formatNumber(counts.services_a_domicile);
+      document.getElementById('stat-en-ligne').textContent = formatNumber(counts.solutions_en_ligne);
+    }
+
+    // =============================================
+    // Logique de recherche (Étape 1)
+    // =============================================
     function openSearchPanel() {
+      // Si on n'est pas déjà en mode "vient de territory", c'est un accès depuis l'accueil
+      if (appState.currentStep !== 'territory') {
+        appState.searchOrigin = 'home';
+      }
       searchPanel.classList.add('is-open');
       container.classList.add('search-active');
+
+      // S'assurer que les catégories et populaires sont visibles (reset état précédent)
+      if (!searchInput.value.trim()) {
+        searchCategories.style.display = '';
+        searchPopular.style.display = '';
+      }
     }
 
     function closeSearchPanel() {
@@ -1066,23 +2042,18 @@
       const results = [];
 
       fichesData.forEach(fiche => {
-        // Chercher dans le nom
         if (normalize(fiche.nom).includes(normalizedQuery)) {
           results.push({ nom: fiche.nom, id: fiche.id, score: 1 });
           return;
         }
-        // Chercher dans les keywords
         const matchingKeyword = fiche.keywords.find(kw => normalize(kw).includes(normalizedQuery));
         if (matchingKeyword) {
-          // Afficher le keyword qui matche + le nom de la fiche
           results.push({ nom: matchingKeyword.charAt(0).toUpperCase() + matchingKeyword.slice(1), id: fiche.id, score: 2 });
         }
       });
 
-      // Trier : nom exact d'abord, puis keywords
       results.sort((a, b) => a.score - b.score);
 
-      // Dédupliquer par id
       const seen = new Set();
       const uniqueResults = results.filter(r => {
         if (seen.has(r.id)) return false;
@@ -1091,8 +2062,12 @@
       });
 
       if (uniqueResults.length > 0) {
+        const arrowSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>';
         searchResults.innerHTML = uniqueResults.map(r =>
-          `<li class="search-results__item"><span class="search-results__name">${r.nom}</span></li>`
+          `<li class="search-results__item" data-fiche-id="${r.id}" role="button" tabindex="0">
+            <span class="search-results__name">${r.nom}</span>
+            <span class="search-results__arrow" aria-hidden="true">${arrowSvg}</span>
+          </li>`
         ).join('');
         searchResults.classList.add('is-visible');
         searchCategories.style.display = 'none';
@@ -1105,13 +2080,83 @@
       }
     }
 
-    // Événements
+    // =============================================
+    // Événements recherche (Étape 1)
+    // =============================================
     searchInput.addEventListener('focus', () => {
       openSearchPanel();
     });
 
     searchInput.addEventListener('input', (e) => {
       performSearch(e.target.value);
+    });
+
+    // Clic sur un résultat de recherche
+    searchResults.addEventListener('click', (e) => {
+      const item = e.target.closest('.search-results__item');
+      if (item && item.dataset.ficheId) {
+        closeSearchPanel();
+        searchInput.value = '';
+        goToStep2(item.dataset.ficheId);
+      }
+    });
+
+    // Clavier sur un résultat de recherche
+    searchResults.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const item = e.target.closest('.search-results__item');
+        if (item && item.dataset.ficheId) {
+          e.preventDefault();
+          closeSearchPanel();
+          searchInput.value = '';
+          goToStep2(item.dataset.ficheId);
+        }
+      }
+    });
+
+    // Clic sur une carte catégorie
+    document.querySelector('.search-categories__grid').addEventListener('click', (e) => {
+      const card = e.target.closest('.category-card');
+      if (card && card.dataset.category) {
+        closeSearchPanel();
+        searchInput.value = '';
+        goToStep2(card.dataset.category);
+      }
+    });
+
+    // Clic sur un item populaire
+    document.querySelector('.search-popular__list').addEventListener('click', (e) => {
+      const item = e.target.closest('.search-popular__item');
+      if (item && item.dataset.ficheId) {
+        closeSearchPanel();
+        searchInput.value = '';
+        goToStep2(item.dataset.ficheId);
+      }
+    });
+
+    // Clavier sur un item populaire
+    document.querySelector('.search-popular__list').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const item = e.target.closest('.search-popular__item');
+        if (item && item.dataset.ficheId) {
+          e.preventDefault();
+          closeSearchPanel();
+          searchInput.value = '';
+          goToStep2(item.dataset.ficheId);
+        }
+      }
+    });
+
+    // Bouton croix pour fermer le panneau de recherche (contextuel)
+    document.getElementById('search-panel-close').addEventListener('click', () => {
+      if (appState.searchOrigin === 'territory') {
+        // Vient de l'étape 2 → retour à l'étape 2
+        closeSearchBackToTerritory();
+      } else {
+        // Vient de l'accueil → fermer le panneau
+        closeSearchPanel();
+        searchInput.value = '';
+      }
     });
 
     // Fermer quand on clique en dehors
@@ -1123,7 +2168,326 @@
       }
     });
 
+    // =============================================
+    // Chip (Étape 2 → ouvre la recherche)
+    // =============================================
+    selectedChip.addEventListener('click', () => {
+      openSearchFromTerritory();
+    });
+
+    // =============================================
+    // API BAN — Autocomplétion d'adresse
+    // =============================================
+    let addressDebounceTimer = null;
+    let addressFocusedIndex = -1;
+
+    addressInput.addEventListener('input', (e) => {
+      clearTimeout(addressDebounceTimer);
+      const query = e.target.value.trim();
+
+      if (query.length < 3) {
+        addressResults.classList.remove('is-visible');
+        addressResults.innerHTML = '';
+        addressFocusedIndex = -1;
+        return;
+      }
+
+      addressDebounceTimer = setTimeout(() => {
+        fetchAddressSuggestions(query);
+      }, 300);
+    });
+
+    async function fetchAddressSuggestions(query) {
+      try {
+        const url = `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5&autocomplete=1`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.features && data.features.length > 0) {
+          addressResults.innerHTML = data.features.map((feature, index) => {
+            const props = feature.properties;
+            const coords = feature.geometry.coordinates;
+            return `<li class="address-results__item"
+                        role="option"
+                        data-label="${props.label}"
+                        data-citycode="${props.citycode || ''}"
+                        data-postcode="${props.postcode || ''}"
+                        data-lon="${coords[0]}"
+                        data-lat="${coords[1]}"
+                        tabindex="-1">${props.label}</li>`;
+          }).join('');
+          addressResults.classList.add('is-visible');
+          addressFocusedIndex = -1;
+        } else {
+          addressResults.classList.remove('is-visible');
+          addressResults.innerHTML = '';
+        }
+      } catch (error) {
+        console.error('Erreur API BAN:', error);
+      }
+    }
+
+    // Sélection d'une adresse
+    addressResults.addEventListener('click', (e) => {
+      const item = e.target.closest('.address-results__item');
+      if (item) {
+        selectAddress(item);
+      }
+    });
+
+    function selectAddress(item) {
+      appState.selectedAddress = {
+        label: item.dataset.label,
+        citycode: item.dataset.citycode,
+        postcode: item.dataset.postcode,
+        lat: parseFloat(item.dataset.lat),
+        lon: parseFloat(item.dataset.lon)
+      };
+      addressInput.value = item.dataset.label;
+      addressResults.classList.remove('is-visible');
+      addressResults.innerHTML = '';
+      addressFocusedIndex = -1;
+
+      // Passer automatiquement à l'étape 3
+      goToStep3();
+    }
+
+    // Navigation clavier dans l'autocomplétion
+    addressInput.addEventListener('keydown', (e) => {
+      const items = addressResults.querySelectorAll('.address-results__item');
+      if (!items.length) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        addressFocusedIndex = Math.min(addressFocusedIndex + 1, items.length - 1);
+        updateAddressFocus(items);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        addressFocusedIndex = Math.max(addressFocusedIndex - 1, 0);
+        updateAddressFocus(items);
+      } else if (e.key === 'Enter' && addressFocusedIndex >= 0) {
+        e.preventDefault();
+        selectAddress(items[addressFocusedIndex]);
+      } else if (e.key === 'Escape') {
+        addressResults.classList.remove('is-visible');
+        addressFocusedIndex = -1;
+      }
+    });
+
+    function updateAddressFocus(items) {
+      items.forEach((item, i) => {
+        item.classList.toggle('is-focused', i === addressFocusedIndex);
+      });
+    }
+
+    // Fermer l'autocomplétion quand on clique en dehors
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.territory-search')) {
+        addressResults.classList.remove('is-visible');
+        addressFocusedIndex = -1;
+      }
+    });
+
+    // =============================================
+    // Étape 3 — Fiche résultat
+    // =============================================
+    function goToStep3() {
+      if (!appState.selectedFiche || !appState.selectedAddress) return;
+
+      appState.currentStep = 'fiche';
+
+      // Basculer la vue
+      container.classList.remove('step-territory', 'search-active');
+      searchPanel.classList.remove('is-open');
+      container.classList.add('step-fiche');
+
+      // Rendre la fiche
+      renderFiche();
+
+      // Scroll en haut
+      window.scrollTo(0, 0);
+
+      // Historique navigateur
+      history.pushState({
+        step: 'fiche',
+        ficheId: appState.selectedFiche.id,
+        address: appState.selectedAddress
+      }, '');
+    }
+
+    function goBackFromFiche() {
+      appState.currentStep = 'territory';
+      container.classList.remove('step-fiche');
+      container.classList.add('step-territory');
+
+      // Restaurer le chip et les stats de l'étape 2
+      selectedChipLabel.textContent = appState.selectedFiche.nom;
+      addressInput.value = appState.selectedAddress ? appState.selectedAddress.label : '';
+      updateStatsDisplay();
+
+      window.scrollTo(0, 0);
+    }
+
+    // Estimation locale : nombre de solutions dans un rayon de 10 km
+    // Surface rayon 10km ≈ 314 km². France métropolitaine ≈ 640 000 km².
+    // Ratio brut ≈ 0.049%. On applique un facteur de densité basé sur le département.
+    function estimateLocalCount(nationalCount) {
+      // Facteur moyen : entre 0.05% (rural) et 0.3% (grande ville)
+      // On utilise un facteur médian réaliste de 0.12%
+      const localRatio = 0.0012;
+      return Math.max(1, Math.round(nationalCount * localRatio));
+    }
+
+    function renderFiche() {
+      const ficheId = appState.selectedFiche.id;
+      const address = appState.selectedAddress;
+
+      // Trouver les consignes
+      const consigneFiche = appState.consignesData
+        ? appState.consignesData.fiches.find(f => f.id === ficheId)
+        : null;
+
+      // Trouver les comptages nationaux
+      const counts = appState.categoryCounts
+        ? appState.categoryCounts.national[ficheId] || { lieux: 0, services_a_domicile: 0, solutions_en_ligne: 0 }
+        : { lieux: 0, services_a_domicile: 0, solutions_en_ligne: 0 };
+
+      // Estimation locale à 10 km
+      const localLieux = estimateLocalCount(counts.lieux);
+      const localServices = counts.services_a_domicile; // Les services à domicile couvrent tout le territoire
+      const localEnLigne = counts.solutions_en_ligne;   // Les solutions en ligne aussi
+      const localTotal = localLieux + localServices + localEnLigne;
+
+      // --- En-tête ---
+      document.getElementById('fiche-object-name').textContent = appState.selectedFiche.nom;
+      document.getElementById('fiche-object-address').textContent = address ? address.label : '';
+      document.getElementById('fiche-total-solutions').textContent =
+        `Super, ${formatNumber(localTotal)}\u00a0solutions ont été trouvées\u00a0!`;
+
+      // --- Info-tri ---
+      const infoTriContainer = document.getElementById('fiche-infotri-images');
+      const infoTriSection = document.getElementById('fiche-infotri');
+      infoTriContainer.innerHTML = '';
+
+      if (consigneFiche && consigneFiche.infoTri) {
+        infoTriSection.style.display = '';
+        const infoTris = Array.isArray(consigneFiche.infoTri) ? consigneFiche.infoTri : [consigneFiche.infoTri];
+        infoTris.forEach(src => {
+          const img = document.createElement('img');
+          img.src = 'src/assets/info-tri/' + src;
+          img.alt = 'Info-tri pour ' + appState.selectedFiche.nom;
+          img.className = 'fiche-infotri__img';
+          img.loading = 'lazy';
+          infoTriContainer.appendChild(img);
+        });
+      } else {
+        infoTriSection.style.display = 'none';
+      }
+
+      // --- Accordéons ---
+      const accordeonsContainer = document.getElementById('fiche-accordeons');
+      accordeonsContainer.innerHTML = '';
+
+      if (consigneFiche && consigneFiche.accordeons) {
+        const chevronSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
+
+        // Répartir les lieux locaux entre les accordéons proportionnellement
+        const nbAccordeons = consigneFiche.accordeons.length;
+        const lieuxParAccordeon = [];
+        let lieuxRestants = localLieux;
+        consigneFiche.accordeons.forEach((acc, i) => {
+          if (i === nbAccordeons - 1) {
+            lieuxParAccordeon.push(lieuxRestants);
+          } else {
+            // Répartition dégressive : le premier accordéon a le plus de solutions
+            const share = Math.max(1, Math.round(localLieux * (nbAccordeons - i) / ((nbAccordeons * (nbAccordeons + 1)) / 2)));
+            lieuxParAccordeon.push(share);
+            lieuxRestants -= share;
+          }
+        });
+
+        consigneFiche.accordeons.forEach((acc, index) => {
+          const details = document.createElement('details');
+          details.className = 'fiche-accordion';
+
+          const nbSolutions = lieuxParAccordeon[index];
+          const subtitleHtml = `<span class="fiche-accordion__subtitle">${formatNumber(nbSolutions)} solutions identifiées</span>`;
+
+          const conditionBadge = acc.condition
+            ? `<span class="fiche-accordion__condition">${acc.condition}</span>`
+            : '';
+
+          details.innerHTML = `
+            <summary class="fiche-accordion__header" aria-expanded="false">
+              <div class="fiche-accordion__header-left">
+                <span class="fiche-accordion__title">${acc.titre}</span>
+                ${subtitleHtml}
+              </div>
+              <span class="fiche-accordion__icon" aria-hidden="true">${chevronSvg}</span>
+            </summary>
+            <div class="fiche-accordion__content">
+              ${conditionBadge}
+              <p class="fiche-accordion__consigne">${acc.consigne}</p>
+            </div>
+          `;
+
+          // Toggle aria-expanded
+          details.addEventListener('toggle', () => {
+            const summary = details.querySelector('.fiche-accordion__header');
+            summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
+          });
+
+          accordeonsContainer.appendChild(details);
+        });
+      }
+
+      // --- Avertissements ---
+      const warningsSection = document.getElementById('fiche-warnings');
+      const warningsList = document.getElementById('fiche-warnings-list');
+      warningsList.innerHTML = '';
+
+      const warnings = consigneFiche ? consigneFiche.avertissements || [] : [];
+      if (warnings.length > 0) {
+        warningsSection.style.display = '';
+        const warnIconSvg = '<svg xmlns="http://www.w3.org/2000/svg" class="fiche-warnings__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+        warnings.forEach(w => {
+          const li = document.createElement('li');
+          li.className = 'fiche-warnings__item';
+          li.innerHTML = warnIconSvg + '<span>' + w + '</span>';
+          warningsList.appendChild(li);
+        });
+      } else {
+        warningsSection.style.display = 'none';
+      }
+
+      // --- Carte LVAO ---
+      const mapContainer = document.getElementById('fiche-map-container');
+      mapContainer.innerHTML = '';
+      const mapScript = document.createElement('script');
+      mapScript.src = 'https://lvao.ademe.fr/static/carte.js';
+      mapScript.dataset.action_list = 'preter|emprunter|louer|mettreenlocation|reparer|donner|echanger|acheter|revendre';
+      mapContainer.appendChild(mapScript);
+
+      // --- Solutions à domicile / en ligne ---
+      const ficheUrl = consigneFiche ? consigneFiche.url : '#';
+
+      document.getElementById('fiche-sol-domicile-desc').textContent =
+        `Nous avons trouvé ${formatNumber(localServices)} solutions. Des solutions existent pour venir jusqu'à chez vous\u00a0!`;
+      document.getElementById('fiche-sol-domicile-link').href = ficheUrl;
+
+      document.getElementById('fiche-sol-enligne-desc').textContent =
+        `Nous avons trouvé ${formatNumber(localEnLigne)} solutions. Explorez l'ensemble des sites Internet et solutions en ligne pour votre objet.`;
+      document.getElementById('fiche-sol-enligne-link').href = ficheUrl;
+    }
+
+    // Bouton retour depuis la fiche
+    document.getElementById('fiche-back-chip').addEventListener('click', () => {
+      goBackFromFiche();
+    });
+
+    // =============================================
     // Gestion de l'accordéon
+    // =============================================
     document.querySelectorAll('.accordion').forEach(details => {
       details.addEventListener('toggle', () => {
         const summary = details.querySelector('.accordion__header');

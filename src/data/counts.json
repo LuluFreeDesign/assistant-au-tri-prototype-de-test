@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "source": "data.gouv.fr - Acteurs de l'économie circulaire (ADEME)",
+    "csv_url": "https://www.data.gouv.fr/api/1/datasets/r/0e864a1c-b147-4549-a2dd-0b918e70c53c",
+    "date_generation": "2026-02-19",
+    "total_acteurs_csv": 375249,
+    "description": "Comptages nationaux par catégorie. Lieux = réels (CSV). Services à domicile et solutions en ligne = estimations."
+  },
+  "national": {
+    "petit-electromenager": {
+      "lieux": 24161,
+      "services_a_domicile": 72,
+      "solutions_en_ligne": 26
+    },
+    "medicaments": {
+      "lieux": 20187,
+      "services_a_domicile": 60,
+      "solutions_en_ligne": 22
+    },
+    "meubles": {
+      "lieux": 21201,
+      "services_a_domicile": 63,
+      "solutions_en_ligne": 23
+    },
+    "dechets-alimentaires": {
+      "lieux": 30404,
+      "services_a_domicile": 91,
+      "solutions_en_ligne": 32
+    },
+    "cd-dvd-vhs": {
+      "lieux": 18142,
+      "services_a_domicile": 54,
+      "solutions_en_ligne": 20
+    },
+    "chaussures": {
+      "lieux": 51614,
+      "services_a_domicile": 154,
+      "solutions_en_ligne": 53
+    },
+    "marteau": {
+      "lieux": 14649,
+      "services_a_domicile": 43,
+      "solutions_en_ligne": 16
+    },
+    "aiguille-medicale": {
+      "lieux": 20188,
+      "services_a_domicile": 60,
+      "solutions_en_ligne": 22
+    },
+    "trottinette-electrique": {
+      "lieux": 14004,
+      "services_a_domicile": 42,
+      "solutions_en_ligne": 16
+    },
+    "vetements": {
+      "lieux": 59796,
+      "services_a_domicile": 179,
+      "solutions_en_ligne": 61
+    },
+    "livres": {
+      "lieux": 18590,
+      "services_a_domicile": 55,
+      "solutions_en_ligne": 20
+    },
+    "poeles-casseroles": {
+      "lieux": 7256,
+      "services_a_domicile": 21,
+      "solutions_en_ligne": 9
+    },
+    "sapin-de-noel": {
+      "lieux": 34074,
+      "services_a_domicile": 102,
+      "solutions_en_ligne": 36
+    },
+    "brique-alimentaire": {
+      "lieux": 47201,
+      "services_a_domicile": 141,
+      "solutions_en_ligne": 49
+    },
+    "gros-electromenager": {
+      "lieux": 15873,
+      "services_a_domicile": 47,
+      "solutions_en_ligne": 17
+    }
+  }
+}
