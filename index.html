@@ -2644,9 +2644,44 @@
       // --- Carte LVAO ---
       const mapContainer = document.getElementById('fiche-map-container');
       mapContainer.innerHTML = '';
+
+      // Déterminer les actions LVAO pertinentes selon les accordéons de la fiche
+      const iconeToActions = {
+        'donner': ['donner', 'echanger', 'revendre', 'acheter'],
+        'reparer': ['reparer'],
+        'louer': ['preter', 'emprunter', 'louer', 'mettreenlocation'],
+        'deposer': ['donner', 'echanger', 'revendre', 'acheter'],
+        'trier': ['donner', 'echanger', 'revendre', 'acheter']
+      };
+
+      const lvaoActions = new Set();
+      if (consigneFiche && consigneFiche.accordeons) {
+        consigneFiche.accordeons.forEach(acc => {
+          const actions = iconeToActions[acc.icone];
+          if (actions) actions.forEach(a => lvaoActions.add(a));
+        });
+      }
+
+      // Toutes les actions par défaut si aucune correspondance spécifique
+      const allActions = 'preter|emprunter|louer|mettreenlocation|reparer|donner|echanger|acheter|revendre';
+      const actionList = lvaoActions.size > 0 ? Array.from(lvaoActions).join('|') : allActions;
+
       const mapScript = document.createElement('script');
       mapScript.src = 'https://lvao.ademe.fr/static/carte.js';
-      mapScript.dataset.action_list = 'preter|emprunter|louer|mettreenlocation|reparer|donner|echanger|acheter|revendre';
+      mapScript.dataset.action_list = actionList;
+
+      // Pré-centrer la carte sur l'adresse saisie à l'étape 2
+      if (appState.selectedAddress && appState.selectedAddress.lat && appState.selectedAddress.lon) {
+        const lat = appState.selectedAddress.lat;
+        const lon = appState.selectedAddress.lon;
+        const offset = 0.045; // ~5km autour du point
+        const boundingBox = {
+          southWest: { lat: lat - offset, lng: lon - offset },
+          northEast: { lat: lat + offset, lng: lon + offset }
+        };
+        mapScript.dataset.bounding_box = JSON.stringify(boundingBox);
+      }
+
       mapContainer.appendChild(mapScript);
 
       // --- Solutions à domicile / en ligne ---
