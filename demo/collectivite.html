@@ -36,7 +36,7 @@
     .iframe-section { margin-top: 32px; }
     .iframe-section h2 { font-size: 1.2rem; color: #1b3a5c; margin-bottom: 8px; }
     .iframe-section p { font-size: 0.875rem; color: #666; margin-bottom: 20px; }
-    .iframe-section iframe { width: 100%; min-height: 700px; border: none; display: block; }
+    .iframe-section iframe { width: 100%; border: none; display: block; }
 
     /* Footer */
     .footer { background: #1b3a5c; color: #a8c4e0; padding: 24px 32px; font-size: 0.8rem; margin-top: 48px; text-align: center; }
@@ -98,7 +98,7 @@
     <div class="iframe-section">
       <h2>Que faire de vos objets et déchets ?</h2>
       <p>Trouvez les consignes de tri et les solutions de réemploi, réparation ou recyclage adaptées à votre objet.</p>
-      <iframe src="../index.html" title="Assistant au tri, au réemploi et à la réparation"></iframe>
+      <iframe id="assistant-tri" src="../index.html" title="Assistant au tri, au réemploi et à la réparation"></iframe>
     </div>
   </main>
 
@@ -106,5 +106,12 @@
     <p>Site fictif créé à des fins de démonstration — Tours Métropole Val de Loire © 2026</p>
   </footer>
 
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'assistant-tri-resize') {
+        document.getElementById('assistant-tri').style.height = e.data.height + 'px';
+      }
+    });
+  </script>
 </body>
 </html>

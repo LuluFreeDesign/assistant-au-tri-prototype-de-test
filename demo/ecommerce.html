@@ -30,7 +30,7 @@
     .iframe-wrapper { background: #fff; border-radius: 8px; padding: 32px; margin-bottom: 24px; }
     .iframe-wrapper h2 { font-size: 1.2rem; color: #002878; margin-bottom: 8px; }
     .iframe-wrapper p { font-size: 0.875rem; color: #666; margin-bottom: 20px; }
-    .iframe-wrapper iframe { width: 100%; min-height: 700px; border: none; display: block; }
+    .iframe-wrapper iframe { width: 100%; border: none; display: block; }
 
     /* Footer */
     .footer { background: #002878; color: #fff; padding: 24px; text-align: center; font-size: 0.8rem; margin-top: 48px; }
@@ -65,7 +65,7 @@
     <div class="iframe-wrapper">
       <h2>Trouvez la bonne solution pour votre appareil</h2>
       <p>Utilisez notre assistant pour savoir quoi faire de votre objet ou déchet et trouver les solutions près de chez vous.</p>
-      <iframe src="../index.html" title="Assistant au tri, au réemploi et à la réparation"></iframe>
+      <iframe id="assistant-tri" src="../index.html" title="Assistant au tri, au réemploi et à la réparation"></iframe>
     </div>
   </main>
 
@@ -73,5 +73,12 @@
     <p>Site fictif créé à des fins de démonstration — <a href="#">ÉlectroDépôt</a> © 2026</p>
   </footer>
 
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'assistant-tri-resize') {
+        document.getElementById('assistant-tri').style.height = e.data.height + 'px';
+      }
+    });
+  </script>
 </body>
 </html>
