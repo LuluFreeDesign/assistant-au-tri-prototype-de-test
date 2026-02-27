@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Que faire de mes déchets ? Le guide complet - FranceActu</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Georgia, 'Times New Roman', Times, serif; color: #1a1a1a; background: #f8f8f8; }
+
+    /* Header */
+    .header { background: #fff; border-bottom: 3px solid #0055a4; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .header__logo { font-family: Arial, sans-serif; font-size: 1.4rem; font-weight: 900; color: #0055a4; letter-spacing: -0.5px; }
+    .header__logo span { color: #e30613; }
+    .header__nav { display: flex; gap: 20px; }
+    .header__nav a { font-family: Arial, sans-serif; color: #333; text-decoration: none; font-size: 0.85rem; font-weight: 600; }
+    .header__nav a:hover { color: #0055a4; }
+
+    /* Tag */
+    .tag-bar { max-width: 740px; margin: 24px auto 0; padding: 0 24px; }
+    .tag { display: inline-block; background: #0055a4; color: #fff; font-family: Arial, sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 10px; border-radius: 2px; }
+
+    /* Article */
+    .article { max-width: 740px; margin: 0 auto; padding: 16px 24px 48px; }
+    .article h1 { font-size: 2rem; line-height: 1.3; margin-bottom: 12px; color: #111; }
+    .article__meta { font-family: Arial, sans-serif; font-size: 0.8rem; color: #888; margin-bottom: 24px; }
+    .article__lead { font-size: 1.15rem; line-height: 1.7; color: #333; margin-bottom: 24px; font-style: italic; }
+    .article p { font-size: 1.05rem; line-height: 1.8; color: #333; margin-bottom: 20px; }
+    .article h2 { font-family: Arial, sans-serif; font-size: 1.2rem; color: #111; margin: 32px 0 12px; }
+
+    /* Section iframe */
+    .iframe-section { margin: 32px 0; }
+    .iframe-section iframe { width: 100%; border: none; display: block; }
+    .iframe-caption { font-family: Arial, sans-serif; font-size: 0.75rem; color: #888; text-align: center; margin-top: 8px; }
+
+    /* Footer */
+    .footer { background: #1a1a1a; color: #aaa; padding: 24px; text-align: center; font-family: Arial, sans-serif; font-size: 0.8rem; margin-top: 48px; }
+
+    @media (max-width: 640px) {
+      .article h1 { font-size: 1.5rem; }
+      .header__nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header__logo">France<span>Actu</span></div>
+    <nav class="header__nav">
+      <a href="#">Politique</a>
+      <a href="#">Économie</a>
+      <a href="#">Société</a>
+      <a href="#">Environnement</a>
+      <a href="#">Sciences</a>
+      <a href="#">Culture</a>
+    </nav>
+  </header>
+
+  <div class="tag-bar">
+    <span class="tag">Environnement</span>
+  </div>
+
+  <article class="article">
+    <h1>Que faire de mes déchets ? Le guide complet pour trier, réparer et recycler</h1>
+    <p class="article__meta">Publié le 15 février 2026 à 08h32 — Mis à jour le 20 février 2026</p>
+
+    <p class="article__lead">
+      Chaque année, les Français produisent plus de 580 kg de déchets par habitant. Face à ce constat, des solutions existent pour prolonger la vie de nos objets, les recycler correctement ou leur trouver une seconde vie.
+    </p>
+
+    <p>
+      Le tri des déchets reste un geste du quotidien que beaucoup de Français maîtrisent encore mal. Selon une étude récente de l'ADEME, près d'un tiers des erreurs de tri concernent des objets pour lesquels les consignes varient d'une commune à l'autre. Pourtant, les filières de recyclage et de réemploi se sont considérablement développées ces dernières années.
+    </p>
+
+    <h2>Des solutions à portée de main</h2>
+
+    <p>
+      L'ADEME a développé un outil numérique permettant à chacun de trouver rapidement les bonnes consignes de tri, les points de collecte et les solutions de réparation ou de don adaptées à chaque objet. Ce service, baptisé "Que faire de mes objets et déchets ?", est utilisé par plus de 1,5 million de personnes chaque année.
+    </p>
+
+    <div class="iframe-section">
+      <iframe id="assistant-tri" src="../index.html" title="Assistant au tri, au réemploi et à la réparation"></iframe>
+      <p class="iframe-caption">Outil proposé par l'ADEME — « Que faire de mes objets et déchets ? »</p>
+    </div>
+
+    <h2>Le Bonus Réparation, un levier méconnu</h2>
+
+    <p>
+      Depuis 2022, le Bonus Réparation permet de bénéficier d'une réduction sur la facture de réparation de nombreux appareils électriques et électroniques, mais aussi de vêtements, chaussures et meubles. Pourtant, selon les derniers chiffres, seuls 15 % des Français connaissent ce dispositif.
+    </p>
+
+    <p>
+      Le montant du bonus varie selon les objets : jusqu'à 25 euros pour des chaussures, 40 euros pour du petit électroménager et jusqu'à 65 euros pour un meuble. Une incitation financière qui, combinée à l'allongement de la durée de vie des produits, contribue à réduire significativement le volume de déchets produits.
+    </p>
+  </article>
+
+  <footer class="footer">
+    <p>Site fictif créé à des fins de démonstration — FranceActu © 2026</p>
+  </footer>
+
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'assistant-tri-resize') {
+        document.getElementById('assistant-tri').style.height = e.data.height + 'px';
+      }
+    });
+  </script>
+</body>
+</html>

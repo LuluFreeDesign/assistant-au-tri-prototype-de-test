@@ -93,9 +93,11 @@
       max-width: 900px;
       min-width: 260px;
       margin: 0 auto;
-      min-height: 100vh;
       overflow-wrap: break-word;
       word-wrap: break-word;
+      border: 2px solid #4f9d91;
+      border-radius: 4px;
+      overflow: hidden;
     }
 
     /* ============================================
@@ -593,12 +595,15 @@
     .footer__link {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: var(--spacing-1v);
       color: var(--blue-france);
       font-size: 0.875rem;
       font-weight: 500;
       text-decoration: none;
       margin-bottom: var(--spacing-6v);
+      width: 100%;
+      text-align: center;
     }
 
     .footer__link:hover {
@@ -766,11 +771,11 @@
       display: flex;
       flex-direction: column;
       background-color: var(--background-default);
-      border: 1px solid var(--border-default);
-      border-radius: var(--radius-sm);
+      border: 2px solid var(--green-menthe-sun-373);
+      border-radius: var(--radius-md);
       padding: var(--spacing-3v) var(--spacing-4v);
       cursor: pointer;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transition: background-color 0.2s ease;
       margin-bottom: var(--spacing-3v);
       text-align: left;
       font-family: 'Marianne', arial, sans-serif;
@@ -778,8 +783,7 @@
     }
 
     .fiche-header__searchbox:hover {
-      border-color: var(--border-plain);
-      box-shadow: var(--shadow-raised);
+      background-color: var(--background-alt-grey);
     }
 
     .fiche-header__searchbox:focus-visible {
@@ -1094,6 +1098,113 @@
       }
     }
 
+    /* Bullet points dans les consignes */
+    .fiche-accordion__consigne ul {
+      list-style: disc;
+      padding-left: var(--spacing-5v);
+      margin: var(--spacing-2v) 0;
+    }
+
+    .fiche-accordion__consigne ul li {
+      margin-bottom: var(--spacing-1v);
+    }
+
+    .fiche-accordion__consigne ul li:last-child {
+      margin-bottom: 0;
+    }
+
+    .fiche-accordion__consigne p {
+      margin: 0 0 var(--spacing-2v);
+    }
+
+    .fiche-accordion__consigne p:last-child {
+      margin-bottom: 0;
+    }
+
+    .fiche-accordion__consigne a {
+      color: var(--blue-france);
+      text-decoration: underline;
+    }
+
+    .fiche-accordion__consigne a:hover {
+      text-decoration: none;
+    }
+
+    /* Card DSFR callout (alertes structurées) */
+    .fiche-card-alert {
+      margin: 0 var(--spacing-4v) var(--spacing-4v);
+      padding: var(--spacing-4v);
+      background-color: var(--background-alt-grey);
+      border-left: 4px solid var(--red-marianne);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    .fiche-card-alert__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-2v);
+    }
+
+    .fiche-card-alert__content {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-default);
+    }
+
+    .fiche-card-alert__content ul {
+      list-style: disc;
+      padding-left: var(--spacing-5v);
+      margin: var(--spacing-2v) 0;
+    }
+
+    .fiche-card-alert__content ul li {
+      margin-bottom: var(--spacing-1v);
+    }
+
+    .fiche-card-alert__content ul li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Section affichage direct (sans accordéon) */
+    .fiche-direct-section {
+      padding: var(--spacing-3v) 0;
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .fiche-direct-section .fiche-accordion__title {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .fiche-direct-section .fiche-accordion__subtitle {
+      display: block;
+      margin-bottom: var(--spacing-3v);
+    }
+
+    .fiche-direct-section .fiche-accordion__consigne {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      color: var(--text-default);
+    }
+
+    /* Info-tri taille réduite */
+    .fiche-infotri__img--small {
+      max-width: 280px;
+    }
+
+    @media (min-width: 576px) {
+      .fiche-card-alert {
+        margin: 0 var(--spacing-6v) var(--spacing-6v);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .fiche-card-alert {
+        margin: 0 var(--spacing-12v) var(--spacing-8v);
+      }
+    }
+
     /* ============================================
        Utilitaires
        ============================================ */
@@ -1146,30 +1257,34 @@
       padding: var(--spacing-6v) var(--spacing-4v) 0;
     }
 
-    /* Chip objet sélectionné */
+    /* Bouton retour DSFR secondary */
     .selected-chip {
       display: inline-flex;
       align-items: center;
       gap: var(--spacing-2v);
-      padding: var(--spacing-2v) var(--spacing-3v);
+      padding: var(--spacing-2v) var(--spacing-4v) var(--spacing-2v) var(--spacing-3v);
       background-color: var(--background-default);
-      border: 1px solid var(--green-menthe-sun-373);
-      border-radius: 2rem;
-      color: var(--text-default);
+      border: 1px solid var(--blue-france);
+      border-radius: var(--radius-sm);
+      color: var(--blue-france);
       font-family: 'Marianne', arial, sans-serif;
       font-size: 0.875rem;
       font-weight: 500;
       cursor: pointer;
-      transition: background-color 0.15s ease;
-      line-height: 1.4;
+      transition: background-color 0.2s ease;
+      line-height: 1.5;
     }
 
     .selected-chip:hover {
-      background-color: var(--green-menthe-975);
+      background-color: var(--background-action-low-blue);
+    }
+
+    .selected-chip:active {
+      background-color: #DDDDFB;
     }
 
     .selected-chip:focus-visible {
-      outline: 2px solid var(--green-menthe-sun-373);
+      outline: 2px solid var(--blue-france);
       outline-offset: 2px;
     }
 
@@ -1177,7 +1292,7 @@
       display: flex;
       align-items: center;
       flex-shrink: 0;
-      color: var(--green-menthe-sun-373);
+      color: var(--blue-france);
     }
 
     .selected-chip__icon svg {
@@ -1671,25 +1786,6 @@
         <img src="src/assets/logos.svg" alt="République Française — ADEME — Que faire de mes objets et déchets ?">
       </div>
 
-      <div class="footer__actions">
-        <button type="button" class="btn-footer btn-footer--share" aria-label="Partager">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="18" cy="5" r="3"/>
-            <circle cx="6" cy="12" r="3"/>
-            <circle cx="18" cy="19" r="3"/>
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
-            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-          </svg>
-          Partager
-        </button>
-        <button type="button" class="btn-footer btn-footer--embed" aria-label="Intégrer">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="16 18 22 12 16 6"/>
-            <polyline points="8 6 2 12 8 18"/>
-          </svg>
-          Intégrer
-        </button>
-      </div>
     </footer>
 
   </div>
@@ -1867,10 +1963,11 @@
           nom: 'Petit électroménager',
           url: 'https://quefairedemesdechets.ademe.fr/categories/petit-electromenager/',
           infoTri: 'petit-electromenager.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=88',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: 'Donnez gratuitement votre appareil à une structure de réemploi (recyclerie, ressourcerie, association). Vous pouvez aussi le revendre via un dépôt-vente ou une plateforme de seconde main.', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: 'Faites réparer votre appareil chez un réparateur agréé. Certains bénéficient du Bonus Réparation, jusqu\u2019à 40\u00a0€ de réduction sur la facture.', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: 'Déposez votre appareil dans un bac de collecte en magasin ou apportez-le en déchèterie, dans la benne dédiée aux équipements électriques et électroniques (DEEE).', condition: 'Hors d\u2019usage' }
+            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer votre appareil chez un réparateur agréé.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0: jusqu\u2019à 40\u00a0\u20ac de réduction sur la facture.</li></ul>', condition: 'Réparable' },
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez gratuitement à une structure de réemploi (recyclerie, ressourcerie, association).</li><li>Revendez via un dépôt-vente ou une plateforme de seconde main.</li></ul>', condition: 'En bon état' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Déposez dans un bac de collecte en magasin.</li><li>Apportez en déchèterie, dans la benne dédiée aux DEEE.</li></ul>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -1878,24 +1975,22 @@
           nom: 'Médicaments',
           url: 'https://quefairedemesdechets.ademe.fr/categories/medicaments/',
           infoTri: 'medicaments.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=198',
           accordeons: [
-            { titre: 'Rapporter en pharmacie', icone: 'deposer', consigne: 'Rapportez vos médicaments périmés, entamés ou inutilisés en pharmacie. C\u2019est gratuit. Retirez d\u2019abord les boîtes en carton, les notices et les blisters vides\u00a0: ils se trient avec les emballages.', condition: null },
-            { titre: 'Trier les emballages', icone: 'trier', consigne: 'Placez les boîtes en carton, les notices en papier et les blisters vides dans le bac de tri (papiers et emballages). Les flacons et ampoules en verre vont au conteneur à verre, sans les bouchons.', condition: null }
+            { titre: 'Rapporter en pharmacie', icone: 'deposer', consigne: '<ul><li>Rapportez les médicaments périmés, entamés ou inutilisés en pharmacie, sans leur boîte ni notice.</li><li>Apportez\u00a0: comprimés, gélules, sirops, pilules, pommades, sprays, aérosols, ampoules pleines…</li><li>Retirez les boîtes en carton, notices, blisters et plaquettes vides\u00a0: déposez-les dans le bac de tri des emballages.</li><li>Flacons, bouteilles et ampoules en verre vides\u00a0: déposez-les dans le conteneur à verre (sans les bouchons, à jeter dans le bac des emballages).</li></ul>', condition: null }
           ],
-          avertissements: [
-            'Ne jetez jamais de médicaments à la poubelle ni dans les toilettes.',
-            'Ne donnez pas vos médicaments à un proche\u00a0: c\u2019est interdit par la loi.'
-          ]
+          cardAlert: '<ul><li>Ne jetez pas les médicaments à la poubelle ou dans les toilettes\u00a0: les principes actifs polluent l\u2019eau et les sols.</li><li>Ne donnez pas vos médicaments à des proches ou associations\u00a0: c\u2019est interdit en France (article R.5125-48 du Code de la santé publique).</li><li>Ne rapportez pas les compléments alimentaires ou cosmétiques en pharmacie\u00a0: ils vont dans la poubelle des ordures ménagères, leurs emballages se trient séparément.</li></ul>'
         },
         {
           id: 'meubles',
           nom: 'Meubles',
           url: 'https://quefairedemesdechets.ademe.fr/categories/meubles/',
           infoTri: 'meubles.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/carte-assistant-sauf-pret-et-location/?action_displayed=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=100',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: 'Donnez votre meuble gratuitement à une structure de réemploi\u00a0: recyclerie, ressourcerie… Certaines proposent la récupération à domicile. Vous pouvez aussi le revendre via un dépôt-vente ou une plateforme de seconde main.', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: 'Faites réparer ou relooker votre meuble chez un professionnel. Le Bonus Réparation peut couvrir jusqu\u2019à 65\u00a0€ de la facture.', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: 'Demandez la reprise en magasin lors d\u2019un nouvel achat, déposez dans un point de collecte ou en déchèterie. Le service des encombrants peut aussi être disponible dans votre commune.', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une recyclerie, ressourcerie ou association (certaines récupèrent à domicile).</li><li>Revendez via un dépôt-vente ou une plateforme de seconde main.</li></ul>', condition: 'En bon état' },
+            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer ou relooker votre meuble chez un professionnel.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0: jusqu\u2019à 65\u00a0\u20ac de la facture.</li></ul>', condition: 'Réparable' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Demandez la reprise en magasin lors d\u2019un nouvel achat.</li><li>Déposez dans un point de collecte ou en déchèterie.</li><li>Le service des encombrants peut aussi être disponible dans votre commune.</li></ul>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -1903,12 +1998,9 @@
           nom: 'Déchets alimentaires',
           url: 'https://quefairedemesdechets.ademe.fr/categories/biodechets/dechets-alimentaires/',
           infoTri: 'dechets-alimentaires.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=267',
           accordeons: [
-            { titre: 'Composter', icone: 'deposer', consigne: 'Compostez vos déchets alimentaires\u00a0: composteur individuel, composteur partagé de quartier ou collecte séparée organisée par votre commune. Depuis le 1er\u00a0janvier 2024, le tri des biodéchets est obligatoire pour tous.', condition: null }
-          ],
-          avertissements: [
-            'Les huiles alimentaires usagées ne se compostent pas\u00a0: ne les versez pas à l\u2019évier.',
-            'Les déchets non alimentaires (verre, métaux, plastiques) ne se compostent pas.'
+            { titre: 'Composter', icone: 'deposer', consigne: '<p>Les déchets alimentaires (épluchures, fanes, restes de repas, produits périmés sans emballage…) font partie des biodéchets et sont naturellement biodégradables.</p><p><strong>À mettre au compost</strong></p><ul><li>Épluchures, fanes, fruits et légumes abîmés.</li><li>Restes de repas, produits périmés, pain, laitages, croûtes de fromage.</li><li>Marc de café, filtres en papier, contenus des sachets de thé et tisanes.</li></ul><p>💡 Peaux dures (agrumes, melon…)\u00a0: coupez-les en morceaux.</p><p><strong>En petites quantités</strong></p><ul><li>Os et restes de viande.</li><li>Arêtes et peaux de poisson, fruits de mer.</li><li>Coquillages et coquilles d\u2019œuf.</li><li>Coques et noyaux de fruits.</li></ul><p>💡 Broyez-les pour faciliter le compostage.</p><p><strong>À ne pas composter</strong></p><ul><li>Huiles alimentaires usagées (ne les versez pas dans l\u2019évier).</li><li>Déchets non alimentaires (verre, métaux, plastiques, tissus, couches-culottes…).</li><li>Lombricomposteur\u00a0: certains aliments sont déconseillés (agrumes, ail…).</li></ul>', condition: null }
           ]
         },
         {
@@ -1916,9 +2008,13 @@
           nom: 'CD, DVD ou cassettes VHS',
           url: 'https://quefairedemesdechets.ademe.fr/categories/cd-dvd-cassettes-vhs/',
           infoTri: 'cd-dvd-vhs.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=95&sc_id=270',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: 'Donnez à une association, une bibliothèque, une médiathèque ou une structure de réemploi. Vous pouvez aussi revendre auprès d\u2019un disquaire, d\u2019un commerce d\u2019achat-vente ou sur un site de seconde main.', condition: 'En bon état' },
-            { titre: 'Déposer', icone: 'deposer', consigne: 'Apportez-les en déchèterie si vous en avez beaucoup. Sinon, jetez-les dans la poubelle des ordures ménagères\u00a0: les boîtiers en plastique aussi, car il n\u2019existe pas de filière nationale de recyclage.', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une association, bibliothèque, médiathèque ou structure de réemploi.</li><li>Revendez auprès d\u2019un disquaire, d\u2019un commerce d\u2019achat-vente ou sur un site de seconde main.</li></ul>', condition: 'En bon état' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Apportez en déchèterie si vous en avez beaucoup.</li><li>Sinon, jetez dans la poubelle des ordures ménagères.</li></ul>', condition: 'Hors d\u2019usage' }
+          ],
+          avertissements: [
+            'Les boîtiers en plastique n\u2019ont pas de filière de recyclage nationale et doivent être jetés avec les ordures ménagères ou déposés en déchèterie. Séparez les pochettes en papier\u00a0: elles peuvent être jetées dans le bac de tri des emballages et papiers.'
           ]
         },
         {
@@ -1926,13 +2022,11 @@
           nom: 'Chaussures',
           url: 'https://quefairedemesdechets.ademe.fr/dechet/chaussures/',
           infoTri: 'chaussures.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=109',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: 'Proposez-les à un proche, déposez-les dans une boutique de seconde main, une association, ou revendez-les. Vous pouvez aussi les déposer dans un conteneur à textiles, dans un sac fermé.', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: 'Faites réparer vos chaussures chez un cordonnier. Le Bonus Réparation peut s\u2019appliquer pour prolonger leur durée de vie.', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: 'Déposez-les dans un conteneur à textiles ou en déchèterie, assemblées par paires dans un sac fermé. Même abîmées, elles seront recyclées.', condition: 'Hors d\u2019usage' }
-          ],
-          avertissements: [
-            'Assemblez toujours les chaussures par paires pour simplifier le tri.'
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Proposez-les à un proche, déposez en boutique de seconde main ou association.</li><li>Déposez dans un conteneur à textiles, dans un sac fermé.</li></ul>', condition: 'En bon état' },
+            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer chez un cordonnier.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a> peut s\u2019appliquer pour prolonger leur durée de vie.</li></ul>', condition: 'Réparable' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Déposez dans un conteneur à textiles ou en déchèterie, dans un sac fermé.</li><li>Assemblez toujours les chaussures par paires pour simplifier le tri.</li><li>Même abîmées, elles seront recyclées.</li></ul>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -1940,10 +2034,11 @@
           nom: 'Marteau',
           url: 'https://quefairedemesdechets.ademe.fr/dechet/marteau/',
           infoTri: 'marteau.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=98',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: 'Proposez votre outil à un proche, donnez-le à une association ou une structure de réemploi. Vous pouvez aussi essayer de le revendre.', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: 'Faites réparer votre outil chez un professionnel.', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: 'Apportez-le en magasin (bac de collecte) ou en déchèterie.', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Proposez à un proche, donnez à une association ou une structure de réemploi.</li><li>Vous pouvez aussi essayer de le revendre.</li></ul>', condition: 'En bon état' },
+            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer votre outil chez un professionnel.</li></ul>', condition: 'Réparable' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Apportez en magasin (bac de collecte) ou en déchèterie.</li></ul>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -1951,11 +2046,10 @@
           nom: 'Seringue avec aiguille',
           url: 'https://quefairedemesdechets.ademe.fr/dechet/seringue-avec-aiguille/',
           infoTri: 'aiguille-medicale.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/product/?sc_id=281',
+          directDisplay: true,
           accordeons: [
-            { titre: 'Déposer en pharmacie', icone: 'deposer', consigne: 'Placez vos seringues et aiguilles usagées dans la boîte jaune à couvercle vert (boîte DASRI), disponible gratuitement en pharmacie. Une fois pleine, rapportez-la en pharmacie pour collecte sécurisée. Les déchets sont incinérés avec valorisation énergétique.', condition: null }
-          ],
-          avertissements: [
-            'Ne jetez jamais de seringues ou d\u2019aiguilles à la poubelle ni dans le bac de tri.'
+            { titre: 'Déposer en pharmacie', icone: 'deposer', consigne: '<ul><li>Placez vos seringues et aiguilles usagées dans la boîte jaune à couvercle vert (boîte DASRI), disponible gratuitement en pharmacie.</li><li>Une fois pleine, rapportez-la en pharmacie pour collecte sécurisée.</li><li>Les déchets sont incinérés avec valorisation énergétique.</li><li>Ne jetez jamais de seringues ou d\u2019aiguilles à la poubelle ni dans le bac de tri.</li></ul>', condition: null }
           ]
         },
         {
@@ -1963,10 +2057,11 @@
           nom: 'Trottinette électrique',
           url: 'https://quefairedemesdechets.ademe.fr/dechet/trottinette-electrique/',
           infoTri: 'trottinette-electrique.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=264',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: 'Proposez votre trottinette à un proche, donnez-la à une association ou une structure de réemploi. Vous pouvez aussi la revendre.', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: 'Faites réparer votre trottinette grâce au Bonus Réparation pour prolonger sa durée de vie et économiser.', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: 'Apportez-la en magasin (bac de collecte ou remise au vendeur) ou en déchèterie. Elle sera démontée, dépolluée et ses matériaux recyclés (filière DEEE).', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Proposez à un proche, donnez à une association ou une structure de réemploi.</li><li>Revendez d\u2019occasion.</li></ul>', condition: 'En bon état' },
+            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer grâce au <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a> pour prolonger sa durée de vie et économiser.</li></ul>', condition: 'Réparable' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Apportez en magasin (bac de collecte ou remise au vendeur) ou en déchèterie.</li><li>Elle sera démontée, dépolluée et ses matériaux recyclés (filière DEEE).</li></ul>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -1974,24 +2069,23 @@
           nom: 'Vêtements',
           url: 'https://quefairedemesdechets.ademe.fr/categories/vetements/',
           infoTri: 'vetements.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/carte-assistant-sauf-pret-et-location/?action_displayed=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=107',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: 'Remettez vos vêtements à une association, une recyclerie ou une structure de réemploi. Vous pouvez aussi les vendre en boutique ou sur une plateforme de seconde main, ou les déposer dans un point de collecte textile.', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: 'Faites réparer vos vêtements chez un couturier ou retoucheur. Le Bonus Réparation peut couvrir jusqu\u2019à 25\u00a0€ de la facture.', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: 'Déposez vos vêtements propres et secs dans un conteneur à textiles sur la voie publique ou en déchèterie. Même abîmés, ils seront recyclés en chiffons ou isolants.', condition: 'Hors d\u2019usage' }
-          ],
-          avertissements: [
-            'Les textiles doivent être propres, secs et dans un sac fermé.',
-            'Les textiles mouillés, souillés ou contaminés chimiquement vont en déchèterie uniquement.'
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Remettez à une association, recyclerie ou structure de réemploi.</li><li>Vendez en boutique ou sur une plateforme de seconde main.</li><li>Déposez dans un point de collecte textile.</li><li>Les textiles doivent être propres, secs et dans un sac fermé.</li></ul>', condition: 'En bon état' },
+            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer chez un couturier ou retoucheur.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0: jusqu\u2019à 25\u00a0\u20ac de la facture.</li></ul>', condition: 'Réparable' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Déposez vos vêtements propres et secs dans un conteneur à textiles ou en déchèterie, dans un sac fermé.</li><li>Même abîmés, ils seront recyclés en chiffons ou isolants.</li><li>Les textiles mouillés, souillés ou contaminés chimiquement vont en déchèterie uniquement.</li></ul>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
           id: 'livres',
           nom: 'Livres',
           url: 'https://quefairedemesdechets.ademe.fr/categories/livres/',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/carte-assistant-sauf-pret-et-location/?action_displayed=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=96&sc_id=277',
           infoTri: ['livres-1.svg', 'livres-2.svg'],
+          infoTriSmall: true,
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: 'Donnez à une association, une structure de réemploi ou déposez dans une boîte à livres. Vous pouvez aussi revendre en librairie de seconde main, sur une plateforme entre particuliers ou via un service de reprise en ligne.', condition: 'En bon état' },
-            { titre: 'Déposer au tri', icone: 'deposer', consigne: 'Déposez vos livres abîmés avec les papiers et emballages, dans le bac, le sac ou le conteneur de tri.', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une association, structure de réemploi ou déposez dans une boîte à livres.</li><li>Revendez en librairie de seconde main, sur une plateforme entre particuliers ou via un service de reprise en ligne.</li></ul>', condition: 'En bon état' },
+            { titre: 'Déposer au tri', icone: 'deposer', consigne: '<ul><li>Déposez vos livres abîmés avec les papiers et emballages, dans le bac, le sac ou le conteneur de tri.</li></ul>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -1999,9 +2093,10 @@
           nom: 'Poêles et casseroles',
           url: 'https://quefairedemesdechets.ademe.fr/categories/poeles-et-casseroles/',
           infoTri: 'poeles-casseroles.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/carte-assistant-sauf-pret-et-location/?action_displayed=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=350',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: 'Donnez à une association ou une structure de réemploi. Vous pouvez aussi revendre d\u2019occasion, à l\u2019unité ou en lot.', condition: 'En bon état' },
-            { titre: 'Déposer', icone: 'deposer', consigne: 'Apportez dans un point de collecte (bureaux de Poste, déchèteries, enseignes spécialisées). En dernier recours uniquement, jetez aux ordures ménagères. Le recyclage de l\u2019aluminium économise 95\u00a0% d\u2019énergie par rapport à sa production.', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une association ou structure de réemploi.</li><li>Revendez d\u2019occasion, à l\u2019unité ou en lot.</li></ul>', condition: 'En bon état' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Apportez dans un point de collecte (bureaux de Poste, déchèteries, enseignes spécialisées).</li><li>En dernier recours, jetez aux ordures ménagères.</li><li>Le recyclage de l\u2019aluminium économise 95\u00a0% d\u2019énergie par rapport à sa production.</li></ul>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -2009,12 +2104,10 @@
           nom: 'Sapin de Noël',
           url: 'https://quefairedemesdechets.ademe.fr/categories/biodechets/sapin-de-noel/',
           infoTri: 'sapin-de-noel.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=268',
           accordeons: [
-            { titre: 'Sapin naturel', icone: 'deposer', consigne: 'Retirez toutes les décorations, guirlandes et boules. Déposez-le dans un point de collecte dédié (collectes organisées après les fêtes) ou en déchèterie. Si vous avez un jardin, broyez-le pour en faire du compost ou du paillage. S\u2019il est en pot, replantez-le\u00a0!', condition: null },
-            { titre: 'Sapin artificiel', icone: 'donner', consigne: 'En bon état\u00a0: conservez-le pour l\u2019année suivante, revendez-le ou donnez-le. Hors d\u2019usage\u00a0: déposez-le en déchèterie.', condition: null }
-          ],
-          avertissements: [
-            'Les sapins floqués ou colorés ne sont pas recyclables\u00a0: à déposer aux ordures ménagères ou en déchèterie.'
+            { titre: 'Sapin naturel', icone: 'deposer', consigne: '<ul><li>Retirez toutes les décorations, guirlandes, boules et accessoires.</li><li>Déposez dans un point de collecte dédié ou en déchèterie (collectes organisées après les fêtes).</li><li>Broyez pour composter ou pailler autour des végétaux, si vous avez un jardin.</li><li>Replantez-le s\u2019il est en pot.</li></ul><p>⚠️ Les sapins floqués, colorés ou bombés de neige artificielle sont recouverts de produits chimiques et ne peuvent pas être recyclés\u00a0: déposez-les aux ordures ménagères ou en déchèterie (benne des encombrants).</p><p>🚫 Il est interdit de brûler les déchets verts chez soi.</p>', condition: null },
+            { titre: 'Sapin artificiel', icone: 'donner', consigne: '<ul><li>En bon état\u00a0: conservez-le, revendez-le ou donnez-le.</li><li>Hors d\u2019usage\u00a0: déposez-le en déchèterie.</li></ul>', condition: null }
           ]
         },
         {
@@ -2022,11 +2115,10 @@
           nom: 'Brique alimentaire (jus, lait…)',
           url: 'https://quefairedemesdechets.ademe.fr/dechet/brique-alimentaire-jus-lait/',
           infoTri: 'brique-alimentaire.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/product/?sc_id=276',
+          directDisplay: true,
           accordeons: [
-            { titre: 'Déposer au tri', icone: 'trier', consigne: 'Déposez la brique vide (inutile de la rincer) dans le bac, le sac ou le conteneur de collecte séparée des papiers et emballages. Le carton sera recyclé en essuie-tout ou boîtes, le mélange plastique-aluminium servira au mobilier urbain ou à la valorisation énergétique.', condition: null }
-          ],
-          avertissements: [
-            'Privilégiez les grands formats ou le vrac pour réduire les emballages.'
+            { titre: 'Déposer au tri', icone: 'trier', consigne: '<ul><li>Déposez la brique vide (inutile de la rincer) dans le bac, le sac ou le conteneur de tri.</li><li>Le carton sera recyclé en essuie-tout ou boîtes.</li><li>Le mélange plastique-aluminium servira au mobilier urbain ou à la valorisation énergétique.</li><li>Privilégiez les grands formats ou le vrac pour réduire les emballages.</li></ul>', condition: null }
           ]
         },
         {
@@ -2034,10 +2126,11 @@
           nom: 'Gros électroménager',
           url: 'https://quefairedemesdechets.ademe.fr/categories/gros-electromenager/',
           infoTri: 'gros-electromenager.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=87',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: 'Donnez votre appareil à une association ou une structure de réemploi. L\u2019enlèvement à domicile est parfois proposé. Vous pouvez aussi le revendre en dépôt-vente ou sur une plateforme de seconde main.', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: 'Faites réparer pour utiliser plus longtemps et économiser. Le Bonus Réparation peut couvrir jusqu\u2019à 50\u00a0€ de la facture. Pensez aussi à l\u2019entretien régulier\u00a0: 50 à 70\u00a0% des pannes sont causées par un manque d\u2019entretien.', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: 'Déposez en magasin (bac de collecte, remise au vendeur ou au livreur lors d\u2019un remplacement) ou en déchèterie dans la benne dédiée aux équipements électriques et électroniques (DEEE).', condition: 'Hors d\u2019usage' }
+            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer pour utiliser plus longtemps et économiser.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0: jusqu\u2019à 50\u00a0\u20ac de la facture.</li><li>Pensez à l\u2019entretien régulier\u00a0: 50 à 70\u00a0% des pannes sont causées par un manque d\u2019entretien.</li></ul>', condition: 'Réparable' },
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une association ou structure de réemploi (enlèvement à domicile parfois proposé).</li><li>Revendez en dépôt-vente ou sur une plateforme de seconde main.</li></ul>', condition: 'En bon état' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Déposez en magasin (bac de collecte, remise au vendeur ou au livreur lors d\u2019un remplacement).</li><li>Apportez en déchèterie dans la benne DEEE.</li></ul>', condition: 'Hors d\u2019usage' }
           ]
         }
       ]
@@ -2557,7 +2650,7 @@
           const img = document.createElement('img');
           img.src = 'src/assets/info-tri/' + src;
           img.alt = 'Info-tri pour ' + appState.selectedFiche.nom;
-          img.className = 'fiche-infotri__img';
+          img.className = 'fiche-infotri__img' + (consigneFiche.infoTriSmall ? ' fiche-infotri__img--small' : '');
           img.loading = 'lazy';
           infoTriContainer.appendChild(img);
         });
@@ -2588,9 +2681,6 @@
         });
 
         consigneFiche.accordeons.forEach((acc, index) => {
-          const details = document.createElement('details');
-          details.className = 'fiche-accordion';
-
           const nbSolutions = lieuxParAccordeon[index];
           const subtitleHtml = `<span class="fiche-accordion__subtitle">${formatNumber(nbSolutions)} solutions identifiées</span>`;
 
@@ -2598,27 +2688,43 @@
             ? `<span class="fiche-accordion__condition">${acc.condition}</span>`
             : '';
 
-          details.innerHTML = `
-            <summary class="fiche-accordion__header" aria-expanded="false">
-              <div class="fiche-accordion__header-left">
-                <span class="fiche-accordion__title">${acc.titre}</span>
-                ${subtitleHtml}
-              </div>
-              <span class="fiche-accordion__icon" aria-hidden="true">${chevronSvg}</span>
-            </summary>
-            <div class="fiche-accordion__content">
+          if (consigneFiche.directDisplay) {
+            // Affichage direct sans accordéon (seringue, brique alimentaire…)
+            const section = document.createElement('div');
+            section.className = 'fiche-direct-section';
+            section.innerHTML = `
+              <span class="fiche-accordion__title">${acc.titre}</span>
+              ${subtitleHtml}
               ${conditionBadge}
-              <p class="fiche-accordion__consigne">${acc.consigne}</p>
-            </div>
-          `;
+              <div class="fiche-accordion__consigne">${acc.consigne}</div>
+            `;
+            accordeonsContainer.appendChild(section);
+          } else {
+            const details = document.createElement('details');
+            details.className = 'fiche-accordion';
 
-          // Toggle aria-expanded
-          details.addEventListener('toggle', () => {
-            const summary = details.querySelector('.fiche-accordion__header');
-            summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
-          });
+            details.innerHTML = `
+              <summary class="fiche-accordion__header" aria-expanded="false">
+                <div class="fiche-accordion__header-left">
+                  <span class="fiche-accordion__title">${acc.titre}</span>
+                  ${subtitleHtml}
+                </div>
+                <span class="fiche-accordion__icon" aria-hidden="true">${chevronSvg}</span>
+              </summary>
+              <div class="fiche-accordion__content">
+                ${conditionBadge}
+                <div class="fiche-accordion__consigne">${acc.consigne}</div>
+              </div>
+            `;
 
-          accordeonsContainer.appendChild(details);
+            // Toggle aria-expanded
+            details.addEventListener('toggle', () => {
+              const summary = details.querySelector('.fiche-accordion__header');
+              summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
+            });
+
+            accordeonsContainer.appendChild(details);
+          }
         });
       }
 
@@ -2641,48 +2747,86 @@
         warningsSection.style.display = 'none';
       }
 
-      // --- Carte LVAO ---
+      // --- Card alerte DSFR (médicaments, etc.) ---
+      const existingCardAlert = document.querySelector('.fiche-card-alert');
+      if (existingCardAlert) existingCardAlert.remove();
+
+      if (consigneFiche && consigneFiche.cardAlert) {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'fiche-card-alert';
+        cardDiv.innerHTML = '<p class="fiche-card-alert__title">Attention</p><div class="fiche-card-alert__content">' + consigneFiche.cardAlert + '</div>';
+        warningsSection.insertAdjacentElement('afterend', cardDiv);
+      }
+
+      // --- Carte ---
       const mapContainer = document.getElementById('fiche-map-container');
       mapContainer.innerHTML = '';
 
-      // Déterminer les actions LVAO pertinentes selon les accordéons de la fiche
-      const iconeToActions = {
-        'donner': ['donner', 'echanger', 'revendre', 'acheter'],
-        'reparer': ['reparer'],
-        'louer': ['preter', 'emprunter', 'louer', 'mettreenlocation'],
-        'deposer': ['donner', 'echanger', 'revendre', 'acheter'],
-        'trier': ['donner', 'echanger', 'revendre', 'acheter']
-      };
+      if (consigneFiche && consigneFiche.carteIframeSrc) {
+        // Carte spécifique QFDMO (iframe préfiltrée par objet)
+        let carteSrc = consigneFiche.carteIframeSrc;
 
-      const lvaoActions = new Set();
-      if (consigneFiche && consigneFiche.accordeons) {
-        consigneFiche.accordeons.forEach(acc => {
-          const actions = iconeToActions[acc.icone];
-          if (actions) actions.forEach(a => lvaoActions.add(a));
-        });
-      }
+        // Pré-remplir l'adresse saisie à l'étape 2 dans la carte
+        if (appState.selectedAddress && appState.selectedAddress.lat) {
+          // Extraire le préfixe du type de carte depuis l'URL (ex: "tous-les-gestes", "product", etc.)
+          const carteMatch = carteSrc.match(/\/carte\/([^/?]+)/);
+          if (carteMatch) {
+            const prefix = carteMatch[1];
+            const separator = carteSrc.includes('?') ? '&' : '?';
+            carteSrc += separator
+              + encodeURIComponent(prefix + '_map-adresse') + '=' + encodeURIComponent(appState.selectedAddress.label)
+              + '&' + encodeURIComponent(prefix + '_map-latitude') + '=' + encodeURIComponent(appState.selectedAddress.lat)
+              + '&' + encodeURIComponent(prefix + '_map-longitude') + '=' + encodeURIComponent(appState.selectedAddress.lon);
+          }
+        }
 
-      // Toutes les actions par défaut si aucune correspondance spécifique
-      const allActions = 'preter|emprunter|louer|mettreenlocation|reparer|donner|echanger|acheter|revendre';
-      const actionList = lvaoActions.size > 0 ? Array.from(lvaoActions).join('|') : allActions;
-
-      const mapScript = document.createElement('script');
-      mapScript.src = 'https://lvao.ademe.fr/static/carte.js';
-      mapScript.dataset.action_list = actionList;
-
-      // Pré-centrer la carte sur l'adresse saisie à l'étape 2
-      if (appState.selectedAddress && appState.selectedAddress.lat && appState.selectedAddress.lon) {
-        const lat = appState.selectedAddress.lat;
-        const lon = appState.selectedAddress.lon;
-        const offset = 0.045; // ~5km autour du point
-        const boundingBox = {
-          southWest: { lat: lat - offset, lng: lon - offset },
-          northEast: { lat: lat + offset, lng: lon + offset }
+        const mapIframe = document.createElement('iframe');
+        mapIframe.src = carteSrc;
+        mapIframe.title = 'Carte des solutions pour ' + appState.selectedFiche.nom;
+        mapIframe.style.width = '100%';
+        mapIframe.style.height = '600px';
+        mapIframe.style.border = 'none';
+        mapIframe.loading = 'lazy';
+        mapIframe.setAttribute('allow', 'geolocation');
+        mapContainer.appendChild(mapIframe);
+      } else {
+        // Fallback : carte LVAO générique
+        const iconeToActions = {
+          'donner': ['donner', 'echanger', 'revendre', 'acheter'],
+          'reparer': ['reparer'],
+          'louer': ['preter', 'emprunter', 'louer', 'mettreenlocation'],
+          'deposer': ['donner', 'echanger', 'revendre', 'acheter'],
+          'trier': ['donner', 'echanger', 'revendre', 'acheter']
         };
-        mapScript.dataset.bounding_box = JSON.stringify(boundingBox);
-      }
 
-      mapContainer.appendChild(mapScript);
+        const lvaoActions = new Set();
+        if (consigneFiche && consigneFiche.accordeons) {
+          consigneFiche.accordeons.forEach(acc => {
+            const actions = iconeToActions[acc.icone];
+            if (actions) actions.forEach(a => lvaoActions.add(a));
+          });
+        }
+
+        const allActions = 'preter|emprunter|louer|mettreenlocation|reparer|donner|echanger|acheter|revendre';
+        const actionList = lvaoActions.size > 0 ? Array.from(lvaoActions).join('|') : allActions;
+
+        const mapScript = document.createElement('script');
+        mapScript.src = 'https://lvao.ademe.fr/static/carte.js';
+        mapScript.dataset.action_list = actionList;
+
+        if (appState.selectedAddress && appState.selectedAddress.lat && appState.selectedAddress.lon) {
+          const lat = appState.selectedAddress.lat;
+          const lon = appState.selectedAddress.lon;
+          const offset = 0.045;
+          const boundingBox = {
+            southWest: { lat: lat - offset, lng: lon - offset },
+            northEast: { lat: lat + offset, lng: lon + offset }
+          };
+          mapScript.dataset.bounding_box = JSON.stringify(boundingBox);
+        }
+
+        mapContainer.appendChild(mapScript);
+      }
 
       // --- Solutions à domicile / en ligne ---
       const ficheUrl = consigneFiche ? consigneFiche.url : '#';
@@ -2710,6 +2854,30 @@
         summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
       });
     });
+
+    // =============================================
+    // Auto-resize iframe : envoie la hauteur au parent
+    // =============================================
+    (function() {
+      if (window.self === window.top) return; // Pas dans une iframe
+
+      // Désactiver le scroll interne
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+
+      function sendHeight() {
+        var height = document.documentElement.scrollHeight;
+        window.parent.postMessage({ type: 'assistant-tri-resize', height: height }, '*');
+      }
+
+      // Observer les changements de taille du contenu
+      var ro = new ResizeObserver(function() { sendHeight(); });
+      ro.observe(document.body);
+
+      // Envoyer aussi au chargement et après les transitions
+      sendHeight();
+      window.addEventListener('load', sendHeight);
+    })();
   </script>
 </body>
 </html>
