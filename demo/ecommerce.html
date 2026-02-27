@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recyclez vos appareils - ÉlectroDépôt</title>
+  <title>Recyclez vos appareils - MaisonElec</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: Arial, Helvetica, sans-serif; color: #333; background: #f5f5f5; }
@@ -30,7 +30,7 @@
     .iframe-wrapper { background: #fff; border-radius: 8px; padding: 32px; margin-bottom: 24px; }
     .iframe-wrapper h2 { font-size: 1.2rem; color: #002878; margin-bottom: 8px; }
     .iframe-wrapper p { font-size: 0.875rem; color: #666; margin-bottom: 20px; }
-    .iframe-wrapper iframe { width: 100%; min-height: 700px; border: none; display: block; }
+    .iframe-wrapper iframe { width: 100%; border: none; display: block; }
 
     /* Footer */
     .footer { background: #002878; color: #fff; padding: 24px; text-align: center; font-size: 0.8rem; margin-top: 48px; }
@@ -40,7 +40,7 @@
 <body>
 
   <header class="header">
-    <div class="header__logo">ÉLECTRO<span>DÉPÔT</span></div>
+    <div class="header__logo">MAISON<span>ELEC</span></div>
     <nav class="header__nav">
       <a href="#">Gros électroménager</a>
       <a href="#">Petit électroménager</a>
@@ -58,20 +58,27 @@
     <div class="hero">
       <h1>Recyclez vos appareils usagés</h1>
       <p>
-        Chez ÉlectroDépôt, nous nous engageons pour le recyclage et le réemploi de vos équipements électriques et électroniques. Que votre appareil soit en panne, obsolète ou tout simplement inutilisé, des solutions existent pour lui donner une seconde vie ou le recycler correctement.
+        Chez MaisonElec, nous nous engageons pour le recyclage et le réemploi de vos équipements électriques et électroniques. Que votre appareil soit en panne, obsolète ou tout simplement inutilisé, des solutions existent pour lui donner une seconde vie ou le recycler correctement.
       </p>
     </div>
 
     <div class="iframe-wrapper">
       <h2>Trouvez la bonne solution pour votre appareil</h2>
       <p>Utilisez notre assistant pour savoir quoi faire de votre objet ou déchet et trouver les solutions près de chez vous.</p>
-      <iframe src="../index.html" title="Assistant au tri, au réemploi et à la réparation"></iframe>
+      <iframe id="assistant-tri" src="../index.html" title="Assistant au tri, au réemploi et à la réparation"></iframe>
     </div>
   </main>
 
   <footer class="footer">
-    <p>Site fictif créé à des fins de démonstration — <a href="#">ÉlectroDépôt</a> © 2026</p>
+    <p>Site fictif créé à des fins de démonstration — <a href="#">MaisonElec</a> © 2026</p>
   </footer>
 
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'assistant-tri-resize') {
+        document.getElementById('assistant-tri').style.height = e.data.height + 'px';
+      }
+    });
+  </script>
 </body>
 </html>

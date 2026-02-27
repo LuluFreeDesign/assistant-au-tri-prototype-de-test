@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trier, recycler : où s'adresser ? - Métropole de Tours</title>
+  <title>Trier, recycler : où s'adresser ? - Riveclair Métropole</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #1a1a1a; background: #fff; }
@@ -36,7 +36,7 @@
     .iframe-section { margin-top: 32px; }
     .iframe-section h2 { font-size: 1.2rem; color: #1b3a5c; margin-bottom: 8px; }
     .iframe-section p { font-size: 0.875rem; color: #666; margin-bottom: 20px; }
-    .iframe-section iframe { width: 100%; min-height: 700px; border: none; display: block; }
+    .iframe-section iframe { width: 100%; border: none; display: block; }
 
     /* Footer */
     .footer { background: #1b3a5c; color: #a8c4e0; padding: 24px 32px; font-size: 0.8rem; margin-top: 48px; text-align: center; }
@@ -52,8 +52,8 @@
   <header class="header">
     <div class="header__top">
       <div class="header__logo">
-        Tours Métropole
-        <small>Val de Loire</small>
+        Riveclair Métropole
+        <small>Val de Brenne</small>
       </div>
     </div>
     <nav class="header__nav">
@@ -73,7 +73,7 @@
   <main class="content">
     <h1>Trier, recycler : où s'adresser ?</h1>
     <p class="intro">
-      Tours Métropole Val de Loire met à votre disposition de nombreuses solutions pour trier, recycler et donner une seconde vie à vos objets. Consultez ci-dessous les principaux dispositifs disponibles sur le territoire.
+      Riveclair Métropole Val de Brenne met à votre disposition de nombreuses solutions pour trier, recycler et donner une seconde vie à vos objets. Consultez ci-dessous les principaux dispositifs disponibles sur le territoire.
     </p>
 
     <div class="info-grid">
@@ -83,7 +83,7 @@
       </div>
       <div class="info-card">
         <h3>Déchèteries</h3>
-        <p>8 déchèteries sont accessibles aux habitants de la métropole. Consultez les horaires et les déchets acceptés.</p>
+        <p>6 déchèteries sont accessibles aux habitants de la métropole. Consultez les horaires et les déchets acceptés.</p>
       </div>
       <div class="info-card">
         <h3>Compostage</h3>
@@ -98,13 +98,20 @@
     <div class="iframe-section">
       <h2>Que faire de vos objets et déchets ?</h2>
       <p>Trouvez les consignes de tri et les solutions de réemploi, réparation ou recyclage adaptées à votre objet.</p>
-      <iframe src="../index.html" title="Assistant au tri, au réemploi et à la réparation"></iframe>
+      <iframe id="assistant-tri" src="../index.html" title="Assistant au tri, au réemploi et à la réparation"></iframe>
     </div>
   </main>
 
   <footer class="footer">
-    <p>Site fictif créé à des fins de démonstration — Tours Métropole Val de Loire © 2026</p>
+    <p>Site fictif créé à des fins de démonstration — Riveclair Métropole Val de Brenne © 2026</p>
   </footer>
 
+  <script>
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'assistant-tri-resize') {
+        document.getElementById('assistant-tri').style.height = e.data.height + 'px';
+      }
+    });
+  </script>
 </body>
 </html>
