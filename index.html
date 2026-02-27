@@ -940,11 +940,21 @@
       padding: 0 var(--spacing-4v);
     }
 
+    .fiche-map__container {
+      overflow: hidden;
+    }
+
     .fiche-map__container iframe,
     .fiche-map__container > div {
-      width: 100%;
       border: none;
       display: block;
+    }
+
+    .fiche-map__container iframe {
+      /* Déborder l'iframe juste assez pour masquer la bordure grise arrondie interne */
+      width: calc(100% + 6px);
+      height: 706px;
+      margin: -3px;
     }
 
     /* Solutions cards */
@@ -957,10 +967,10 @@
 
     .fiche-solution-card {
       background-color: var(--background-default);
-      border: none;
-      border-radius: var(--radius-md);
+      border: 1px solid #DDDDDD;
+      border-radius: 0;
       padding: var(--spacing-4v);
-      box-shadow: 0 2px 6px 0 rgba(0, 0, 18, 0.16);
+      box-shadow: none;
     }
 
     .fiche-solution-card__title {
@@ -2752,10 +2762,9 @@
         const mapIframe = document.createElement('iframe');
         mapIframe.src = carteSrc;
         mapIframe.title = 'Carte des solutions pour ' + appState.selectedFiche.nom;
-        mapIframe.style.width = '100%';
-        mapIframe.style.height = '600px';
         mapIframe.style.border = 'none';
         mapIframe.loading = 'lazy';
+        mapIframe.scrolling = 'no';
         mapIframe.setAttribute('allow', 'geolocation');
         mapContainer.appendChild(mapIframe);
       } else {

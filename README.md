@@ -30,7 +30,7 @@ L'usager saisit une adresse ou une commune grâce à l'autocomplétion de l'[API
 La fiche affiche :
 - **L'info-tri** : un visuel synthétique des consignes de tri pour l'objet
 - **Les recommandations** : des accordéons détaillant les actions possibles (donner, réparer, déposer…) avec le nombre de solutions estimées à proximité
-- **La carte des lieux** : une carte interactive des points de collecte, réemploi et réparation à proximité (widget [LVAO](https://lvao.ademe.fr))
+- **La carte des lieux** : une carte interactive des points de collecte, réemploi et réparation à proximité, filtrée par catégorie d'objet (carte QFDMO avec pré-remplissage de l'adresse saisie)
 - **Les solutions complémentaires** : liens vers les services à domicile et solutions en ligne disponibles sur le site Que Faire
 
 ## Stack technique
@@ -41,7 +41,7 @@ La fiche affiche :
 | **Design system** | [DSFR](https://www.systeme-de-design.gouv.fr) (Système de Design de l'État) |
 | **Typographie** | Marianne (police officielle de l'État) |
 | **API adresse** | [api-adresse.data.gouv.fr](https://adresse.data.gouv.fr) |
-| **Carte** | Widget [LVAO / Longue vie aux objets](https://lvao.ademe.fr) |
+| **Carte** | Iframes [Que faire de mes objets et déchets ?](https://quefairedemesdechets.ademe.fr) (cartes QFDMO spécifiques par objet) |
 | **Données** | Consignes ADEME + comptages issus de [data.gouv.fr](https://www.data.gouv.fr) (375 249 acteurs) |
 
 **Choix d'architecture :** tout est contenu dans un seul fichier `index.html` (données incluses) pour garantir le fonctionnement **sans serveur** — le fichier peut être ouvert directement dans un navigateur.
@@ -51,6 +51,10 @@ La fiche affiche :
 ```
 ├── index.html                    # Application complète (HTML + CSS + JS + données)
 ├── README.md
+├── demo/
+│   ├── collectivite.html         # Démo d'intégration : site d'une collectivité
+│   ├── ecommerce.html            # Démo d'intégration : site e-commerce
+│   └── media.html                # Démo d'intégration : site média
 ├── scripts/
 │   └── generate-counts.py        # Script de régénération des comptages depuis le CSV ADEME
 └── src/
@@ -83,15 +87,27 @@ python3 -m http.server 8090
 ```
 
 ### Intégration en iframe
+
+Le widget intègre un mécanisme d'auto-resize : il envoie sa hauteur au parent via `postMessage`, supprimant le besoin de définir une hauteur fixe.
+
 ```html
 <iframe
+  id="assistant-tri"
   src="https://votre-hebergement.fr/assistant-tri/index.html"
   width="100%"
-  height="800"
-  frameborder="0"
+  style="height: 800px; border: none;"
   title="Assistant au tri, au réemploi et à la réparation"
 ></iframe>
+<script>
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'assistant-tri-resize') {
+      document.getElementById('assistant-tri').style.height = e.data.height + 'px';
+    }
+  });
+</script>
 ```
+
+> Trois pages de démonstration sont disponibles dans le dossier `demo/` (collectivité, e-commerce, média) pour visualiser l'intégration dans différents contextes.
 
 ## Données
 
@@ -110,7 +126,7 @@ Petit électroménager · Médicaments · Meubles · Déchets alimentaires · CD
 ## Limites du prototype
 
 - **Les comptages locaux sont estimés** : le nombre de solutions affichées à proximité est une approximation proportionnelle à partir des données nationales, pas un calcul géographique réel.
-- **La carte est générique** : le widget LVAO affiché est le même pour toutes les fiches, sans filtrage par catégorie d'objet.
+- **La carte est filtrée mais embarquée** : chaque fiche affiche une carte QFDMO spécifique à la catégorie, mais le contenu reste dans une iframe tierce.
 - **Les solutions à domicile et en ligne** renvoient vers le site Que Faire : seuls les lieux sont consultables dans le widget.
 - **15 catégories** : le site Que Faire couvre plusieurs centaines de fiches ; ce prototype en couvre 15 représentatives.
 
