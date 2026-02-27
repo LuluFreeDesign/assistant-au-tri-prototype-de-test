@@ -463,7 +463,9 @@
     }
 
     .fr-accordion {
+      position: relative;
       border: none;
+      box-shadow: inset 0 1px 0 0 var(--border-default), 0 1px 0 0 var(--border-default);
     }
 
     .fr-accordion__title {
@@ -474,31 +476,36 @@
     }
 
     .fr-accordion__btn {
-      display: flex;
+      display: inline-flex;
+      flex-direction: row;
       align-items: center;
-      justify-content: space-between;
       width: 100%;
-      background-color: var(--background-action-low-blue);
+      min-height: 3rem;
+      background-color: transparent;
       border: none;
-      padding: var(--spacing-3v) var(--spacing-4v);
+      padding: 0.75rem 1rem;
       cursor: pointer;
       text-align: left;
       font-family: 'Marianne', arial, sans-serif;
       font-size: 1rem;
-      font-weight: 700;
+      font-weight: 500;
       color: var(--blue-france);
-      line-height: 1.5;
+      line-height: 1.5rem;
       transition: background-color 0.2s ease;
+    }
+
+    .fr-accordion__btn[aria-expanded="true"] {
+      background-color: var(--background-action-low-blue);
     }
 
     .fr-accordion__btn::after {
       content: '';
       display: inline-block;
-      flex-shrink: 0;
+      flex: 0 0 auto;
       width: 1rem;
       height: 1rem;
-      margin-left: var(--spacing-4v);
-      background-color: var(--blue-france);
+      margin-left: auto;
+      background-color: currentColor;
       -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
       mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
       -webkit-mask-size: contain;
@@ -513,6 +520,10 @@
     }
 
     .fr-accordion__btn:hover {
+      background-color: var(--background-default-grey-hover, #f6f6f6);
+    }
+
+    .fr-accordion__btn[aria-expanded="true"]:hover {
       background-color: var(--background-action-low-blue-hover, #EBEBFF);
     }
 
@@ -525,12 +536,12 @@
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.3s ease, padding 0.3s ease;
-      padding: 0 var(--spacing-4v);
+      padding: 0 1rem;
     }
 
     .fr-collapse--expanded {
       max-height: 2000px;
-      padding: var(--spacing-4v);
+      padding: 1rem 1rem 1.5rem;
     }
 
     .fr-collapse__text {
@@ -846,7 +857,6 @@
       padding: var(--spacing-2v) var(--spacing-4v) var(--spacing-2v);
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-2v);
     }
 
     .fiche-accordion__header-left {
@@ -2828,22 +2838,31 @@
     (function() {
       if (window.self === window.top) return; // Pas dans une iframe
 
-      // Désactiver le scroll interne
-      document.documentElement.style.overflow = 'hidden';
+      // Désactiver le scroll interne (uniquement sur body pour pouvoir mesurer la hauteur via documentElement)
       document.body.style.overflow = 'hidden';
 
       function sendHeight() {
-        var height = document.documentElement.scrollHeight;
+        // Mesurer la hauteur réelle du contenu en prenant le max de toutes les sources
+        var height = Math.max(
+          document.body.scrollHeight,
+          document.body.offsetHeight,
+          document.documentElement.scrollHeight,
+          document.documentElement.offsetHeight
+        );
         window.parent.postMessage({ type: 'assistant-tri-resize', height: height }, '*');
       }
 
       // Observer les changements de taille du contenu
       var ro = new ResizeObserver(function() { sendHeight(); });
       ro.observe(document.body);
+      ro.observe(document.documentElement);
 
-      // Envoyer aussi au chargement et après les transitions
+      // Envoyer au chargement et régulièrement au début (transitions CSS, chargement async)
       sendHeight();
       window.addEventListener('load', sendHeight);
+      // Re-envoyer après un délai pour capter les changements tardifs (fonts, images)
+      setTimeout(sendHeight, 500);
+      setTimeout(sendHeight, 1500);
     })();
   </script>
 </body>
