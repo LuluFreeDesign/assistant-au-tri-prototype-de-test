@@ -278,6 +278,60 @@
       flex-shrink: 0;
     }
 
+    /* Message aucun résultat (prototype) */
+    .search-noresult {
+      padding: var(--spacing-4v);
+      list-style: none;
+    }
+
+    .search-noresult__text {
+      font-size: 0.875rem;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-2v);
+      line-height: 1.5;
+    }
+
+    .search-noresult__hint {
+      font-size: 0.8125rem;
+      color: var(--text-mention-grey);
+      line-height: 1.8;
+    }
+
+    /* Tag DSFR sm cliquable */
+    .fr-tag {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+      min-height: 2rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      background-color: var(--background-action-low-blue-france, #E3E3FD);
+      color: var(--text-action-high-blue-france, #000091);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      text-decoration: none;
+      margin: 0.15rem 0;
+    }
+
+    .fr-tag--sm {
+      font-size: 0.75rem;
+      line-height: 1.25rem;
+      min-height: 1.5rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: 0.75rem;
+    }
+
+    .fr-tag:hover {
+      background-color: var(--background-action-low-blue-france-hover, #C1C1F7);
+    }
+
+    .fr-tag:active {
+      background-color: var(--background-action-low-blue-france-active, #ADADF7);
+    }
+
     /* Section Catégories */
     .search-categories {
       padding-top: var(--spacing-2v);
@@ -456,79 +510,95 @@
     }
 
     /* ============================================
-       Section Accordéon
+       Section Accordéon (style DSFR fr-accordion)
        ============================================ */
     .accordion-section {
       padding: var(--spacing-6v) var(--spacing-4v);
     }
 
-    .accordion {
+    .fr-accordion {
+      position: relative;
       border: none;
+      box-shadow: inset 0 1px 0 0 var(--border-default), 0 1px 0 0 var(--border-default);
     }
 
-    .accordion__header {
-      display: flex;
+    .fr-accordion__title {
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .fr-accordion__btn {
+      display: inline-flex;
+      flex-direction: row;
       align-items: center;
-      justify-content: space-between;
       width: 100%;
-      background-color: var(--background-action-low-blue);
+      min-height: 3rem;
+      background-color: transparent;
       border: none;
-      padding: var(--spacing-4v);
+      padding: 0.75rem 1rem;
       cursor: pointer;
       text-align: left;
       font-family: 'Marianne', arial, sans-serif;
-      border-radius: var(--radius-sm);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--blue-france);
+      line-height: 1.5rem;
       transition: background-color 0.2s ease;
     }
 
-    .accordion__header:hover {
-      background-color: #EBEBFF;
+    .fr-accordion__btn[aria-expanded="true"] {
+      background-color: var(--background-action-low-blue);
     }
 
-    .accordion__header:focus-visible {
+    .fr-accordion__btn::after {
+      content: '';
+      display: inline-block;
+      flex: 0 0 auto;
+      width: 1rem;
+      height: 1rem;
+      margin-left: auto;
+      background-color: currentColor;
+      -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+      -webkit-mask-size: contain;
+      mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      transition: transform 0.3s ease;
+    }
+
+    .fr-accordion__btn[aria-expanded="true"]::after {
+      transform: rotate(180deg);
+    }
+
+    .fr-accordion__btn:hover {
+      background-color: var(--background-default-grey-hover, #f6f6f6);
+    }
+
+    .fr-accordion__btn[aria-expanded="true"]:hover {
+      background-color: var(--background-action-low-blue-hover, #EBEBFF);
+    }
+
+    .fr-accordion__btn:focus-visible {
       outline: 2px solid var(--border-active-blue);
       outline-offset: 2px;
     }
 
-    .accordion__title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--blue-france);
-      line-height: 1.4;
-      padding-right: var(--spacing-4v);
+    .fr-collapse {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 1rem;
     }
 
-    .accordion__icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: var(--blue-france);
-      transition: transform 0.3s ease;
+    .fr-collapse--expanded {
+      max-height: 2000px;
+      padding: 1rem 1rem 1.5rem;
     }
 
-    .accordion__icon svg {
-      width: 1.25rem;
-      height: 1.25rem;
-    }
-
-    .accordion[open] .accordion__icon {
-      transform: rotate(180deg);
-    }
-
-    .accordion[open] .accordion__header {
-      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
-    }
-
-    .accordion__content {
-      padding: var(--spacing-4v);
-      background-color: var(--background-default);
-      border: 1px solid var(--border-default);
-      border-top: none;
-      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-    }
-
-    .accordion__text {
+    .fr-collapse__text {
       font-size: 0.875rem;
       line-height: 1.6;
       color: var(--text-default);
@@ -813,7 +883,7 @@
 
     /* Info-tri */
     .fiche-infotri {
-      padding: var(--spacing-6v) var(--spacing-4v);
+      padding: var(--spacing-4v) var(--spacing-4v) var(--spacing-2v);
       background-color: var(--background-default);
     }
 
@@ -821,7 +891,7 @@
       font-size: 0.9375rem;
       font-weight: 700;
       color: var(--text-default);
-      margin-bottom: var(--spacing-4v);
+      margin-bottom: var(--spacing-3v);
     }
 
     .fiche-infotri__images {
@@ -836,38 +906,18 @@
       height: auto;
     }
 
-    /* Accordéons fiche — style DSFR */
+    /* Accordéons fiche — même style DSFR que l'étape 1 */
     .fiche-accordeons {
-      padding: var(--spacing-4v) var(--spacing-4v) var(--spacing-2v);
-    }
-
-    .fiche-accordion {
-      border: none;
-      border-bottom: 1px solid var(--border-default);
-    }
-
-    .fiche-accordion__header {
+      padding: var(--spacing-2v) var(--spacing-4v) var(--spacing-2v);
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      background-color: transparent;
-      border: none;
-      padding: var(--spacing-3v) 0;
-      cursor: pointer;
-      text-align: left;
-      font-family: 'Marianne', arial, sans-serif;
-    }
-
-    .fiche-accordion__header:focus-visible {
-      outline: 2px solid var(--border-active-blue);
-      outline-offset: 2px;
+      flex-direction: column;
     }
 
     .fiche-accordion__header-left {
       display: flex;
       flex-direction: column;
       gap: 2px;
+      text-align: left;
     }
 
     .fiche-accordion__title {
@@ -881,29 +931,6 @@
       font-size: 0.8125rem;
       color: var(--text-mention-grey);
       font-weight: 400;
-    }
-
-    .fiche-accordion__icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: var(--blue-france);
-      transition: transform 0.3s ease;
-    }
-
-    .fiche-accordion__icon svg {
-      width: 1.25rem;
-      height: 1.25rem;
-    }
-
-    .fiche-accordion[open] .fiche-accordion__icon {
-      transform: rotate(180deg);
-    }
-
-    .fiche-accordion__content {
-      padding: 0 0 var(--spacing-4v);
-      background-color: var(--background-default);
     }
 
     .fiche-accordion__consigne {
@@ -956,7 +983,7 @@
 
     /* Section carte */
     .fiche-map {
-      padding: var(--spacing-4v);
+      padding: var(--spacing-4v) 0;
     }
 
     .fiche-map__title {
@@ -964,19 +991,24 @@
       font-weight: 700;
       color: var(--text-default);
       margin-bottom: var(--spacing-4v);
+      padding: 0 var(--spacing-4v);
     }
 
     .fiche-map__container {
-      min-height: 400px;
-      border: 1px solid var(--border-default);
-      border-radius: var(--radius-md);
       overflow: hidden;
     }
 
     .fiche-map__container iframe,
     .fiche-map__container > div {
-      width: 100%;
-      min-height: 400px;
+      border: none;
+      display: block;
+    }
+
+    .fiche-map__container iframe {
+      /* Déborder l'iframe juste assez pour masquer la bordure grise arrondie interne */
+      width: calc(100% + 6px);
+      height: 706px;
+      margin: -3px;
     }
 
     /* Solutions cards */
@@ -988,9 +1020,11 @@
     }
 
     .fiche-solution-card {
-      border: 1px solid var(--border-default);
-      border-radius: var(--radius-sm);
+      background-color: var(--background-default);
+      border: 1px solid #DDDDDD;
+      border-radius: 0;
       padding: var(--spacing-4v);
+      box-shadow: none;
     }
 
     .fiche-solution-card__title {
@@ -1047,7 +1081,7 @@
       }
 
       .fiche-infotri {
-        padding: var(--spacing-6v) var(--spacing-6v);
+        padding: var(--spacing-4v) var(--spacing-6v) var(--spacing-2v);
       }
 
       .fiche-accordeons {
@@ -1059,7 +1093,11 @@
       }
 
       .fiche-map {
-        padding: var(--spacing-6v);
+        padding: var(--spacing-6v) 0;
+      }
+
+      .fiche-map__title {
+        padding: 0 var(--spacing-6v);
       }
 
       .fiche-solutions {
@@ -1078,7 +1116,7 @@
       }
 
       .fiche-infotri {
-        padding: var(--spacing-8v) var(--spacing-12v);
+        padding: var(--spacing-6v) var(--spacing-12v) var(--spacing-2v);
       }
 
       .fiche-accordeons {
@@ -1090,7 +1128,11 @@
       }
 
       .fiche-map {
-        padding: var(--spacing-8v) var(--spacing-12v);
+        padding: var(--spacing-8v) 0;
+      }
+
+      .fiche-map__title {
+        padding: 0 var(--spacing-12v);
       }
 
       .fiche-solutions {
@@ -1662,17 +1704,14 @@
          Section Accordéon
          ============================================= -->
     <section class="accordion-section">
-      <details class="accordion">
-        <summary class="accordion__header" aria-expanded="false">
-          <span class="accordion__title">Je cherche à acheter, louer ou emprunter un objet</span>
-          <span class="accordion__icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </span>
-        </summary>
-        <div class="accordion__content">
-          <p class="accordion__text">
+      <section class="fr-accordion">
+        <h3 class="fr-accordion__title">
+          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-achat" type="button">
+            Je cherche à acheter, louer ou emprunter un objet
+          </button>
+        </h3>
+        <div class="fr-collapse" id="accordion-achat">
+          <p class="fr-collapse__text">
             Vous êtes à la recherche d'un lieu près de chez vous ou d'un site Internet où acheter, louer ou emprunter un objet&nbsp;? Trouvez sur notre site Internet de nombreuses solutions.
           </p>
           <a
@@ -1691,7 +1730,7 @@
             </span>
           </a>
         </div>
-      </details>
+      </section>
     </section>
 
     <!-- =============================================
@@ -1884,6 +1923,18 @@
         nom: 'Gros électroménager',
         categorie: 'gros-electromenager',
         keywords: ['machine à laver', 'machine a laver', 'lave-linge', 'lave linge', 'lave-vaisselle', 'lave vaisselle', 'réfrigérateur', 'refrigerateur', 'frigo', 'four', 'congélateur', 'congelateur', 'sèche-linge', 'seche linge', 'gros électroménager', 'gros electromenager', 'plaque de cuisson', 'hotte', 'chauffe-eau']
+      },
+      {
+        id: 'emballages',
+        nom: 'Emballages',
+        categorie: 'emballages',
+        keywords: ['emballage', 'emballages', 'plastique', 'carton', 'canette', 'boîte de conserve', 'boite de conserve', 'bouteille plastique', 'pot de yaourt', 'barquette', 'film plastique', 'sachet', 'brique', 'cagette', 'bocal', 'pot en verre', 'bouteille en verre', 'verre', 'conserve', 'aluminium', 'métal', 'bois', 'polystyrène', 'polystyrene', 'tetra pak']
+      },
+      {
+        id: 'telephone-mobile',
+        nom: 'Téléphone mobile',
+        categorie: 'telephone-mobile',
+        keywords: ['téléphone', 'telephone', 'téléphone mobile', 'telephone mobile', 'smartphone', 'portable', 'mobile', 'iphone', 'samsung', 'android', 'téléphone portable', 'telephone portable', 'gsm', 'cellulaire', 'écran cassé', 'ecran casse']
       }
     ];
 
@@ -1952,7 +2003,9 @@
         'poeles-casseroles': { lieux: 7256, services_a_domicile: 21, solutions_en_ligne: 9 },
         'sapin-de-noel': { lieux: 34074, services_a_domicile: 102, solutions_en_ligne: 36 },
         'brique-alimentaire': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
-        'gros-electromenager': { lieux: 15873, services_a_domicile: 47, solutions_en_ligne: 17 }
+        'gros-electromenager': { lieux: 15873, services_a_domicile: 47, solutions_en_ligne: 17 },
+        'emballages': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
+        'telephone-mobile': { lieux: 19500, services_a_domicile: 58, solutions_en_ligne: 22 }
       }
     };
 
@@ -2131,6 +2184,30 @@
             { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer pour utiliser plus longtemps et économiser.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0: jusqu\u2019à 50\u00a0\u20ac de la facture.</li><li>Pensez à l\u2019entretien régulier\u00a0: 50 à 70\u00a0% des pannes sont causées par un manque d\u2019entretien.</li></ul>', condition: 'Réparable' },
             { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une association ou structure de réemploi (enlèvement à domicile parfois proposé).</li><li>Revendez en dépôt-vente ou sur une plateforme de seconde main.</li></ul>', condition: 'En bon état' },
             { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Déposez en magasin (bac de collecte, remise au vendeur ou au livreur lors d\u2019un remplacement).</li><li>Apportez en déchèterie dans la benne DEEE.</li></ul>', condition: 'Hors d\u2019usage' }
+          ]
+        },
+        {
+          id: 'emballages',
+          nom: 'Emballages',
+          url: 'https://quefairedemesdechets.ademe.fr/categories/emballages/',
+          infoTri: ['emballages-jaune.svg', 'emballages-verre.svg'],
+          infoTriSmall: true,
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
+          accordeons: [
+            { titre: 'Emballages en plastique, carton, métal ou bois', icone: 'trier', consigne: '<ul><li>Bouteilles ou pots de yaourt en plastique, boîtes en carton, canettes ou boîtes de conserves, cagettes ou boîtes en bois\u2026 c\u2019est un emballage, il se trie\u00a0!</li><li>Déposez-les dans le bac, le sac ou le conteneur de tri (poubelle jaune).</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Ne les imbriquez pas les uns dans les autres.</li></ul>', condition: null },
+            { titre: 'Emballages en verre', icone: 'trier', consigne: '<ul><li>Bouteilles, bocaux, pots en verre\u2026 déposez-les dans les conteneurs à verre dédiés.</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Retirez les bouchons et couvercles (ils vont dans le bac de tri).</li><li>Le verre se recycle à l\u2019infini\u00a0!</li></ul><p>⚠️ Ne mettez pas dans le conteneur à verre\u00a0: la vaisselle, les miroirs, les vitres, les ampoules ou la faïence. Ces objets ne sont pas des emballages en verre et perturbent le recyclage.</p>', condition: null }
+          ]
+        },
+        {
+          id: 'telephone-mobile',
+          nom: 'Téléphone mobile',
+          url: 'https://quefairedemesdechets.ademe.fr/dechet/telephone-mobile/',
+          infoTri: 'telephone-mobile.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=92',
+          accordeons: [
+            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Vous pensez que votre téléphone peut être réparé\u00a0? Pensez au <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0!</li><li>Grâce à la réparation, vous prolongez la durée de vie de votre téléphone tout en économisant de l\u2019argent.</li><li>Trouvez un réparateur labellisé <a href="https://www.label-qualirepar.fr" target="_blank" rel="noopener noreferrer">QualiRépar</a> sur la carte ci-dessous.</li></ul>', condition: 'Réparable' },
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Proposez votre téléphone à un proche.</li><li>Donnez-le à une association ou à une structure de réemploi.</li><li>Vous pouvez aussi essayer de le revendre sur une plateforme de seconde main ou en dépôt-vente.</li></ul>', condition: 'En bon état' },
+            { titre: 'Déposer au tri', icone: 'deposer', consigne: '<ul><li>Qu\u2019il fonctionne ou pas, vous pouvez le déposer en magasin dans un bac de collecte ou le donner à un vendeur.</li><li>Vous pouvez aussi le renvoyer grâce aux services de certains éco-organismes (<a href="https://www.ecosystem.eco" target="_blank" rel="noopener noreferrer">Ecosystem</a>, <a href="https://www.ecologic-france.com" target="_blank" rel="noopener noreferrer">Ecologic</a>).</li><li>Sinon, apportez-le en déchèterie.</li></ul>', condition: 'Hors d\u2019usage' }
           ]
         }
       ]
@@ -2347,10 +2424,19 @@
         searchCategories.style.display = 'none';
         searchPopular.style.display = 'none';
       } else {
-        searchResults.classList.remove('is-visible');
-        searchResults.innerHTML = '';
-        searchCategories.style.display = '';
-        searchPopular.style.display = '';
+        // Aucun résultat : afficher un message d'aide (prototype)
+        const exemples = ['bouilloire', 'téléphone', 'emballage', 'vêtements', 'meubles', 'chaussures'];
+        const exemplesLinks = exemples.map(e =>
+          `<button type="button" class="fr-tag fr-tag--sm" data-query="${e}">${e}</button>`
+        ).join(' ');
+        searchResults.innerHTML =
+          `<li class="search-noresult">
+            <p class="search-noresult__text">Ce prototype ne couvre pas encore tous les objets et déchets.</p>
+            <p class="search-noresult__hint">Essayez par exemple\u00a0: ${exemplesLinks}</p>
+          </li>`;
+        searchResults.classList.add('is-visible');
+        searchCategories.style.display = 'none';
+        searchPopular.style.display = 'none';
       }
     }
 
@@ -2367,6 +2453,16 @@
 
     // Clic sur un résultat de recherche
     searchResults.addEventListener('click', (e) => {
+      // Clic sur un bouton d'exemple (aucun résultat)
+      const exBtn = e.target.closest('.fr-tag[data-query]');
+      if (exBtn && exBtn.dataset.query) {
+        e.preventDefault();
+        e.stopPropagation();
+        searchInput.value = exBtn.dataset.query;
+        performSearch(exBtn.dataset.query);
+        searchInput.focus();
+        return;
+      }
       const item = e.target.closest('.search-results__item');
       if (item && item.dataset.ficheId) {
         closeSearchPanel();
@@ -2663,8 +2759,6 @@
       accordeonsContainer.innerHTML = '';
 
       if (consigneFiche && consigneFiche.accordeons) {
-        const chevronSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
-
         // Répartir les lieux locaux entre les accordéons proportionnellement
         const nbAccordeons = consigneFiche.accordeons.length;
         const lieuxParAccordeon = [];
@@ -2673,7 +2767,6 @@
           if (i === nbAccordeons - 1) {
             lieuxParAccordeon.push(lieuxRestants);
           } else {
-            // Répartition dégressive : le premier accordéon a le plus de solutions
             const share = Math.max(1, Math.round(localLieux * (nbAccordeons - i) / ((nbAccordeons * (nbAccordeons + 1)) / 2)));
             lieuxParAccordeon.push(share);
             lieuxRestants -= share;
@@ -2688,6 +2781,8 @@
             ? `<span class="fiche-accordion__condition">${acc.condition}</span>`
             : '';
 
+          const collapseId = 'fiche-accordion-' + index;
+
           if (consigneFiche.directDisplay) {
             // Affichage direct sans accordéon (seringue, brique alimentaire…)
             const section = document.createElement('div');
@@ -2700,30 +2795,25 @@
             `;
             accordeonsContainer.appendChild(section);
           } else {
-            const details = document.createElement('details');
-            details.className = 'fiche-accordion';
+            const accSection = document.createElement('section');
+            accSection.className = 'fr-accordion';
 
-            details.innerHTML = `
-              <summary class="fiche-accordion__header" aria-expanded="false">
-                <div class="fiche-accordion__header-left">
-                  <span class="fiche-accordion__title">${acc.titre}</span>
-                  ${subtitleHtml}
-                </div>
-                <span class="fiche-accordion__icon" aria-hidden="true">${chevronSvg}</span>
-              </summary>
-              <div class="fiche-accordion__content">
+            accSection.innerHTML = `
+              <h3 class="fr-accordion__title">
+                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="${collapseId}" type="button">
+                  <div class="fiche-accordion__header-left">
+                    <span class="fiche-accordion__title">${acc.titre}</span>
+                    ${subtitleHtml}
+                  </div>
+                </button>
+              </h3>
+              <div class="fr-collapse" id="${collapseId}">
                 ${conditionBadge}
                 <div class="fiche-accordion__consigne">${acc.consigne}</div>
               </div>
             `;
 
-            // Toggle aria-expanded
-            details.addEventListener('toggle', () => {
-              const summary = details.querySelector('.fiche-accordion__header');
-              summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
-            });
-
-            accordeonsContainer.appendChild(details);
+            accordeonsContainer.appendChild(accSection);
           }
         });
       }
@@ -2760,9 +2850,11 @@
 
       // --- Carte ---
       const mapContainer = document.getElementById('fiche-map-container');
+      const mapSection = mapContainer.closest('.fiche-map');
       mapContainer.innerHTML = '';
 
       if (consigneFiche && consigneFiche.carteIframeSrc) {
+        mapSection.style.display = '';
         // Carte spécifique QFDMO (iframe préfiltrée par objet)
         let carteSrc = consigneFiche.carteIframeSrc;
 
@@ -2783,61 +2875,33 @@
         const mapIframe = document.createElement('iframe');
         mapIframe.src = carteSrc;
         mapIframe.title = 'Carte des solutions pour ' + appState.selectedFiche.nom;
-        mapIframe.style.width = '100%';
-        mapIframe.style.height = '600px';
         mapIframe.style.border = 'none';
         mapIframe.loading = 'lazy';
+        mapIframe.scrolling = 'no';
         mapIframe.setAttribute('allow', 'geolocation');
         mapContainer.appendChild(mapIframe);
       } else {
-        // Fallback : carte LVAO générique
-        const iconeToActions = {
-          'donner': ['donner', 'echanger', 'revendre', 'acheter'],
-          'reparer': ['reparer'],
-          'louer': ['preter', 'emprunter', 'louer', 'mettreenlocation'],
-          'deposer': ['donner', 'echanger', 'revendre', 'acheter'],
-          'trier': ['donner', 'echanger', 'revendre', 'acheter']
-        };
-
-        const lvaoActions = new Set();
-        if (consigneFiche && consigneFiche.accordeons) {
-          consigneFiche.accordeons.forEach(acc => {
-            const actions = iconeToActions[acc.icone];
-            if (actions) actions.forEach(a => lvaoActions.add(a));
-          });
-        }
-
-        const allActions = 'preter|emprunter|louer|mettreenlocation|reparer|donner|echanger|acheter|revendre';
-        const actionList = lvaoActions.size > 0 ? Array.from(lvaoActions).join('|') : allActions;
-
-        const mapScript = document.createElement('script');
-        mapScript.src = 'https://lvao.ademe.fr/static/carte.js';
-        mapScript.dataset.action_list = actionList;
-
-        if (appState.selectedAddress && appState.selectedAddress.lat && appState.selectedAddress.lon) {
-          const lat = appState.selectedAddress.lat;
-          const lon = appState.selectedAddress.lon;
-          const offset = 0.045;
-          const boundingBox = {
-            southWest: { lat: lat - offset, lng: lon - offset },
-            northEast: { lat: lat + offset, lng: lon + offset }
-          };
-          mapScript.dataset.bounding_box = JSON.stringify(boundingBox);
-        }
-
-        mapContainer.appendChild(mapScript);
+        // Pas de carte spécifique : masquer la section carte
+        mapSection.style.display = 'none';
       }
 
       // --- Solutions à domicile / en ligne ---
       const ficheUrl = consigneFiche ? consigneFiche.url : '#';
+      const solutionsSection = document.querySelector('.fiche-solutions');
 
-      document.getElementById('fiche-sol-domicile-desc').textContent =
-        `Nous avons trouvé ${formatNumber(localServices)} solutions. Des solutions existent pour venir jusqu'à chez vous\u00a0!`;
-      document.getElementById('fiche-sol-domicile-link').href = ficheUrl;
+      if (localServices === 0 && localEnLigne === 0) {
+        // Pas de solutions (ex: emballages) → masquer la section
+        solutionsSection.style.display = 'none';
+      } else {
+        solutionsSection.style.display = '';
+        document.getElementById('fiche-sol-domicile-desc').textContent =
+          `Nous avons trouvé ${formatNumber(localServices)} solutions. Des solutions existent pour venir jusqu'à chez vous\u00a0!`;
+        document.getElementById('fiche-sol-domicile-link').href = ficheUrl;
 
-      document.getElementById('fiche-sol-enligne-desc').textContent =
-        `Nous avons trouvé ${formatNumber(localEnLigne)} solutions. Explorez l'ensemble des sites Internet et solutions en ligne pour votre objet.`;
-      document.getElementById('fiche-sol-enligne-link').href = ficheUrl;
+        document.getElementById('fiche-sol-enligne-desc').textContent =
+          `Nous avons trouvé ${formatNumber(localEnLigne)} solutions. Explorez l'ensemble des sites Internet et solutions en ligne pour votre objet.`;
+        document.getElementById('fiche-sol-enligne-link').href = ficheUrl;
+      }
     }
 
     // Bouton retour depuis la fiche
@@ -2846,13 +2910,21 @@
     });
 
     // =============================================
-    // Gestion de l'accordéon
+    // Gestion des accordéons DSFR (fr-accordion)
     // =============================================
-    document.querySelectorAll('.accordion').forEach(details => {
-      details.addEventListener('toggle', () => {
-        const summary = details.querySelector('.accordion__header');
-        summary.setAttribute('aria-expanded', details.open ? 'true' : 'false');
-      });
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('.fr-accordion__btn');
+      if (!btn) return;
+      const collapseId = btn.getAttribute('aria-controls');
+      const collapse = document.getElementById(collapseId);
+      if (!collapse) return;
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
+      if (isExpanded) {
+        collapse.classList.remove('fr-collapse--expanded');
+      } else {
+        collapse.classList.add('fr-collapse--expanded');
+      }
     });
 
     // =============================================
@@ -2861,22 +2933,31 @@
     (function() {
       if (window.self === window.top) return; // Pas dans une iframe
 
-      // Désactiver le scroll interne
-      document.documentElement.style.overflow = 'hidden';
+      // Désactiver le scroll interne (uniquement sur body pour pouvoir mesurer la hauteur via documentElement)
       document.body.style.overflow = 'hidden';
 
       function sendHeight() {
-        var height = document.documentElement.scrollHeight;
+        // Mesurer la hauteur réelle du contenu en prenant le max de toutes les sources
+        var height = Math.max(
+          document.body.scrollHeight,
+          document.body.offsetHeight,
+          document.documentElement.scrollHeight,
+          document.documentElement.offsetHeight
+        );
         window.parent.postMessage({ type: 'assistant-tri-resize', height: height }, '*');
       }
 
       // Observer les changements de taille du contenu
       var ro = new ResizeObserver(function() { sendHeight(); });
       ro.observe(document.body);
+      ro.observe(document.documentElement);
 
-      // Envoyer aussi au chargement et après les transitions
+      // Envoyer au chargement et régulièrement au début (transitions CSS, chargement async)
       sendHeight();
       window.addEventListener('load', sendHeight);
+      // Re-envoyer après un délai pour capter les changements tardifs (fonts, images)
+      setTimeout(sendHeight, 500);
+      setTimeout(sendHeight, 1500);
     })();
   </script>
 </body>
