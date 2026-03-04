@@ -278,6 +278,60 @@
       flex-shrink: 0;
     }
 
+    /* Message aucun résultat (prototype) */
+    .search-noresult {
+      padding: var(--spacing-4v);
+      list-style: none;
+    }
+
+    .search-noresult__text {
+      font-size: 0.875rem;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-2v);
+      line-height: 1.5;
+    }
+
+    .search-noresult__hint {
+      font-size: 0.8125rem;
+      color: var(--text-mention-grey);
+      line-height: 1.8;
+    }
+
+    /* Tag DSFR sm cliquable */
+    .fr-tag {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+      min-height: 2rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      background-color: var(--background-action-low-blue-france, #E3E3FD);
+      color: var(--text-action-high-blue-france, #000091);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      text-decoration: none;
+      margin: 0.15rem 0;
+    }
+
+    .fr-tag--sm {
+      font-size: 0.75rem;
+      line-height: 1.25rem;
+      min-height: 1.5rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: 0.75rem;
+    }
+
+    .fr-tag:hover {
+      background-color: var(--background-action-low-blue-france-hover, #C1C1F7);
+    }
+
+    .fr-tag:active {
+      background-color: var(--background-action-low-blue-france-active, #ADADF7);
+    }
+
     /* Section Catégories */
     .search-categories {
       padding-top: var(--spacing-2v);
@@ -2370,10 +2424,19 @@
         searchCategories.style.display = 'none';
         searchPopular.style.display = 'none';
       } else {
-        searchResults.classList.remove('is-visible');
-        searchResults.innerHTML = '';
-        searchCategories.style.display = '';
-        searchPopular.style.display = '';
+        // Aucun résultat : afficher un message d'aide (prototype)
+        const exemples = ['bouilloire', 'téléphone', 'emballage', 'vêtements', 'meubles', 'chaussures'];
+        const exemplesLinks = exemples.map(e =>
+          `<button type="button" class="fr-tag fr-tag--sm" data-query="${e}">${e}</button>`
+        ).join(' ');
+        searchResults.innerHTML =
+          `<li class="search-noresult">
+            <p class="search-noresult__text">Ce prototype ne couvre pas encore tous les objets et déchets.</p>
+            <p class="search-noresult__hint">Essayez par exemple\u00a0: ${exemplesLinks}</p>
+          </li>`;
+        searchResults.classList.add('is-visible');
+        searchCategories.style.display = 'none';
+        searchPopular.style.display = 'none';
       }
     }
 
@@ -2390,6 +2453,16 @@
 
     // Clic sur un résultat de recherche
     searchResults.addEventListener('click', (e) => {
+      // Clic sur un bouton d'exemple (aucun résultat)
+      const exBtn = e.target.closest('.fr-tag[data-query]');
+      if (exBtn && exBtn.dataset.query) {
+        e.preventDefault();
+        e.stopPropagation();
+        searchInput.value = exBtn.dataset.query;
+        performSearch(exBtn.dataset.query);
+        searchInput.focus();
+        return;
+      }
       const item = e.target.closest('.search-results__item');
       if (item && item.dataset.ficheId) {
         closeSearchPanel();
