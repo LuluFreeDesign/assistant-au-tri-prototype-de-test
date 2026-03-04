@@ -105,16 +105,17 @@
        ============================================ */
     .search-section {
       background-color: var(--green-menthe-975);
-      padding: var(--spacing-6v) var(--spacing-4v) 0;
+      padding: var(--spacing-4v) var(--spacing-4v) 0;
       position: relative;
     }
 
     .search-section__title {
-      font-size: 1rem;
+      font-size: 0.9375rem;
       font-weight: 700;
-      line-height: 1.5;
+      line-height: 1.4;
       color: var(--text-default);
-      margin-bottom: var(--spacing-4v);
+      margin-bottom: var(--spacing-3v);
+      padding-right: var(--spacing-8v);
     }
 
     /* Barre de recherche custom */
@@ -230,10 +231,10 @@
     }
 
     .search-panel__hint {
-      font-size: 0.875rem;
-      line-height: 1.5;
+      font-size: 0.8125rem;
+      line-height: 1.4;
       color: var(--text-mention-grey);
-      padding: 0 0 var(--spacing-4v);
+      padding: 0 0 var(--spacing-3v);
     }
 
     /* Résultats de recherche */
@@ -758,6 +759,19 @@
     @media (min-width: 576px) {
       .search-section {
         padding: var(--spacing-8v) var(--spacing-6v) 0;
+      }
+
+      .search-section__title {
+        font-size: 1rem;
+        line-height: 1.5;
+        padding-right: 0;
+        margin-bottom: var(--spacing-4v);
+      }
+
+      .search-panel__hint {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        padding: 0 0 var(--spacing-4v);
       }
 
       .search-panel {
@@ -1487,6 +1501,37 @@
       <!-- Résultats de recherche dynamiques -->
       <ul class="search-results" id="search-results" aria-label="Résultats de recherche"></ul>
 
+      <!-- Les plus populaires (remonté avant les catégories pour visibilité mobile avec clavier) -->
+      <div class="search-popular" id="search-popular">
+        <h2 class="search-popular__title">Les plus populaires</h2>
+        <ul class="search-popular__list">
+          <li class="search-popular__item" data-fiche-id="cd-dvd-vhs" role="button" tabindex="0">
+            <span>CD, DVD ou cassettes VHS</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="chaussures" role="button" tabindex="0">
+            <span>Chaussures</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="marteau" role="button" tabindex="0">
+            <span>Marteau</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="aiguille-medicale" role="button" tabindex="0">
+            <span>Seringue avec aiguille</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="trottinette-electrique" role="button" tabindex="0">
+            <span>Trottinette électrique</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="brique-alimentaire" role="button" tabindex="0">
+            <span>Brique alimentaire (jus, lait…)</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+        </ul>
+      </div>
+
       <!-- Par catégorie -->
       <div class="search-categories" id="search-categories">
         <h2 class="search-categories__title">Par catégorie</h2>
@@ -1529,37 +1574,6 @@
           </div>
 
         </div>
-      </div>
-
-      <!-- Les plus populaires -->
-      <div class="search-popular" id="search-popular">
-        <h2 class="search-popular__title">Les plus populaires</h2>
-        <ul class="search-popular__list">
-          <li class="search-popular__item" data-fiche-id="cd-dvd-vhs" role="button" tabindex="0">
-            <span>CD, DVD ou cassettes VHS</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-          <li class="search-popular__item" data-fiche-id="chaussures" role="button" tabindex="0">
-            <span>Chaussures</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-          <li class="search-popular__item" data-fiche-id="marteau" role="button" tabindex="0">
-            <span>Marteau</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-          <li class="search-popular__item" data-fiche-id="aiguille-medicale" role="button" tabindex="0">
-            <span>Seringue avec aiguille</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-          <li class="search-popular__item" data-fiche-id="trottinette-electrique" role="button" tabindex="0">
-            <span>Trottinette électrique</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-          <li class="search-popular__item" data-fiche-id="brique-alimentaire" role="button" tabindex="0">
-            <span>Brique alimentaire (jus, lait…)</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-        </ul>
       </div>
     </div>
 
