@@ -121,14 +121,14 @@ python3 scripts/generate-counts.py /chemin/vers/acteurs.csv
 ```
 
 ### Catégories couvertes
-Petit électroménager · Médicaments · Meubles · Déchets alimentaires · CD/DVD/VHS · Chaussures · Marteau · Seringue avec aiguille · Trottinette électrique · Vêtements · Livres · Poêles et casseroles · Sapin de Noël · Brique alimentaire · Gros électroménager
+Petit électroménager · Médicaments · Meubles · Déchets alimentaires · CD/DVD/VHS · Chaussures · Marteau · Seringue avec aiguille · Trottinette électrique · Vêtements · Livres · Poêles et casseroles · Sapin de Noël · Brique alimentaire · Gros électroménager · Emballages · Téléphone mobile
 
 ## Limites du prototype
 
 - **Les comptages locaux sont estimés** : le nombre de solutions affichées à proximité est une approximation proportionnelle à partir des données nationales, pas un calcul géographique réel.
 - **La carte est filtrée mais embarquée** : chaque fiche affiche une carte QFDMO spécifique à la catégorie, mais le contenu reste dans une iframe tierce.
 - **Les solutions à domicile et en ligne** renvoient vers le site Que Faire : seuls les lieux sont consultables dans le widget.
-- **15 catégories** : le site Que Faire couvre plusieurs centaines de fiches ; ce prototype en couvre 15 représentatives.
+- **17 catégories** : le site Que Faire couvre plusieurs centaines de fiches ; ce prototype en couvre 17 représentatives.
 
 ## Licence
 

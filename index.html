@@ -1869,6 +1869,18 @@
         nom: 'Gros électroménager',
         categorie: 'gros-electromenager',
         keywords: ['machine à laver', 'machine a laver', 'lave-linge', 'lave linge', 'lave-vaisselle', 'lave vaisselle', 'réfrigérateur', 'refrigerateur', 'frigo', 'four', 'congélateur', 'congelateur', 'sèche-linge', 'seche linge', 'gros électroménager', 'gros electromenager', 'plaque de cuisson', 'hotte', 'chauffe-eau']
+      },
+      {
+        id: 'emballages',
+        nom: 'Emballages',
+        categorie: 'emballages',
+        keywords: ['emballage', 'emballages', 'plastique', 'carton', 'canette', 'boîte de conserve', 'boite de conserve', 'bouteille plastique', 'pot de yaourt', 'barquette', 'film plastique', 'sachet', 'brique', 'cagette', 'bocal', 'pot en verre', 'bouteille en verre', 'verre', 'conserve', 'aluminium', 'métal', 'bois', 'polystyrène', 'polystyrene', 'tetra pak']
+      },
+      {
+        id: 'telephone-mobile',
+        nom: 'Téléphone mobile',
+        categorie: 'telephone-mobile',
+        keywords: ['téléphone', 'telephone', 'téléphone mobile', 'telephone mobile', 'smartphone', 'portable', 'mobile', 'iphone', 'samsung', 'android', 'téléphone portable', 'telephone portable', 'gsm', 'cellulaire', 'écran cassé', 'ecran casse']
       }
     ];
 
@@ -1937,7 +1949,9 @@
         'poeles-casseroles': { lieux: 7256, services_a_domicile: 21, solutions_en_ligne: 9 },
         'sapin-de-noel': { lieux: 34074, services_a_domicile: 102, solutions_en_ligne: 36 },
         'brique-alimentaire': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
-        'gros-electromenager': { lieux: 15873, services_a_domicile: 47, solutions_en_ligne: 17 }
+        'gros-electromenager': { lieux: 15873, services_a_domicile: 47, solutions_en_ligne: 17 },
+        'emballages': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
+        'telephone-mobile': { lieux: 19500, services_a_domicile: 58, solutions_en_ligne: 22 }
       }
     };
 
@@ -2116,6 +2130,30 @@
             { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer pour utiliser plus longtemps et économiser.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0: jusqu\u2019à 50\u00a0\u20ac de la facture.</li><li>Pensez à l\u2019entretien régulier\u00a0: 50 à 70\u00a0% des pannes sont causées par un manque d\u2019entretien.</li></ul>', condition: 'Réparable' },
             { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une association ou structure de réemploi (enlèvement à domicile parfois proposé).</li><li>Revendez en dépôt-vente ou sur une plateforme de seconde main.</li></ul>', condition: 'En bon état' },
             { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Déposez en magasin (bac de collecte, remise au vendeur ou au livreur lors d\u2019un remplacement).</li><li>Apportez en déchèterie dans la benne DEEE.</li></ul>', condition: 'Hors d\u2019usage' }
+          ]
+        },
+        {
+          id: 'emballages',
+          nom: 'Emballages',
+          url: 'https://quefairedemesdechets.ademe.fr/categories/emballages/',
+          infoTri: ['emballages-jaune.svg', 'emballages-verre.svg'],
+          infoTriSmall: true,
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
+          accordeons: [
+            { titre: 'Emballages en plastique, carton, métal ou bois', icone: 'trier', consigne: '<ul><li>Bouteilles ou pots de yaourt en plastique, boîtes en carton, canettes ou boîtes de conserves, cagettes ou boîtes en bois\u2026 c\u2019est un emballage, il se trie\u00a0!</li><li>Déposez-les dans le bac, le sac ou le conteneur de tri (poubelle jaune).</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Ne les imbriquez pas les uns dans les autres.</li></ul>', condition: null },
+            { titre: 'Emballages en verre', icone: 'trier', consigne: '<ul><li>Bouteilles, bocaux, pots en verre\u2026 déposez-les dans les conteneurs à verre dédiés.</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Retirez les bouchons et couvercles (ils vont dans le bac de tri).</li><li>Le verre se recycle à l\u2019infini\u00a0!</li></ul><p>⚠️ Ne mettez pas dans le conteneur à verre\u00a0: la vaisselle, les miroirs, les vitres, les ampoules ou la faïence. Ces objets ne sont pas des emballages en verre et perturbent le recyclage.</p>', condition: null }
+          ]
+        },
+        {
+          id: 'telephone-mobile',
+          nom: 'Téléphone mobile',
+          url: 'https://quefairedemesdechets.ademe.fr/dechet/telephone-mobile/',
+          infoTri: 'telephone-mobile.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=92',
+          accordeons: [
+            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Vous pensez que votre téléphone peut être réparé\u00a0? Pensez au <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0!</li><li>Grâce à la réparation, vous prolongez la durée de vie de votre téléphone tout en économisant de l\u2019argent.</li><li>Trouvez un réparateur labellisé <a href="https://www.label-qualirepar.fr" target="_blank" rel="noopener noreferrer">QualiRépar</a> sur la carte ci-dessous.</li></ul>', condition: 'Réparable' },
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Proposez votre téléphone à un proche.</li><li>Donnez-le à une association ou à une structure de réemploi.</li><li>Vous pouvez aussi essayer de le revendre sur une plateforme de seconde main ou en dépôt-vente.</li></ul>', condition: 'En bon état' },
+            { titre: 'Déposer au tri', icone: 'deposer', consigne: '<ul><li>Qu\u2019il fonctionne ou pas, vous pouvez le déposer en magasin dans un bac de collecte ou le donner à un vendeur.</li><li>Vous pouvez aussi le renvoyer grâce aux services de certains éco-organismes (<a href="https://www.ecosystem.eco" target="_blank" rel="noopener noreferrer">Ecosystem</a>, <a href="https://www.ecologic-france.com" target="_blank" rel="noopener noreferrer">Ecologic</a>).</li><li>Sinon, apportez-le en déchèterie.</li></ul>', condition: 'Hors d\u2019usage' }
           ]
         }
       ]
@@ -2739,9 +2777,11 @@
 
       // --- Carte ---
       const mapContainer = document.getElementById('fiche-map-container');
+      const mapSection = mapContainer.closest('.fiche-map');
       mapContainer.innerHTML = '';
 
       if (consigneFiche && consigneFiche.carteIframeSrc) {
+        mapSection.style.display = '';
         // Carte spécifique QFDMO (iframe préfiltrée par objet)
         let carteSrc = consigneFiche.carteIframeSrc;
 
@@ -2768,54 +2808,27 @@
         mapIframe.setAttribute('allow', 'geolocation');
         mapContainer.appendChild(mapIframe);
       } else {
-        // Fallback : carte LVAO générique
-        const iconeToActions = {
-          'donner': ['donner', 'echanger', 'revendre', 'acheter'],
-          'reparer': ['reparer'],
-          'louer': ['preter', 'emprunter', 'louer', 'mettreenlocation'],
-          'deposer': ['donner', 'echanger', 'revendre', 'acheter'],
-          'trier': ['donner', 'echanger', 'revendre', 'acheter']
-        };
-
-        const lvaoActions = new Set();
-        if (consigneFiche && consigneFiche.accordeons) {
-          consigneFiche.accordeons.forEach(acc => {
-            const actions = iconeToActions[acc.icone];
-            if (actions) actions.forEach(a => lvaoActions.add(a));
-          });
-        }
-
-        const allActions = 'preter|emprunter|louer|mettreenlocation|reparer|donner|echanger|acheter|revendre';
-        const actionList = lvaoActions.size > 0 ? Array.from(lvaoActions).join('|') : allActions;
-
-        const mapScript = document.createElement('script');
-        mapScript.src = 'https://lvao.ademe.fr/static/carte.js';
-        mapScript.dataset.action_list = actionList;
-
-        if (appState.selectedAddress && appState.selectedAddress.lat && appState.selectedAddress.lon) {
-          const lat = appState.selectedAddress.lat;
-          const lon = appState.selectedAddress.lon;
-          const offset = 0.045;
-          const boundingBox = {
-            southWest: { lat: lat - offset, lng: lon - offset },
-            northEast: { lat: lat + offset, lng: lon + offset }
-          };
-          mapScript.dataset.bounding_box = JSON.stringify(boundingBox);
-        }
-
-        mapContainer.appendChild(mapScript);
+        // Pas de carte spécifique : masquer la section carte
+        mapSection.style.display = 'none';
       }
 
       // --- Solutions à domicile / en ligne ---
       const ficheUrl = consigneFiche ? consigneFiche.url : '#';
+      const solutionsSection = document.querySelector('.fiche-solutions');
 
-      document.getElementById('fiche-sol-domicile-desc').textContent =
-        `Nous avons trouvé ${formatNumber(localServices)} solutions. Des solutions existent pour venir jusqu'à chez vous\u00a0!`;
-      document.getElementById('fiche-sol-domicile-link').href = ficheUrl;
+      if (localServices === 0 && localEnLigne === 0) {
+        // Pas de solutions (ex: emballages) → masquer la section
+        solutionsSection.style.display = 'none';
+      } else {
+        solutionsSection.style.display = '';
+        document.getElementById('fiche-sol-domicile-desc').textContent =
+          `Nous avons trouvé ${formatNumber(localServices)} solutions. Des solutions existent pour venir jusqu'à chez vous\u00a0!`;
+        document.getElementById('fiche-sol-domicile-link').href = ficheUrl;
 
-      document.getElementById('fiche-sol-enligne-desc').textContent =
-        `Nous avons trouvé ${formatNumber(localEnLigne)} solutions. Explorez l'ensemble des sites Internet et solutions en ligne pour votre objet.`;
-      document.getElementById('fiche-sol-enligne-link').href = ficheUrl;
+        document.getElementById('fiche-sol-enligne-desc').textContent =
+          `Nous avons trouvé ${formatNumber(localEnLigne)} solutions. Explorez l'ensemble des sites Internet et solutions en ligne pour votre objet.`;
+        document.getElementById('fiche-sol-enligne-link').href = ficheUrl;
+      }
     }
 
     // Bouton retour depuis la fiche
