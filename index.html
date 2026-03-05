@@ -105,16 +105,17 @@
        ============================================ */
     .search-section {
       background-color: var(--green-menthe-975);
-      padding: var(--spacing-6v) var(--spacing-4v) 0;
+      padding: var(--spacing-4v) var(--spacing-4v) 0;
       position: relative;
     }
 
     .search-section__title {
-      font-size: 1rem;
+      font-size: 0.9375rem;
       font-weight: 700;
-      line-height: 1.5;
+      line-height: 1.4;
       color: var(--text-default);
-      margin-bottom: var(--spacing-4v);
+      margin-bottom: var(--spacing-3v);
+      padding-right: var(--spacing-8v);
     }
 
     /* Barre de recherche custom */
@@ -230,10 +231,10 @@
     }
 
     .search-panel__hint {
-      font-size: 0.875rem;
-      line-height: 1.5;
+      font-size: 0.8125rem;
+      line-height: 1.4;
       color: var(--text-mention-grey);
-      padding: 0 0 var(--spacing-4v);
+      padding: 0 0 var(--spacing-3v);
     }
 
     /* Résultats de recherche */
@@ -276,6 +277,60 @@
       align-items: center;
       color: var(--text-mention-grey);
       flex-shrink: 0;
+    }
+
+    /* Message aucun résultat (prototype) */
+    .search-noresult {
+      padding: var(--spacing-4v);
+      list-style: none;
+    }
+
+    .search-noresult__text {
+      font-size: 0.875rem;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-2v);
+      line-height: 1.5;
+    }
+
+    .search-noresult__hint {
+      font-size: 0.8125rem;
+      color: var(--text-mention-grey);
+      line-height: 1.8;
+    }
+
+    /* Tag DSFR sm cliquable */
+    .fr-tag {
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+      min-height: 2rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 1rem;
+      background-color: var(--background-action-low-blue-france, #E3E3FD);
+      color: var(--text-action-high-blue-france, #000091);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      text-decoration: none;
+      margin: 0.15rem 0;
+    }
+
+    .fr-tag--sm {
+      font-size: 0.75rem;
+      line-height: 1.25rem;
+      min-height: 1.5rem;
+      padding: 0.125rem 0.5rem;
+      border-radius: 0.75rem;
+    }
+
+    .fr-tag:hover {
+      background-color: var(--background-action-low-blue-france-hover, #C1C1F7);
+    }
+
+    .fr-tag:active {
+      background-color: var(--background-action-low-blue-france-active, #ADADF7);
     }
 
     /* Section Catégories */
@@ -706,6 +761,19 @@
         padding: var(--spacing-8v) var(--spacing-6v) 0;
       }
 
+      .search-section__title {
+        font-size: 1rem;
+        line-height: 1.5;
+        padding-right: 0;
+        margin-bottom: var(--spacing-4v);
+      }
+
+      .search-panel__hint {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        padding: 0 0 var(--spacing-4v);
+      }
+
       .search-panel {
         padding: 0 var(--spacing-6v) var(--spacing-6v);
       }
@@ -771,6 +839,7 @@
 
     .iframe-container.step-fiche .fiche-section {
       display: block;
+      animation: fadeSlideIn 0.35s ease-out;
     }
 
     .iframe-container.step-fiche .footer {
@@ -1237,6 +1306,18 @@
 
     .iframe-container.step-territory .territory-section {
       display: block;
+      animation: fadeSlideIn 0.35s ease-out;
+    }
+
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Header territoire (fond vert menthe) */
@@ -1349,12 +1430,63 @@
     .stats-section--territory .stats-intro {
       font-size: 0.875rem;
       line-height: 1.5;
-      color: var(--green-menthe-sun-373);
+      color: var(--text-mention-grey);
       margin-bottom: var(--spacing-4v);
     }
 
     .stats-section--territory .stats-intro strong {
       font-weight: 700;
+      color: var(--green-menthe-sun-373);
+      font-size: 1.125rem;
+    }
+
+    /* KPI cards territoire */
+    .stats-section--territory .stats-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--spacing-3v);
+    }
+
+    .stats-section--territory .stats-list__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: var(--spacing-3v) var(--spacing-2v);
+      background-color: var(--background-default);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--green-menthe-sun-373);
+      border-bottom: 1px solid var(--green-menthe-sun-373);
+      gap: var(--spacing-1v);
+    }
+
+    .stats-section--territory .stats-list__item:first-child {
+      border-top: 1px solid var(--green-menthe-sun-373);
+    }
+
+    .stats-section--territory .stats-list__label {
+      flex-direction: column;
+      font-size: 0.75rem;
+      gap: var(--spacing-1v);
+      order: 2;
+    }
+
+    .stats-section--territory .stats-list__label-icon {
+      order: -1;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .stats-section--territory .stats-list__label-icon svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .stats-section--territory .stats-list__value {
+      font-size: 1.375rem;
+      font-weight: 700;
+      color: var(--green-menthe-sun-373);
+      order: 1;
     }
 
     /* Responsive territoire */
@@ -1433,6 +1565,37 @@
       <!-- Résultats de recherche dynamiques -->
       <ul class="search-results" id="search-results" aria-label="Résultats de recherche"></ul>
 
+      <!-- Les plus populaires (remonté avant les catégories pour visibilité mobile avec clavier) -->
+      <div class="search-popular" id="search-popular">
+        <h2 class="search-popular__title">Les plus populaires</h2>
+        <ul class="search-popular__list">
+          <li class="search-popular__item" data-fiche-id="cd-dvd-vhs" role="button" tabindex="0">
+            <span>CD, DVD ou cassettes VHS</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="chaussures" role="button" tabindex="0">
+            <span>Chaussures</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="marteau" role="button" tabindex="0">
+            <span>Marteau</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="aiguille-medicale" role="button" tabindex="0">
+            <span>Seringue avec aiguille</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="trottinette-electrique" role="button" tabindex="0">
+            <span>Trottinette électrique</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+          <li class="search-popular__item" data-fiche-id="brique-alimentaire" role="button" tabindex="0">
+            <span>Brique alimentaire (jus, lait…)</span>
+            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
+          </li>
+        </ul>
+      </div>
+
       <!-- Par catégorie -->
       <div class="search-categories" id="search-categories">
         <h2 class="search-categories__title">Par catégorie</h2>
@@ -1475,37 +1638,6 @@
           </div>
 
         </div>
-      </div>
-
-      <!-- Les plus populaires -->
-      <div class="search-popular" id="search-popular">
-        <h2 class="search-popular__title">Les plus populaires</h2>
-        <ul class="search-popular__list">
-          <li class="search-popular__item" data-fiche-id="cd-dvd-vhs" role="button" tabindex="0">
-            <span>CD, DVD ou cassettes VHS</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-          <li class="search-popular__item" data-fiche-id="chaussures" role="button" tabindex="0">
-            <span>Chaussures</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-          <li class="search-popular__item" data-fiche-id="marteau" role="button" tabindex="0">
-            <span>Marteau</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-          <li class="search-popular__item" data-fiche-id="aiguille-medicale" role="button" tabindex="0">
-            <span>Seringue avec aiguille</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-          <li class="search-popular__item" data-fiche-id="trottinette-electrique" role="button" tabindex="0">
-            <span>Trottinette électrique</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-          <li class="search-popular__item" data-fiche-id="brique-alimentaire" role="button" tabindex="0">
-            <span>Brique alimentaire (jus, lait…)</span>
-            <span class="search-popular__arrow" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg></span>
-          </li>
-        </ul>
       </div>
     </div>
 
@@ -2370,10 +2502,19 @@
         searchCategories.style.display = 'none';
         searchPopular.style.display = 'none';
       } else {
-        searchResults.classList.remove('is-visible');
-        searchResults.innerHTML = '';
-        searchCategories.style.display = '';
-        searchPopular.style.display = '';
+        // Aucun résultat : afficher un message d'aide (prototype)
+        const exemples = ['bouilloire', 'téléphone', 'emballage', 'vêtements', 'meubles', 'chaussures'];
+        const exemplesLinks = exemples.map(e =>
+          `<button type="button" class="fr-tag fr-tag--sm" data-query="${e}">${e}</button>`
+        ).join(' ');
+        searchResults.innerHTML =
+          `<li class="search-noresult">
+            <p class="search-noresult__text">Ce prototype ne couvre pas encore tous les objets et déchets.</p>
+            <p class="search-noresult__hint">Essayez par exemple\u00a0: ${exemplesLinks}</p>
+          </li>`;
+        searchResults.classList.add('is-visible');
+        searchCategories.style.display = 'none';
+        searchPopular.style.display = 'none';
       }
     }
 
@@ -2390,6 +2531,16 @@
 
     // Clic sur un résultat de recherche
     searchResults.addEventListener('click', (e) => {
+      // Clic sur un bouton d'exemple (aucun résultat)
+      const exBtn = e.target.closest('.fr-tag[data-query]');
+      if (exBtn && exBtn.dataset.query) {
+        e.preventDefault();
+        e.stopPropagation();
+        searchInput.value = exBtn.dataset.query;
+        performSearch(exBtn.dataset.query);
+        searchInput.focus();
+        return;
+      }
       const item = e.target.closest('.search-results__item');
       if (item && item.dataset.ficheId) {
         closeSearchPanel();
