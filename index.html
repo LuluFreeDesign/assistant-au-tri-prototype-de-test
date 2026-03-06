@@ -917,7 +917,7 @@
 
     .fiche-infotri__img {
       width: 100%;
-      max-width: 420px;
+      max-width: 320px;
       height: auto;
     }
 
@@ -2013,6 +2013,12 @@
         nom: 'Téléphone mobile',
         categorie: 'telephone-mobile',
         keywords: ['téléphone', 'telephone', 'téléphone mobile', 'telephone mobile', 'smartphone', 'portable', 'mobile', 'iphone', 'samsung', 'android', 'téléphone portable', 'telephone portable', 'gsm', 'cellulaire', 'écran cassé', 'ecran casse']
+      },
+      {
+        id: 'pile-jetable',
+        nom: 'Pile jetable',
+        categorie: 'pile-jetable',
+        keywords: ['pile', 'piles', 'pile jetable', 'pile usagée', 'pile usagee', 'batterie', 'batteries', 'accumulateur', 'pile bouton', 'pile plate', 'pile ronde', 'lr6', 'lr03', 'aaa', 'aa', 'cr2032']
       }
     ];
 
@@ -2083,7 +2089,8 @@
         'brique-alimentaire': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
         'gros-electromenager': { lieux: 15873, services_a_domicile: 47, solutions_en_ligne: 17 },
         'emballages': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
-        'telephone-mobile': { lieux: 19500, services_a_domicile: 58, solutions_en_ligne: 22 }
+        'telephone-mobile': { lieux: 19500, services_a_domicile: 58, solutions_en_ligne: 22 },
+        'pile-jetable': { lieux: 18200, services_a_domicile: 0, solutions_en_ligne: 12 }
       }
     };
 
@@ -2286,6 +2293,17 @@
             { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Vous pensez que votre téléphone peut être réparé\u00a0? Pensez au <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0!</li><li>Grâce à la réparation, vous prolongez la durée de vie de votre téléphone tout en économisant de l\u2019argent.</li><li>Trouvez un réparateur labellisé <a href="https://www.label-qualirepar.fr" target="_blank" rel="noopener noreferrer">QualiRépar</a> sur la carte ci-dessous.</li></ul>', condition: 'Réparable' },
             { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Proposez votre téléphone à un proche.</li><li>Donnez-le à une association ou à une structure de réemploi.</li><li>Vous pouvez aussi essayer de le revendre sur une plateforme de seconde main ou en dépôt-vente.</li></ul>', condition: 'En bon état' },
             { titre: 'Déposer au tri', icone: 'deposer', consigne: '<ul><li>Qu\u2019il fonctionne ou pas, vous pouvez le déposer en magasin dans un bac de collecte ou le donner à un vendeur.</li><li>Vous pouvez aussi le renvoyer grâce aux services de certains éco-organismes (<a href="https://www.ecosystem.eco" target="_blank" rel="noopener noreferrer">Ecosystem</a>, <a href="https://www.ecologic-france.com" target="_blank" rel="noopener noreferrer">Ecologic</a>).</li><li>Sinon, apportez-le en déchèterie.</li></ul>', condition: 'Hors d\u2019usage' }
+          ]
+        },
+        {
+          id: 'pile-jetable',
+          nom: 'Pile jetable',
+          url: 'https://quefairedemesdechets.ademe.fr/dechet/pile-jetable/',
+          infoTri: 'info-tri-piles.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=117',
+          directDisplay: true,
+          accordeons: [
+            { titre: 'Déposer au point de collecte', icone: 'deposer', consigne: '<ul><li>Rapportez vos piles usagées dans un point de collecte\u00a0: bacs en magasin, déchèterie, pharmacie, école, mairie, hôpital…</li><li>Les piles sont recyclées\u00a0: les métaux (zinc, manganèse, nickel, cobalt, lithium…) sont récupérés pour fabriquer de nouveaux produits.</li><li>Ne jetez jamais les piles à la poubelle\u00a0: elles contiennent des substances polluantes pour l\u2019eau et les sols.</li></ul>', condition: null }
           ]
         }
       ]
