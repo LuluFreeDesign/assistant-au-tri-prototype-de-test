@@ -34,6 +34,14 @@
     .widget-wrapper { border: 1px solid #e5e5e5; border-radius: 6px; overflow: hidden; }
     .widget-wrapper iframe { width: 100%; height: 800px; border: none; display: block; }
 
+    /* Bandeau retour */
+    .feedback-banner { background: #f5f5f5; border: 1px solid #e5e5e5; border-radius: 6px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 20px; }
+    .feedback-banner__text { font-size: 0.875rem; color: #444; line-height: 1.5; }
+    .feedback-banner__text strong { display: block; font-size: 0.95rem; color: #111; margin-bottom: 4px; }
+    .feedback-banner__btn { flex-shrink: 0; background: #111; color: #fff; text-decoration: none; font-size: 0.875rem; font-weight: 600; padding: 10px 20px; border-radius: 4px; white-space: nowrap; transition: background 0.2s; }
+    .feedback-banner__btn:hover { background: #333; }
+    @media (max-width: 640px) { .feedback-banner { flex-direction: column; text-align: center; } }
+
     /* Footer */
     .footer { border-top: 1px solid #e5e5e5; padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; }
     .footer__copy { font-size: 0.8rem; color: #999; }
@@ -78,6 +86,14 @@
     </div>
     <div class="widget-wrapper">
       <iframe id="assistant-tri" src="../index.html" title="Assistant au tri, au réemploi et à la réparation"></iframe>
+    </div>
+
+    <div class="feedback-banner">
+      <div class="feedback-banner__text">
+        <strong>Vous avez testé l'assistant ?</strong>
+        Votre avis nous est précieux pour améliorer cet outil. Répondez à notre questionnaire en 2 minutes.
+      </div>
+      <a href="https://tally.so/r/ODPQVg" target="_blank" rel="noopener noreferrer" class="feedback-banner__btn">Donner mon avis →</a>
     </div>
   </main>
 
