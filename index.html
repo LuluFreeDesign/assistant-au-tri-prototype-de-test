@@ -2673,6 +2673,23 @@
           addressResults.innerHTML = data.features.map((feature, index) => {
             const props = feature.properties;
             const coords = feature.geometry.coordinates;
+
+            // Construire un libellé enrichi qui force toujours le code postal
+            // et le département pour les communes (évite les doublons sans contexte)
+            let displayLabel;
+            if (props.type === 'municipality') {
+              const parts = [props.name];
+              if (props.postcode) parts.push(props.postcode);
+              if (props.context) {
+                // context = "18, Cher, Centre-Val de Loire" → on prend le département
+                const dept = props.context.split(', ')[1];
+                if (dept) parts.push(`— ${dept}`);
+              }
+              displayLabel = parts.join(' ');
+            } else {
+              displayLabel = props.label;
+            }
+
             return `<li class="address-results__item"
                         role="option"
                         data-label="${props.label}"
@@ -2680,7 +2697,7 @@
                         data-postcode="${props.postcode || ''}"
                         data-lon="${coords[0]}"
                         data-lat="${coords[1]}"
-                        tabindex="-1">${props.label}</li>`;
+                        tabindex="-1">${displayLabel}</li>`;
           }).join('');
           addressResults.classList.add('is-visible');
           addressFocusedIndex = -1;
