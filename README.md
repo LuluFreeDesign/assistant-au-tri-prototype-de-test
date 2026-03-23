@@ -54,7 +54,15 @@ La fiche affiche :
 ├── demo/
 │   ├── collectivite.html         # Démo d'intégration : site d'une collectivité
 │   ├── ecommerce.html            # Démo d'intégration : site e-commerce
-│   └── media.html                # Démo d'intégration : site média
+│   ├── media.html                # Démo d'intégration : site média
+│   └── neutre.html               # Démo d'intégration : version neutre
+├── embed/
+│   ├── embed.js                  # Script d'intégration iframe réutilisable
+│   ├── README.md                 # Documentation d'intégration
+│   ├── example-neutre.html       # Exemple d'intégration : neutre
+│   ├── example-collectivite.html # Exemple d'intégration : collectivités
+│   ├── example-ecommerce.html    # Exemple d'intégration : e-commerçants
+│   └── example-media.html        # Exemple d'intégration : médias
 ├── scripts/
 │   └── generate-counts.py        # Script de régénération des comptages depuis le CSV ADEME
 └── src/
@@ -88,6 +96,32 @@ python3 -m http.server 8090
 
 ### Intégration en iframe
 
+#### Option 1 : Script d'intégration réutilisable (recommandé)
+
+Pour **tester rapidement** et **intégrer le widget dans votre site**, utilisez le script d'intégration :
+
+```html
+<div id="assistant-container"></div>
+
+<script
+  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
+  data-env="neutre"
+  data-container="assistant-container"
+  data-width="100%"
+  data-height="600px"
+></script>
+```
+
+**Paramètres disponibles :**
+- `data-env` : `neutre` | `collectivite` | `ecommerce` | `media`
+- `data-container` : ID du conteneur HTML
+- `data-width` : largeur (défaut : `100%`)
+- `data-height` : hauteur (défaut : `600px`)
+
+📖 **Documentation complète** : voir [`embed/README.md`](./embed/README.md)
+
+#### Option 2 : Intégration manuelle
+
 Le widget intègre un mécanisme d'auto-resize : il envoie sa hauteur au parent via `postMessage`, supprimant le besoin de définir une hauteur fixe.
 
 ```html
@@ -107,7 +141,22 @@ Le widget intègre un mécanisme d'auto-resize : il envoie sa hauteur au parent 
 </script>
 ```
 
-> Trois pages de démonstration sont disponibles dans le dossier `demo/` (collectivité, e-commerce, média) pour visualiser l'intégration dans différents contextes.
+## Environnements de test
+
+Trois pages de démonstration sont disponibles sur **GitHub Pages** pour tester le widget dans différents contextes :
+
+| Environnement | URL | Script d'intégration |
+|---|---|---|
+| **Neutre** | [https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/demo/neutre.html](https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/demo/neutre.html) | `data-env="neutre"` |
+| **Collectivités** | [https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/demo/collectivite.html](https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/demo/collectivite.html) | `data-env="collectivite"` |
+| **E-commerçants** | [https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/demo/ecommerce.html](https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/demo/ecommerce.html) | `data-env="ecommerce"` |
+| **Médias** | [https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/demo/media.html](https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/demo/media.html) | `data-env="media"` |
+
+**Exemples d'intégration pour chaque environnement :**
+- [`embed/example-neutre.html`](./embed/example-neutre.html)
+- [`embed/example-collectivite.html`](./embed/example-collectivite.html)
+- [`embed/example-ecommerce.html`](./embed/example-ecommerce.html)
+- [`embed/example-media.html`](./embed/example-media.html)
 
 ## Données
 
