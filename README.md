@@ -100,13 +100,39 @@ python3 -m http.server 8090
 
 Pour **tester rapidement** et **intégrer le widget dans votre site**, utilisez le script d'intégration :
 
-```html
+🗑️ Neutre
+
+```
 <script
   src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
   data-env="neutre"
-  data-container="assistant-container"
-  data-width="100%"
-  data-height="600px"
+></script>
+```
+
+🏛️ Collectivités
+
+```
+<script
+  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
+  data-env="collectivite"
+></script>
+```
+
+🛍️ E-commerçants
+
+```
+<script
+  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
+  data-env="ecommerce"
+></script>
+```
+
+📰 Médias
+
+```
+<script
+  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
+  data-env="media"
 ></script>
 ```
 
