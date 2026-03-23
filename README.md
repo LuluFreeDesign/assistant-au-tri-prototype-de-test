@@ -101,8 +101,6 @@ python3 -m http.server 8090
 Pour **tester rapidement** et **intégrer le widget dans votre site**, utilisez le script d'intégration :
 
 ```html
-<div id="assistant-container"></div>
-
 <script
   src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
   data-env="neutre"
