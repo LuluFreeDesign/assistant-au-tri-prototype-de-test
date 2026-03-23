@@ -98,25 +98,44 @@ python3 -m http.server 8090
 
 #### Option 1 : Script d'intégration réutilisable (recommandé)
 
-Pour **tester rapidement** et **intégrer le widget dans votre site**, utilisez le script d'intégration :
+Pour **tester rapidement** et **intégrer le widget dans votre site**, utilisez le script d'intégration. **Le conteneur est créé automatiquement** — il suffit de copier-coller :
 
 ```html
-<div id="assistant-container"></div>
-
 <script
   src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
   data-env="neutre"
-  data-container="assistant-container"
-  data-width="100%"
-  data-height="600px"
 ></script>
 ```
 
 **Paramètres disponibles :**
-- `data-env` : `neutre` | `collectivite` | `ecommerce` | `media`
-- `data-container` : ID du conteneur HTML
-- `data-width` : largeur (défaut : `100%`)
-- `data-height` : hauteur (défaut : `600px`)
+- `data-env` : `neutre` | `collectivite` | `ecommerce` | `media` (obligatoire)
+- `data-container` : ID du conteneur HTML (optionnel, défaut : `assistant-container`)
+- `data-width` : largeur (optionnel, défaut : `100%`)
+- `data-height` : hauteur (optionnel, défaut : `600px`)
+
+**URLs des scripts par environnement :**
+
+| Environnement | Script URL |
+|---|---|
+| **Neutre** | `https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js` |
+| **Collectivités** | `https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js` |
+| **E-commerçants** | `https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js` |
+| **Médias** | `https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js` |
+
+> Le même script fonctionne pour tous les environnements. C'est le paramètre `data-env` qui change.
+
+**Exemples rapides :**
+
+```html
+<!-- Collectivités -->
+<script src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js" data-env="collectivite"></script>
+
+<!-- E-commerçants -->
+<script src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js" data-env="ecommerce"></script>
+
+<!-- Médias -->
+<script src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js" data-env="media"></script>
+```
 
 📖 **Documentation complète** : voir [`embed/README.md`](./embed/README.md)
 
