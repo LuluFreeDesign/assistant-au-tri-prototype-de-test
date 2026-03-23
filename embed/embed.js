@@ -1,13 +1,18 @@
 /**
  * Assistant au Tri - Script d'intégration iframe
  *
- * Usage:
+ * Usage (avec conteneur personnalisé) :
+ * <div id="my-container"></div>
  * <script
  *   src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
  *   data-env="collectivite"
- *   data-container="assistant-container"
- *   data-width="100%"
- *   data-height="600px"
+ *   data-container="my-container"
+ * ></script>
+ *
+ * Usage simple (conteneur créé automatiquement) :
+ * <script
+ *   src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
+ *   data-env="collectivite"
  * ></script>
  */
 
@@ -44,10 +49,13 @@
   }
 
   function initIframe() {
-    const container = document.getElementById(config.container);
+    let container = document.getElementById(config.container);
+
+    // Si le conteneur n'existe pas, le créer automatiquement
     if (!container) {
-      console.error(`[Assistant au Tri] Conteneur non trouvé: #${config.container}`);
-      return;
+      container = document.createElement('div');
+      container.id = config.container;
+      document.body.appendChild(container);
     }
 
     // Construire l'URL de la démo

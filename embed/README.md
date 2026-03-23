@@ -4,22 +4,25 @@ Ce dossier contient les scripts et exemples pour intégrer l'Assistant au Tri da
 
 ## Utilisation rapide
 
-Ajoutez simplement ce script dans votre page HTML :
+**Option simple** — le conteneur est créé automatiquement :
 
 ```html
 <script
   src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
   data-env="neutre"
-  data-container="assistant-container"
-  data-width="100%"
-  data-height="600px"
 ></script>
 ```
 
-Et créez un conteneur pour l'iframe :
+**Avec conteneur personnalisé** — créez un div avec l'ID souhaité :
 
 ```html
-<div id="assistant-container"></div>
+<div id="mon-container"></div>
+
+<script
+  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
+  data-env="neutre"
+  data-container="mon-container"
+></script>
 ```
 
 ## Paramètres
@@ -31,8 +34,8 @@ L'environnement cible. Valeurs possibles :
 - `ecommerce` - Environnement e-commerçants
 - `media` - Environnement médias
 
-### `data-container` (obligatoire)
-L'ID du conteneur HTML où l'iframe sera insérée.
+### `data-container` (optionnel)
+L'ID du conteneur HTML où l'iframe sera insérée. Si non spécifié, un conteneur sera créé automatiquement avec l'ID `assistant-container`. Par défaut : `assistant-container`
 
 ### `data-width` (optionnel)
 La largeur de l'iframe. Par défaut : `100%`
@@ -42,42 +45,40 @@ La hauteur de l'iframe. Par défaut : `600px`
 
 ## Exemples complets
 
-### Collectivités
+### Collectivités (simple)
 ```html
-<div id="assistant-container"></div>
+<script
+  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
+  data-env="collectivite"
+></script>
+```
+
+### E-commerçants (simple)
+```html
+<script
+  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
+  data-env="ecommerce"
+></script>
+```
+
+### Médias (simple)
+```html
+<script
+  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
+  data-env="media"
+></script>
+```
+
+### Avec conteneur personnalisé et dimensions custom
+```html
+<div id="mon-assistant" style="max-width: 1200px; margin: 2rem auto;"></div>
 
 <script
   src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
   data-env="collectivite"
-  data-container="assistant-container"
+  data-container="mon-assistant"
   data-width="100%"
-  data-height="600px"
-></script>
-```
-
-### E-commerçants
-```html
-<div id="assistant-container"></div>
-
-<script
-  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
-  data-env="ecommerce"
-  data-container="assistant-container"
-  data-width="100%"
-  data-height="600px"
-></script>
-```
-
-### Médias
-```html
-<div id="assistant-container"></div>
-
-<script
-  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
-  data-env="media"
-  data-container="assistant-container"
-  data-width="100%"
-  data-height="600px"
+  data-height="800px"
 ></script>
 ```
 
@@ -96,19 +97,22 @@ Des fichiers HTML d'exemple sont disponibles pour tester chaque environnement :
 Adaptez les dimensions à votre besoin :
 ```html
 <script
-  src="..."
+  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
+  data-env="collectivite"
   data-width="800px"
   data-height="500px"
 ></script>
 ```
 
-### Responsive
-Pour un design responsive :
+### Responsive avec max-width
+Pour limiter la largeur sur les grands écrans :
 ```html
-<div id="assistant-container" style="max-width: 1200px; margin: 0 auto;"></div>
+<div id="mon-assistant" style="max-width: 800px;"></div>
 
 <script
-  src="..."
+  src="https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/embed/embed.js"
+  data-env="collectivite"
+  data-container="mon-assistant"
   data-width="100%"
   data-height="600px"
 ></script>
