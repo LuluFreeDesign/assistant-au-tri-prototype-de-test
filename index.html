@@ -281,21 +281,40 @@
 
     /* Message aucun résultat (prototype) */
     .search-noresult {
-      padding: var(--spacing-4v);
+      padding: var(--spacing-8v) var(--spacing-4v) var(--spacing-6v);
       list-style: none;
+      text-align: center;
+    }
+
+    .search-noresult__illustration {
+      margin-bottom: var(--spacing-4v);
+    }
+
+    .search-noresult__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-2v);
     }
 
     .search-noresult__text {
       font-size: 0.875rem;
-      color: var(--text-default);
-      margin-bottom: var(--spacing-2v);
+      color: var(--text-mention-grey);
+      margin-bottom: var(--spacing-4v);
       line-height: 1.5;
     }
 
     .search-noresult__hint {
       font-size: 0.8125rem;
       color: var(--text-mention-grey);
-      line-height: 1.8;
+      margin-bottom: var(--spacing-2v);
+    }
+
+    .search-noresult__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
     }
 
     /* Tag DSFR sm cliquable */
@@ -917,7 +936,7 @@
 
     .fiche-infotri__img {
       width: 100%;
-      max-width: 420px;
+      max-width: 320px;
       height: auto;
     }
 
@@ -1548,7 +1567,7 @@
           type="search"
           id="search-input"
           class="search-bar__input"
-          placeholder="exemple : vis, téléphone, CD-ROM..."
+          placeholder="exemple : téléphone, bouilloire, chaise ..."
           autocomplete="off"
         >
       </div>
@@ -2013,6 +2032,12 @@
         nom: 'Téléphone mobile',
         categorie: 'telephone-mobile',
         keywords: ['téléphone', 'telephone', 'téléphone mobile', 'telephone mobile', 'smartphone', 'portable', 'mobile', 'iphone', 'samsung', 'android', 'téléphone portable', 'telephone portable', 'gsm', 'cellulaire', 'écran cassé', 'ecran casse']
+      },
+      {
+        id: 'pile-jetable',
+        nom: 'Pile jetable',
+        categorie: 'pile-jetable',
+        keywords: ['pile', 'piles', 'pile jetable', 'pile usagée', 'pile usagee', 'batterie', 'batteries', 'accumulateur', 'pile bouton', 'pile plate', 'pile ronde', 'lr6', 'lr03', 'aaa', 'aa', 'cr2032']
       }
     ];
 
@@ -2083,7 +2108,8 @@
         'brique-alimentaire': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
         'gros-electromenager': { lieux: 15873, services_a_domicile: 47, solutions_en_ligne: 17 },
         'emballages': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
-        'telephone-mobile': { lieux: 19500, services_a_domicile: 58, solutions_en_ligne: 22 }
+        'telephone-mobile': { lieux: 19500, services_a_domicile: 58, solutions_en_ligne: 22 },
+        'pile-jetable': { lieux: 18200, services_a_domicile: 0, solutions_en_ligne: 12 }
       }
     };
 
@@ -2286,6 +2312,17 @@
             { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Vous pensez que votre téléphone peut être réparé\u00a0? Pensez au <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0!</li><li>Grâce à la réparation, vous prolongez la durée de vie de votre téléphone tout en économisant de l\u2019argent.</li><li>Trouvez un réparateur labellisé <a href="https://www.label-qualirepar.fr" target="_blank" rel="noopener noreferrer">QualiRépar</a> sur la carte ci-dessous.</li></ul>', condition: 'Réparable' },
             { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Proposez votre téléphone à un proche.</li><li>Donnez-le à une association ou à une structure de réemploi.</li><li>Vous pouvez aussi essayer de le revendre sur une plateforme de seconde main ou en dépôt-vente.</li></ul>', condition: 'En bon état' },
             { titre: 'Déposer au tri', icone: 'deposer', consigne: '<ul><li>Qu\u2019il fonctionne ou pas, vous pouvez le déposer en magasin dans un bac de collecte ou le donner à un vendeur.</li><li>Vous pouvez aussi le renvoyer grâce aux services de certains éco-organismes (<a href="https://www.ecosystem.eco" target="_blank" rel="noopener noreferrer">Ecosystem</a>, <a href="https://www.ecologic-france.com" target="_blank" rel="noopener noreferrer">Ecologic</a>).</li><li>Sinon, apportez-le en déchèterie.</li></ul>', condition: 'Hors d\u2019usage' }
+          ]
+        },
+        {
+          id: 'pile-jetable',
+          nom: 'Pile jetable',
+          url: 'https://quefairedemesdechets.ademe.fr/dechet/pile-jetable/',
+          infoTri: 'info-tri-piles.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=117',
+          directDisplay: true,
+          accordeons: [
+            { titre: 'Déposer au point de collecte', icone: 'deposer', consigne: '<ul><li>Rapportez vos piles usagées dans un point de collecte\u00a0: bacs en magasin, déchèterie, pharmacie, école, mairie, hôpital…</li><li>Les piles sont recyclées\u00a0: les métaux (zinc, manganèse, nickel, cobalt, lithium…) sont récupérés pour fabriquer de nouveaux produits.</li><li>Ne jetez jamais les piles à la poubelle\u00a0: elles contiennent des substances polluantes pour l\u2019eau et les sols.</li></ul>', condition: null }
           ]
         }
       ]
@@ -2505,12 +2542,16 @@
         // Aucun résultat : afficher un message d'aide (prototype)
         const exemples = ['bouilloire', 'téléphone', 'emballage', 'vêtements', 'meubles', 'chaussures'];
         const exemplesLinks = exemples.map(e =>
-          `<button type="button" class="fr-tag fr-tag--sm" data-query="${e}">${e}</button>`
-        ).join(' ');
+          `<button type="button" class="fr-tag" data-query="${e}">${e}</button>`
+        ).join('');
+        const errorSvg = `<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 17C7.4486 17 7 16.5514 7 16C7 15.4486 7.4486 15 8 15C8.5514 15 9 15.4486 9 16C9 16.5514 8.5514 17 8 17Z" fill="#ECECFE"/><path fill-rule="evenodd" clip-rule="evenodd" d="M65 72C64.4486 72 64 71.5514 64 71C64 70.4486 64.4486 70 65 70C65.5514 70 66 70.4486 66 71C66 71.5514 65.5514 72 65 72Z" fill="#ECECFE"/><path fill-rule="evenodd" clip-rule="evenodd" d="M66 11C65.4486 11 65 10.5514 65 10C65 9.44855 65.4486 9 66 9C66.5514 9 67 9.44855 67 10C67 10.5514 66.5514 11 66 11Z" fill="#ECECFE"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21 77C20.4486 77 20 76.5514 20 76C20 75.4486 20.4486 75 21 75C21.5514 75 22 75.4486 22 76C22 76.5514 21.5514 77 21 77Z" fill="#ECECFE"/><path d="M40 36.5502L48.4351 28.1151C49.2552 27.295 50.5848 27.295 51.4049 28.1151C52.1774 28.8875 52.227 30.1212 51.5131 30.9678L51.4049 31.0849L42.9699 39.52L52.3649 48.9151L52.4731 49.0322C53.187 49.8788 53.1374 51.1125 52.3649 51.8849C51.5448 52.705 50.2152 52.705 49.3951 51.8849L40 42.4898L30.6049 51.8849C29.7848 52.705 28.4552 52.705 27.6351 51.8849C26.8626 51.1125 26.813 49.8788 27.5269 49.0322L27.6351 48.9151L37.0302 39.52L28.5951 31.0849L28.4869 30.9678C27.773 30.1212 27.8226 28.8875 28.5951 28.1151C29.4152 27.295 30.7448 27.295 31.5649 28.1151L40 36.5502Z" fill="#E1000F"/><path d="M57 12C62.9787 12 67.8434 16.7698 67.9963 22.7116L68 23V29C68 29.5523 67.5523 30 67 30C66.4872 30 66.0645 29.614 66.0067 29.1166L66 29V23C66 18.1182 62.1132 14.1442 57.2654 14.0038L57 14H23C18.1182 14 14.1442 17.8868 14.0038 22.7346L14 23V57C14 61.8818 17.8868 65.8558 22.7346 65.9962L23 66H57C61.8818 66 65.8558 62.1132 65.9962 57.2654L66 57V43C66 42.4477 66.4477 42 67 42C67.5128 42 67.9355 42.386 67.9933 42.8834L68 43V57C68 62.9787 63.2302 67.8434 57.2884 67.9963L57 68H23C17.0213 68 12.1566 63.2302 12.0037 57.2884L12 57V23C12 17.0213 16.7698 12.1566 22.7116 12.0037L23 12H57Z" fill="#000091"/><path d="M70 31C70 30.4477 70.4477 30 71 30C71.5523 30 72 30.4477 72 31C72 31.5523 71.5523 32 71 32C70.4477 32 70 31.5523 70 31Z" fill="#000091"/><path d="M71.9933 34.8834C71.9355 34.386 71.5128 34 71 34C70.4477 34 70 34.4477 70 35V51L70.0067 51.1166C70.0645 51.614 70.4872 52 71 52C71.5523 52 72 51.5523 72 51V35L71.9933 34.8834Z" fill="#000091"/></svg>`;
         searchResults.innerHTML =
           `<li class="search-noresult">
+            <div class="search-noresult__illustration" aria-hidden="true">${errorSvg}</div>
+            <p class="search-noresult__title">Aucun résultat pour\u00a0«\u00a0${query}\u00a0»</p>
             <p class="search-noresult__text">Ce prototype ne couvre pas encore tous les objets et déchets.</p>
-            <p class="search-noresult__hint">Essayez par exemple\u00a0: ${exemplesLinks}</p>
+            <p class="search-noresult__hint">Essayez par exemple\u00a0:</p>
+            <div class="search-noresult__tags">${exemplesLinks}</div>
           </li>`;
         searchResults.classList.add('is-visible');
         searchCategories.style.display = 'none';
@@ -2655,6 +2696,23 @@
           addressResults.innerHTML = data.features.map((feature, index) => {
             const props = feature.properties;
             const coords = feature.geometry.coordinates;
+
+            // Construire un libellé enrichi qui force toujours le code postal
+            // et le département pour les communes (évite les doublons sans contexte)
+            let displayLabel;
+            if (props.type === 'municipality') {
+              const parts = [props.name];
+              if (props.postcode) parts.push(props.postcode);
+              if (props.context) {
+                // context = "18, Cher, Centre-Val de Loire" → on prend le département
+                const dept = props.context.split(', ')[1];
+                if (dept) parts.push(`— ${dept}`);
+              }
+              displayLabel = parts.join(' ');
+            } else {
+              displayLabel = props.label;
+            }
+
             return `<li class="address-results__item"
                         role="option"
                         data-label="${props.label}"
@@ -2662,7 +2720,7 @@
                         data-postcode="${props.postcode || ''}"
                         data-lon="${coords[0]}"
                         data-lat="${coords[1]}"
-                        tabindex="-1">${props.label}</li>`;
+                        tabindex="-1">${displayLabel}</li>`;
           }).join('');
           addressResults.classList.add('is-visible');
           addressFocusedIndex = -1;
