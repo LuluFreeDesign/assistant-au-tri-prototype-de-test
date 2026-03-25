@@ -1264,9 +1264,11 @@
       color: var(--text-default);
     }
 
-    /* Info-tri taille réduite */
+    /* Info-tri taille réduite (référence : CD/DVD ~62px de haut) */
     .fiche-infotri__img--small {
-      max-width: 280px;
+      max-height: 62px;
+      width: auto;
+      max-width: 100%;
     }
 
     @media (min-width: 576px) {
@@ -2160,6 +2162,7 @@
           nom: 'Médicaments',
           url: 'https://quefairedemesdechets.ademe.fr/categories/medicaments/',
           infoTri: 'medicaments.svg',
+          infoTriSmall: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=198',
           accordeons: [
             { titre: 'Rapporter en pharmacie', icone: 'deposer', consigne: '<ul><li>Rapportez les médicaments périmés, entamés ou inutilisés en pharmacie, sans leur boîte ni notice.</li><li>Apportez\u00a0: comprimés, gélules, sirops, pilules, pommades, sprays, aérosols, ampoules pleines…</li><li>Retirez les boîtes en carton, notices, blisters et plaquettes vides\u00a0: déposez-les dans le bac de tri des emballages.</li><li>Flacons, bouteilles et ampoules en verre vides\u00a0: déposez-les dans le conteneur à verre (sans les bouchons, à jeter dans le bac des emballages).</li></ul>', condition: null }
@@ -2231,6 +2234,7 @@
           nom: 'Seringue avec aiguille',
           url: 'https://quefairedemesdechets.ademe.fr/dechet/seringue-avec-aiguille/',
           infoTri: 'aiguille-medicale.svg',
+          infoTriSmall: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/product/?sc_id=281',
           directDisplay: true,
           accordeons: [
@@ -2300,6 +2304,7 @@
           nom: 'Brique alimentaire (jus, lait…)',
           url: 'https://quefairedemesdechets.ademe.fr/dechet/brique-alimentaire-jus-lait/',
           infoTri: 'brique-alimentaire.svg',
+          infoTriSmall: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/product/?sc_id=276',
           directDisplay: true,
           accordeons: [
@@ -2323,6 +2328,7 @@
           nom: 'Emballages en verre',
           url: 'https://quefairedemesdechets.ademe.fr/categories/emballages/emballages-en-verre/',
           infoTri: 'emballage-verre.svg',
+          infoTriSmall: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
           accordeons: [
             { titre: 'Déposer dans le conteneur à verre', icone: 'trier', consigne: '<ul><li>Bouteilles, bocaux, pots en verre\u2026 déposez-les dans les conteneurs à verre dédiés.</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Vous pouvez laisser le bouchon\u00a0: les bouchons et couvercles vont aussi dans le bac de tri.</li><li>Le verre se recycle à l\u2019infini\u00a0!</li></ul><p>⚠️ Ne mettez pas dans le conteneur à verre\u00a0: vaisselle, miroirs, vitres, ampoules ou faïence. Ces objets ne sont pas des emballages en verre et perturbent le recyclage.</p>', condition: null }
@@ -2333,6 +2339,7 @@
           nom: 'Emballages en plastique',
           url: 'https://quefairedemesdechets.ademe.fr/categories/emballages/emballages-en-plastique/',
           infoTri: 'emballage-plastique.svg',
+          infoTriSmall: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
           accordeons: [
             { titre: 'Trier dans le bac de tri', icone: 'trier', consigne: '<ul><li>Bouteilles, pots de yaourt, barquettes, sacs, films plastiques\u2026 tous les emballages en plastique vont dans le bac, le sac ou le conteneur de tri (poubelle jaune).</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Ne les imbriquez pas les uns dans les autres.</li><li>Vous pouvez aplatir les bouteilles pour gagner de la place.</li></ul>', condition: null }
@@ -2346,6 +2353,7 @@
           nom: 'Emballages en métal',
           url: 'https://quefairedemesdechets.ademe.fr/categories/emballages/emballages-en-metal/',
           infoTri: 'emballage-metal.svg',
+          infoTriSmall: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
           accordeons: [
             { titre: 'Trier dans le bac de tri', icone: 'trier', consigne: '<ul><li>Canettes, boîtes de conserve, barquettes en aluminium, capsules, opercules, boîtes métalliques\u2026 c\u2019est un emballage en métal, il se trie\u00a0!</li><li>Déposez-les dans le bac, le sac ou le conteneur de tri (poubelle jaune).</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Ne les imbriquez pas les uns dans les autres.</li></ul>', condition: null }
@@ -2359,6 +2367,7 @@
           nom: 'Emballages en carton',
           url: 'https://quefairedemesdechets.ademe.fr/dechet/carton/',
           infoTri: 'emballage-carton.svg',
+          infoTriSmall: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
           accordeons: [
             { titre: 'Trier dans le bac de tri', icone: 'trier', consigne: '<ul><li>Boîtes et emballages en carton\u00a0: déposez-les dans le bac, le sac ou le conteneur de tri pour les papiers et emballages.</li><li>Aplatissez-les pour gagner de la place.</li><li>Si votre carton est trop grand pour entrer dans le bac, apportez-le en déchèterie.</li></ul>', condition: null }
@@ -2393,6 +2402,7 @@
           nom: 'Pile jetable',
           url: 'https://quefairedemesdechets.ademe.fr/dechet/pile-jetable/',
           infoTri: 'info-tri-piles.svg',
+          infoTriSmall: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=117',
           directDisplay: true,
           accordeons: [
