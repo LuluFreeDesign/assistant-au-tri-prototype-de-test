@@ -2022,10 +2022,34 @@
         keywords: ['machine à laver', 'machine a laver', 'lave-linge', 'lave linge', 'lave-vaisselle', 'lave vaisselle', 'réfrigérateur', 'refrigerateur', 'frigo', 'four', 'congélateur', 'congelateur', 'sèche-linge', 'seche linge', 'gros électroménager', 'gros electromenager', 'plaque de cuisson', 'hotte', 'chauffe-eau']
       },
       {
-        id: 'emballages',
-        nom: 'Emballages',
-        categorie: 'emballages',
-        keywords: ['emballage', 'emballages', 'plastique', 'carton', 'canette', 'boîte de conserve', 'boite de conserve', 'bouteille plastique', 'pot de yaourt', 'barquette', 'film plastique', 'sachet', 'brique', 'cagette', 'bocal', 'pot en verre', 'bouteille en verre', 'verre', 'conserve', 'aluminium', 'métal', 'bois', 'polystyrène', 'polystyrene', 'tetra pak']
+        id: 'emballage-verre',
+        nom: 'Emballages en verre',
+        categorie: 'emballage-verre',
+        keywords: ['verre', 'emballage verre', 'emballages en verre', 'bouteille en verre', 'bocal', 'pot en verre', 'flacon en verre', 'pot de confiture', 'bouteille de vin', 'bouteille de bière', 'bouteille huile']
+      },
+      {
+        id: 'emballage-plastique',
+        nom: 'Emballages en plastique',
+        categorie: 'emballage-plastique',
+        keywords: ['plastique', 'emballage plastique', 'emballages en plastique', 'bouteille plastique', 'pot de yaourt', 'barquette', 'film plastique', 'sachet', 'sac plastique', 'flacon plastique', 'polystyrène', 'polystyrene', 'emballage']
+      },
+      {
+        id: 'emballage-metal',
+        nom: 'Emballages en métal',
+        categorie: 'emballage-metal',
+        keywords: ['métal', 'metal', 'emballage métal', 'emballages en métal', 'canette', 'boîte de conserve', 'boite de conserve', 'conserve', 'aluminium', 'barquette aluminium', 'boîte en métal', 'capsule', 'opercule', 'aérosol', 'aerosol']
+      },
+      {
+        id: 'emballage-carton',
+        nom: 'Emballages en carton',
+        categorie: 'emballage-carton',
+        keywords: ['carton', 'emballage carton', 'emballages en carton', 'boîte en carton', 'boite carton', 'carton ondulé', 'boîte à chaussures', 'boite a chaussures']
+      },
+      {
+        id: 'emballage-bois',
+        nom: 'Emballages en bois',
+        categorie: 'emballage-bois',
+        keywords: ['bois', 'emballage bois', 'emballages en bois', 'cagette', 'caissette', 'cageot', 'caissette en bois', 'cagette en bois']
       },
       {
         id: 'telephone-mobile',
@@ -2107,7 +2131,11 @@
         'sapin-de-noel': { lieux: 34074, services_a_domicile: 102, solutions_en_ligne: 36 },
         'brique-alimentaire': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
         'gros-electromenager': { lieux: 15873, services_a_domicile: 47, solutions_en_ligne: 17 },
-        'emballages': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
+        'emballage-verre': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
+        'emballage-plastique': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
+        'emballage-metal': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
+        'emballage-carton': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
+        'emballage-bois': { lieux: 47201, services_a_domicile: 141, solutions_en_ligne: 49 },
         'telephone-mobile': { lieux: 19500, services_a_domicile: 58, solutions_en_ligne: 22 },
         'pile-jetable': { lieux: 18200, services_a_domicile: 0, solutions_en_ligne: 12 }
       }
@@ -2291,15 +2319,61 @@
           ]
         },
         {
-          id: 'emballages',
-          nom: 'Emballages',
-          url: 'https://quefairedemesdechets.ademe.fr/categories/emballages/',
-          infoTri: ['emballages-jaune.svg', 'emballages-verre.svg'],
+          id: 'emballage-verre',
+          nom: 'Emballages en verre',
+          url: 'https://quefairedemesdechets.ademe.fr/categories/emballages/emballages-en-verre/',
+          infoTri: 'emballage-verre.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
+          accordeons: [
+            { titre: 'Déposer dans le conteneur à verre', icone: 'trier', consigne: '<ul><li>Bouteilles, bocaux, pots en verre\u2026 déposez-les dans les conteneurs à verre dédiés.</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Vous pouvez laisser le bouchon\u00a0: les bouchons et couvercles vont aussi dans le bac de tri.</li><li>Le verre se recycle à l\u2019infini\u00a0!</li></ul><p>⚠️ Ne mettez pas dans le conteneur à verre\u00a0: vaisselle, miroirs, vitres, ampoules ou faïence. Ces objets ne sont pas des emballages en verre et perturbent le recyclage.</p>', condition: null }
+          ]
+        },
+        {
+          id: 'emballage-plastique',
+          nom: 'Emballages en plastique',
+          url: 'https://quefairedemesdechets.ademe.fr/categories/emballages/emballages-en-plastique/',
+          infoTri: 'emballage-plastique.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
+          accordeons: [
+            { titre: 'Trier dans le bac de tri', icone: 'trier', consigne: '<ul><li>Bouteilles, pots de yaourt, barquettes, sacs, films plastiques\u2026 tous les emballages en plastique vont dans le bac, le sac ou le conteneur de tri (poubelle jaune).</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Ne les imbriquez pas les uns dans les autres.</li><li>Vous pouvez aplatir les bouteilles pour gagner de la place.</li></ul>', condition: null }
+          ],
+          avertissements: [
+            'Les emballages de produits dangereux (ex\u00a0: huile moteur, déboucheur) ne vont pas dans le bac de tri\u00a0: déposez-les en déchèterie ou en point de collecte dédié.'
+          ]
+        },
+        {
+          id: 'emballage-metal',
+          nom: 'Emballages en métal',
+          url: 'https://quefairedemesdechets.ademe.fr/categories/emballages/emballages-en-metal/',
+          infoTri: 'emballage-metal.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
+          accordeons: [
+            { titre: 'Trier dans le bac de tri', icone: 'trier', consigne: '<ul><li>Canettes, boîtes de conserve, barquettes en aluminium, capsules, opercules, boîtes métalliques\u2026 c\u2019est un emballage en métal, il se trie\u00a0!</li><li>Déposez-les dans le bac, le sac ou le conteneur de tri (poubelle jaune).</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Ne les imbriquez pas les uns dans les autres.</li></ul>', condition: null }
+          ],
+          avertissements: [
+            'Les emballages de produits dangereux (ex\u00a0: aérosols anti-moustiques, pots de peinture) ne vont pas dans le bac de tri\u00a0: déposez-les en déchèterie ou en point de collecte dédié.'
+          ]
+        },
+        {
+          id: 'emballage-carton',
+          nom: 'Emballages en carton',
+          url: 'https://quefairedemesdechets.ademe.fr/dechet/carton/',
+          infoTri: 'emballage-carton.svg',
+          carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
+          accordeons: [
+            { titre: 'Trier dans le bac de tri', icone: 'trier', consigne: '<ul><li>Boîtes et emballages en carton\u00a0: déposez-les dans le bac, le sac ou le conteneur de tri pour les papiers et emballages.</li><li>Aplatissez-les pour gagner de la place.</li><li>Si votre carton est trop grand pour entrer dans le bac, apportez-le en déchèterie.</li></ul>', condition: null }
+          ]
+        },
+        {
+          id: 'emballage-bois',
+          nom: 'Emballages en bois',
+          url: 'https://quefairedemesdechets.ademe.fr/dechet/cageot-caissette-en-bois/',
+          infoTri: ['emballage-bois-1.svg', 'emballage-bois-2.svg'],
           infoTriSmall: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
           accordeons: [
-            { titre: 'Emballages en plastique, carton, métal ou bois', icone: 'trier', consigne: '<ul><li>Bouteilles ou pots de yaourt en plastique, boîtes en carton, canettes ou boîtes de conserves, cagettes ou boîtes en bois\u2026 c\u2019est un emballage, il se trie\u00a0!</li><li>Déposez-les dans le bac, le sac ou le conteneur de tri (poubelle jaune).</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Ne les imbriquez pas les uns dans les autres.</li></ul>', condition: null },
-            { titre: 'Emballages en verre', icone: 'trier', consigne: '<ul><li>Bouteilles, bocaux, pots en verre\u2026 déposez-les dans les conteneurs à verre dédiés.</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Retirez les bouchons et couvercles (ils vont dans le bac de tri).</li><li>Le verre se recycle à l\u2019infini\u00a0!</li></ul><p>⚠️ Ne mettez pas dans le conteneur à verre\u00a0: la vaisselle, les miroirs, les vitres, les ampoules ou la faïence. Ces objets ne sont pas des emballages en verre et perturbent le recyclage.</p>', condition: null }
+            { titre: 'Trier dans le bac de tri', icone: 'trier', consigne: '<ul><li>Cagettes et caissettes en bois de moins de 60\u00a0×\u00a040\u00a0cm\u00a0: déposez-les dans le bac, le sac ou le conteneur de tri pour les papiers et emballages.</li></ul>', condition: 'Petite taille (&lt; 60\u00a0×\u00a040\u00a0cm)' },
+            { titre: 'Apporter en déchèterie', icone: 'deposer', consigne: '<ul><li>Cagettes et caissettes en bois de plus de 60\u00a0×\u00a040\u00a0cm\u00a0: apportez-les en déchèterie, dans la benne dédiée au bois.</li></ul>', condition: 'Grande taille (&gt; 60\u00a0×\u00a040\u00a0cm)' }
           ]
         },
         {
