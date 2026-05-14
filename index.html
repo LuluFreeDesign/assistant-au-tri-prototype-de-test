@@ -868,7 +868,7 @@
     /* En-tête fiche */
     .fiche-header {
       background-color: var(--green-menthe-975);
-      padding: var(--spacing-6v) var(--spacing-4v);
+      padding: var(--spacing-4v) var(--spacing-4v) var(--spacing-3v);
     }
 
     .fiche-header__searchbox {
@@ -880,7 +880,7 @@
       padding: var(--spacing-3v) var(--spacing-4v);
       cursor: pointer;
       transition: background-color 0.2s ease;
-      margin-bottom: var(--spacing-3v);
+      margin-bottom: var(--spacing-1v);
       text-align: left;
       font-family: 'Marianne', arial, sans-serif;
       width: 100%;
@@ -899,6 +899,13 @@
       font-size: 1rem;
       font-weight: 700;
       color: var(--text-default);
+      line-height: 1.5;
+    }
+
+    /* Sur la page solutions, le texte du chip retour est plus petit */
+    .solutions-header__top .fiche-header__object-name {
+      font-size: 0.75rem;
+      font-weight: 700;
       line-height: 1.5;
     }
 
@@ -1266,7 +1273,16 @@
 
     /* Info-tri taille réduite */
     .fiche-infotri__img--small {
-      max-width: 280px;
+      max-width: 200px;
+      max-height: 120px;
+      object-fit: contain;
+    }
+
+    /* Info-tri côte à côte */
+    .fiche-infotri__images--inline {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
     }
 
     @media (min-width: 576px) {
@@ -1296,14 +1312,785 @@
       border-width: 0;
     }
 
+    /* ============================================
+       Bloc landing (localisation + bouton + lien)
+       ============================================ */
+    .search-landing {
+      padding: 0 0 var(--spacing-4v);
+    }
+
+    .search-landing__error {
+      font-size: 0.875rem;
+      color: var(--red-marianne);
+      margin: var(--spacing-1v) 0 var(--spacing-2v);
+    }
+
+    .search-bar--error {
+      border-color: var(--red-marianne) !important;
+      outline-color: var(--red-marianne) !important;
+    }
+
+    .search-landing__label {
+      display: block;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin-top: var(--spacing-2v);
+      margin-bottom: var(--spacing-2v);
+    }
+
+    /* Bouton DSFR fr-btn primary (taille MD) */
+    .fr-btn.btn-launch {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 2.5rem;
+      padding: 0.5rem 1rem;
+      margin-top: var(--spacing-2v);
+      background-color: var(--blue-france);
+      color: #fff;
+      border: 1px solid var(--blue-france);
+      border-radius: 0;
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: none;
+      transition: background-color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .fr-btn.btn-launch:hover {
+      background-color: var(--blue-france-hover);
+      border-color: var(--blue-france-hover);
+    }
+
+    .fr-btn.btn-launch:active {
+      background-color: var(--blue-france-active);
+      border-color: var(--blue-france-active);
+    }
+
+    .fr-btn.btn-launch:focus-visible {
+      outline: 2px solid var(--blue-france);
+      outline-offset: 2px;
+    }
+
+    .search-landing__link {
+      display: block;
+      text-align: center;
+      margin-top: var(--spacing-4v);
+      font-size: 0.875rem;
+      color: var(--blue-france);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .search-landing__link:hover {
+      color: var(--blue-france);
+      text-decoration: none;
+    }
+
+    /* ============================================
+       Geste cards (fiche V2)
+       ============================================ */
+    .geste-cards {
+      padding: 0 var(--spacing-4v) var(--spacing-4v);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-3v);
+    }
+
+    .geste-card {
+      background-color: var(--background-default);
+      border: 1px solid var(--border-default);
+      padding: var(--spacing-4v);
+    }
+
+    .geste-card__badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-1v);
+      margin-bottom: var(--spacing-3v);
+    }
+
+    .geste-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 20px;
+      padding: 0 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .geste-badge--reparable {
+      background-color: #BAFAEE;
+      color: #37635F;
+    }
+
+    .geste-badge--bon-etat {
+      background-color: #C3FAD5;
+      color: #297254;
+    }
+
+    .geste-badge--mauvais-etat {
+      background-color: #FEE7FC;
+      color: #6E445A;
+    }
+
+    .geste-badge--bonus {
+      background-color: #FEECC2;
+      color: #716043;
+    }
+
+    .geste-card__header {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3v);
+      margin-bottom: var(--spacing-2v);
+    }
+
+    .geste-card__icon {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .geste-card__icons {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .geste-card__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .geste-card__description {
+      font-size: 0.875rem;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-3v);
+      line-height: 1.5;
+    }
+
+    .geste-card__description p {
+      margin: 0 0 var(--spacing-2v);
+    }
+
+    .geste-card__description p:last-child {
+      margin-bottom: 0;
+    }
+
+.geste-card__description a {
+      color: var(--blue-france);
+    }
+
+    .geste-card__cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 2.5rem;
+      padding: 0.5rem 1rem;
+      background-color: transparent;
+      color: var(--blue-france);
+      border: 1px solid var(--blue-france);
+      border-radius: 0;
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.5rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.15s ease;
+    }
+
+    .geste-card__cta:hover {
+      background-color: var(--background-action-low-blue-hover, #EBEBFF);
+    }
+
+    .geste-card__cta:active {
+      background-color: var(--background-action-low-blue-active, #ADADF7);
+    }
+
+    /* Pied de page partagé (fiche, solutions, lieu) */
+    .section-footer-link {
+      display: block;
+      text-align: center;
+      padding: var(--spacing-4v);
+      font-size: 0.875rem;
+      color: var(--blue-france);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .section-footer-link:hover {
+      text-decoration: none;
+    }
+
+    .fiche-footer,
+    .solutions-footer,
+    .lieu-footer {
+      border-top: 1px solid var(--border-default);
+    }
+
+    /* ============================================
+       Section Solutions
+       ============================================ */
+    .solutions-section {
+      display: none;
+    }
+
+    .iframe-container.step-solutions .fiche-section,
+    .iframe-container.step-solutions .search-section,
+    .iframe-container.step-solutions .search-panel,
+    .iframe-container.step-solutions .stats-section,
+    .iframe-container.step-solutions .accordion-section,
+    .iframe-container.step-solutions .territory-section {
+      display: none;
+    }
+
+    .iframe-container.step-solutions .solutions-section {
+      display: block;
+      animation: fadeSlideIn 0.35s ease-out;
+    }
+
+    .solutions-header {
+      padding: 0;
+    }
+
+    .solutions-header__top {
+      background-color: var(--green-menthe-975);
+      padding: var(--spacing-4v) var(--spacing-4v) var(--spacing-3v);
+    }
+
+    .solutions-header__body {
+      padding: var(--spacing-3v) var(--spacing-4v);
+      background-color: var(--background-default);
+    }
+
+    .solutions-header__count {
+      font-size: 0.875rem;
+      color: var(--text-mention-grey);
+      margin: var(--spacing-1v) 0 0;
+    }
+
+    .solutions-actions {
+      padding: var(--spacing-3v) var(--spacing-4v);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2v);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .solutions-actions__propose {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-2v);
+      min-height: 2.5rem;
+      padding: 0.5rem 1rem;
+      background-color: var(--blue-france);
+      color: #fff;
+      border: 1px solid var(--blue-france);
+      border-radius: 0;
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .solutions-actions__propose:hover {
+      background-color: var(--blue-france-hover);
+      border-color: var(--blue-france-hover);
+    }
+
+    .solutions-actions__secondary {
+      display: flex;
+      gap: var(--spacing-2v);
+    }
+
+    .solutions-actions__filter,
+    .solutions-actions__toggle {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-1v);
+      min-height: 2.5rem;
+      padding: 0.5rem 0.75rem;
+      background-color: var(--background-default);
+      color: var(--blue-france);
+      border: 1px solid var(--blue-france);
+      border-radius: 0;
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.15s;
+    }
+
+    .solutions-actions__filter:hover,
+    .solutions-actions__toggle:hover {
+      background-color: var(--background-action-low-blue);
+    }
+
+    .solutions-list {
+      padding: var(--spacing-4v);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-3v);
+    }
+
+    .solutions-map {
+      position: relative;
+      width: 100%;
+      height: 600px;
+    }
+
+    .solutions-map .maplibregl-canvas {
+      outline: none;
+    }
+
+    /* Bouton "Revenir au mode liste" en mode carte */
+    .solutions-map-btn--list-mode {
+      height: auto;
+      min-height: 2.5rem;
+      background-image: none;
+      background-color: var(--background-default);
+      padding: 0;
+    }
+
+    .solutions-map-btn--list-mode .solutions-map-btn__label {
+      position: static;
+      transform: none;
+      width: 100%;
+      justify-content: center;
+      box-shadow: none;
+      border: none;
+      padding: 8px 16px;
+    }
+
+    /* Marker SVG pin (acteur) — SVG inline avec width/height intrinsèques */
+    .map-marker {
+      cursor: pointer;
+      line-height: 0;
+      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.25));
+      transition: transform 0.15s ease;
+    }
+
+    .map-marker:hover {
+      transform: scale(1.1);
+    }
+
+    .map-marker svg {
+      display: block;
+    }
+
+    /* Marker utilisateur "vous êtes ici" */
+    .map-user {
+      cursor: default;
+      line-height: 0;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    .map-user svg {
+      display: block;
+    }
+
+    /* Popup acteur */
+    .maplibregl-popup-content {
+      font-family: 'Marianne', arial, sans-serif;
+      padding: var(--spacing-3v) var(--spacing-4v);
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      max-width: 240px;
+    }
+
+    .map-popup__name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0 0 4px;
+      line-height: 1.3;
+    }
+
+    .map-popup__address {
+      font-size: 0.75rem;
+      color: var(--text-mention-grey);
+      margin: 0 0 var(--spacing-2v);
+    }
+
+    .map-popup__distance {
+      font-size: 0.75rem;
+      color: var(--text-default);
+      margin: 0 0 var(--spacing-2v);
+    }
+
+    .map-popup__link {
+      font-size: 0.8125rem;
+      color: var(--blue-france);
+      text-decoration: underline;
+    }
+
+    /* Footer attribution carte */
+    .solutions-map__attribution {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-mention-grey);
+      padding: var(--spacing-2v) var(--spacing-4v);
+      border-bottom: 1px solid var(--border-default-grey);
+    }
+
+    /* Titre geste avec icône — plus petit, style fiche */
+    .solutions-header__geste {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-1v);
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0 0 var(--spacing-2v);
+    }
+
+    .solutions-header__geste-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .solutions-header__geste-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Champ adresse DSFR + dropdown autocomplete */
+    .solutions-header__address {
+      position: relative;
+      margin: 0 0 var(--spacing-2v);
+    }
+
+    .solutions-header__address .search-bar {
+      width: 100%;
+    }
+
+    .solutions-header__address .address-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 10;
+    }
+
+    /* Bouton "Voir les lieux sur la carte" — fond carte + label DSFR centré */
+    .solutions-map-btn {
+      position: relative;
+      width: 100%;
+      height: 72px;
+      padding: 0;
+      background-image: url('src/assets/fond-carte.png');
+      background-size: cover;
+      background-position: center;
+      background-color: #F2F2F2;
+      border: 1px solid var(--blue-france);
+      border-radius: 0;
+      cursor: pointer;
+      overflow: hidden;
+      font-family: 'Marianne', arial, sans-serif;
+    }
+
+    .solutions-map-btn:hover {
+      filter: brightness(0.97);
+    }
+
+    .solutions-map-btn__label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-2v);
+      background: #fff;
+      color: var(--blue-france);
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 8px 16px;
+      border: 1px solid var(--blue-france);
+      white-space: nowrap;
+    }
+
+    /* Solution card — style DSFR (bordure + ombre légère) */
+    .solution-card {
+      border: 1px solid #DDDDDD;
+      border-radius: 4px;
+      padding: var(--spacing-4v);
+      background: var(--background-default);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-2v);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      transition: box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .solution-card:hover {
+      border-color: #BBBBBB;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .solution-card__name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-default);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    .solution-card__labels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-1v);
+    }
+
+    /* Label tags : pill full-rounded avec icône */
+    .solution-card__label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 3px 12px 3px 6px;
+      border-radius: 999px;
+      border: 1px solid #CECECE;
+      background-color: #F6F6F6;
+      color: #1F1F1F;
+      line-height: 1.4;
+    }
+
+    .solution-card__label svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .solution-card__label--bonus {
+      background-color: #FFF6D1;
+      border-color: #EFCB3A;
+      color: #5E4D00;
+    }
+
+    .solution-card__label--ess {
+      background-color: #DFF0F3;
+      border-color: #00525E;
+      color: #00525E;
+    }
+
+    .solution-card__label--reparacteur {
+      background-color: #DFF0F3;
+      border-color: #00525E;
+      color: #00525E;
+    }
+
+    /* Pills gestes — bg coloré + bordure colorée + texte sombre */
+    .solution-card__gestes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .solution-card__pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 12px 2px 4px;
+      border-radius: 999px;
+      border: 1px solid;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      line-height: 1.4;
+      color: #161616;
+    }
+
+    .solution-card__pill svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .solution-card__pill--reparer  { background: #DFFDF7; border-color: #009081; }
+    .solution-card__pill--donner   { background: #F3F6FE; border-color: #417DC4; }
+    .solution-card__pill--echanger { background: #F3F6FE; border-color: #417DC4; }
+    .solution-card__pill--preter   { background: #FEF4F3; border-color: #CE614A; }
+    .solution-card__pill--emprunter{ background: #FEF4F3; border-color: #CE614A; }
+    .solution-card__pill--louer    { background: #FEF4F3; border-color: #CE614A; }
+    .solution-card__pill--trier    { background: #FEF3FD; border-color: #A558A0; }
+    .solution-card__pill--acheter  { background: #F7ECDB; border-color: #D1B781; }
+    .solution-card__pill--vendre   { background: #F7ECDB; border-color: #D1B781; }
+    .solution-card__pill--revendre { background: #F7ECDB; border-color: #D1B781; }
+
+    .solution-card__distance {
+      font-size: 0.875rem;
+      color: var(--text-default);
+      margin: var(--spacing-1v) 0 0;
+    }
+
+    .solution-card__link {
+      align-self: flex-start;
+      font-size: 0.875rem;
+      color: var(--blue-france);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* Pagination */
+    .solutions-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: var(--spacing-4v);
+      border-top: 1px solid var(--border-default-grey);
+    }
+
+    .solutions-pagination__btn {
+      min-width: 32px;
+      height: 32px;
+      padding: 0 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      border-radius: 4px;
+      color: var(--text-default);
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+
+    .solutions-pagination__btn:hover:not(:disabled) {
+      background-color: var(--background-alt-grey, #F6F6F6);
+    }
+
+    .solutions-pagination__btn--active {
+      background-color: var(--blue-france);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .solutions-pagination__btn--active:hover {
+      background-color: var(--blue-france);
+    }
+
+    .solutions-pagination__btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* Chargement / vide */
+    .solutions-loading {
+      padding: var(--spacing-8v) var(--spacing-4v);
+      text-align: center;
+      color: var(--text-mention-grey);
+      font-size: 0.875rem;
+    }
+
+    .solutions-loading__spinner {
+      width: 28px;
+      height: 28px;
+      border: 3px solid var(--border-default-grey);
+      border-top-color: var(--blue-france);
+      border-radius: 50%;
+      animation: solutions-spin 0.7s linear infinite;
+      margin: 0 auto var(--spacing-3v);
+    }
+
+    @keyframes solutions-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .solutions-empty {
+      padding: var(--spacing-8v) var(--spacing-4v);
+      text-align: center;
+      color: var(--text-mention-grey);
+      font-size: 0.875rem;
+    }
+
+    .solutions-error {
+      color: #CE0500;
+    }
+
+    /* ============================================
+       Section Lieu détail
+       ============================================ */
+    .lieu-section {
+      display: none;
+    }
+
+    .iframe-container.step-lieu .solutions-section,
+    .iframe-container.step-lieu .fiche-section,
+    .iframe-container.step-lieu .search-section,
+    .iframe-container.step-lieu .search-panel,
+    .iframe-container.step-lieu .stats-section,
+    .iframe-container.step-lieu .accordion-section,
+    .iframe-container.step-lieu .territory-section {
+      display: none;
+    }
+
+    .iframe-container.step-lieu .lieu-section {
+      display: block;
+      animation: fadeSlideIn 0.35s ease-out;
+    }
+
+    .lieu-header {
+      padding: var(--spacing-4v);
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .lieu-header__back {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-2v);
+      font-size: 0.875rem;
+      color: var(--blue-france);
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-family: 'Marianne', arial, sans-serif;
+    }
+
+    .lieu-header__back:hover {
+      text-decoration: none;
+    }
+
+    .lieu-content {
+      padding: var(--spacing-4v);
+    }
+
     /* Quand le panneau de recherche est ouvert */
     .iframe-container.search-active .search-section {
       background-color: var(--background-default);
     }
 
-    .iframe-container.search-active .stats-section,
-    .iframe-container.search-active .accordion-section,
-    .iframe-container.search-active .footer {
+    .iframe-container.search-active .search-landing {
       display: none;
     }
 
@@ -1537,6 +2324,11 @@
       }
     }
   </style>
+  <!-- MapLibre GL JS + Carte Facile (vue carte solutions) -->
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@^5.5.0/dist/maplibre-gl.css" />
+  <link rel="stylesheet" href="https://unpkg.com/carte-facile@^0.9.0/dist/carte-facile.css" />
+  <script src="https://unpkg.com/maplibre-gl@^5.5.0/dist/maplibre-gl.js"></script>
+  <script src="https://unpkg.com/carte-facile@^0.9.0/dist/carte-facile.js"></script>
 </head>
 <body>
   <div class="iframe-container" role="main">
@@ -1552,7 +2344,7 @@
         </svg>
       </button>
       <h1 class="search-section__title" id="search-title">
-        Pour quel objet ou déchet recherchez-vous des recommandations et des solutions&nbsp;?
+        Quel objet ou déchet souhaitez-vous recycler, donner ou réparer&nbsp;?
       </h1>
 
       <div class="search-bar" role="search">
@@ -1567,9 +2359,44 @@
           type="search"
           id="search-input"
           class="search-bar__input"
-          placeholder="exemple : téléphone, bouilloire, chaise ..."
+          placeholder="exemple : vis, téléphone, CD-ROM..."
           autocomplete="off"
         >
+      </div>
+
+      <!-- Bloc localisation + bouton + lien (masqué quand le panneau est ouvert) -->
+      <div class="search-landing" id="search-landing">
+        <p id="search-error-msg" class="search-landing__error" style="display:none;" aria-live="assertive">Veuillez d'abord saisir un objet ou un déchet.</p>
+
+        <label class="search-landing__label" for="address-input">Localisation</label>
+        <div class="search-bar" role="search">
+          <div class="search-bar__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+          <label for="address-input" class="sr-only">Rechercher une adresse (facultatif)</label>
+          <input
+            type="search"
+            id="address-input"
+            class="search-bar__input"
+            placeholder="exemple : 3 Rue de Pise 13200 Arles"
+            autocomplete="off"
+          >
+        </div>
+        <ul class="address-results" id="address-results" role="listbox" aria-label="Suggestions d'adresses"></ul>
+
+        <button class="fr-btn btn-launch" id="btn-launch" type="button">
+          Lancer la recherche
+        </button>
+
+        <a
+          href="https://quefairedemesdechets.ademe.fr"
+          class="search-landing__link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >En savoir plus sur cet outil</a>
       </div>
     </section>
 
@@ -1626,7 +2453,6 @@
               <img src="src/assets/bouilloire.svg" alt="" aria-hidden="true">
             </div>
             <span class="category-card__name">Petits électroménagers</span>
-            <span class="category-card__count">347 solutions</span>
           </div>
 
           <!-- Médicaments -->
@@ -1635,7 +2461,6 @@
               <img src="src/assets/medicaments.svg" alt="" aria-hidden="true">
             </div>
             <span class="category-card__name">Médicaments</span>
-            <span class="category-card__count">8 392 solutions</span>
           </div>
 
           <!-- Meubles -->
@@ -1644,7 +2469,6 @@
               <img src="src/assets/canapetextile.svg" alt="" aria-hidden="true">
             </div>
             <span class="category-card__name">Meubles</span>
-            <span class="category-card__count">28 293 solutions</span>
           </div>
 
           <!-- Déchets alimentaires -->
@@ -1653,195 +2477,27 @@
               <img src="src/assets/poireau.svg" alt="" aria-hidden="true">
             </div>
             <span class="category-card__name">Déchets alimentaires</span>
-            <span class="category-card__count">183 829 solutions</span>
           </div>
 
         </div>
       </div>
     </div>
 
-    <!-- =============================================
-         Section Territoire (Étape 2)
-         ============================================= -->
-    <section class="territory-section" id="territory-section">
-
-      <!-- Chip objet sélectionné -->
-      <div class="territory-section__header">
-        <button class="selected-chip" id="selected-chip" type="button" aria-label="Modifier la recherche">
-          <span class="selected-chip__icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"/>
-            </svg>
-          </span>
-          <span id="selected-chip-label"></span>
-        </button>
-      </div>
-
-      <!-- Recherche d'adresse -->
-      <div class="territory-search">
-        <h2 class="territory-search__title" id="territory-title">
-          Sur quel territoire souhaitez-vous consulter les informations pour cet objet ou ce déchet&nbsp;?
-        </h2>
-        <div class="search-bar" role="search">
-          <div class="search-bar__icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"/>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-          </div>
-          <label for="address-input" class="sr-only">Rechercher une adresse ou une commune</label>
-          <input
-            type="search"
-            id="address-input"
-            class="search-bar__input"
-            placeholder="exemple : Marseille, La Rochelle..."
-            autocomplete="off"
-          >
-        </div>
-        <!-- Résultats autocomplétion -->
-        <ul class="address-results" id="address-results" role="listbox" aria-label="Suggestions d'adresses"></ul>
-      </div>
-
-      <!-- Statistiques dynamiques -->
-      <div class="stats-section--territory" id="territory-stats" aria-live="polite">
-        <p class="stats-intro" id="territory-stats-intro"></p>
-        <ul class="stats-list" aria-label="Répartition des solutions">
-          <li class="stats-list__item">
-            <span class="stats-list__label">
-              <span class="stats-list__label-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                  <circle cx="12" cy="10" r="3"/>
-                </svg>
-              </span>
-              Lieux
-            </span>
-            <span class="stats-list__value" id="stat-lieux">--</span>
-          </li>
-          <li class="stats-list__item">
-            <span class="stats-list__label">
-              <span class="stats-list__label-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                  <polyline points="9 22 9 12 15 12 15 22"/>
-                </svg>
-              </span>
-              Services à domicile
-            </span>
-            <span class="stats-list__value" id="stat-services">--</span>
-          </li>
-          <li class="stats-list__item">
-            <span class="stats-list__label">
-              <span class="stats-list__label-icon" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="2" y1="12" x2="22" y2="12"/>
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                </svg>
-              </span>
-              Solutions en ligne
-            </span>
-            <span class="stats-list__value" id="stat-en-ligne">--</span>
-          </li>
-        </ul>
-      </div>
-
-    </section>
 
     <!-- =============================================
-         Section Statistiques
-         ============================================= -->
-    <section class="stats-section" aria-labelledby="stats-intro">
-      <p class="stats-intro" id="stats-intro">
-        <strong>353&nbsp;811 solutions</strong> partout en France pour prolonger la vie de vos objets, faire des économies et réduire vos déchets.
-      </p>
-
-      <ul class="stats-list" aria-label="Répartition des solutions">
-        <li class="stats-list__item">
-          <span class="stats-list__label">
-            <span class="stats-list__label-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                <circle cx="12" cy="10" r="3"/>
-              </svg>
-            </span>
-            Lieux
-          </span>
-          <span class="stats-list__value">352&nbsp;500</span>
-        </li>
-        <li class="stats-list__item">
-          <span class="stats-list__label">
-            <span class="stats-list__label-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                <polyline points="9 22 9 12 15 12 15 22"/>
-              </svg>
-            </span>
-            Services à domicile
-          </span>
-          <span class="stats-list__value">900</span>
-        </li>
-        <li class="stats-list__item">
-          <span class="stats-list__label">
-            <span class="stats-list__label-icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="2" y1="12" x2="22" y2="12"/>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-              </svg>
-            </span>
-            Solutions en ligne
-          </span>
-          <span class="stats-list__value">411</span>
-        </li>
-      </ul>
-    </section>
-
-    <!-- =============================================
-         Section Accordéon
-         ============================================= -->
-    <section class="accordion-section">
-      <section class="fr-accordion">
-        <h3 class="fr-accordion__title">
-          <button class="fr-accordion__btn" aria-expanded="false" aria-controls="accordion-achat" type="button">
-            Je cherche à acheter, louer ou emprunter un objet
-          </button>
-        </h3>
-        <div class="fr-collapse" id="accordion-achat">
-          <p class="fr-collapse__text">
-            Vous êtes à la recherche d'un lieu près de chez vous ou d'un site Internet où acheter, louer ou emprunter un objet&nbsp;? Trouvez sur notre site Internet de nombreuses solutions.
-          </p>
-          <a
-            href="https://quefairedemesdechets.ademe.fr/nos-outils/la-carte-nationale-de-la-consommation-responsable/"
-            class="btn-secondary-sm"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Acheter, louer ou emprunter
-            <span class="btn-secondary-sm__icon" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                <polyline points="15 3 21 3 21 9"/>
-                <line x1="10" y1="14" x2="21" y2="3"/>
-              </svg>
-            </span>
-          </a>
-        </div>
-      </section>
-    </section>
-
-    <!-- =============================================
-         Section Fiche (Étape 3)
+         Section Fiche — Recommandations & consignes
          ============================================= -->
     <section class="fiche-section" id="fiche-section">
 
       <!-- En-tête -->
       <div class="fiche-header">
         <button class="fiche-header__searchbox" id="fiche-back-chip" type="button" aria-label="Modifier la recherche">
-          <div class="fiche-header__object-name" id="fiche-object-name"></div>
+          <div class="fiche-header__back-row">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            <span class="fiche-header__object-name" id="fiche-object-name"></span>
+          </div>
           <div class="fiche-header__object-address" id="fiche-object-address"></div>
         </button>
-
         <p class="fiche-header__total" id="fiche-total-solutions"></p>
       </div>
 
@@ -1851,78 +2507,112 @@
         <div class="fiche-infotri__images" id="fiche-infotri-images"></div>
       </div>
 
-      <!-- Accordéons consignes -->
-      <div class="fiche-accordeons" id="fiche-accordeons">
-      </div>
+      <!-- Cards des gestes (générées par JS) -->
+      <div class="geste-cards" id="geste-cards"></div>
 
-      <!-- Avertissements -->
-      <div class="fiche-warnings" id="fiche-warnings" style="display: none;">
-        <ul class="fiche-warnings__list" id="fiche-warnings-list"></ul>
-      </div>
+      <!-- Bannières d'avertissement (générées par JS) -->
+      <div class="fiche-warnings" id="fiche-warnings"></div>
 
-      <!-- Carte des solutions -->
-      <div class="fiche-map">
-        <h2 class="fiche-map__title">Les solutions existantes</h2>
-        <div class="fiche-map__container" id="fiche-map-container"></div>
-      </div>
-
-      <!-- Solutions à domicile & en ligne -->
-      <div class="fiche-solutions">
-        <div class="fiche-solution-card">
-          <h3 class="fiche-solution-card__title">Les services à domicile</h3>
-          <p class="fiche-solution-card__desc" id="fiche-sol-domicile-desc"></p>
-          <a class="fiche-solution-card__link" id="fiche-sol-domicile-link" href="#" target="_blank" rel="noopener noreferrer">
-            Je découvre les solutions
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-          </a>
-        </div>
-        <div class="fiche-solution-card">
-          <h3 class="fiche-solution-card__title">Les solutions en ligne</h3>
-          <p class="fiche-solution-card__desc" id="fiche-sol-enligne-desc"></p>
-          <a class="fiche-solution-card__link" id="fiche-sol-enligne-link" href="#" target="_blank" rel="noopener noreferrer">
-            Je découvre les sites Internet
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-          </a>
-        </div>
+      <!-- Footer fiche -->
+      <div class="fiche-footer">
+        <a href="https://quefairedemesdechets.ademe.fr" class="section-footer-link" target="_blank" rel="noopener noreferrer">En savoir plus sur cet outil</a>
       </div>
 
     </section>
 
     <!-- =============================================
-         Footer
+         Section Solutions (scaffold)
          ============================================= -->
-    <footer class="footer">
-      <p class="footer__description">
-        Que faire de mes objets et déchets est un outil numérique public qui vous aide à prolonger la vie de vos objets, pour faire des économies et réduire vos déchets. Rejoignez nos 1,5&nbsp;millions d'usagers annuels&nbsp;!
-      </p>
+    <section class="solutions-section" id="solutions-section">
 
-      <a
-        href="https://www.quefairedemesdechets.ademe.fr"
-        class="footer__link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        En savoir plus
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-          <polyline points="15 3 21 3 21 9"/>
-          <line x1="10" y1="14" x2="21" y2="3"/>
-        </svg>
-      </a>
-
-      <div class="footer__logos">
-        <img src="src/assets/logos.svg" alt="République Française — ADEME — Que faire de mes objets et déchets ?">
+      <!-- En-tête -->
+      <div class="solutions-header">
+        <div class="solutions-header__top">
+          <button class="fiche-header__searchbox" id="solutions-back" type="button" aria-label="Revenir aux recommandations">
+            <div class="fiche-header__back-row">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+              <span class="fiche-header__object-name" id="solutions-back-label">Revenir aux recommandations</span>
+            </div>
+          </button>
+        </div>
+        <div class="solutions-header__body">
+          <h2 class="solutions-header__geste" id="solutions-geste-title"></h2>
+          <div class="solutions-header__address">
+            <div class="search-bar" role="search">
+              <div class="search-bar__icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"/>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+              </div>
+              <label for="solutions-address-input" class="sr-only">Adresse</label>
+              <input type="search" id="solutions-address-input" class="search-bar__input" placeholder="Rechercher une adresse" autocomplete="off">
+            </div>
+            <ul class="address-results" id="solutions-address-results" role="listbox" aria-label="Suggestions d'adresses"></ul>
+          </div>
+          <p class="solutions-header__count" id="solutions-count"></p>
+        </div>
       </div>
 
-    </footer>
+      <!-- Actions -->
+      <div class="solutions-actions">
+        <a class="solutions-actions__propose fr-btn" id="solutions-propose" href="https://tally.so/r/wzy9ZZ" target="_blank" rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Proposer un nouveau lieu
+        </a>
+        <div class="solutions-actions__secondary">
+          <button class="solutions-actions__filter fr-btn fr-btn--secondary" id="solutions-filter" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+            Filtres
+          </button>
+        </div>
+        <button class="solutions-map-btn" id="solutions-toggle-view" type="button" aria-label="Voir les lieux sur la carte">
+          <span class="solutions-map-btn__label" id="solutions-toggle-label">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            Voir les lieux sur la carte
+          </span>
+        </button>
+      </div>
+
+      <!-- Vue liste (défaut) -->
+      <div class="solutions-list" id="solutions-list">
+        <!-- Cards de lieux — à implémenter -->
+      </div>
+
+      <!-- Vue carte -->
+      <div class="solutions-map" id="solutions-map" style="display:none;">
+        <!-- Carte "fait maison" — à implémenter -->
+      </div>
+
+      <!-- Footer -->
+      <div class="solutions-footer">
+        <a href="https://quefairedemesdechets.ademe.fr" class="section-footer-link" target="_blank" rel="noopener noreferrer">En savoir plus sur cet outil</a>
+      </div>
+
+    </section>
+
+    <!-- =============================================
+         Section Lieu détail (scaffold)
+         ============================================= -->
+    <section class="lieu-section" id="lieu-section">
+
+      <div class="lieu-header">
+        <button class="lieu-header__back" id="lieu-back" type="button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+          <span id="lieu-back-label">Revenir aux solutions</span>
+        </button>
+      </div>
+
+      <div class="lieu-content" id="lieu-content">
+        <!-- Contenu du lieu — à implémenter -->
+      </div>
+
+      <div class="lieu-footer">
+        <a href="https://quefairedemesdechets.ademe.fr" class="section-footer-link" target="_blank" rel="noopener noreferrer">En savoir plus sur cet outil</a>
+      </div>
+
+    </section>
+
 
   </div>
 
@@ -2045,12 +2735,14 @@
     // State Management
     // =============================================
     const appState = {
-      currentStep: 'search',     // 'search' | 'territory' | 'fiche'
-      selectedFiche: null,       // { id, nom, categorie, keywords }
-      selectedAddress: null,     // { label, citycode, postcode, lat, lon }
-      categoryCounts: null,      // données chargées depuis counts.json
-      consignesData: null,       // données chargées depuis consignes.json
-      searchOrigin: 'home'       // 'home' | 'territory' — d'où vient l'ouverture de la recherche
+      currentStep: 'search',
+      selectedFiche: null,
+      selectedAddress: null,
+      categoryCounts: null,
+      consignesData: null,
+      selectedGesteIndex: null,
+      gesteCount: [],
+      searchLabel: null
     };
 
     // =============================================
@@ -2062,12 +2754,9 @@
     const searchCategories = document.getElementById('search-categories');
     const searchPopular = document.getElementById('search-popular');
     const container = document.querySelector('.iframe-container');
-
-    // Étape 2
     const addressInput = document.getElementById('address-input');
     const addressResults = document.getElementById('address-results');
-    const selectedChip = document.getElementById('selected-chip');
-    const selectedChipLabel = document.getElementById('selected-chip-label');
+    const btnLaunch = document.getElementById('btn-launch');
 
     // =============================================
     // Utilitaires
@@ -2122,9 +2811,9 @@
           infoTri: 'petit-electromenager.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=88',
           accordeons: [
-            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer votre appareil chez un réparateur agréé.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0: jusqu\u2019à 40\u00a0\u20ac de réduction sur la facture.</li></ul>', condition: 'Réparable' },
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez gratuitement à une structure de réemploi (recyclerie, ressourcerie, association).</li><li>Revendez via un dépôt-vente ou une plateforme de seconde main.</li></ul>', condition: 'En bon état' },
-            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Déposez dans un bac de collecte en magasin.</li><li>Apportez en déchèterie, dans la benne dédiée aux DEEE.</li></ul>', condition: 'Hors d\u2019usage' }
+            { titre: 'Réparer', icone: 'reparer', consigne: '<p>Réparer vos appareils électroménagers : chez un réparateur en découvrant nos solutions référencées. Certains appareils bénéficient du <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a> (jusqu\'à 40 €).</p>', condition: 'Réparable' },
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<p>Donner vos appareils à une association ou à une structure de réemploi. Autrement, revendre via un dépôt-vente ou les plateformes de seconde main.</p>', condition: 'En bon état' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>En magasin : déposer votre appareil dans un bac de collecte ou le remettre au vendeur. En déchèterie : déposer votre appareil dans la benne dédiée aux Équipements Électriques et Électroniques (EEE).</p>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -2132,11 +2821,11 @@
           nom: 'Médicaments',
           url: 'https://quefairedemesdechets.ademe.fr/categories/medicaments/',
           infoTri: 'medicaments.svg',
+          infoTriSmall: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=198',
           accordeons: [
-            { titre: 'Rapporter en pharmacie', icone: 'deposer', consigne: '<ul><li>Rapportez les médicaments périmés, entamés ou inutilisés en pharmacie, sans leur boîte ni notice.</li><li>Apportez\u00a0: comprimés, gélules, sirops, pilules, pommades, sprays, aérosols, ampoules pleines…</li><li>Retirez les boîtes en carton, notices, blisters et plaquettes vides\u00a0: déposez-les dans le bac de tri des emballages.</li><li>Flacons, bouteilles et ampoules en verre vides\u00a0: déposez-les dans le conteneur à verre (sans les bouchons, à jeter dans le bac des emballages).</li></ul>', condition: null }
+            { titre: 'Rapporter en pharmacie', icone: 'deposer', consigne: '<p>Pour bien trier les médicaments, rapportez-les en pharmacie. Triez leurs emballages dans la poubelle de tri, et ne les jetez ni à la poubelle ni dans les toilettes. Ne les donnez pas à autrui hormis en pharmacie. Les compléments alimentaires et les cosmétiques eux vont aux ordures ménagères.</p>', condition: null }
           ],
-          cardAlert: '<ul><li>Ne jetez pas les médicaments à la poubelle ou dans les toilettes\u00a0: les principes actifs polluent l\u2019eau et les sols.</li><li>Ne donnez pas vos médicaments à des proches ou associations\u00a0: c\u2019est interdit en France (article R.5125-48 du Code de la santé publique).</li><li>Ne rapportez pas les compléments alimentaires ou cosmétiques en pharmacie\u00a0: ils vont dans la poubelle des ordures ménagères, leurs emballages se trient séparément.</li></ul>'
         },
         {
           id: 'meubles',
@@ -2145,9 +2834,9 @@
           infoTri: 'meubles.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/carte-assistant-sauf-pret-et-location/?action_displayed=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=100',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une recyclerie, ressourcerie ou association (certaines récupèrent à domicile).</li><li>Revendez via un dépôt-vente ou une plateforme de seconde main.</li></ul>', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer ou relooker votre meuble chez un professionnel.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0: jusqu\u2019à 65\u00a0\u20ac de la facture.</li></ul>', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Demandez la reprise en magasin lors d\u2019un nouvel achat.</li><li>Déposez dans un point de collecte ou en déchèterie.</li><li>Le service des encombrants peut aussi être disponible dans votre commune.</li></ul>', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<p>Donner votre meuble gratuitement à une structure de réemploi : recyclerie, ressourcerie... (certaines structures proposent la récupération à domicile). Revendre via un dépôt-vente, les commerces d\'achat-vente ou les plateformes de seconde main.</p>', condition: 'En bon état' },
+            { titre: 'Réparer', icone: 'reparer', consigne: '<p>Réparer votre meuble s\'il peut encore être remis en état, chez un réparateur. Certains meubles bénéficient du <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a> (jusqu\'à 65 €). Relooker votre meuble : par soi-même ou par un professionnel.</p>', condition: 'Réparable' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>Demander la reprise d\'un meuble : certains magasins reprennent vos meubles, avec ou sans nouvel achat. Recycler un meuble : en le déposant dans un point de collecte, une déchèterie, ou via le service des encombrants s\'il est proposé sur votre territoire.</p>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -2157,7 +2846,7 @@
           infoTri: 'dechets-alimentaires.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=267',
           accordeons: [
-            { titre: 'Composter', icone: 'deposer', consigne: '<p>Les déchets alimentaires (épluchures, fanes, restes de repas, produits périmés sans emballage…) font partie des biodéchets et sont naturellement biodégradables.</p><p><strong>À mettre au compost</strong></p><ul><li>Épluchures, fanes, fruits et légumes abîmés.</li><li>Restes de repas, produits périmés, pain, laitages, croûtes de fromage.</li><li>Marc de café, filtres en papier, contenus des sachets de thé et tisanes.</li></ul><p>💡 Peaux dures (agrumes, melon…)\u00a0: coupez-les en morceaux.</p><p><strong>En petites quantités</strong></p><ul><li>Os et restes de viande.</li><li>Arêtes et peaux de poisson, fruits de mer.</li><li>Coquillages et coquilles d\u2019œuf.</li><li>Coques et noyaux de fruits.</li></ul><p>💡 Broyez-les pour faciliter le compostage.</p><p><strong>À ne pas composter</strong></p><ul><li>Huiles alimentaires usagées (ne les versez pas dans l\u2019évier).</li><li>Déchets non alimentaires (verre, métaux, plastiques, tissus, couches-culottes…).</li><li>Lombricomposteur\u00a0: certains aliments sont déconseillés (agrumes, ail…).</li></ul>', condition: null }
+            { titre: 'Composter', icone: 'deposer', consigne: '<p>Compostez les déchets de cuisine, restes de repas, marc de café, filtres en papier et sachets de thé, ainsi que les os, restes de viande, arêtes de poisson, coquillages et coquilles d\'œuf en petites quantités (à broyer si possible), mais pas les huiles usagées et les déchets non alimentaires. Certains aliments comme les agrumes ou l\'ail sont à proscrire pour un lombricomposteur.</p>', condition: null }
           ]
         },
         {
@@ -2167,12 +2856,10 @@
           infoTri: 'cd-dvd-vhs.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=95&sc_id=270',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une association, bibliothèque, médiathèque ou structure de réemploi.</li><li>Revendez auprès d\u2019un disquaire, d\u2019un commerce d\u2019achat-vente ou sur un site de seconde main.</li></ul>', condition: 'En bon état' },
-            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Apportez en déchèterie si vous en avez beaucoup.</li><li>Sinon, jetez dans la poubelle des ordures ménagères.</li></ul>', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<p>Les donner à une association, à une structure de réemploi, à une bibliothèque ou à une médiathèque si elles peuvent les reprendre. Les revendre auprès d\'un disquaire, d\'un commerce d\'achat-vente ou d\'un site de seconde main.</p>', condition: 'En bon état' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>Les apporter en déchèterie si vous avez prévu d\'y aller prochainement ou si vous en avez beaucoup. Les jeter dans la poubelle des ordures ménagères.</p>', condition: 'Hors d\u2019usage' }
           ],
-          avertissements: [
-            'Les boîtiers en plastique n\u2019ont pas de filière de recyclage nationale et doivent être jetés avec les ordures ménagères ou déposés en déchèterie. Séparez les pochettes en papier\u00a0: elles peuvent être jetées dans le bac de tri des emballages et papiers.'
-          ]
+          avertissements: ['Les boîtiers en plastique vont aux ordures ménagères ou en déchèterie, tandis que les pochettes en papier se trient avec les emballages et papiers.']
         },
         {
           id: 'chaussures',
@@ -2181,9 +2868,9 @@
           infoTri: 'chaussures.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=109',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Proposez-les à un proche, déposez en boutique de seconde main ou association.</li><li>Déposez dans un conteneur à textiles, dans un sac fermé.</li></ul>', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer chez un cordonnier.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a> peut s\u2019appliquer pour prolonger leur durée de vie.</li></ul>', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Déposez dans un conteneur à textiles ou en déchèterie, dans un sac fermé.</li><li>Assemblez toujours les chaussures par paires pour simplifier le tri.</li><li>Même abîmées, elles seront recyclées.</li></ul>', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<p>Donner vos chaussures à une association, une recyclerie ou une structure de réemploi. Revendre en boutique spécialisée ou sur une plateforme de seconde main. Déposer les chaussures liées par paires et dans un sac, dans un conteneur dédié aux textiles sur la voie publique ou en déchèterie.</p>', condition: 'En bon état' },
+            { titre: 'Réparer', icone: 'reparer', consigne: '<p>Faire réparer vos chaussures si elles sont abîmées (remplacement de talons, ressemelage, couture décousue, fermeture éclair cassée…). Certaines réparations bénéficient du <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a> (jusqu\'à 25 €). Les cordonniers qui le proposent sont signalés par le symbole % dans la liste de nos solutions.</p>', condition: 'Réparable' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>Si les chaussures sont inutilisables, les déposer liées par paires et dans un sac, dans un conteneur dédié aux textiles sur la voie publique ou en déchèterie.</p>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -2193,9 +2880,9 @@
           infoTri: 'marteau.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=98',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Proposez à un proche, donnez à une association ou une structure de réemploi.</li><li>Vous pouvez aussi essayer de le revendre.</li></ul>', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer votre outil chez un professionnel.</li></ul>', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Apportez en magasin (bac de collecte) ou en déchèterie.</li></ul>', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<p>Proposez à un proche, donnez à une association ou une structure de réemploi. Vous pouvez aussi essayer de le revendre.</p>', condition: 'En bon état' },
+            { titre: 'Réparer', icone: 'reparer', consigne: '<p>Faites réparer votre outil chez un professionnel.</p>', condition: 'Réparable' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>Apportez en magasin (bac de collecte) ou en déchèterie.</p>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -2203,10 +2890,11 @@
           nom: 'Seringue avec aiguille',
           url: 'https://quefairedemesdechets.ademe.fr/dechet/seringue-avec-aiguille/',
           infoTri: 'aiguille-medicale.svg',
+          infoTriSmall: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/product/?sc_id=281',
           directDisplay: true,
           accordeons: [
-            { titre: 'Déposer en pharmacie', icone: 'deposer', consigne: '<ul><li>Placez vos seringues et aiguilles usagées dans la boîte jaune à couvercle vert (boîte DASRI), disponible gratuitement en pharmacie.</li><li>Une fois pleine, rapportez-la en pharmacie pour collecte sécurisée.</li><li>Les déchets sont incinérés avec valorisation énergétique.</li><li>Ne jetez jamais de seringues ou d\u2019aiguilles à la poubelle ni dans le bac de tri.</li></ul>', condition: null }
+            { titre: 'Déposer en pharmacie', icone: 'deposer', consigne: '<p>Déposez-la dans la boite jaune (au couvercle vert) destinée aux patients en auto-traitement et disponible gratuitement, sur simple demande, dans toutes les pharmacies de France (Hexagone et Outre-mer). Une fois pleine, la boite jaune est à rapporter en pharmacie.</p>', condition: null }
           ]
         },
         {
@@ -2216,9 +2904,9 @@
           infoTri: 'trottinette-electrique.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=264',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Proposez à un proche, donnez à une association ou une structure de réemploi.</li><li>Revendez d\u2019occasion.</li></ul>', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer grâce au <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a> pour prolonger sa durée de vie et économiser.</li></ul>', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Apportez en magasin (bac de collecte ou remise au vendeur) ou en déchèterie.</li><li>Elle sera démontée, dépolluée et ses matériaux recyclés (filière DEEE).</li></ul>', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<p>Proposez à un proche, donnez à une association ou une structure de réemploi. Revendez d\u2019occasion.</p>', condition: 'En bon état' },
+            { titre: 'Réparer', icone: 'reparer', consigne: '<p>Faites réparer grâce au <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a> pour prolonger sa durée de vie et économiser.</p>', condition: 'Réparable' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>Apportez en magasin (bac de collecte ou remise au vendeur) ou en déchèterie. Elle sera démontée, dépolluée et ses matériaux recyclés (filière DEEE).</p>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -2228,9 +2916,9 @@
           infoTri: 'vetements.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/carte-assistant-sauf-pret-et-location/?action_displayed=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=107',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Remettez à une association, recyclerie ou structure de réemploi.</li><li>Vendez en boutique ou sur une plateforme de seconde main.</li><li>Déposez dans un point de collecte textile.</li><li>Les textiles doivent être propres, secs et dans un sac fermé.</li></ul>', condition: 'En bon état' },
-            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer chez un couturier ou retoucheur.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0: jusqu\u2019à 25\u00a0\u20ac de la facture.</li></ul>', condition: 'Réparable' },
-            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Déposez vos vêtements propres et secs dans un conteneur à textiles ou en déchèterie, dans un sac fermé.</li><li>Même abîmés, ils seront recyclés en chiffons ou isolants.</li><li>Les textiles mouillés, souillés ou contaminés chimiquement vont en déchèterie uniquement.</li></ul>', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<p>Donner vos vêtements à une association, une recyclerie ou une structure de réemploi. Revendre en boutique ou sur une plateforme de seconde main. Déposer vos vêtements propres et secs, dans un sac fermé, en point de collecte (boutiques ou conteneurs dédiés aux textiles sur la voie publique).</p>', condition: 'En bon état' },
+            { titre: 'Réparer', icone: 'reparer', consigne: '<p>Faire réparer vos vêtements s\'ils sont abîmés (décousus, usés, troués, avec un bouton manquant...). Certaines réparations bénéficient du <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a> (jusqu\'à 25 €). Les couturiers ou retoucheurs qui le proposent sont signalés par le symbole % dans la liste de nos solutions.</p>', condition: 'Réparable' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>S\'ils sont inutilisables, les déposer (propres et secs) dans des conteneurs dédiés aux textiles, situés sur la voie publique ou en déchèterie. Si vos vêtements sont souillés par des produits dangereux (peintures, solvants...), les apporter en déchèterie. Sinon les jeter dans la poubelle des ordures ménagères.</p>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -2241,8 +2929,8 @@
           infoTri: ['livres-1.svg', 'livres-2.svg'],
           infoTriSmall: true,
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une association, structure de réemploi ou déposez dans une boîte à livres.</li><li>Revendez en librairie de seconde main, sur une plateforme entre particuliers ou via un service de reprise en ligne.</li></ul>', condition: 'En bon état' },
-            { titre: 'Déposer au tri', icone: 'deposer', consigne: '<ul><li>Déposez vos livres abîmés avec les papiers et emballages, dans le bac, le sac ou le conteneur de tri.</li></ul>', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<p>Donner vos livres à une association, structure de réemploi ou dans une boîte à livres. Revendre vos livres d\'occasion : librairies de seconde main, plateformes de revente entre particuliers ou de reprise de livres en ligne.</p>', condition: 'En bon état' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>Déposer vos livres avec les papiers et emballages dans le bac, le sac ou le conteneur de tri.</p>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -2252,8 +2940,8 @@
           infoTri: 'poeles-casseroles.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/carte-assistant-sauf-pret-et-location/?action_displayed=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=reparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=350',
           accordeons: [
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une association ou structure de réemploi.</li><li>Revendez d\u2019occasion, à l\u2019unité ou en lot.</li></ul>', condition: 'En bon état' },
-            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Apportez dans un point de collecte (bureaux de Poste, déchèteries, enseignes spécialisées).</li><li>En dernier recours, jetez aux ordures ménagères.</li><li>Le recyclage de l\u2019aluminium économise 95\u00a0% d\u2019énergie par rapport à sa production.</li></ul>', condition: 'Hors d\u2019usage' }
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<p>Donner votre poêle ou votre casserole à une association ou à une structure de réemploi. Revendre d\'occasion, à l\'unité ou en lot.</p>', condition: 'En bon état' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>L\'apporter dans un point de collecte (certains bureaux de Poste, déchèteries, enseignes spécialisées), quelle que soit sa marque. En dernier ressort, jeter votre poêle ou votre casserole usagée dans la poubelle des ordures ménagères.</p>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -2263,8 +2951,8 @@
           infoTri: 'sapin-de-noel.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=268',
           accordeons: [
-            { titre: 'Sapin naturel', icone: 'deposer', consigne: '<ul><li>Retirez toutes les décorations, guirlandes, boules et accessoires.</li><li>Déposez dans un point de collecte dédié ou en déchèterie (collectes organisées après les fêtes).</li><li>Broyez pour composter ou pailler autour des végétaux, si vous avez un jardin.</li><li>Replantez-le s\u2019il est en pot.</li></ul><p>⚠️ Les sapins floqués, colorés ou bombés de neige artificielle sont recouverts de produits chimiques et ne peuvent pas être recyclés\u00a0: déposez-les aux ordures ménagères ou en déchèterie (benne des encombrants).</p><p>🚫 Il est interdit de brûler les déchets verts chez soi.</p>', condition: null },
-            { titre: 'Sapin artificiel', icone: 'donner', consigne: '<ul><li>En bon état\u00a0: conservez-le, revendez-le ou donnez-le.</li><li>Hors d\u2019usage\u00a0: déposez-le en déchèterie.</li></ul>', condition: null }
+            { titre: 'Sapin naturel', icone: 'deposer', consigne: '<p>Retirez les décorations, déposez le sapin naturel en point de collecte ou déchèterie, broyez-le pour compost ou paillage, ou replantez-le s\'il est en pot, tandis que les sapins floqués ou traités vont aux ordures ménagères ou en déchèterie, sans les brûler.</p>', condition: null },
+            { titre: 'Sapin artificiel', icone: 'donner', icones: ['donner', 'deposer'], consigne: '<p>Lorsqu\'il est en bon état, il peut être conservé pour l\'année suivante, revendu ou donné à une structure de réemploi s\'il n\'est plus utilisé. Lorsqu\'il est en mauvais état, il doit être déposé en déchèterie.</p>', condition: null }
           ]
         },
         {
@@ -2275,7 +2963,7 @@
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/product/?sc_id=276',
           directDisplay: true,
           accordeons: [
-            { titre: 'Déposer au tri', icone: 'trier', consigne: '<ul><li>Déposez la brique vide (inutile de la rincer) dans le bac, le sac ou le conteneur de tri.</li><li>Le carton sera recyclé en essuie-tout ou boîtes.</li><li>Le mélange plastique-aluminium servira au mobilier urbain ou à la valorisation énergétique.</li><li>Privilégiez les grands formats ou le vrac pour réduire les emballages.</li></ul>', condition: null }
+            { titre: 'Déposer', icone: 'trier', consigne: '<p>Déposez la brique vide (inutile de la rincer) dans le bac, le sac ou le conteneur de tri. Le carton sera recyclé en essuie-tout ou boîtes. Le mélange plastique-aluminium servira au mobilier urbain ou à la valorisation énergétique. Privilégiez les grands formats ou le vrac pour réduire les emballages.</p>', condition: null }
           ]
         },
         {
@@ -2285,9 +2973,9 @@
           infoTri: 'gros-electromenager.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=87',
           accordeons: [
-            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Faites réparer pour utiliser plus longtemps et économiser.</li><li><a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0: jusqu\u2019à 50\u00a0\u20ac de la facture.</li><li>Pensez à l\u2019entretien régulier\u00a0: 50 à 70\u00a0% des pannes sont causées par un manque d\u2019entretien.</li></ul>', condition: 'Réparable' },
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Donnez à une association ou structure de réemploi (enlèvement à domicile parfois proposé).</li><li>Revendez en dépôt-vente ou sur une plateforme de seconde main.</li></ul>', condition: 'En bon état' },
-            { titre: 'Déposer', icone: 'deposer', consigne: '<ul><li>Déposez en magasin (bac de collecte, remise au vendeur ou au livreur lors d\u2019un remplacement).</li><li>Apportez en déchèterie dans la benne DEEE.</li></ul>', condition: 'Hors d\u2019usage' }
+            { titre: 'Réparer', icone: 'reparer', consigne: '<p>Réparer vos appareils : pour les utiliser plus longtemps et faire des économies, jusqu\'à 50 € grâce au <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>. Les réparateurs qui le proposent sont signalés par le symbole % dans la liste de nos solutions.</p>', condition: 'Réparable' },
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<p>Faire un don à une association ou à une structure de réemploi : l\'enlèvement à domicile est parfois proposé. Revendre : en dépôt-vente ou sur une plateforme de seconde main.</p>', condition: 'En bon état' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>En magasin : dans un bac de collecte, le remettre au vendeur ou au livreur si vous le remplacez. En déchèterie : dans la benne dédiée aux Équipements Électriques et Électroniques (EEE).</p>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -2296,10 +2984,11 @@
           url: 'https://quefairedemesdechets.ademe.fr/categories/emballages/',
           infoTri: ['emballages-jaune.svg', 'emballages-verre.svg'],
           infoTriSmall: true,
+          infoTriInline: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
           accordeons: [
-            { titre: 'Emballages en plastique, carton, métal ou bois', icone: 'trier', consigne: '<ul><li>Bouteilles ou pots de yaourt en plastique, boîtes en carton, canettes ou boîtes de conserves, cagettes ou boîtes en bois\u2026 c\u2019est un emballage, il se trie\u00a0!</li><li>Déposez-les dans le bac, le sac ou le conteneur de tri (poubelle jaune).</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Ne les imbriquez pas les uns dans les autres.</li></ul>', condition: null },
-            { titre: 'Emballages en verre', icone: 'trier', consigne: '<ul><li>Bouteilles, bocaux, pots en verre\u2026 déposez-les dans les conteneurs à verre dédiés.</li><li>Inutile de les laver, il suffit de bien les vider.</li><li>Retirez les bouchons et couvercles (ils vont dans le bac de tri).</li><li>Le verre se recycle à l\u2019infini\u00a0!</li></ul><p>⚠️ Ne mettez pas dans le conteneur à verre\u00a0: la vaisselle, les miroirs, les vitres, les ampoules ou la faïence. Ces objets ne sont pas des emballages en verre et perturbent le recyclage.</p>', condition: null }
+            { titre: 'Emballages en plastique, carton, métal ou bois', icone: 'trier', consigne: '<p>Bouteilles ou pots de yaourt en plastique, boîtes en carton, canettes ou boîtes de conserves, cagettes ou boîtes en bois\u2026 c\u2019est un emballage, il se trie\u00a0! Déposez-les dans le bac, le sac ou le conteneur de tri (poubelle jaune). Inutile de les laver, il suffit de bien les vider. Ne les imbriquez pas les uns dans les autres.</p>', condition: null },
+            { titre: 'Emballages en verre', icone: 'trier', consigne: '<p>Bouteilles, bocaux, pots en verre\u2026 déposez-les dans les conteneurs à verre dédiés. Inutile de les laver, il suffit de bien les vider. Retirez les bouchons et couvercles (ils vont dans le bac de tri). Le verre se recycle à l\u2019infini\u00a0! ⚠️ Ne mettez pas dans le conteneur à verre\u00a0: la vaisselle, les miroirs, les vitres, les ampoules ou la faïence. Ces objets ne sont pas des emballages en verre et perturbent le recyclage.</p>', condition: null }
           ]
         },
         {
@@ -2309,9 +2998,9 @@
           infoTri: 'telephone-mobile.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/tous-les-gestes/?action_displayed=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&action_list=preter%7Cmettreenlocation%7Creparer%7Ctrier%7Cdonner%7Cechanger%7Crevendre&sc_id=92',
           accordeons: [
-            { titre: 'Réparer', icone: 'reparer', consigne: '<ul><li>Vous pensez que votre téléphone peut être réparé\u00a0? Pensez au <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a>\u00a0!</li><li>Grâce à la réparation, vous prolongez la durée de vie de votre téléphone tout en économisant de l\u2019argent.</li><li>Trouvez un réparateur labellisé <a href="https://www.label-qualirepar.fr" target="_blank" rel="noopener noreferrer">QualiRépar</a> sur la carte ci-dessous.</li></ul>', condition: 'Réparable' },
-            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<ul><li>Proposez votre téléphone à un proche.</li><li>Donnez-le à une association ou à une structure de réemploi.</li><li>Vous pouvez aussi essayer de le revendre sur une plateforme de seconde main ou en dépôt-vente.</li></ul>', condition: 'En bon état' },
-            { titre: 'Déposer au tri', icone: 'deposer', consigne: '<ul><li>Qu\u2019il fonctionne ou pas, vous pouvez le déposer en magasin dans un bac de collecte ou le donner à un vendeur.</li><li>Vous pouvez aussi le renvoyer grâce aux services de certains éco-organismes (<a href="https://www.ecosystem.eco" target="_blank" rel="noopener noreferrer">Ecosystem</a>, <a href="https://www.ecologic-france.com" target="_blank" rel="noopener noreferrer">Ecologic</a>).</li><li>Sinon, apportez-le en déchèterie.</li></ul>', condition: 'Hors d\u2019usage' }
+            { titre: 'Réparer', icone: 'reparer', consigne: '<p>Vous pensez que votre téléphone mobile peut être réparé ? Pensez au <a href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">Bonus Réparation</a> ! Grâce à la réparation, vous prolongez la durée de vie de votre téléphone mobile, tout en économisant de l\'argent. Les réparateurs qui le proposent sont signalés par le symbole % dans la liste de nos solutions.</p>', condition: 'Réparable' },
+            { titre: 'Donner ou revendre', icone: 'donner', consigne: '<p>Proposez votre téléphone à un proche. Donnez-le à une association ou à une structure de réemploi. Vous pouvez aussi essayer de le revendre sur une plateforme de seconde main ou en dépôt-vente.</p>', condition: 'En bon état' },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>Qu\u2019il fonctionne ou pas, vous pouvez le déposer en magasin dans un bac de collecte ou le donner à un vendeur. Vous pouvez aussi le renvoyer grâce aux services de certains éco-organismes (<a href="https://www.ecosystem.eco" target="_blank" rel="noopener noreferrer">Ecosystem</a>, <a href="https://www.ecologic-france.com" target="_blank" rel="noopener noreferrer">Ecologic</a>). Sinon, apportez-le en déchèterie.</p>', condition: 'Hors d\u2019usage' }
           ]
         },
         {
@@ -2322,106 +3011,52 @@
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=117',
           directDisplay: true,
           accordeons: [
-            { titre: 'Déposer au point de collecte', icone: 'deposer', consigne: '<ul><li>Rapportez vos piles usagées dans un point de collecte\u00a0: bacs en magasin, déchèterie, pharmacie, école, mairie, hôpital…</li><li>Les piles sont recyclées\u00a0: les métaux (zinc, manganèse, nickel, cobalt, lithium…) sont récupérés pour fabriquer de nouveaux produits.</li><li>Ne jetez jamais les piles à la poubelle\u00a0: elles contiennent des substances polluantes pour l\u2019eau et les sols.</li></ul>', condition: null }
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>Déposez toutes les piles et batteries usagées dans un point de collecte dédié (magasins, déchèteries, lieux publics) et retirez-les des objets avant de vous en séparer, car elles ne doivent jamais être jetées avec les ordures ménagères ou les emballages.</p>', condition: null }
           ]
         }
       ]
     };
 
     // =============================================
-    // Navigation entre étapes
     // =============================================
-    function goToStep2(ficheId) {
+    // Navigation
+    // =============================================
+
+    // Sélectionner un objet depuis le panneau (ne navigue pas, remplit le champ)
+    function selectFiche(ficheId, label) {
       const fiche = fichesData.find(f => f.id === ficheId);
       if (!fiche) return;
-
-      appState.currentStep = 'territory';
       appState.selectedFiche = fiche;
-      appState.selectedAddress = null;
-
-      // Mettre à jour le chip
-      selectedChipLabel.textContent = fiche.nom;
-
-      // Mettre à jour les stats
-      updateStatsDisplay();
-
-      // Nettoyer l'adresse
-      addressInput.value = '';
-      addressResults.classList.remove('is-visible');
-      addressResults.innerHTML = '';
-
-      // Basculer la vue
-      container.classList.remove('search-active');
-      searchPanel.classList.remove('is-open');
-      container.classList.add('step-territory');
-
-      // Scroll en haut
-      window.scrollTo(0, 0);
-
-      // Focus sur le champ adresse
+      appState.searchLabel = label || fiche.nom;
+      searchInput.value = appState.searchLabel;
+      document.getElementById('search-error-msg').style.display = 'none';
+      document.querySelector('.search-section .search-bar').classList.remove('search-bar--error');
+      searchInput.removeAttribute('aria-invalid');
+      closeSearchPanel();
       setTimeout(() => addressInput.focus(), 150);
-
-      // Historique navigateur
-      history.pushState({ step: 'territory', ficheId: ficheId }, '');
     }
 
-    function goToStep1() {
+    function goToFiche() {
+      if (!appState.selectedFiche) return;
+      appState.currentStep = 'fiche';
+      container.classList.remove('search-active');
+      searchPanel.classList.remove('is-open');
+      container.classList.add('step-fiche');
+      renderFiche();
+      window.scrollTo(0, 0);
+      history.pushState({
+        step: 'fiche',
+        ficheId: appState.selectedFiche.id,
+        address: appState.selectedAddress
+      }, '');
+    }
+
+    function goBackFromFiche() {
       appState.currentStep = 'search';
-      appState.selectedFiche = null;
-      appState.selectedAddress = null;
-      appState.searchOrigin = 'home';
-
-      // Basculer la vue
-      container.classList.remove('step-territory');
-      container.classList.remove('search-active');
-      searchPanel.classList.remove('is-open');
-
-      // Scroll en haut
+      container.classList.remove('step-fiche');
+      searchInput.value = appState.searchLabel || (appState.selectedFiche ? appState.selectedFiche.nom : '');
+      addressInput.value = appState.selectedAddress ? appState.selectedAddress.label : '';
       window.scrollTo(0, 0);
-
-      // Focus sur le champ de recherche
-      setTimeout(() => {
-        searchInput.value = '';
-        searchInput.focus();
-      }, 150);
-    }
-
-    // Ouvrir la recherche depuis l'étape 2 (chip cliqué)
-    function openSearchFromTerritory() {
-      appState.searchOrigin = 'territory';
-
-      // Masquer l'étape 2, montrer la recherche
-      container.classList.remove('step-territory');
-      container.classList.add('search-active');
-      searchPanel.classList.add('is-open');
-
-      // Réinitialiser l'affichage des éléments de recherche facilitée
-      searchResults.classList.remove('is-visible');
-      searchResults.innerHTML = '';
-      searchCategories.style.display = '';
-      searchPopular.style.display = '';
-
-      // Scroll en haut
-      window.scrollTo(0, 0);
-
-      // Focus et vider le champ
-      setTimeout(() => {
-        searchInput.value = '';
-        searchInput.focus();
-      }, 150);
-    }
-
-    // Fermer la recherche et revenir à l'étape 2 (sans changer de fiche)
-    function closeSearchBackToTerritory() {
-      container.classList.remove('search-active');
-      searchPanel.classList.remove('is-open');
-      searchResults.classList.remove('is-visible');
-      searchResults.innerHTML = '';
-      searchInput.value = '';
-
-      // Réafficher l'étape 2
-      container.classList.add('step-territory');
-      appState.searchOrigin = 'home';
     }
 
     // Gestion du bouton retour navigateur
@@ -2432,55 +3067,22 @@
           appState.selectedFiche = fiche;
           appState.selectedAddress = e.state.address;
           appState.currentStep = 'fiche';
-          container.classList.remove('step-territory', 'search-active');
+          container.classList.remove('search-active');
           container.classList.add('step-fiche');
           renderFiche();
         }
-      } else if (e.state && e.state.step === 'territory') {
-        container.classList.remove('step-fiche');
-        goToStep2(e.state.ficheId);
       } else {
         appState.currentStep = 'search';
-        appState.selectedFiche = null;
-        container.classList.remove('step-territory', 'step-fiche');
+        container.classList.remove('step-fiche');
+        updateLaunchButton();
       }
     });
 
-    // =============================================
-    // Statistiques dynamiques
-    // =============================================
-    function updateStatsDisplay() {
-      const ficheId = appState.selectedFiche?.id;
-      if (!ficheId || !appState.categoryCounts) return;
-
-      const counts = appState.categoryCounts.national[ficheId] || {
-        lieux: 0,
-        services_a_domicile: 0,
-        solutions_en_ligne: 0
-      };
-
-      const total = counts.lieux + counts.services_a_domicile + counts.solutions_en_ligne;
-
-      const introEl = document.getElementById('territory-stats-intro');
-      introEl.innerHTML = `<strong>${formatNumber(total)}\u00a0solutions</strong> d\u00e9j\u00e0 d\u00e9tect\u00e9es dans toute la France pour votre recherche. Affinez votre recherche pour trouver les r\u00e9sultats les plus pertinents pour vous.`;
-
-      document.getElementById('stat-lieux').textContent = formatNumber(counts.lieux);
-      document.getElementById('stat-services').textContent = formatNumber(counts.services_a_domicile);
-      document.getElementById('stat-en-ligne').textContent = formatNumber(counts.solutions_en_ligne);
-    }
-
-    // =============================================
     // Logique de recherche (Étape 1)
     // =============================================
     function openSearchPanel() {
-      // Si on n'est pas déjà en mode "vient de territory", c'est un accès depuis l'accueil
-      if (appState.currentStep !== 'territory') {
-        appState.searchOrigin = 'home';
-      }
       searchPanel.classList.add('is-open');
       container.classList.add('search-active');
-
-      // S'assurer que les catégories et populaires sont visibles (reset état précédent)
       if (!searchInput.value.trim()) {
         searchCategories.style.display = '';
         searchPopular.style.display = '';
@@ -2530,7 +3132,7 @@
       if (uniqueResults.length > 0) {
         const arrowSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><polyline points="9 18 15 12 9 6"/></svg>';
         searchResults.innerHTML = uniqueResults.map(r =>
-          `<li class="search-results__item" data-fiche-id="${r.id}" role="button" tabindex="0">
+          `<li class="search-results__item" data-fiche-id="${r.id}" data-label="${r.nom}" role="button" tabindex="0">
             <span class="search-results__name">${r.nom}</span>
             <span class="search-results__arrow" aria-hidden="true">${arrowSvg}</span>
           </li>`
@@ -2560,7 +3162,7 @@
     }
 
     // =============================================
-    // Événements recherche (Étape 1)
+    // Événements recherche
     // =============================================
     searchInput.addEventListener('focus', () => {
       openSearchPanel();
@@ -2572,7 +3174,6 @@
 
     // Clic sur un résultat de recherche
     searchResults.addEventListener('click', (e) => {
-      // Clic sur un bouton d'exemple (aucun résultat)
       const exBtn = e.target.closest('.fr-tag[data-query]');
       if (exBtn && exBtn.dataset.query) {
         e.preventDefault();
@@ -2584,9 +3185,7 @@
       }
       const item = e.target.closest('.search-results__item');
       if (item && item.dataset.ficheId) {
-        closeSearchPanel();
-        searchInput.value = '';
-        goToStep2(item.dataset.ficheId);
+        selectFiche(item.dataset.ficheId, item.dataset.label);
       }
     });
 
@@ -2596,9 +3195,7 @@
         const item = e.target.closest('.search-results__item');
         if (item && item.dataset.ficheId) {
           e.preventDefault();
-          closeSearchPanel();
-          searchInput.value = '';
-          goToStep2(item.dataset.ficheId);
+          selectFiche(item.dataset.ficheId, item.dataset.label);
         }
       }
     });
@@ -2607,9 +3204,8 @@
     document.querySelector('.search-categories__grid').addEventListener('click', (e) => {
       const card = e.target.closest('.category-card');
       if (card && card.dataset.category) {
-        closeSearchPanel();
-        searchInput.value = '';
-        goToStep2(card.dataset.category);
+        const nameEl = card.querySelector('.category-card__name');
+        selectFiche(card.dataset.category, nameEl ? nameEl.textContent.trim() : null);
       }
     });
 
@@ -2617,9 +3213,8 @@
     document.querySelector('.search-popular__list').addEventListener('click', (e) => {
       const item = e.target.closest('.search-popular__item');
       if (item && item.dataset.ficheId) {
-        closeSearchPanel();
-        searchInput.value = '';
-        goToStep2(item.dataset.ficheId);
+        const nameEl = item.querySelector('span:first-child');
+        selectFiche(item.dataset.ficheId, nameEl ? nameEl.textContent.trim() : null);
       }
     });
 
@@ -2629,23 +3224,15 @@
         const item = e.target.closest('.search-popular__item');
         if (item && item.dataset.ficheId) {
           e.preventDefault();
-          closeSearchPanel();
-          searchInput.value = '';
-          goToStep2(item.dataset.ficheId);
+          const nameEl = item.querySelector('span:first-child');
+          selectFiche(item.dataset.ficheId, nameEl ? nameEl.textContent.trim() : null);
         }
       }
     });
 
-    // Bouton croix pour fermer le panneau de recherche (contextuel)
+    // Bouton croix pour fermer le panneau de recherche
     document.getElementById('search-panel-close').addEventListener('click', () => {
-      if (appState.searchOrigin === 'territory') {
-        // Vient de l'étape 2 → retour à l'étape 2
-        closeSearchBackToTerritory();
-      } else {
-        // Vient de l'accueil → fermer le panneau
-        closeSearchPanel();
-        searchInput.value = '';
-      }
+      closeSearchPanel();
     });
 
     // Fermer quand on clique en dehors
@@ -2653,15 +3240,21 @@
       const isInsideSearch = e.target.closest('.search-section') || e.target.closest('.search-panel');
       if (!isInsideSearch && searchPanel.classList.contains('is-open')) {
         closeSearchPanel();
-        searchInput.value = '';
       }
     });
 
-    // =============================================
-    // Chip (Étape 2 → ouvre la recherche)
-    // =============================================
-    selectedChip.addEventListener('click', () => {
-      openSearchFromTerritory();
+    // Bouton lancer la recherche
+    btnLaunch.addEventListener('click', () => {
+      if (!appState.selectedFiche) {
+        const searchBar = document.querySelector('.search-section .search-bar');
+        const searchInput = document.getElementById('search-input');
+        searchBar.classList.add('search-bar--error');
+        searchInput.setAttribute('aria-invalid', 'true');
+        document.getElementById('search-error-msg').style.display = 'block';
+        searchInput.focus();
+        return;
+      }
+      goToFiche();
     });
 
     // =============================================
@@ -2673,6 +3266,11 @@
     addressInput.addEventListener('input', (e) => {
       clearTimeout(addressDebounceTimer);
       const query = e.target.value.trim();
+
+      // Si le champ ne correspond plus à l'adresse sélectionnée, on efface la sélection
+      if (appState.selectedAddress && query !== appState.selectedAddress.label) {
+        appState.selectedAddress = null;
+      }
 
       if (query.length < 3) {
         addressResults.classList.remove('is-visible');
@@ -2753,9 +3351,6 @@
       addressResults.classList.remove('is-visible');
       addressResults.innerHTML = '';
       addressFocusedIndex = -1;
-
-      // Passer automatiquement à l'étape 3
-      goToStep3();
     }
 
     // Navigation clavier dans l'autocomplétion
@@ -2788,51 +3383,15 @@
 
     // Fermer l'autocomplétion quand on clique en dehors
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.territory-search')) {
+      if (!e.target.closest('.search-landing')) {
         addressResults.classList.remove('is-visible');
         addressFocusedIndex = -1;
       }
     });
 
     // =============================================
-    // Étape 3 — Fiche résultat
+    // Fiche résultat
     // =============================================
-    function goToStep3() {
-      if (!appState.selectedFiche || !appState.selectedAddress) return;
-
-      appState.currentStep = 'fiche';
-
-      // Basculer la vue
-      container.classList.remove('step-territory', 'search-active');
-      searchPanel.classList.remove('is-open');
-      container.classList.add('step-fiche');
-
-      // Rendre la fiche
-      renderFiche();
-
-      // Scroll en haut
-      window.scrollTo(0, 0);
-
-      // Historique navigateur
-      history.pushState({
-        step: 'fiche',
-        ficheId: appState.selectedFiche.id,
-        address: appState.selectedAddress
-      }, '');
-    }
-
-    function goBackFromFiche() {
-      appState.currentStep = 'territory';
-      container.classList.remove('step-fiche');
-      container.classList.add('step-territory');
-
-      // Restaurer le chip et les stats de l'étape 2
-      selectedChipLabel.textContent = appState.selectedFiche.nom;
-      addressInput.value = appState.selectedAddress ? appState.selectedAddress.label : '';
-      updateStatsDisplay();
-
-      window.scrollTo(0, 0);
-    }
 
     // Estimation locale : nombre de solutions dans un rayon de 10 km
     // Surface rayon 10km ≈ 314 km². France métropolitaine ≈ 640 000 km².
@@ -2844,31 +3403,59 @@
       return Math.max(1, Math.round(nationalCount * localRatio));
     }
 
+    // Icônes SVG pour les gestes (sources officielles QFDMO)
+    const GESTE_ICONS = {
+      reparer: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#009081"/><path d="M7.55295 6.18073C8.37501 5.88847 9.3282 6.07133 9.98618 6.72931C10.6443 7.38748 10.8271 8.34102 10.5345 9.16324L17.7643 16.3931L16.3501 17.8073L9.11957 10.5777C8.29751 10.87 7.34433 10.6871 6.68635 10.0291C6.02818 9.37098 5.8454 8.41744 6.13801 7.59522L7.62915 9.08634C8.01968 9.47686 8.65285 9.47686 9.04337 9.08634C9.43389 8.69581 9.43389 8.06265 9.04337 7.67213L7.55295 6.18073ZM14.4645 7.43642L16.5859 6.25791L17.5287 7.20072L16.3501 9.32204L15.1716 9.55774L13.7574 10.972L12.8146 10.0291L14.2288 8.61493L14.4645 7.43642ZM9.75048 12.6218L11.1647 14.0361L7.86486 17.3359C7.47433 17.7264 6.84117 17.7264 6.45065 17.3359C6.08309 16.9684 6.06147 16.3858 6.38578 15.993L6.45065 15.9217L9.75048 12.6218Z" fill="white"/></svg>',
+      donner: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="white" stroke="#417DC4" stroke-width="2"/><path d="M10.2233 9.6683L11.6699 9.66863C13.3268 9.66863 14.6699 11.0118 14.6699 12.6686L10.0026 12.668L10.0033 13.3353L15.3366 13.3348V12.6686C15.3366 11.947 15.1245 11.2666 14.7459 10.6681L16.6699 10.6686C17.9981 10.6686 19.1449 11.4454 19.6807 12.5696C18.1041 14.65 15.5512 16.002 12.6699 16.002C10.8291 16.002 9.26958 15.6082 8.00298 14.9188L8.00395 8.71597C8.83431 8.8349 9.59415 9.17237 10.2233 9.6683ZM6.66992 8.00195C7.01182 8.00195 7.2936 8.25931 7.33211 8.59087L7.33659 8.66803V14.6686C7.33659 15.0368 7.03812 15.3353 6.66992 15.3353H5.33659C4.9684 15.3353 4.66992 15.0368 4.66992 14.6686V8.66863C4.66992 8.30043 4.9684 8.00195 5.33659 8.00195H6.66992Z" fill="#417DC4"/></svg>',
+      deposer: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="white" stroke="#A558A0" stroke-width="2"/><path d="M17.0407 12.0653L18.0617 13.8331C18.706 14.9491 18.3236 16.3761 17.2076 17.0205C16.8529 17.2253 16.4506 17.3331 16.041 17.3331L14.6662 17.3327V18.6664L11.3328 16.3331L14.6662 13.9997V15.3327L16.041 15.3331C16.0995 15.3331 16.157 15.3177 16.2076 15.2884C16.3494 15.2066 16.4082 15.0364 16.355 14.8877L16.3296 14.8331L15.3087 13.0653L17.0407 12.0653ZM9.15742 10.2557L9.51148 14.3091L8.35712 13.6427L7.66939 14.8331C7.64013 14.8837 7.62473 14.9412 7.62473 14.9997C7.62473 15.1634 7.74264 15.2995 7.89814 15.3277L7.95806 15.3331L9.99944 15.3328V17.3327L7.95806 17.3331C6.6694 17.3331 5.62473 16.2884 5.62473 14.9997C5.62473 14.5901 5.73255 14.1878 5.93734 13.8331L6.62506 12.6427L5.47003 11.9758L9.15742 10.2557ZM13.1662 5.97901C13.5209 6.18381 13.8154 6.47836 14.0202 6.83307L14.7073 8.02387L15.8623 7.357L15.5082 11.4104L11.8209 9.69033L12.9752 9.02387L12.2882 7.83307C12.2589 7.7824 12.2168 7.74032 12.1662 7.71106C12.0244 7.62924 11.8476 7.66331 11.7454 7.78387L11.7108 7.83307L10.6904 9.60107L8.95838 8.60111L9.97879 6.83307C10.6231 5.71705 12.0502 5.33468 13.1662 5.97901Z" fill="#A558A0"/></svg>',
+      revendre: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="white" stroke="#BB8568" stroke-width="2"/><path d="M12.5659 6C14.1883 6 15.6491 6.6942 16.6665 7.80176L14.563 9.20508C14.0243 8.7492 13.3269 8.47363 12.5659 8.47363C11.0702 8.47384 9.82223 9.53615 9.53564 10.9473H15.6587V13.4219H9.53564C9.82219 14.8332 11.0701 15.8953 12.5659 15.8955C13.3269 15.8955 14.0243 15.621 14.563 15.165L16.6665 16.5674C15.6491 17.675 14.1884 18.3691 12.5659 18.3691C9.70109 18.3689 7.34145 16.2047 7.03369 13.4219H5.76318V10.9473H7.03369C7.3415 8.16457 9.70113 6.00022 12.5659 6Z" fill="#BB8568"/></svg>',
+      preter: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="white" stroke="#CE614A" stroke-width="2"/><path d="M9.33331 8.66699V11.3337L5.33331 8.00033L9.33331 4.66699V7.33366H12.6666C15.6122 7.33366 18 9.72147 18 12.667C18 15.6125 15.6122 18.0003 12.6666 18.0003H6.66665V16.667H12.6666C14.8758 16.667 16.6666 14.8761 16.6666 12.667C16.6666 10.4579 14.8758 8.66699 12.6666 8.66699H9.33331Z" fill="#CE614A"/></svg>',
+      trier: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="white" stroke="#A558A0" stroke-width="2"/><path d="M17.0407 12.0653L18.0617 13.8331C18.706 14.9491 18.3236 16.3761 17.2076 17.0205C16.8529 17.2253 16.4506 17.3331 16.041 17.3331L14.6662 17.3327V18.6664L11.3328 16.3331L14.6662 13.9997V15.3327L16.041 15.3331C16.0995 15.3331 16.157 15.3177 16.2076 15.2884C16.3494 15.2066 16.4082 15.0364 16.355 14.8877L16.3296 14.8331L15.3087 13.0653L17.0407 12.0653ZM9.15742 10.2557L9.51148 14.3091L8.35712 13.6427L7.66939 14.8331C7.64013 14.8837 7.62473 14.9412 7.62473 14.9997C7.62473 15.1634 7.74264 15.2995 7.89814 15.3277L7.95806 15.3331L9.99944 15.3328V17.3327L7.95806 17.3331C6.6694 17.3331 5.62473 16.2884 5.62473 14.9997C5.62473 14.5901 5.73255 14.1878 5.93734 13.8331L6.62506 12.6427L5.47003 11.9758L9.15742 10.2557ZM13.1662 5.97901C13.5209 6.18381 13.8154 6.47836 14.0202 6.83307L14.7073 8.02387L15.8623 7.357L15.5082 11.4104L11.8209 9.69033L12.9752 9.02387L12.2882 7.83307C12.2589 7.7824 12.2168 7.74032 12.1662 7.71106C12.0244 7.62924 11.8476 7.66331 11.7454 7.78387L11.7108 7.83307L10.6904 9.60107L8.95838 8.60111L9.97879 6.83307C10.6231 5.71705 12.0502 5.33468 13.1662 5.97901Z" fill="#A558A0"/></svg>',
+    };
+
+    function stripHtml(html) {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      return (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function getBadgeClass(condition) {
+      if (!condition) return null;
+      const c = condition.toLowerCase();
+      if (c.includes('répar') || c.includes('repar')) return 'geste-badge--reparable';
+      if (c.includes('bon') || c.includes('etat') || c.includes('état')) return 'geste-badge--bon-etat';
+      return 'geste-badge--mauvais-etat';
+    }
+
+    function getConditionLabel(condition) {
+      if (!condition) return null;
+      const c = condition.toLowerCase();
+      if (c.includes('répar') || c.includes('repar')) return 'RÉPARABLE';
+      if (c.includes('bon') || c.includes('etat') || c.includes('état')) return 'BON ÉTAT';
+      return 'MAUVAIS ÉTAT';
+    }
+
     function renderFiche() {
       const ficheId = appState.selectedFiche.id;
       const address = appState.selectedAddress;
 
-      // Trouver les consignes
       const consigneFiche = appState.consignesData
         ? appState.consignesData.fiches.find(f => f.id === ficheId)
         : null;
 
-      // Trouver les comptages nationaux
       const counts = appState.categoryCounts
         ? appState.categoryCounts.national[ficheId] || { lieux: 0, services_a_domicile: 0, solutions_en_ligne: 0 }
         : { lieux: 0, services_a_domicile: 0, solutions_en_ligne: 0 };
 
-      // Estimation locale à 10 km
       const localLieux = estimateLocalCount(counts.lieux);
-      const localServices = counts.services_a_domicile; // Les services à domicile couvrent tout le territoire
-      const localEnLigne = counts.solutions_en_ligne;   // Les solutions en ligne aussi
-      const localTotal = localLieux + localServices + localEnLigne;
 
       // --- En-tête ---
       document.getElementById('fiche-object-name').textContent = appState.selectedFiche.nom;
       document.getElementById('fiche-object-address').textContent = address ? address.label : '';
-      document.getElementById('fiche-total-solutions').textContent =
-        `Super, ${formatNumber(localTotal)}\u00a0solutions ont été trouvées\u00a0!`;
+      const totalCount = localLieux + counts.services_a_domicile + counts.solutions_en_ligne;
+      document.getElementById('fiche-total-solutions').textContent = address
+        ? `Super\u00a0! ${formatNumber(totalCount)}\u00a0solutions ont \u00e9t\u00e9 trouv\u00e9es.`
+        : '';
 
       // --- Info-tri ---
       const infoTriContainer = document.getElementById('fiche-infotri-images');
@@ -2886,157 +3473,684 @@
           img.loading = 'lazy';
           infoTriContainer.appendChild(img);
         });
+        if (consigneFiche.infoTriInline) {
+          infoTriContainer.classList.add('fiche-infotri__images--inline');
+        } else {
+          infoTriContainer.classList.remove('fiche-infotri__images--inline');
+        }
       } else {
         infoTriSection.style.display = 'none';
       }
 
-      // --- Accordéons ---
-      const accordeonsContainer = document.getElementById('fiche-accordeons');
-      accordeonsContainer.innerHTML = '';
+      // --- Geste cards ---
+      const gesteCards = document.getElementById('geste-cards');
+      gesteCards.innerHTML = '';
+      appState.gesteCount = [];
 
       if (consigneFiche && consigneFiche.accordeons) {
-        // Répartir les lieux locaux entre les accordéons proportionnellement
-        const nbAccordeons = consigneFiche.accordeons.length;
-        const lieuxParAccordeon = [];
+        // Tri : Réparable (0) → Bon état (1) → Hors d'usage / autres (2)
+        const GESTE_PRIORITY = (condition) => {
+          if (!condition) return 2;
+          const c = condition.toLowerCase();
+          if (c.includes('répar') || c.includes('repar')) return 0;
+          if (c.includes('bon') || c.includes('état') || c.includes('etat')) return 1;
+          return 2;
+        };
+        const accordeons = [...consigneFiche.accordeons].sort(
+          (a, b) => GESTE_PRIORITY(a.condition) - GESTE_PRIORITY(b.condition)
+        );
+        appState.sortedAccordeons = accordeons;
+
+        const nbGestes = accordeons.length;
         let lieuxRestants = localLieux;
-        consigneFiche.accordeons.forEach((acc, i) => {
-          if (i === nbAccordeons - 1) {
-            lieuxParAccordeon.push(lieuxRestants);
+        accordeons.forEach((acc, i) => {
+          let share;
+          if (i === nbGestes - 1) {
+            share = lieuxRestants;
           } else {
-            const share = Math.max(1, Math.round(localLieux * (nbAccordeons - i) / ((nbAccordeons * (nbAccordeons + 1)) / 2)));
-            lieuxParAccordeon.push(share);
+            share = Math.max(1, Math.round(localLieux / nbGestes));
             lieuxRestants -= share;
           }
+          appState.gesteCount.push(share);
         });
 
-        consigneFiche.accordeons.forEach((acc, index) => {
-          const nbSolutions = lieuxParAccordeon[index];
-          const subtitleHtml = `<span class="fiche-accordion__subtitle">${formatNumber(nbSolutions)} solutions identifiées</span>`;
+        accordeons.forEach((acc, index) => {
+          const nbSolutions = appState.gesteCount[index];
+          const hasBonus = acc.consigne && acc.consigne.includes('Bonus Réparation');
+          const badgeClass = getBadgeClass(acc.condition);
+          const iconSvg = GESTE_ICONS[acc.icone] || GESTE_ICONS.deposer;
+          const ctaLabel = address
+            ? `Je découvre les ${formatNumber(nbSolutions)} solutions`
+            : 'Je découvre les solutions';
 
-          const conditionBadge = acc.condition
-            ? `<span class="fiche-accordion__condition">${acc.condition}</span>`
-            : '';
+          const card = document.createElement('div');
+          card.className = 'geste-card';
+          card.dataset.gesteIndex = index;
 
-          const collapseId = 'fiche-accordion-' + index;
+          const conditionLabel = getConditionLabel(acc.condition);
+          const badgesHtml = [
+            conditionLabel ? `<span class="geste-badge ${badgeClass}">${conditionLabel}</span>` : '',
+            hasBonus ? '<span class="geste-badge geste-badge--bonus">Bonus R\u00e9paration</span>' : ''
+          ].join('');
 
-          if (consigneFiche.directDisplay) {
-            // Affichage direct sans accordéon (seringue, brique alimentaire…)
-            const section = document.createElement('div');
-            section.className = 'fiche-direct-section';
-            section.innerHTML = `
-              <span class="fiche-accordion__title">${acc.titre}</span>
-              ${subtitleHtml}
-              ${conditionBadge}
-              <div class="fiche-accordion__consigne">${acc.consigne}</div>
-            `;
-            accordeonsContainer.appendChild(section);
+          // Ic\u00f4nes : tableau acc.icones prioritaire, sinon "Donner ou revendre" = deux ic\u00f4nes auto
+          let iconsHtml;
+          if (acc.icones && acc.icones.length > 1) {
+            iconsHtml = `<span class="geste-card__icons">${acc.icones.map(k => `<span class="geste-card__icon">${GESTE_ICONS[k] || GESTE_ICONS.deposer}</span>`).join('')}</span>`;
           } else {
-            const accSection = document.createElement('section');
-            accSection.className = 'fr-accordion';
-
-            accSection.innerHTML = `
-              <h3 class="fr-accordion__title">
-                <button class="fr-accordion__btn" aria-expanded="false" aria-controls="${collapseId}" type="button">
-                  <div class="fiche-accordion__header-left">
-                    <span class="fiche-accordion__title">${acc.titre}</span>
-                    ${subtitleHtml}
-                  </div>
-                </button>
-              </h3>
-              <div class="fr-collapse" id="${collapseId}">
-                ${conditionBadge}
-                <div class="fiche-accordion__consigne">${acc.consigne}</div>
-              </div>
-            `;
-
-            accordeonsContainer.appendChild(accSection);
+            const isDonnerRevendre = acc.titre && acc.titre.toLowerCase().includes('revendre');
+            iconsHtml = isDonnerRevendre
+              ? `<span class="geste-card__icons"><span class="geste-card__icon">${GESTE_ICONS.donner}</span><span class="geste-card__icon">${GESTE_ICONS.revendre}</span></span>`
+              : `<span class="geste-card__icon">${iconSvg}</span>`;
           }
+
+          card.innerHTML = `
+            <div class="geste-card__badges">${badgesHtml}</div>
+            <div class="geste-card__header">
+              ${iconsHtml}
+              <h3 class="geste-card__title">${acc.titre}</h3>
+            </div>
+            <div class="geste-card__description">${acc.consigne}</div>
+            <button class="geste-card__cta" type="button" data-geste-index="${index}">${ctaLabel}</button>
+          `;
+
+          gesteCards.appendChild(card);
+        });
+
+      }
+
+      // Bannières avertissements
+      const warningsContainer = document.getElementById('fiche-warnings');
+      warningsContainer.innerHTML = '';
+      if (consigneFiche && consigneFiche.avertissements && consigneFiche.avertissements.length) {
+        consigneFiche.avertissements.forEach(text => {
+          const item = document.createElement('div');
+          item.className = 'fiche-warnings__item';
+          item.innerHTML = `<svg class="fiche-warnings__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span>${text}</span>`;
+          warningsContainer.appendChild(item);
         });
       }
+    }
 
-      // --- Avertissements ---
-      const warningsSection = document.getElementById('fiche-warnings');
-      const warningsList = document.getElementById('fiche-warnings-list');
-      warningsList.innerHTML = '';
+    // Délégation permanente sur le conteneur de geste cards
+    document.getElementById('geste-cards').addEventListener('click', function(e) {
+      const btn = e.target.closest('.geste-card__cta');
+      if (btn) goToSolutions(parseInt(btn.dataset.gesteIndex, 10));
+    });
 
-      const warnings = consigneFiche ? consigneFiche.avertissements || [] : [];
-      if (warnings.length > 0) {
-        warningsSection.style.display = '';
-        const warnIconSvg = '<svg xmlns="http://www.w3.org/2000/svg" class="fiche-warnings__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
-        warnings.forEach(w => {
-          const li = document.createElement('li');
-          li.className = 'fiche-warnings__item';
-          li.innerHTML = warnIconSvg + '<span>' + w + '</span>';
-          warningsList.appendChild(li);
-        });
-      } else {
-        warningsSection.style.display = 'none';
+    // =============================================
+    // Solutions \u2014 API & helpers
+    // =============================================
+
+    const ACTEURS_API = 'https://data.ademe.fr/data-fair/api/v1/datasets/longue-vie-aux-objets-acteurs-de-leconomie-circulaire/lines';
+
+    const GESTE_ACTION_FIELDS = {
+      reparer:  ['reparer'],
+      donner:   ['donner', 'revendre', 'echanger'],
+      deposer:  ['trier'],
+      trier:    ['trier'],
+    };
+
+    const ACTION_LABELS = {
+      reparer:  'R\u00e9parer',
+      donner:   'Donner',
+      revendre: 'Revendre',
+      echanger: '\u00c9changer',
+      trier:    'D\u00e9poser',
+      emprunter:'Emprunter',
+      preter:   'Pr\u00eater',
+    };
+
+    const TYPE_ACTEUR_LABELS = {
+      ess:            'Association / ESS',
+      artisan:        'Artisan',
+      commerce:       'Commerce',
+      pav_public:     'Point de collecte',
+      decheterie:     'D\u00e9ch\u00e8terie',
+      service_public: 'Service public',
+      collectivite:   'Collectivit\u00e9',
+    };
+
+    function haversineKm(lat1, lon1, lat2, lon2) {
+      const R = 6371;
+      const dLat = (lat2 - lat1) * Math.PI / 180;
+      const dLon = (lon2 - lon1) * Math.PI / 180;
+      const a = Math.sin(dLat / 2) ** 2
+        + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
+      return R * 2 * Math.asin(Math.sqrt(a));
+    }
+
+    function formatDistance(km) {
+      if (km < 1)  return `${Math.round(km * 1000)}\u00a0m`;
+      if (km < 10) return `${km.toFixed(1)}\u00a0km`;
+      return `${Math.round(km)}\u00a0km`;
+    }
+
+    const SOLUTIONS_PER_PAGE = 10;
+
+    async function fetchActeursProches(lat, lon, rayon) {
+      const params = new URLSearchParams({
+        geo:    `${lat},${lon},${rayon}`,
+        size:   '500',
+        select: 'nom,nom_commercial,adresse,complement_dadresse,code_postal,ville,latitude,longitude,type_dacteur,type_de_services,qualites_et_labels,reparer,donner,revendre,echanger,trier,emprunter,preter,horaires_description,telephone,site_web,identifiant',
+      });
+      const resp = await fetch(`${ACTEURS_API}?${params}`);
+      if (!resp.ok) throw new Error(`Erreur API ${resp.status}`);
+      return resp.json();
+    }
+
+    function renderSolutionsLoading() {
+      return `<div class="solutions-loading"><div class="solutions-loading__spinner"></div><p>Recherche des lieux …</p></div>`;
+    }
+
+    // Icônes pour les pills gestes (dark glyph, fond géré en CSS)
+    const PILL_ICONS = {
+      reparer: '<svg viewBox="9 5 14 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11.4023 7.1817C12.2244 6.88945 13.1776 7.07231 13.8355 7.73029C14.4937 8.38846 14.6765 9.342 14.3839 10.1642L21.6137 17.3941L20.1995 18.8083L12.9689 11.5787C12.1469 11.871 11.1937 11.6881 10.5357 11.0301C9.87755 10.372 9.69477 9.41842 9.98737 8.5962L11.4785 10.0873C11.869 10.4778 12.5022 10.4778 12.8927 10.0873C13.2833 9.69679 13.2833 9.06362 12.8927 8.6731L11.4023 7.1817ZM18.3139 8.4374L20.4352 7.25888L21.378 8.2017L20.1995 10.323L19.021 10.5587L17.6068 11.973L16.664 11.0301L18.0782 9.61591L18.3139 8.4374ZM13.5998 13.6228L15.014 15.0371L11.7142 18.3369C11.3237 18.7274 10.6905 18.7274 10.3 18.3369C9.93246 17.9694 9.91084 17.3868 10.2351 16.994L10.3 16.9227L13.5998 13.6228Z" fill="#1F1F1F"/></svg>',
+      donner: '<svg viewBox="9 6 18 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M15.2233 12.6674L16.6699 12.6677C18.3268 12.6677 19.6699 14.0109 19.6699 15.6677L15.0026 15.6671L15.0033 16.3344L20.3366 16.3339V15.6677C20.3366 14.9461 20.1245 14.2657 19.7459 13.6672L21.6699 13.6677C22.9981 13.6677 24.1449 14.4445 24.6807 15.5687C23.1041 17.6491 20.5512 19.0011 17.6699 19.0011C15.8291 19.0011 14.2696 18.6073 13.003 17.9179L13.0039 11.7151C13.8343 11.834 14.5941 12.1715 15.2233 12.6674ZM11.6699 11.0011C12.0118 11.0011 12.2936 11.2584 12.3321 11.59L12.3366 11.6671V17.6677C12.3366 18.0359 12.0381 18.3344 11.6699 18.3344H10.3366C9.9684 18.3344 9.66992 18.0359 9.66992 17.6677V11.6677C9.66992 11.2995 9.9684 11.0011 10.3366 11.0011H11.6699ZM18.1009 7.38464L18.3364 7.62049L18.5723 7.38464C19.2231 6.73377 20.2785 6.73377 20.9293 7.38464C21.5802 8.03551 21.5802 9.09079 20.9293 9.74166L18.3366 12.3344L15.7439 9.74166C15.093 9.09079 15.093 8.03551 15.7439 7.38464C16.3947 6.73377 17.45 6.73377 18.1009 7.38464Z" fill="#1F1F1F"/></svg>',
+      echanger: '<svg viewBox="9 6 18 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M15.2233 12.6674L16.6699 12.6677C18.3268 12.6677 19.6699 14.0109 19.6699 15.6677L15.0026 15.6671L15.0033 16.3344L20.3366 16.3339V15.6677C20.3366 14.9461 20.1245 14.2657 19.7459 13.6672L21.6699 13.6677C22.9981 13.6677 24.1449 14.4445 24.6807 15.5687C23.1041 17.6491 20.5512 19.0011 17.6699 19.0011C15.8291 19.0011 14.2696 18.6073 13.003 17.9179L13.0039 11.7151C13.8343 11.834 14.5941 12.1715 15.2233 12.6674ZM11.6699 11.0011C12.0118 11.0011 12.2936 11.2584 12.3321 11.59L12.3366 11.6671V17.6677C12.3366 18.0359 12.0381 18.3344 11.6699 18.3344H10.3366C9.9684 18.3344 9.66992 18.0359 9.66992 17.6677V11.6677C9.66992 11.2995 9.9684 11.0011 10.3366 11.0011H11.6699ZM18.1009 7.38464L18.3364 7.62049L18.5723 7.38464C19.2231 6.73377 20.2785 6.73377 20.9293 7.38464C21.5802 8.03551 21.5802 9.09079 20.9293 9.74166L18.3366 12.3344L15.7439 9.74166C15.093 9.09079 15.093 8.03551 15.7439 7.38464C16.3947 6.73377 17.45 6.73377 18.1009 7.38464Z" fill="#1F1F1F"/></svg>',
+      preter: '<svg viewBox="8 4 15 17" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13.1826 9.66602V12.3327L9.18262 8.99935L13.1826 5.66602V8.33268H16.516C19.4615 8.33268 21.8493 10.7205 21.8493 13.666C21.8493 16.6115 19.4615 18.9993 16.516 18.9993H10.516V17.666H16.516C18.7251 17.666 20.516 15.8751 20.516 13.666C20.516 11.4569 18.7251 9.66602 16.516 9.66602H13.1826Z" fill="#1F1F1F"/></svg>',
+      emprunter: '<svg viewBox="8 4 15 17" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13.1826 9.66602V12.3327L9.18262 8.99935L13.1826 5.66602V8.33268H16.516C19.4615 8.33268 21.8493 10.7205 21.8493 13.666C21.8493 16.6115 19.4615 18.9993 16.516 18.9993H10.516V17.666H16.516C18.7251 17.666 20.516 15.8751 20.516 13.666C20.516 11.4569 18.7251 9.66602 16.516 9.66602H13.1826Z" fill="#1F1F1F"/></svg>',
+      louer: '<svg viewBox="8 4 15 17" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13.1826 9.66602V12.3327L9.18262 8.99935L13.1826 5.66602V8.33268H16.516C19.4615 8.33268 21.8493 10.7205 21.8493 13.666C21.8493 16.6115 19.4615 18.9993 16.516 18.9993H10.516V17.666H16.516C18.7251 17.666 20.516 15.8751 20.516 13.666C20.516 11.4569 18.7251 9.66602 16.516 9.66602H13.1826Z" fill="#1F1F1F"/></svg>',
+      trier: '<svg viewBox="10 6 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M22.0407 13.0653L23.0617 14.8331C23.706 15.9491 23.3236 17.3761 22.2076 18.0205C21.8528 18.2253 21.4505 18.3331 21.0409 18.3331L19.6661 18.3327V19.6664L16.3328 17.3331L19.6661 14.9997V16.3327L21.0409 16.3331C21.0995 16.3331 21.1569 16.3177 21.2076 16.2884C21.3493 16.2066 21.4082 16.0364 21.3549 15.8877L21.3296 15.8331L20.3087 14.0653L22.0407 13.0653ZM14.1574 11.2557L14.5114 15.3091L13.3571 14.6427L12.6693 15.8331C12.6401 15.8837 12.6247 15.9412 12.6247 15.9997C12.6247 16.1634 12.7426 16.2995 12.8981 16.3277L12.958 16.3331L14.9994 16.3328V18.3327L12.958 18.3331C11.6693 18.3331 10.6247 17.2884 10.6247 15.9997C10.6247 15.5901 10.7325 15.1878 10.9373 14.8331L11.625 13.6427L10.47 12.9758L14.1574 11.2557ZM18.1661 6.97901C18.5209 7.18381 18.8154 7.47836 19.0202 7.83307L19.7073 9.02387L20.8623 8.357L20.5082 12.4104L16.8208 10.6903L17.9752 10.0239L17.2881 8.83307C17.2589 8.7824 17.2168 8.74032 17.1661 8.71106C17.0244 8.62924 16.8476 8.66331 16.7454 8.78387L16.7108 8.83307L15.6903 10.6011L13.9583 9.60111L14.9787 7.83307C15.6231 6.71705 17.0501 6.33468 18.1661 6.97901Z" fill="#1F1F1F"/></svg>',
+      acheter: '<svg viewBox="9 5 14 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M15.8527 19.6692C12.1708 19.6692 9.18604 16.6845 9.18604 13.0026C9.18604 9.3207 12.1708 6.33594 15.8527 6.33594C19.5346 6.33594 22.5194 9.3207 22.5194 13.0026C22.5194 16.6845 19.5346 19.6692 15.8527 19.6692ZM15.8527 18.3359C18.7982 18.3359 21.186 15.9481 21.186 13.0026C21.186 10.0571 18.7982 7.66927 15.8527 7.66927C12.9072 7.66927 10.5194 10.0571 10.5194 13.0026C10.5194 15.9481 12.9072 18.3359 15.8527 18.3359ZM14.5527 12.3359H17.8527V13.6692H14.5527C14.7071 14.43 15.3797 15.0026 16.186 15.0026C16.5962 15.0026 16.9716 14.8545 17.262 14.6088L18.396 15.3648C17.8476 15.9618 17.0605 16.3359 16.186 16.3359C14.6418 16.3359 13.3702 15.1692 13.2043 13.6692H12.5194V12.3359H13.2043C13.3702 10.836 14.6418 9.66927 16.186 9.66927C17.0605 9.66927 17.8476 10.0435 18.396 10.6404L17.262 11.3964C16.9717 11.1507 16.5962 11.0026 16.186 11.0026C15.3797 11.0026 14.7071 11.5752 14.5527 12.3359Z" fill="#1F1F1F"/></svg>',
+      vendre: '<svg viewBox="9 5 14 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M15.8527 19.6692C12.1708 19.6692 9.18604 16.6845 9.18604 13.0026C9.18604 9.3207 12.1708 6.33594 15.8527 6.33594C19.5346 6.33594 22.5194 9.3207 22.5194 13.0026C22.5194 16.6845 19.5346 19.6692 15.8527 19.6692ZM15.8527 18.3359C18.7982 18.3359 21.186 15.9481 21.186 13.0026C21.186 10.0571 18.7982 7.66927 15.8527 7.66927C12.9072 7.66927 10.5194 10.0571 10.5194 13.0026C10.5194 15.9481 12.9072 18.3359 15.8527 18.3359ZM14.5527 12.3359H17.8527V13.6692H14.5527C14.7071 14.43 15.3797 15.0026 16.186 15.0026C16.5962 15.0026 16.9716 14.8545 17.262 14.6088L18.396 15.3648C17.8476 15.9618 17.0605 16.3359 16.186 16.3359C14.6418 16.3359 13.3702 15.1692 13.2043 13.6692H12.5194V12.3359H13.2043C13.3702 10.836 14.6418 9.66927 16.186 9.66927C17.0605 9.66927 17.8476 10.0435 18.396 10.6404L17.262 11.3964C16.9717 11.1507 16.5962 11.0026 16.186 11.0026C15.3797 11.0026 14.7071 11.5752 14.5527 12.3359Z" fill="#1F1F1F"/></svg>',
+      revendre: '<svg viewBox="9 5 14 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M15.8527 19.6692C12.1708 19.6692 9.18604 16.6845 9.18604 13.0026C9.18604 9.3207 12.1708 6.33594 15.8527 6.33594C19.5346 6.33594 22.5194 9.3207 22.5194 13.0026C22.5194 16.6845 19.5346 19.6692 15.8527 19.6692ZM15.8527 18.3359C18.7982 18.3359 21.186 15.9481 21.186 13.0026C21.186 10.0571 18.7982 7.66927 15.8527 7.66927C12.9072 7.66927 10.5194 10.0571 10.5194 13.0026C10.5194 15.9481 12.9072 18.3359 15.8527 18.3359ZM14.5527 12.3359H17.8527V13.6692H14.5527C14.7071 14.43 15.3797 15.0026 16.186 15.0026C16.5962 15.0026 16.9716 14.8545 17.262 14.6088L18.396 15.3648C17.8476 15.9618 17.0605 16.3359 16.186 16.3359C14.6418 16.3359 13.3702 15.1692 13.2043 13.6692H12.5194V12.3359H13.2043C13.3702 10.836 14.6418 9.66927 16.186 9.66927C17.0605 9.66927 17.8476 10.0435 18.396 10.6404L17.262 11.3964C16.9717 11.1507 16.5962 11.0026 16.186 11.0026C15.3797 11.0026 14.7071 11.5752 14.5527 12.3359Z" fill="#1F1F1F"/></svg>',
+    };
+
+    // Icônes pour labels (Bonus réparation, ESS, Répar'Acteurs)
+    const ICON_BONUS = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M14.1983 0.809622C12.9315 -0.269878 11.0684 -0.269866 9.80181 0.80961L8.27893 2.10737C8.09799 2.26156 7.87302 2.35474 7.63604 2.37365L5.64158 2.53281C3.98258 2.6652 2.6652 3.98258 2.53281 5.64158L2.37366 7.63604C2.35476 7.87301 2.26155 8.09804 2.10735 8.27897L0.809599 9.80182C-0.269876 11.0686 -0.269864 12.9316 0.809621 14.1982L2.10738 15.7211C2.26155 15.9021 2.35474 16.127 2.37365 16.364L2.53283 18.3584C2.66522 20.0174 3.98261 21.3347 5.64162 21.4671L7.63605 21.6264C7.87302 21.6453 8.09794 21.7385 8.27887 21.8927L9.8017 23.1904C11.0684 24.2698 12.9315 24.2699 14.1983 23.1904L15.7211 21.8927C15.902 21.7385 16.1269 21.6453 16.3639 21.6263L18.3584 21.4671C20.0174 21.3348 21.3347 20.0175 21.4672 18.3584L21.6263 16.364C21.6451 16.127 21.7385 15.902 21.8925 15.721L23.1903 14.1983C24.2699 12.9315 24.2699 11.0684 23.1903 9.80182L21.8925 8.27892C21.7383 8.09798 21.6453 7.87301 21.6264 7.63606L21.4672 5.64159C21.3348 3.98261 20.0174 2.66518 18.3584 2.5328L16.3639 2.37364C16.1269 2.35473 15.902 2.26156 15.7211 2.10737L14.1983 0.809622ZM15.195 7.20721L16.7926 8.80486L8.80441 16.7931L7.20678 15.1954L15.195 7.20721ZM10.0027 10.003C9.34087 10.6648 8.26795 10.6648 7.60618 10.003C6.94442 9.34135 6.94442 8.26838 7.60618 7.60662C8.26795 6.94485 9.34087 6.94485 10.0027 7.60662C10.6644 8.26838 10.6644 9.34135 10.0027 10.003ZM13.9967 16.3936C13.3349 15.7319 13.3349 14.659 13.9967 13.9972C14.6585 13.3354 15.7314 13.3354 16.3932 13.9972C17.0549 14.659 17.0549 15.7319 16.3932 16.3936C15.7314 17.0554 14.6585 17.0554 13.9967 16.3936Z" fill="#5E4D00"/></svg>';
+
+    const ICON_REPARACTEUR = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 3C7.03044 3 3 7.03044 3 12C3 16.9696 7.03044 21 12 21C16.9696 21 21 16.9696 21 12C21 7.03044 16.9696 3 12 3Z" fill="#00525E"/><path d="M16.1589 14.9455C16.1091 14.853 15.9952 14.8175 15.9063 14.8673L15.4011 15.1341L14.0351 12.5443C15.1699 12.1602 16.0272 11.0681 15.9703 9.70916C15.9561 9.36766 15.8778 9.02972 15.7355 8.71667C15.3336 7.82379 14.5545 7.21905 13.6225 7.05541L10.6699 6.53604C10.5668 6.51825 10.4707 6.58584 10.4529 6.68901L9.19008 13.8534L6.6964 13.2736C6.5968 13.2487 6.49364 13.3127 6.46873 13.4159L6.04541 15.2443C6.02051 15.3439 6.08454 15.4471 6.18771 15.472L7.27624 15.7246C7.37585 15.7495 7.47901 15.6854 7.50391 15.5823L7.63198 15.0238L10.2004 15.6179C10.3071 15.6428 10.4102 15.5752 10.428 15.4685L10.9758 12.3629L12.3845 12.6084L14.6897 16.9839C14.7395 17.0764 14.8533 17.1119 14.9423 17.0621L16.6035 16.1906C16.696 16.1408 16.7316 16.027 16.6818 15.938L16.1589 14.9455ZM12.8968 11.1783L11.232 10.8866L11.7015 8.22576L13.3699 8.52102C13.7257 8.58505 14.0351 8.78071 14.2415 9.07596C14.4478 9.37122 14.526 9.73051 14.4656 10.0827C14.3304 10.819 13.6296 11.31 12.8968 11.1783Z" fill="white"/></svg>';
+
+    const ICON_ESS = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#00525E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+
+    function isBonusReparation(acteur) {
+      const haystack = (acteur.qualites_et_labels || '').toLowerCase();
+      return haystack.includes('bonusrepar') || haystack.includes('qualirepar');
+    }
+
+    function isReparActeur(acteur) {
+      const haystack = (acteur.qualites_et_labels || '').toLowerCase();
+      return haystack.includes('reparacteur');
+    }
+
+    function renderSolutionCard(acteur) {
+      const isESS = acteur.type_dacteur === 'ess';
+      const isBonus = isBonusReparation(acteur);
+      const isRepar = isReparActeur(acteur);
+
+      const labelsHtml = [];
+      if (isBonus) labelsHtml.push(`<span class="solution-card__label solution-card__label--bonus">${ICON_BONUS}Bonus réparation</span>`);
+      if (isRepar) labelsHtml.push(`<span class="solution-card__label solution-card__label--reparacteur">${ICON_REPARACTEUR}Répar'Acteurs</span>`);
+      if (isESS)   labelsHtml.push(`<span class="solution-card__label solution-card__label--ess">${ICON_ESS}Économie sociale et solidaire</span>`);
+
+      const pillsHtml = Object.keys(ACTION_LABELS)
+        .filter(k => acteur[k] && acteur[k].trim().length > 0)
+        .map(k => `<span class="solution-card__pill solution-card__pill--${k}">${PILL_ICONS[k] || ''}${ACTION_LABELS[k]}</span>`)
+        .join('');
+
+      const ficheUrl = acteur.site_web
+        ? acteur.site_web
+        : (acteur.identifiant ? `https://quefairedemesdechets.ademe.fr/acteur/${acteur.identifiant}/` : '#');
+
+      return `
+        <div class="solution-card">
+          <h3 class="solution-card__name">${acteur.nom || 'Lieu sans nom'}</h3>
+          ${labelsHtml.length ? `<div class="solution-card__labels">${labelsHtml.join('')}</div>` : ''}
+          ${pillsHtml ? `<div class="solution-card__gestes">${pillsHtml}</div>` : ''}
+          <p class="solution-card__distance">${formatDistance(acteur._distance)}</p>
+          <a class="solution-card__link" href="${ficheUrl}" target="_blank" rel="noopener noreferrer">Voir la fiche</a>
+        </div>`;
+    }
+
+    function renderPagination(total, currentPage) {
+      const totalPages = Math.ceil(total / SOLUTIONS_PER_PAGE);
+      if (totalPages <= 1) return '';
+
+      const pagesSet = new Set([1, totalPages, currentPage, currentPage - 1, currentPage + 1]);
+      const pages = [...pagesSet].filter(p => p >= 1 && p <= totalPages).sort((a, b) => a - b);
+
+      let html = `<button class="solutions-pagination__btn" data-page="${currentPage - 1}" ${currentPage === 1 ? 'disabled' : ''} aria-label="Page précédente">‹</button>`;
+      let last = 0;
+      for (const p of pages) {
+        if (p - last > 1) html += `<span class="solutions-pagination__btn" aria-hidden="true">…</span>`;
+        html += `<button class="solutions-pagination__btn ${p === currentPage ? 'solutions-pagination__btn--active' : ''}" data-page="${p}">${p}</button>`;
+        last = p;
+      }
+      html += `<button class="solutions-pagination__btn" data-page="${currentPage + 1}" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Page suivante">›</button>`;
+      return `<div class="solutions-pagination">${html}</div>`;
+    }
+
+    function renderSolutionsPage(page) {
+      const acteurs = appState.solutionsActeurs || [];
+      const total = acteurs.length;
+      const start = (page - 1) * SOLUTIONS_PER_PAGE;
+      const pageItems = acteurs.slice(start, start + SOLUTIONS_PER_PAGE);
+
+      const cardsHtml = pageItems.map(renderSolutionCard).join('');
+      const paginationHtml = renderPagination(total, page);
+
+      document.getElementById('solutions-list').innerHTML = cardsHtml + paginationHtml;
+      appState.solutionsPage = page;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function goToSolutions(gesteIndex) {
+      appState.currentStep = 'solutions';
+      appState.selectedGesteIndex = gesteIndex;
+      container.classList.remove('step-fiche');
+      container.classList.add('step-solutions');
+      window.scrollTo(0, 0);
+
+      // Toujours afficher la vue liste par défaut quand on entre/met à jour les solutions
+      document.getElementById('solutions-list').style.display = '';
+      document.getElementById('solutions-map').style.display = 'none';
+      if (typeof setToggleButtonMode === 'function') setToggleButtonMode('list');
+
+      const acc = appState.sortedAccordeons ? appState.sortedAccordeons[gesteIndex] : null;
+      const ficheNom = appState.selectedFiche ? appState.selectedFiche.nom : '';
+
+      // Bouton retour avec nom de l'objet
+      document.getElementById('solutions-back-label').textContent = ficheNom
+        ? `Revenir aux recommandations pour ${ficheNom}`
+        : 'Revenir aux recommandations';
+
+      // Titre avec icône du geste
+      const gesteIcon = acc && GESTE_ICONS[acc.icone] ? GESTE_ICONS[acc.icone] : '';
+      document.getElementById('solutions-geste-title').innerHTML = acc
+        ? `<span class="solutions-header__geste-icon">${gesteIcon}</span>${acc.titre}`
+        : '';
+
+      // Pré-remplit le champ adresse avec l'adresse courante
+      const addrInput = document.getElementById('solutions-address-input');
+      if (addrInput) addrInput.value = appState.selectedAddress ? appState.selectedAddress.label : '';
+
+      document.getElementById('solutions-count').textContent = 'Recherche en cours…';
+      document.getElementById('solutions-list').innerHTML = renderSolutionsLoading();
+
+      history.pushState({ step: 'solutions', ficheId: appState.selectedFiche.id, gesteIndex }, '');
+
+      if (!appState.selectedAddress) {
+        document.getElementById('solutions-count').textContent = '';
+        document.getElementById('solutions-list').innerHTML = '<p class="solutions-empty">Veuillez saisir une adresse pour voir les lieux proches.</p>';
+        return;
       }
 
-      // --- Card alerte DSFR (médicaments, etc.) ---
-      const existingCardAlert = document.querySelector('.fiche-card-alert');
-      if (existingCardAlert) existingCardAlert.remove();
+      try {
+        const { lat, lon } = appState.selectedAddress;
+        const data = await fetchActeursProches(lat, lon, 50);
 
-      if (consigneFiche && consigneFiche.cardAlert) {
-        const cardDiv = document.createElement('div');
-        cardDiv.className = 'fiche-card-alert';
-        cardDiv.innerHTML = '<p class="fiche-card-alert__title">Attention</p><div class="fiche-card-alert__content">' + consigneFiche.cardAlert + '</div>';
-        warningsSection.insertAdjacentElement('afterend', cardDiv);
-      }
+        const actionFields = GESTE_ACTION_FIELDS[acc?.icone] || ['trier'];
 
-      // --- Carte ---
-      const mapContainer = document.getElementById('fiche-map-container');
-      const mapSection = mapContainer.closest('.fiche-map');
-      mapContainer.innerHTML = '';
+        let acteurs = (data.results || []).filter(a =>
+          actionFields.some(field => a[field] && a[field].trim().length > 0)
+        );
 
-      if (consigneFiche && consigneFiche.carteIframeSrc) {
-        mapSection.style.display = '';
-        // Carte spécifique QFDMO (iframe préfiltrée par objet)
-        let carteSrc = consigneFiche.carteIframeSrc;
+        acteurs = acteurs
+          .map(a => ({ ...a, _distance: haversineKm(lat, lon, parseFloat(a.latitude), parseFloat(a.longitude)) }))
+          .filter(a => a._distance <= 50)
+          .sort((a, b) => a._distance - b._distance)
+          .slice(0, 20);
 
-        // Pré-remplir l'adresse saisie à l'étape 2 dans la carte
-        if (appState.selectedAddress && appState.selectedAddress.lat) {
-          // Extraire le préfixe du type de carte depuis l'URL (ex: "tous-les-gestes", "product", etc.)
-          const carteMatch = carteSrc.match(/\/carte\/([^/?]+)/);
-          if (carteMatch) {
-            const prefix = carteMatch[1];
-            const separator = carteSrc.includes('?') ? '&' : '?';
-            carteSrc += separator
-              + encodeURIComponent(prefix + '_map-adresse') + '=' + encodeURIComponent(appState.selectedAddress.label)
-              + '&' + encodeURIComponent(prefix + '_map-latitude') + '=' + encodeURIComponent(appState.selectedAddress.lat)
-              + '&' + encodeURIComponent(prefix + '_map-longitude') + '=' + encodeURIComponent(appState.selectedAddress.lon);
-          }
+        appState.solutionsActeurs = acteurs;
+
+        const total = acteurs.length;
+        document.getElementById('solutions-count').textContent =
+          total > 0
+            ? `${total} lieu${total > 1 ? 'x' : ''} du plus proche au plus loin`
+            : 'Aucun lieu trouvé';
+
+        if (total === 0) {
+          document.getElementById('solutions-list').innerHTML = '<p class="solutions-empty">Aucun lieu trouvé dans ce rayon.</p>';
+        } else {
+          renderSolutionsPage(1);
         }
 
-        const mapIframe = document.createElement('iframe');
-        mapIframe.src = carteSrc;
-        mapIframe.title = 'Carte des solutions pour ' + appState.selectedFiche.nom;
-        mapIframe.style.border = 'none';
-        mapIframe.loading = 'lazy';
-        mapIframe.scrolling = 'no';
-        mapIframe.setAttribute('allow', 'geolocation');
-        mapContainer.appendChild(mapIframe);
-      } else {
-        // Pas de carte spécifique : masquer la section carte
-        mapSection.style.display = 'none';
+      } catch (err) {
+        console.error(err);
+        document.getElementById('solutions-count').textContent = '';
+        document.getElementById('solutions-list').innerHTML =
+          '<p class="solutions-empty solutions-error">Impossible de charger les solutions. Vérifiez votre connexion et réessayez.</p>';
+      }
+    }
+
+    // Délégation pour les clics de pagination
+    document.getElementById('solutions-list').addEventListener('click', function(e) {
+      const btn = e.target.closest('.solutions-pagination__btn');
+      if (!btn || btn.disabled) return;
+      const page = parseInt(btn.dataset.page, 10);
+      if (!isNaN(page)) renderSolutionsPage(page);
+    });
+
+    // =============================================
+    // Autocomplétion adresse — champ écran Solutions
+    // =============================================
+    (function setupSolutionsAddressAutocomplete() {
+      const input = document.getElementById('solutions-address-input');
+      const results = document.getElementById('solutions-address-results');
+      if (!input || !results) return;
+
+      let debounceTimer = null;
+      let focusedIndex = -1;
+
+      input.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        const query = e.target.value.trim();
+        if (appState.selectedAddress && query !== appState.selectedAddress.label) {
+          appState.selectedAddress = null;
+        }
+        if (query.length < 3) {
+          results.classList.remove('is-visible');
+          results.innerHTML = '';
+          focusedIndex = -1;
+          return;
+        }
+        debounceTimer = setTimeout(async () => {
+          try {
+            const url = `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(query)}&limit=5&autocomplete=1`;
+            const resp = await fetch(url);
+            const data = await resp.json();
+            if (data.features && data.features.length > 0) {
+              results.innerHTML = data.features.map(feature => {
+                const props = feature.properties;
+                const coords = feature.geometry.coordinates;
+                let displayLabel;
+                if (props.type === 'municipality') {
+                  const parts = [props.name];
+                  if (props.postcode) parts.push(props.postcode);
+                  if (props.context) {
+                    const dept = props.context.split(', ')[1];
+                    if (dept) parts.push(`— ${dept}`);
+                  }
+                  displayLabel = parts.join(' ');
+                } else {
+                  displayLabel = props.label;
+                }
+                return `<li class="address-results__item" role="option"
+                          data-label="${props.label}"
+                          data-citycode="${props.citycode || ''}"
+                          data-postcode="${props.postcode || ''}"
+                          data-lon="${coords[0]}"
+                          data-lat="${coords[1]}"
+                          tabindex="-1">${displayLabel}</li>`;
+              }).join('');
+              results.classList.add('is-visible');
+              focusedIndex = -1;
+            } else {
+              results.classList.remove('is-visible');
+              results.innerHTML = '';
+            }
+          } catch (err) {
+            console.error('Erreur API BAN (solutions):', err);
+          }
+        }, 300);
+      });
+
+      results.addEventListener('click', (e) => {
+        const item = e.target.closest('.address-results__item');
+        if (item) selectFromResults(item);
+      });
+
+      input.addEventListener('keydown', (e) => {
+        const items = results.querySelectorAll('.address-results__item');
+        if (!items.length) return;
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          focusedIndex = Math.min(focusedIndex + 1, items.length - 1);
+          updateFocus(items);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          focusedIndex = Math.max(focusedIndex - 1, 0);
+          updateFocus(items);
+        } else if (e.key === 'Enter' && focusedIndex >= 0) {
+          e.preventDefault();
+          selectFromResults(items[focusedIndex]);
+        } else if (e.key === 'Escape') {
+          results.classList.remove('is-visible');
+          focusedIndex = -1;
+        }
+      });
+
+      function updateFocus(items) {
+        items.forEach((it, i) => it.classList.toggle('is-focused', i === focusedIndex));
       }
 
-      // --- Solutions à domicile / en ligne ---
-      const ficheUrl = consigneFiche ? consigneFiche.url : '#';
-      const solutionsSection = document.querySelector('.fiche-solutions');
+      function selectFromResults(item) {
+        appState.selectedAddress = {
+          label:    item.dataset.label,
+          citycode: item.dataset.citycode,
+          postcode: item.dataset.postcode,
+          lat:      parseFloat(item.dataset.lat),
+          lon:      parseFloat(item.dataset.lon),
+        };
+        input.value = item.dataset.label;
+        // Sync l'input du panneau de recherche aussi
+        if (addressInput) addressInput.value = item.dataset.label;
+        results.classList.remove('is-visible');
+        results.innerHTML = '';
+        focusedIndex = -1;
+        // Recharger les solutions avec la nouvelle adresse
+        if (typeof appState.selectedGesteIndex === 'number') {
+          goToSolutions(appState.selectedGesteIndex);
+        }
+      }
 
-      if (localServices === 0 && localEnLigne === 0) {
-        // Pas de solutions (ex: emballages) → masquer la section
-        solutionsSection.style.display = 'none';
+      // Ferme le dropdown si on clique en dehors
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.solutions-header__address')) {
+          results.classList.remove('is-visible');
+        }
+      });
+    })();
+
+    function goBackToFiche() {
+      appState.currentStep = 'fiche';
+      container.classList.remove('step-solutions', 'step-lieu');
+      container.classList.add('step-fiche');
+      window.scrollTo(0, 0);
+      history.pushState({ step: 'fiche', ficheId: appState.selectedFiche.id, address: appState.selectedAddress }, '');
+    }
+
+    function goBackToSolutions() {
+      appState.currentStep = 'solutions';
+      container.classList.remove('step-lieu');
+      container.classList.add('step-solutions');
+      window.scrollTo(0, 0);
+    }
+
+    // =============================================
+    // Vue carte (MapLibre + Carte Facile)
+    // =============================================
+
+    const MARKER_PRIORITY = ['reparer', 'revendre', 'vendre', 'acheter', 'echanger', 'donner', 'preter', 'emprunter', 'louer', 'trier'];
+
+    function getPrimaryAction(acteur) {
+      for (const a of MARKER_PRIORITY) {
+        if (acteur[a] && acteur[a].trim()) return a;
+      }
+      return 'trier';
+    }
+
+    // SVG pins fournis par le design system (35x47, sauf le bonus = 43x52)
+    const PIN_REPARATION = '<svg width="35" height="47" viewBox="0 0 35 47" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M28.6676 31.0249C32.5362 27.8096 35 22.9574 35 17.5287C35 7.84786 27.165 0 17.5 0C7.83502 0 0 7.84786 0 17.5287C0 22.9542 2.4609 27.804 6.32565 31.0192L10.2164 35.0734C13.4986 38.4934 16.0433 42.553 17.6923 47C19.2133 42.5564 21.6616 38.4882 24.8741 35.0659L28.6676 31.0249Z" fill="#009081"/><path d="M17.4997 0C27.1646 0 35.0001 7.84772 35.0002 17.5284C35.0002 22.9571 32.5359 27.8093 28.6672 31.0245L24.8744 35.066C21.662 38.4881 19.2135 42.5562 17.6924 46.9996C16.0434 42.5527 13.4981 38.4934 10.2161 35.0736L6.3254 31.0192C2.46075 27.8039 0 22.9538 0 17.5284C0.000141758 7.84781 7.83496 0.000141982 17.4997 0ZM17.4997 2.33459C9.12221 2.33473 2.33091 9.13717 2.33077 17.5284C2.33077 22.0835 4.32922 26.1693 7.50368 28.9574L7.81475 29.2234L7.91566 29.307L11.8966 33.4556C14.1474 35.8009 16.0725 38.4283 17.6287 41.2657C19.113 38.4339 20.9777 35.8093 23.1764 33.467L26.9692 29.4256L27.0686 29.3207L27.1794 29.228C30.5371 26.4373 32.6695 22.2332 32.6695 17.5284C32.6693 9.13708 25.8774 2.33459 17.4997 2.33459Z" fill="#37635F"/><path d="M11.8605 8.47997C12.9869 8.07887 14.293 8.32983 15.1945 9.23287C16.0963 10.1362 16.3468 11.4448 15.9458 12.5733L25.8521 22.4958L23.9144 24.4367L14.0071 14.5146C12.8807 14.9157 11.5747 14.6647 10.6731 13.7617C9.77129 12.8584 9.52085 11.5497 9.92178 10.4213L11.9649 12.4677C12.5 13.0037 13.3676 13.0037 13.9027 12.4677C14.4378 11.9318 14.4378 11.0628 13.9027 10.5268L11.8605 8.47997ZM21.3307 10.2033L24.2374 8.58589L25.5292 9.87984L23.9144 12.7912L22.2995 13.1147L20.3618 15.0557L19.07 13.7617L21.0077 11.8208L21.3307 10.2033ZM14.8716 17.32L16.8093 19.261L12.2879 23.7898C11.7528 24.3258 10.8852 24.3258 10.3502 23.7898C9.84653 23.2854 9.81691 22.4859 10.2613 21.9468L10.3502 21.8489L14.8716 17.32Z" fill="white"/></svg>';
+
+    const PIN_DON = '<svg width="35" height="47" viewBox="0 0 35 47" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M28.6676 30.3648C32.5362 27.2179 35 22.4689 35 17.1557C35 7.68088 27.165 0 17.5 0C7.83502 0 0 7.68088 0 17.1557C0 22.4658 2.4609 27.2124 6.32565 30.3593L10.2164 34.3272C13.4986 37.6744 16.0433 41.6476 17.6923 46C19.2133 41.651 21.6616 37.6693 24.8741 34.3198L28.6676 30.3648Z" fill="white"/><path d="M17.4997 0C27.1646 0 35.0001 7.68075 35.0002 17.1555C35.0002 22.4686 32.5359 27.2176 28.6672 30.3644L24.8744 34.3199C21.662 37.6692 19.2135 41.6507 17.6924 45.9996C16.0434 41.6474 13.4981 37.6744 10.2161 34.3273L6.3254 30.3592C2.46075 27.2123 0 22.4655 0 17.1555C0.000141758 7.68083 7.83496 0.000138961 17.4997 0ZM17.4997 2.28492C9.12221 2.28506 2.33091 8.94276 2.33077 17.1555C2.33077 21.6136 4.32922 25.6125 7.50368 28.3413L7.81475 28.6016L7.91566 28.6835L11.8966 32.7438C14.1474 35.0391 16.0725 37.6107 17.6287 40.3877C19.113 37.6161 20.9777 35.0474 23.1764 32.755L26.9692 28.7995L27.0686 28.6968L27.1794 28.6061C30.5371 25.8748 32.6695 21.7601 32.6695 17.1555C32.6693 8.94267 25.8774 2.28492 17.4997 2.28492Z" fill="#417DC4"/><path d="M15.3404 15.2394L17.1004 15.2398C19.1162 15.2398 20.7502 16.8417 20.7502 18.8178L15.0719 18.8171L15.0727 19.6129L21.5613 19.6123V18.8178C21.5613 17.9571 21.3032 17.1456 20.8426 16.4318L23.1834 16.4324C24.7993 16.4324 26.1945 17.3589 26.8463 18.6996C24.9283 21.1809 21.8224 22.7934 18.317 22.7934C16.0774 22.7934 14.1801 22.3238 12.6391 21.5015L12.6403 14.1035C13.6505 14.2454 14.575 14.6479 15.3404 15.2394ZM11.0173 13.252C11.4333 13.252 11.7761 13.5589 11.823 13.9543L11.8284 14.0464V21.2031C11.8284 21.6423 11.4653 21.9983 11.0173 21.9983H9.39518C8.94724 21.9983 8.58411 21.6423 8.58411 21.2031V14.0471C8.58411 13.6079 8.94724 13.252 9.39518 13.252H11.0173Z" fill="#417DC4"/></svg>';
+
+    const PIN_LOC = '<svg width="35" height="47" viewBox="0 0 35 47" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M28.6676 31.0249C32.5362 27.8096 35 22.9574 35 17.5287C35 7.84786 27.165 0 17.5 0C7.83502 0 0 7.84786 0 17.5287C0 22.9542 2.4609 27.804 6.32565 31.0192L10.2164 35.0734C13.4986 38.4934 16.0433 42.553 17.6923 47C19.2133 42.5564 21.6616 38.4882 24.8741 35.0659L28.6676 31.0249Z" fill="white"/><path d="M17.4997 0C27.1646 0 35.0001 7.84772 35.0002 17.5284C35.0002 22.9571 32.5359 27.8093 28.6672 31.0245L24.8744 35.066C21.662 38.4881 19.2135 42.5562 17.6924 46.9996C16.0434 42.5527 13.4981 38.4934 10.2161 35.0736L6.3254 31.0192C2.46075 27.8039 0 22.9538 0 17.5284C0.000141758 7.84781 7.83496 0.000141982 17.4997 0ZM17.4997 2.33459C9.12221 2.33473 2.33091 9.13717 2.33077 17.5284C2.33077 22.0835 4.32922 26.1693 7.50368 28.9574L7.81475 29.2234L7.91566 29.307L11.8966 33.4556C14.1474 35.8009 16.0725 38.4283 17.6287 41.2657C19.113 38.4339 20.9777 35.8093 23.1764 33.467L26.9692 29.4256L27.0686 29.3207L27.1794 29.228C30.5371 26.4373 32.6695 22.2332 32.6695 17.5284C32.6693 9.13708 25.8774 2.33459 17.4997 2.33459Z" fill="#CE614A"/><path d="M14.2578 13.4682V16.7178L9.39136 12.6558L14.2578 8.59375V11.8434H18.3132C21.8967 11.8434 24.8018 14.7532 24.8018 18.3426C24.8018 21.932 21.8967 24.8418 18.3132 24.8418H11.0135V23.217H18.3132C21.0008 23.217 23.1796 21.0346 23.1796 18.3426C23.1796 15.6505 21.0008 13.4682 18.3132 13.4682H14.2578Z" fill="#E4794A"/></svg>';
+
+    const PIN_TRI = '<svg width="35" height="47" viewBox="0 0 35 47" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M28.6676 31.0249C32.5362 27.8096 35 22.9574 35 17.5287C35 7.84786 27.165 0 17.5 0C7.83502 0 0 7.84786 0 17.5287C0 22.9542 2.4609 27.804 6.32565 31.0192L10.2164 35.0734C13.4986 38.4934 16.0433 42.553 17.6923 47C19.2133 42.5564 21.6616 38.4882 24.8741 35.0659L28.6676 31.0249Z" fill="white"/><path d="M17.4997 0C27.1646 0 35.0001 7.84772 35.0002 17.5284C35.0002 22.9571 32.5359 27.8093 28.6672 31.0245L24.8744 35.066C21.662 38.4881 19.2135 42.5562 17.6924 46.9996C16.0434 42.5527 13.4981 38.4934 10.2161 35.0736L6.3254 31.0192C2.46075 27.8039 0 22.9538 0 17.5284C0.000141758 7.84781 7.83496 0.000141982 17.4997 0ZM17.4997 2.33459C9.12221 2.33473 2.33091 9.13717 2.33077 17.5284C2.33077 22.0835 4.32922 26.1693 7.50368 28.9574L7.81475 29.2234L7.91566 29.307L11.8966 33.4556C14.1474 35.8009 16.0725 38.4283 17.6287 41.2657C19.113 38.4339 20.9777 35.8093 23.1764 33.467L26.9692 29.4256L27.0686 29.3207L27.1794 29.228C30.5371 26.4373 32.6695 22.2332 32.6695 17.5284C32.6693 9.13708 25.8774 2.33459 17.4997 2.33459Z" fill="#A558A0"/><path d="M23.6347 17.6107L24.8768 19.7649C25.6607 21.1249 25.1955 22.8639 23.8378 23.6491C23.4062 23.8987 22.9167 24.03 22.4184 24.03L20.7458 24.0295V25.6548L16.6904 22.8114L20.7458 19.968V21.5923L22.4184 21.5928C22.4896 21.5928 22.5595 21.5741 22.6212 21.5384C22.7936 21.4387 22.8652 21.2313 22.8004 21.0501L22.7696 20.9835L21.5275 18.8294L23.6347 17.6107ZM14.0438 15.4055L14.4746 20.3451L13.0701 19.5329L12.2334 20.9835C12.1978 21.0453 12.1791 21.1153 12.1791 21.1866C12.1791 21.3861 12.3226 21.5519 12.5117 21.5862L12.5846 21.5928L15.0682 21.5925V24.0296L12.5846 24.03C11.0168 24.03 9.74589 22.757 9.74589 21.1866C9.74589 20.6875 9.87705 20.1972 10.1262 19.7649L10.9629 18.3143L9.55768 17.5016L14.0438 15.4055ZM18.9209 10.1939C19.3525 10.4435 19.7108 10.8024 19.96 11.2347L20.7958 12.6858L22.201 11.8731L21.7703 16.8126L17.2842 14.7166L18.6886 13.9044L17.8527 12.4533C17.8171 12.3915 17.7659 12.3403 17.7043 12.3046C17.5318 12.2049 17.3167 12.2464 17.1924 12.3933L17.1503 12.4533L15.9088 14.6078L13.8016 13.3892L15.0431 11.2347C15.827 9.8747 17.5632 9.40873 18.9209 10.1939Z" fill="#A558A0"/></svg>';
+
+    const PIN_VENTE = '<svg width="35" height="47" viewBox="0 0 35 47" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M28.6676 31.0249C32.5362 27.8096 35 22.9574 35 17.5287C35 7.84786 27.165 0 17.5 0C7.83502 0 0 7.84786 0 17.5287C0 22.9542 2.4609 27.804 6.32565 31.0192L10.2164 35.0734C13.4986 38.4934 16.0433 42.553 17.6923 47C19.2133 42.5564 21.6616 38.4882 24.8741 35.0659L28.6676 31.0249Z" fill="white"/><path d="M17.4997 0C27.1646 0 35.0001 7.84772 35.0002 17.5284C35.0002 22.9571 32.5359 27.8093 28.6672 31.0245L24.8744 35.066C21.662 38.4881 19.2135 42.5562 17.6924 46.9996C16.0434 42.5527 13.4981 38.4934 10.2161 35.0736L6.3254 31.0192C2.46075 27.8039 0 22.9538 0 17.5284C0.000141758 7.84781 7.83496 0.000141982 17.4997 0ZM17.4997 2.33459C9.12221 2.33473 2.33091 9.13717 2.33077 17.5284C2.33077 22.0835 4.32922 26.1693 7.50368 28.9574L7.81475 29.2234L7.91566 29.307L11.8966 33.4556C14.1474 35.8009 16.0725 38.4283 17.6287 41.2657C19.113 38.4339 20.9777 35.8093 23.1764 33.467L26.9692 29.4256L27.0686 29.3207L27.1794 29.228C30.5371 26.4373 32.6695 22.2332 32.6695 17.5284C32.6693 9.13708 25.8774 2.33459 17.4997 2.33459Z" fill="#BB8568"/><path d="M17.5061 25.6562C13.0266 25.6562 9.39532 22.019 9.39532 17.5322C9.39532 13.0455 13.0266 9.4082 17.5061 9.4082C21.9855 9.4082 25.6168 13.0455 25.6168 17.5322C25.6168 22.019 21.9855 25.6562 17.5061 25.6562ZM17.5061 24.0314C21.0896 24.0314 23.9947 21.1216 23.9947 17.5322C23.9947 13.9428 21.0896 11.033 17.5061 11.033C13.9225 11.033 11.0175 13.9428 11.0175 17.5322C11.0175 21.1216 13.9225 24.0314 17.5061 24.0314ZM15.9245 16.7198H19.9393V18.3446H15.9245C16.1123 19.2717 16.9306 19.9694 17.9116 19.9694C18.4106 19.9694 18.8674 19.789 19.2206 19.4895L20.6002 20.4108C19.9331 21.1383 18.9755 21.5942 17.9116 21.5942C16.0329 21.5942 14.4858 20.1725 14.284 18.3446H13.4507V16.7198H14.284C14.4858 14.8919 16.0329 13.4702 17.9116 13.4702C18.9755 13.4702 19.9331 13.9262 20.6002 14.6537L19.2207 15.575C18.8675 15.2755 18.4106 15.095 17.9116 15.095C16.9306 15.095 16.1123 15.7928 15.9245 16.7198Z" fill="#BB8568"/></svg>';
+
+    const PIN_BONUS_REPARATION = '<svg width="43" height="52" viewBox="0 0 43 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.4996 4.95117C27.1645 4.95117 34.9999 12.786 35 22.4508C35 27.9209 32.4894 32.8044 28.5586 36.0135L24.8659 39.9527C21.6583 43.3743 19.2134 47.4378 17.6923 51.8743C16.0422 47.4317 13.5225 43.3622 10.2813 39.9049L7.14173 36.556C2.81111 33.3703 0 28.2392 0 22.4508C0.000141748 12.7861 7.83491 4.95131 17.4996 4.95117Z" fill="#009081"/><path d="M32.6692 22.4508C32.6691 14.0733 25.8773 7.28193 17.4996 7.28193C9.25305 7.28206 2.54385 13.8628 2.33606 22.0593L2.33075 22.4508C2.33075 27.4661 4.76323 31.9126 8.52258 34.6781L8.69556 34.8056L11.9815 38.3108C14.1963 40.6733 16.094 43.3044 17.6347 46.1362C19.116 43.3138 20.9743 40.6961 23.1657 38.3586L26.8583 34.4194L26.9645 34.3064L27.0844 34.2077C30.4965 31.4222 32.6692 27.1912 32.6692 22.4508ZM35 22.4508C35 27.9209 32.4894 32.8044 28.5586 36.0135L24.8659 39.9527C21.6583 43.3743 19.2134 47.4378 17.6923 51.8743C16.0422 47.4317 13.5225 43.3622 10.2813 39.9049L7.14173 36.556C2.81111 33.3703 0 28.2392 0 22.4508C0.000141748 12.7861 7.83491 4.95131 17.4996 4.95117C27.1645 4.95117 34.9999 12.786 35 22.4508Z" fill="#37635F"/><path d="M11.4068 14.4777C12.5331 14.0773 13.8392 14.3278 14.7407 15.2294C15.6426 16.1312 15.893 17.4377 15.4921 18.5643L25.3982 28.4705L23.4605 30.4083L13.5533 20.5024C12.427 20.9028 11.1209 20.6523 10.2194 19.7507C9.31756 18.8489 9.06712 17.5424 9.46804 16.4158L11.5112 18.4589C12.0463 18.994 12.9138 18.994 13.4489 18.4589C13.984 17.9238 13.984 17.0563 13.4489 16.5212L11.4068 14.4777ZM20.8769 16.1982L23.7835 14.5835L25.0753 15.8753L23.4605 18.7819L21.8457 19.1048L19.908 21.0426L18.6162 19.7507L20.5539 17.813L20.8769 16.1982ZM14.4178 23.3032L16.3555 25.241L11.8341 29.7624C11.2991 30.2975 10.4315 30.2975 9.89641 29.7624C9.3928 29.2588 9.36318 28.4606 9.80753 27.9224L9.89641 27.8246L14.4178 23.3032Z" fill="white"/><circle cx="33" cy="10" r="5" fill="#3A3A3A"/><path d="M34.6217 1.74566C33.6873 0.94936 32.313 0.949369 31.3786 1.74565L30.2553 2.70295C30.1218 2.81669 29.9559 2.88543 29.781 2.89938L28.3098 3.01679C27.086 3.11444 26.1143 4.08622 26.0166 5.30999L25.8992 6.78122C25.8853 6.95602 25.8165 7.12201 25.7028 7.25548L24.7455 8.37882C23.9492 9.31324 23.9492 10.6875 24.7455 11.6218L25.7028 12.7452C25.8165 12.8787 25.8852 13.0447 25.8992 13.2195L26.0166 14.6907C26.1143 15.9144 27.0861 16.8862 28.3098 16.9838L29.7811 17.1013C29.9559 17.1152 30.1218 17.184 30.2552 17.2977L31.3786 18.255C32.313 19.0512 33.6873 19.0513 34.6217 18.255L35.7451 17.2977C35.8785 17.184 36.0444 17.1152 36.2192 17.1012L37.6905 16.9838C38.9142 16.8862 39.886 15.9145 39.9837 14.6907L40.1011 13.2195C40.115 13.0447 40.1838 12.8787 40.2975 12.7452L41.2548 11.6219C42.0511 10.6875 42.0511 9.31315 41.2548 8.37882L40.2975 7.25544C40.1837 7.12197 40.1151 6.95602 40.1011 6.78123L39.9837 5.30999C39.8861 4.08624 38.9142 3.11443 37.6905 3.01678L36.2192 2.89937C36.0444 2.88542 35.8785 2.81669 35.7451 2.70295L34.6217 1.74566ZM35.357 6.46489L36.5355 7.6434L30.6429 13.536L29.4644 12.3574L35.357 6.46489ZM31.5268 8.52724C31.0386 9.0154 30.2472 9.0154 29.759 8.52724C29.2709 8.03915 29.2709 7.24767 29.759 6.75951C30.2472 6.27135 31.0386 6.27135 31.5268 6.75951C32.015 7.24767 32.015 8.03915 31.5268 8.52724ZM34.4731 13.2413C33.9849 12.7532 33.9849 11.9617 34.4731 11.4736C34.9612 10.9854 35.7526 10.9854 36.2408 11.4736C36.729 11.9617 36.729 12.7532 36.2408 13.2413C35.7526 13.7295 34.9612 13.7295 34.4731 13.2413Z" fill="#EFCB3A"/></svg>';
+
+    const PIN_USER = '<svg width="40" height="40" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="25" cy="25" r="23.5" fill="white" stroke="#E1000F" stroke-width="3"/><path d="M33.4853 32.1512L25 40.6366L16.5147 32.1512C14.8365 30.473 13.6936 28.3348 13.2306 26.007C12.7676 23.6793 13.0052 21.2665 13.9135 19.0738C14.8217 16.8811 16.3598 15.0069 18.3332 13.6884C20.3066 12.3698 22.6266 11.666 25 11.666C27.3734 11.666 29.6934 12.3698 31.6668 13.6884C33.6402 15.0069 35.1783 16.8811 36.0865 19.0738C36.9948 21.2665 37.2324 23.6793 36.7694 26.007C36.3064 28.3348 35.1636 30.473 33.4853 32.1512ZM25 26.3326C25.7072 26.3326 26.3855 26.0516 26.8856 25.5515C27.3857 25.0514 27.6667 24.3732 27.6667 23.6659C27.6667 22.9587 27.3857 22.2804 26.8856 21.7803C26.3855 21.2802 25.7072 20.9992 25 20.9992C24.2928 20.9992 23.6145 21.2802 23.1144 21.7803C22.6143 22.2804 22.3333 22.9587 22.3333 23.6659C22.3333 24.3732 22.6143 25.0514 23.1144 25.5515C23.6145 26.0516 24.2928 26.3326 25 26.3326Z" fill="#E1000F"/></svg>';
+
+    const PIN_BY_ACTION = {
+      reparer:   PIN_REPARATION,
+      donner:    PIN_DON,
+      echanger:  PIN_DON,
+      revendre:  PIN_VENTE,
+      vendre:    PIN_VENTE,
+      acheter:   PIN_VENTE,
+      preter:    PIN_LOC,
+      emprunter: PIN_LOC,
+      louer:     PIN_LOC,
+      trier:     PIN_TRI,
+    };
+
+    function createActeurMarkerEl(acteur) {
+      const primary = getPrimaryAction(acteur);
+      // Si bonus réparation ET action principale = reparer → punaise bonus
+      const useBonus = primary === 'reparer' && isBonusReparation(acteur);
+      const pinSvg = useBonus ? PIN_BONUS_REPARATION : (PIN_BY_ACTION[primary] || PIN_TRI);
+
+      const el = document.createElement('div');
+      el.className = 'map-marker';
+      el.innerHTML = pinSvg;
+      el.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openMapPopup(acteur);
+      });
+      return el;
+    }
+
+    function createUserMarkerEl() {
+      const el = document.createElement('div');
+      el.className = 'map-user';
+      el.innerHTML = PIN_USER;
+      return el;
+    }
+
+    let mapInstance = null;
+    let mapMarkers = [];
+    let userMarker = null;
+    let currentPopup = null;
+
+    function clearMapMarkers() {
+      mapMarkers.forEach(m => m.remove());
+      mapMarkers = [];
+      if (userMarker) { userMarker.remove(); userMarker = null; }
+      if (currentPopup) { currentPopup.remove(); currentPopup = null; }
+    }
+
+    function openMapPopup(acteur) {
+      if (!mapInstance) return;
+      if (currentPopup) currentPopup.remove();
+      const adresseParts = [acteur.adresse, acteur.complement_dadresse].filter(Boolean).join(', ');
+      const ville = [acteur.code_postal, acteur.ville].filter(Boolean).join(' ');
+      const adresseLabel = [adresseParts, ville].filter(Boolean).join(' — ');
+      const ficheUrl = acteur.site_web
+        ? acteur.site_web
+        : (acteur.identifiant ? `https://quefairedemesdechets.ademe.fr/acteur/${acteur.identifiant}/` : '#');
+
+      currentPopup = new maplibregl.Popup({ offset: 28, closeButton: true, maxWidth: '240px' })
+        .setLngLat([parseFloat(acteur.longitude), parseFloat(acteur.latitude)])
+        .setHTML(`
+          <h4 class="map-popup__name">${acteur.nom || 'Lieu sans nom'}</h4>
+          ${adresseLabel ? `<p class="map-popup__address">${adresseLabel}</p>` : ''}
+          <p class="map-popup__distance">${formatDistance(acteur._distance)}</p>
+          <a class="map-popup__link" href="${ficheUrl}" target="_blank" rel="noopener noreferrer">Voir la fiche →</a>
+        `)
+        .addTo(mapInstance);
+    }
+
+    function initSolutionsMap() {
+      if (mapInstance) return;
+      const center = appState.selectedAddress
+        ? [appState.selectedAddress.lon, appState.selectedAddress.lat]
+        : [2.3522, 48.8566];
+
+      mapInstance = new maplibregl.Map({
+        container: 'solutions-map',
+        style: (window.CarteFacile && CarteFacile.mapStyles && CarteFacile.mapStyles.simple) || 'https://tiles.openfreemap.org/styles/positron',
+        center,
+        zoom: 13,
+        maxZoom: 18.9,
+        attributionControl: false,
+      });
+      mapInstance.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
+      mapInstance.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+    }
+
+    function renderSolutionsMapMarkers() {
+      if (!mapInstance) return;
+      clearMapMarkers();
+
+      // Marker utilisateur
+      if (appState.selectedAddress) {
+        userMarker = new maplibregl.Marker({ element: createUserMarkerEl() })
+          .setLngLat([appState.selectedAddress.lon, appState.selectedAddress.lat])
+          .addTo(mapInstance);
+      }
+
+      const acteurs = appState.solutionsActeurs || [];
+      const bounds = new maplibregl.LngLatBounds();
+      if (appState.selectedAddress) bounds.extend([appState.selectedAddress.lon, appState.selectedAddress.lat]);
+
+      acteurs.forEach(a => {
+        const lat = parseFloat(a.latitude), lon = parseFloat(a.longitude);
+        if (isNaN(lat) || isNaN(lon)) return;
+        const marker = new maplibregl.Marker({ element: createActeurMarkerEl(a), anchor: 'bottom' })
+          .setLngLat([lon, lat])
+          .addTo(mapInstance);
+        mapMarkers.push(marker);
+        bounds.extend([lon, lat]);
+      });
+
+      if (!bounds.isEmpty()) {
+        mapInstance.fitBounds(bounds, { padding: 50, maxZoom: 15, duration: 500 });
+      }
+    }
+
+    function setToggleButtonMode(mode) {
+      const btn = document.getElementById('solutions-toggle-view');
+      const label = document.getElementById('solutions-toggle-label');
+      if (mode === 'map') {
+        btn.classList.add('solutions-map-btn--list-mode');
+        btn.setAttribute('aria-label', 'Revenir au mode liste');
+        label.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          Revenir au mode liste
+        `;
       } else {
-        solutionsSection.style.display = '';
-        document.getElementById('fiche-sol-domicile-desc').textContent =
-          `Nous avons trouvé ${formatNumber(localServices)} solutions. Des solutions existent pour venir jusqu'à chez vous\u00a0!`;
-        document.getElementById('fiche-sol-domicile-link').href = ficheUrl;
+        btn.classList.remove('solutions-map-btn--list-mode');
+        btn.setAttribute('aria-label', 'Voir les lieux sur la carte');
+        label.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+          Voir les lieux sur la carte
+        `;
+      }
+    }
 
-        document.getElementById('fiche-sol-enligne-desc').textContent =
-          `Nous avons trouvé ${formatNumber(localEnLigne)} solutions. Explorez l'ensemble des sites Internet et solutions en ligne pour votre objet.`;
-        document.getElementById('fiche-sol-enligne-link').href = ficheUrl;
+    function toggleSolutionsView() {
+      const listEl = document.getElementById('solutions-list');
+      const mapEl = document.getElementById('solutions-map');
+      const isListVisible = listEl.style.display !== 'none';
+
+      if (isListVisible) {
+        // Passer en mode carte
+        listEl.style.display = 'none';
+        mapEl.style.display = '';
+        if (!mapInstance) {
+          initSolutionsMap();
+          mapInstance.on('load', () => {
+            mapInstance.resize();
+            renderSolutionsMapMarkers();
+          });
+        } else {
+          // Redimensionne et re-rend les markers (au cas où acteurs/adresse ont changé)
+          setTimeout(() => {
+            mapInstance.resize();
+            renderSolutionsMapMarkers();
+          }, 50);
+        }
+        setToggleButtonMode('map');
+      } else {
+        // Retour en mode liste
+        mapEl.style.display = 'none';
+        listEl.style.display = '';
+        setToggleButtonMode('list');
       }
     }
 
@@ -3045,22 +4159,19 @@
       goBackFromFiche();
     });
 
-    // =============================================
-    // Gestion des accordéons DSFR (fr-accordion)
-    // =============================================
-    document.addEventListener('click', function(e) {
-      const btn = e.target.closest('.fr-accordion__btn');
-      if (!btn) return;
-      const collapseId = btn.getAttribute('aria-controls');
-      const collapse = document.getElementById(collapseId);
-      if (!collapse) return;
-      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-      if (isExpanded) {
-        collapse.classList.remove('fr-collapse--expanded');
-      } else {
-        collapse.classList.add('fr-collapse--expanded');
-      }
+    // Bouton retour depuis les solutions
+    document.getElementById('solutions-back').addEventListener('click', () => {
+      goBackToFiche();
+    });
+
+    // Bouton retour depuis le lieu
+    document.getElementById('lieu-back').addEventListener('click', () => {
+      goBackToSolutions();
+    });
+
+    // Toggle liste / carte dans solutions
+    document.getElementById('solutions-toggle-view').addEventListener('click', () => {
+      toggleSolutionsView();
     });
 
     // =============================================
