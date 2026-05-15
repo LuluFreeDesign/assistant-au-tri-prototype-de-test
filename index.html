@@ -254,7 +254,7 @@
       padding: var(--spacing-3v) var(--spacing-1v);
       border-bottom: 1px solid var(--border-default);
       cursor: pointer;
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       color: var(--text-default);
       transition: background-color 0.15s ease;
     }
@@ -269,7 +269,7 @@
     }
 
     .search-results__name {
-      font-weight: 400;
+      font-weight: 700;
     }
 
     .search-results__arrow {
@@ -441,8 +441,8 @@
       justify-content: space-between;
       padding: var(--spacing-3v) 0;
       border-bottom: 1px solid var(--border-default);
-      font-size: 0.9375rem;
-      color: var(--text-default);
+      font-size: 0.875rem;
+      color: #666666;
       cursor: pointer;
       transition: background-color 0.15s ease;
     }
@@ -868,70 +868,70 @@
     /* En-tête fiche */
     .fiche-header {
       background-color: var(--green-menthe-975);
-      padding: var(--spacing-4v) var(--spacing-4v) var(--spacing-3v);
+      padding: var(--spacing-4v);
     }
 
-    .fiche-header__searchbox {
-      display: flex;
-      flex-direction: column;
-      background-color: var(--background-default);
-      border: 2px solid var(--green-menthe-sun-373);
-      border-radius: var(--radius-md);
-      padding: var(--spacing-2v);
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      margin-bottom: var(--spacing-1v);
-      text-align: left;
-      font-family: 'Marianne', arial, sans-serif;
-      width: 100%;
-    }
-
-    .fiche-header__searchbox:hover {
-      background-color: var(--background-alt-grey);
-    }
-
-    .fiche-header__searchbox:focus-visible {
-      outline: 2px solid var(--green-menthe-sun-373);
-      outline-offset: 2px;
-    }
-
-    .fiche-header__back-row {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-1v);
-    }
-    .fiche-header__back-row svg {
-      flex-shrink: 0;
-      width: 12px;
-      height: 12px;
-    }
-
-    .fiche-header__object-name {
+    .fiche-header__label {
+      display: block;
       font-size: 0.875rem;
       font-weight: 700;
       color: var(--text-default);
-      line-height: 1.5;
+      margin-bottom: 4px;
     }
 
-    /* Sur la page solutions, le texte du chip retour est plus petit */
-    .solutions-header__top .fiche-header__object-name {
-      font-size: 0.875rem;
-      font-weight: 700;
-      line-height: 1.5;
+    /* 8px d'écart entre le 1er champ et le label "Localisation" */
+    .fiche-header__search-bar + #fiche-search-panel-slot + .fiche-header__label,
+    .fiche-header__search-bar + .fiche-header__label {
+      margin-top: 8px;
     }
 
-    .fiche-header__object-address {
-      font-size: 0.875rem;
-      font-weight: 400;
-      color: var(--text-mention-grey);
-      margin-top: 2px;
+    .fiche-header__search-bar {
+      margin-bottom: 0;
     }
 
     .fiche-header__total {
       font-size: 0.875rem;
       font-weight: 700;
       color: var(--green-menthe-sun-373);
-      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    /* Mode "panneau recherche ouvert depuis la fiche" :
+       - On masque l'adresse, le total et tout le contenu de la fiche
+       - On garde uniquement le label + champ objet visibles
+       - Le search-panel est déplacé dans le slot (sous le header) avec son fond blanc natif */
+    .iframe-container.fiche-search-active #fiche-address-label,
+    .iframe-container.fiche-search-active #fiche-address-bar,
+    .iframe-container.fiche-search-active #fiche-address-results,
+    .iframe-container.fiche-search-active #fiche-total-solutions,
+    .iframe-container.fiche-search-active .fiche-infotri,
+    .iframe-container.fiche-search-active .geste-cards,
+    .iframe-container.fiche-search-active .fiche-warnings,
+    .iframe-container.fiche-search-active .fiche-footer {
+      display: none !important;
+    }
+
+    /* Affiche le panneau (fond blanc natif) quand on est en mode fiche-search-active */
+    .iframe-container.fiche-search-active #fiche-search-panel-slot .search-panel {
+      display: block;
+    }
+
+    /* Header sur fond blanc quand le panneau est ouvert (effet "panneau flottant")
+       + padding-bottom réduit pour rapprocher le hint "Tapez et sélectionnez..." du champ */
+    .iframe-container.fiche-search-active .fiche-header {
+      background-color: var(--background-default);
+      padding-bottom: var(--spacing-2v);
+    }
+
+    /* Bouton fermeture (X) dans le header fiche — visible uniquement en mode fiche-search-active */
+    .fiche-header {
+      position: relative;
+    }
+    .fiche-header__close {
+      display: none;
+    }
+    .iframe-container.fiche-search-active .fiche-header__close {
+      display: flex;
     }
 
     /* Info-tri */
@@ -1130,7 +1130,7 @@
     /* Responsive fiche */
     @media (min-width: 576px) {
       .fiche-header {
-        padding: var(--spacing-8v) var(--spacing-6v);
+        padding: var(--spacing-4v) var(--spacing-6v);
       }
 
       .fiche-infotri {
@@ -1165,7 +1165,7 @@
 
     @media (min-width: 768px) {
       .fiche-header {
-        padding: var(--spacing-10v) var(--spacing-12v);
+        padding: var(--spacing-4v) var(--spacing-12v);
       }
 
       .fiche-infotri {
@@ -1563,6 +1563,44 @@
       border-top: 1px solid var(--border-default);
     }
 
+    .footer-logos {
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px 0;
+      border-top: 1px solid var(--border-default);
+    }
+
+    .footer-logos img {
+      width: min(220px, 70%);
+      height: auto;
+      display: block;
+    }
+
+    /* Sur la page d'accueil, le footer-logos doit casser hors du padding de search-section */
+    .search-section .footer-logos {
+      margin-top: 16px;
+      margin-left: calc(-1 * var(--spacing-4v));
+      margin-right: calc(-1 * var(--spacing-4v));
+      margin-bottom: calc(-1 * var(--spacing-4v));
+      border-top: none;
+    }
+
+    @media (min-width: 576px) {
+      .search-section .footer-logos {
+        margin-left: calc(-1 * var(--spacing-6v));
+        margin-right: calc(-1 * var(--spacing-6v));
+      }
+    }
+
+    @media (min-width: 768px) {
+      .search-section .footer-logos {
+        margin-left: calc(-1 * var(--spacing-12v));
+        margin-right: calc(-1 * var(--spacing-12v));
+      }
+    }
+
     /* ============================================
        Section Solutions
        ============================================ */
@@ -1591,6 +1629,50 @@
     .solutions-header__top {
       background-color: var(--green-menthe-975);
       padding: var(--spacing-4v) var(--spacing-4v) var(--spacing-3v);
+    }
+
+    /* Bouton retour dans la section solutions (partage les classes fiche-header__*) */
+    .fiche-header__searchbox {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--background-default);
+      border: 2px solid var(--green-menthe-sun-373);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-2v);
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-bottom: var(--spacing-1v);
+      text-align: left;
+      font-family: 'Marianne', arial, sans-serif;
+      width: 100%;
+    }
+
+    .fiche-header__searchbox:hover {
+      background-color: var(--background-alt-grey);
+    }
+
+    .fiche-header__searchbox:focus-visible {
+      outline: 2px solid var(--green-menthe-sun-373);
+      outline-offset: 2px;
+    }
+
+    .fiche-header__back-row {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-1v);
+    }
+
+    .fiche-header__back-row svg {
+      flex-shrink: 0;
+      width: 12px;
+      height: 12px;
+    }
+
+    .fiche-header__object-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-default);
+      line-height: 1.5;
     }
 
     .solutions-header__body {
@@ -2397,7 +2479,7 @@
           type="search"
           id="search-input"
           class="search-bar__input"
-          placeholder="exemple : téléphone..."
+          placeholder="ex : téléphone..."
           autocomplete="off"
         >
       </div>
@@ -2419,7 +2501,7 @@
             type="search"
             id="address-input"
             class="search-bar__input"
-            placeholder="1 Rue Simone Veil"
+            placeholder="ex : 1 rue Simone Veil 93140 Bondy"
             autocomplete="off"
           >
         </div>
@@ -2439,6 +2521,9 @@
           target="_blank"
           rel="noopener noreferrer"
         >En savoir plus sur cet outil</a>
+        <div class="footer-logos">
+          <img src="src/assets/icons/bloc-marque-que-faire.svg" alt="Logos ADEME et République Française — Que faire de mes objets et déchets" width="139" height="37">
+        </div>
       </div>
     </section>
 
@@ -2447,7 +2532,7 @@
          ============================================= -->
     <div class="search-panel" id="search-panel">
       <p class="search-panel__hint">
-        Une fois votre recherche effectuée, sélectionnez un résultat dans la liste pour passer à l'étape suivante.
+        Tapez et sélectionnez un résultat pour continuer.
       </p>
 
       <!-- Résultats de recherche dynamiques -->
@@ -2533,15 +2618,39 @@
 
       <!-- En-tête -->
       <div class="fiche-header">
-        <button class="fiche-header__searchbox" id="fiche-back-chip" type="button" aria-label="Modifier la recherche">
-          <div class="fiche-header__back-row">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-            <span class="fiche-header__object-name" id="fiche-object-name"></span>
-          </div>
-          <div class="fiche-header__object-address" id="fiche-object-address"></div>
+        <button class="search-section__close fiche-header__close" id="fiche-search-panel-close" type="button" aria-label="Fermer la recherche">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
         </button>
+        <label class="fiche-header__label" for="fiche-search-input">Quel objet ou déchet souhaitez-vous recycler, donner ou réparer ?</label>
+        <div class="search-bar fiche-header__search-bar" id="fiche-search-bar">
+          <div class="search-bar__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+          <input type="search" id="fiche-search-input" class="search-bar__input" placeholder="ex : téléphone..." autocomplete="off">
+        </div>
+
+        <label class="fiche-header__label" id="fiche-address-label" for="fiche-address-input">Localisation</label>
+        <div class="search-bar fiche-header__search-bar" id="fiche-address-bar">
+          <div class="search-bar__icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+          <input type="search" id="fiche-address-input" class="search-bar__input" placeholder="ex : 1 rue Simone Veil 93140 Bondy" autocomplete="off">
+        </div>
+        <ul class="address-results" id="fiche-address-results" role="listbox" aria-label="Suggestions d'adresses"></ul>
+
         <p class="fiche-header__total" id="fiche-total-solutions"></p>
       </div>
+      <!-- Emplacement où le search-panel est déplacé quand l'utilisateur clique sur le champ objet -->
+      <div id="fiche-search-panel-slot"></div>
 
       <!-- Info-tri -->
       <div class="fiche-infotri" id="fiche-infotri">
@@ -2558,6 +2667,9 @@
       <!-- Footer fiche -->
       <div class="fiche-footer">
         <a href="https://quefairedemesdechets.ademe.fr" class="section-footer-link" target="_blank" rel="noopener noreferrer">En savoir plus sur cet outil</a>
+        <div class="footer-logos">
+          <img src="src/assets/icons/bloc-marque-que-faire.svg" alt="Logos ADEME et République Française — Que faire de mes objets et déchets" width="139" height="37">
+        </div>
       </div>
 
     </section>
@@ -2588,7 +2700,7 @@
                 </svg>
               </div>
               <label for="solutions-address-input" class="sr-only">Adresse</label>
-              <input type="search" id="solutions-address-input" class="search-bar__input" placeholder="Rechercher une adresse" autocomplete="off">
+              <input type="search" id="solutions-address-input" class="search-bar__input" placeholder="ex : 1 rue Simone Veil 93140 Bondy" autocomplete="off">
             </div>
             <ul class="address-results" id="solutions-address-results" role="listbox" aria-label="Suggestions d'adresses"></ul>
           </div>
@@ -2632,6 +2744,9 @@
       <!-- Footer -->
       <div class="solutions-footer">
         <a href="https://quefairedemesdechets.ademe.fr" class="section-footer-link" target="_blank" rel="noopener noreferrer">En savoir plus sur cet outil</a>
+        <div class="footer-logos">
+          <img src="src/assets/icons/bloc-marque-que-faire.svg" alt="Logos ADEME et République Française — Que faire de mes objets et déchets" width="139" height="37">
+        </div>
       </div>
 
     </section>
@@ -2654,6 +2769,9 @@
 
       <div class="lieu-footer">
         <a href="https://quefairedemesdechets.ademe.fr" class="section-footer-link" target="_blank" rel="noopener noreferrer">En savoir plus sur cet outil</a>
+        <div class="footer-logos">
+          <img src="src/assets/icons/bloc-marque-que-faire.svg" alt="Logos ADEME et République Française — Que faire de mes objets et déchets" width="139" height="37">
+        </div>
       </div>
 
     </section>
@@ -3076,6 +3194,12 @@
       document.getElementById('search-error-msg').style.display = 'none';
       document.querySelector('.search-section .search-bar').classList.remove('search-bar--error');
       searchInput.removeAttribute('aria-invalid');
+      // Si le panneau de recherche a été ouvert depuis la fiche → on referme + on charge directement
+      if (typeof ficheSearchPanelOpen !== 'undefined' && ficheSearchPanelOpen) {
+        closeFicheSearchPanel();
+        goToFiche();
+        return;
+      }
       closeSearchPanel();
       setTimeout(() => addressInput.focus(), 150);
     }
@@ -3105,6 +3229,10 @@
 
     // Gestion du bouton retour navigateur
     window.addEventListener('popstate', (e) => {
+      // Si le panneau fiche est encore ouvert, on le ferme proprement (remet searchPanel à sa place)
+      if (typeof ficheSearchPanelOpen !== 'undefined' && ficheSearchPanelOpen) {
+        closeFicheSearchPanel();
+      }
       if (e.state && e.state.step === 'fiche') {
         const fiche = fichesData.find(f => f.id === e.state.ficheId);
         if (fiche) {
@@ -3284,6 +3412,13 @@
       const isInsideSearch = e.target.closest('.search-section') || e.target.closest('.search-panel');
       if (!isInsideSearch && searchPanel.classList.contains('is-open')) {
         closeSearchPanel();
+      }
+      // Mode "fiche-search-active" : clic en dehors du header fiche ou du panel → fermer
+      if (typeof ficheSearchPanelOpen !== 'undefined' && ficheSearchPanelOpen) {
+        const inside = e.target.closest('.fiche-header') || e.target.closest('#search-panel');
+        if (!inside) {
+          closeFicheSearchPanel();
+        }
       }
     });
 
@@ -3494,8 +3629,11 @@
       const localLieux = estimateLocalCount(counts.lieux);
 
       // --- En-tête ---
-      document.getElementById('fiche-object-name').textContent = appState.selectedFiche.nom;
-      document.getElementById('fiche-object-address').textContent = address ? address.label : '';
+      document.getElementById('fiche-search-input').value = appState.searchLabel || appState.selectedFiche.nom;
+      document.getElementById('fiche-address-input').value = address ? address.label : '';
+      // Fermer les dropdowns de la fiche si ouverts
+      document.getElementById('fiche-address-results').innerHTML = '';
+      document.getElementById('fiche-address-results').classList.remove('is-visible');
       document.getElementById('fiche-total-solutions').textContent = address
         ? 'Recherche des solutions en cours\u2026'
         : '';
@@ -3644,7 +3782,7 @@
         const header = document.getElementById('fiche-total-solutions');
         if (header) {
           header.textContent = total > 0
-            ? `Super\u00a0! ${formatNumber(total)}\u00a0solutions ont \u00e9t\u00e9 trouv\u00e9es.`
+            ? `${formatNumber(total)} solutions trouv\u00e9es \u00e0 moins de 20 km`
             : 'Aucune solution trouv\u00e9e dans ce rayon.';
         }
       } catch (err) {
@@ -3738,7 +3876,73 @@
     const _acteursCache = new Map();      // url → réponse JSON
     const _inflightAceturs = new Map();    // url → promesse en cours
 
-    async function fetchActeursProches(lat, lon, rayonKm, ficheId) {
+    // Bbox Loire-Atlantique (44) — quand on est dedans, on utilise les données locales
+    // au lieu de taper l'API ADEME (qui est instable). Couvre 99.5% des acteurs 44.
+    const LA_BBOX = { minLat: 46.85, maxLat: 47.85, minLon: -2.65, maxLon: -1.05 };
+    function isInLoireAtlantique(lat, lon, postcode) {
+      if (postcode && /^44\d{3}$/.test(postcode)) return true;
+      return lat >= LA_BBOX.minLat && lat <= LA_BBOX.maxLat
+          && lon >= LA_BBOX.minLon && lon <= LA_BBOX.maxLon;
+    }
+
+    // Données locales 44 : chargées une fois au démarrage, gardées en mémoire pour la session
+    let _acteurs44 = null;        // tableau d'acteurs ou null si pas encore chargé
+    let _acteurs44Loading = null;  // promesse en cours du fetch initial (dedupe)
+
+    async function getActeurs44() {
+      if (_acteurs44) return _acteurs44;
+      if (_acteurs44Loading) return _acteurs44Loading;
+      _acteurs44Loading = (async () => {
+        try {
+          const resp = await fetch('src/data/acteurs-loire-atlantique.json');
+          if (!resp.ok) throw new Error(`Erreur chargement données 44 : ${resp.status}`);
+          _acteurs44 = await resp.json();
+          return _acteurs44;
+        } finally {
+          _acteurs44Loading = null;
+        }
+      })();
+      return _acteurs44Loading;
+    }
+
+    // Filtre les acteurs 44 en mémoire pour reproduire le format de réponse ADEME API
+    function filterLocal44(lat, lon, rayonKm, ficheId) {
+      const slugs = ficheId ? (FICHE_SLUGS[ficheId] || []) : [];
+      const rayonMeters = rayonKm * 1000;
+      const results = [];
+      for (const a of _acteurs44) {
+        const aLat = parseFloat(a.latitude);
+        const aLon = parseFloat(a.longitude);
+        if (isNaN(aLat) || isNaN(aLon)) continue;
+        // Distance haversine en m (approximation rapide pour pré-filtrage cercle)
+        const d = haversineKm(lat, lon, aLat, aLon) * 1000;
+        if (d > rayonMeters) continue;
+        // Si on filtre par slug, l'acteur doit avoir le slug dans au moins un champ d'action
+        // Les champs utilisent '|' comme séparateur (ex: "chaussures|vetement|linge_de_maison")
+        if (slugs.length > 0) {
+          const allActionsText = [a.reparer, a.donner, a.revendre, a.echanger, a.trier, a.emprunter, a.preter]
+            .filter(Boolean).join('|');
+          const actorSlugs = allActionsText.split('|').map(s => s.trim());
+          if (!slugs.some(s => actorSlugs.includes(s))) continue;
+        }
+        results.push(a);
+      }
+      // Reproduit la structure { total, results } de l'API ADEME
+      return { total: results.length, results };
+    }
+
+    async function fetchActeursProches(lat, lon, rayonKm, ficheId, opts) {
+      opts = opts || {};
+      const postcode = appState.selectedAddress?.postcode;
+
+      // === DONNÉES LOCALES 44 ===
+      // Si on est en Loire-Atlantique, on filtre les données locales (rapide + 0 API)
+      if (isInLoireAtlantique(lat, lon, postcode)) {
+        await getActeurs44();
+        return filterLocal44(lat, lon, rayonKm, ficheId);
+      }
+
+      // === API ADEME (fallback hors 44) ===
       const slugs = ficheId ? (FICHE_SLUGS[ficheId] || []) : [];
       // Arrondi des coordonnées à 4 décimales (~11m) : stabilise la clé de cache
       const latR = Math.round(lat * 10000) / 10000;
@@ -4401,9 +4605,155 @@
       }
     }
 
-    // Bouton retour depuis la fiche
-    document.getElementById('fiche-back-chip').addEventListener('click', () => {
-      goBackFromFiche();
+    // =============================================
+    // Recherche depuis le header fiche
+    // =============================================
+    const ficheSearchInput = document.getElementById('fiche-search-input');
+    const ficheSearchPanelSlot = document.getElementById('fiche-search-panel-slot');
+    const ficheAddressInput = document.getElementById('fiche-address-input');
+    const ficheAddressResults = document.getElementById('fiche-address-results');
+    let ficheAddressDebounce = null;
+    let ficheAddressFocusedIndex = -1;
+
+    // === Ouverture / fermeture du panneau de recherche depuis le header fiche ===
+    // On déplace le DOM #search-panel dans le slot pour réutiliser le même composant
+    // (hint + résultats + populaires + catégories) avec ses handlers existants.
+    let ficheSearchPanelOpen = false;
+
+    function openFicheSearchPanel() {
+      if (ficheSearchPanelOpen) return;
+      // Déplacement du searchPanel dans le slot du header fiche
+      ficheSearchPanelSlot.appendChild(searchPanel);
+      container.classList.add('fiche-search-active');
+      // Reset visuel du panel : on remet les catégories + populaires, on cache les résultats
+      searchResults.innerHTML = '';
+      searchResults.classList.remove('is-visible');
+      searchPopular.style.display = '';
+      searchCategories.style.display = '';
+      // Sync l'input du panel (search-input) avec la valeur courante pour que la recherche fonctionne
+      searchInput.value = ficheSearchInput.value;
+      ficheSearchPanelOpen = true;
+    }
+
+    function closeFicheSearchPanel() {
+      if (!ficheSearchPanelOpen) return;
+      // Remet le searchPanel à sa place originale (entre search-section et fiche-section)
+      const ficheSection = document.getElementById('fiche-section');
+      ficheSection.parentNode.insertBefore(searchPanel, ficheSection);
+      container.classList.remove('fiche-search-active');
+      ficheSearchPanelOpen = false;
+      // Si pas de nouvelle sélection, restaure le label de la fiche courante dans le champ
+      if (appState.selectedFiche) {
+        ficheSearchInput.value = appState.searchLabel || appState.selectedFiche.nom;
+      }
+    }
+
+    // Au clic/focus sur le champ objet du header fiche → ouvre le panneau
+    ficheSearchInput.addEventListener('focus', () => {
+      openFicheSearchPanel();
+    });
+    ficheSearchInput.addEventListener('click', () => {
+      openFicheSearchPanel();
+    });
+
+    // Bouton fermeture (X) dans le header fiche
+    document.getElementById('fiche-search-panel-close').addEventListener('click', () => {
+      closeFicheSearchPanel();
+    });
+
+    // Quand l'utilisateur tape dans le champ objet du header fiche,
+    // on relaie la valeur dans search-input pour déclencher performSearch
+    ficheSearchInput.addEventListener('input', (e) => {
+      const q = e.target.value;
+      searchInput.value = q;
+      performSearch(q);
+    });
+
+    // Champ adresse dans la fiche : autocomplétion + sélection recharge les solutions
+    ficheAddressInput.addEventListener('input', (e) => {
+      clearTimeout(ficheAddressDebounce);
+      const q = e.target.value.trim();
+      if (appState.selectedAddress && q !== appState.selectedAddress.label) {
+        appState.selectedAddress = null;
+      }
+      if (q.length < 3) {
+        ficheAddressResults.classList.remove('is-visible');
+        ficheAddressResults.innerHTML = '';
+        ficheAddressFocusedIndex = -1;
+        return;
+      }
+      ficheAddressDebounce = setTimeout(async () => {
+        try {
+          const url = `https://api-adresse.data.gouv.fr/search/?q=${encodeURIComponent(q)}&limit=5&autocomplete=1`;
+          const resp = await fetch(url);
+          const data = await resp.json();
+          if (data.features && data.features.length > 0) {
+            ficheAddressResults.innerHTML = data.features.map(feature => {
+              const props = feature.properties;
+              const coords = feature.geometry.coordinates;
+              let displayLabel;
+              if (props.type === 'municipality') {
+                const parts = [props.name];
+                if (props.postcode) parts.push(props.postcode);
+                if (props.context) { const dept = props.context.split(', ')[1]; if (dept) parts.push(`— ${dept}`); }
+                displayLabel = parts.join(' ');
+              } else {
+                displayLabel = props.label;
+              }
+              return `<li class="address-results__item" role="option"
+                data-label="${props.label}"
+                data-citycode="${props.citycode || ''}"
+                data-postcode="${props.postcode || ''}"
+                data-lon="${coords[0]}"
+                data-lat="${coords[1]}"
+                tabindex="-1">${displayLabel}</li>`;
+            }).join('');
+            ficheAddressResults.classList.add('is-visible');
+            ficheAddressFocusedIndex = -1;
+          } else {
+            ficheAddressResults.classList.remove('is-visible');
+            ficheAddressResults.innerHTML = '';
+          }
+        } catch (err) { console.error('Erreur API BAN fiche:', err); }
+      }, 300);
+    });
+
+    ficheAddressResults.addEventListener('click', (e) => {
+      const item = e.target.closest('.address-results__item');
+      if (item) {
+        appState.selectedAddress = {
+          label: item.dataset.label,
+          citycode: item.dataset.citycode,
+          postcode: item.dataset.postcode,
+          lat: parseFloat(item.dataset.lat),
+          lon: parseFloat(item.dataset.lon)
+        };
+        ficheAddressInput.value = item.dataset.label;
+        ficheAddressResults.classList.remove('is-visible');
+        ficheAddressResults.innerHTML = '';
+        ficheAddressFocusedIndex = -1;
+        renderFiche();
+      }
+    });
+
+    ficheAddressInput.addEventListener('keydown', (e) => {
+      const items = ficheAddressResults.querySelectorAll('.address-results__item');
+      if (!items.length) return;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        ficheAddressFocusedIndex = Math.min(ficheAddressFocusedIndex + 1, items.length - 1);
+        items.forEach((el, i) => el.classList.toggle('address-results__item--focused', i === ficheAddressFocusedIndex));
+        items[ficheAddressFocusedIndex]?.focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        ficheAddressFocusedIndex = Math.max(ficheAddressFocusedIndex - 1, 0);
+        items.forEach((el, i) => el.classList.toggle('address-results__item--focused', i === ficheAddressFocusedIndex));
+        items[ficheAddressFocusedIndex]?.focus();
+      } else if (e.key === 'Escape') {
+        ficheAddressResults.classList.remove('is-visible');
+        ficheAddressResults.innerHTML = '';
+        ficheAddressFocusedIndex = -1;
+      }
     });
 
     // Bouton retour depuis les solutions
@@ -4459,6 +4809,14 @@
       setTimeout(sendHeight, 500);
       setTimeout(sendHeight, 1500);
     })();
+
+    // Pré-charge les données Loire-Atlantique en arrière-plan dès le démarrage,
+    // pour qu'elles soient en mémoire quand l'usager arrive sur la fiche.
+    // (Si l'utilisateur cherche hors 44, le tableau sera chargé pour rien — 2.7 Mo,
+    //  mais c'est sans incidence sur l'expérience.)
+    if (typeof getActeurs44 === 'function') {
+      getActeurs44().catch(err => console.warn('Préchargement données 44 :', err));
+    }
   </script>
 </body>
 </html>
