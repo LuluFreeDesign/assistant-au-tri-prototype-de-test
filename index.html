@@ -4274,73 +4274,10 @@
     const _acteursCache = new Map();      // url → réponse JSON
     const _inflightAceturs = new Map();    // url → promesse en cours
 
-    // Bbox Loire-Atlantique (44) — quand on est dedans, on utilise les données locales
-    // au lieu de taper l'API ADEME (qui est instable). Couvre 99.5% des acteurs 44.
-    const LA_BBOX = { minLat: 46.85, maxLat: 47.85, minLon: -2.65, maxLon: -1.05 };
-    function isInLoireAtlantique(lat, lon, postcode) {
-      if (postcode && /^44\d{3}$/.test(postcode)) return true;
-      return lat >= LA_BBOX.minLat && lat <= LA_BBOX.maxLat
-          && lon >= LA_BBOX.minLon && lon <= LA_BBOX.maxLon;
-    }
-
-    // Données locales 44 : chargées une fois au démarrage, gardées en mémoire pour la session
-    let _acteurs44 = null;        // tableau d'acteurs ou null si pas encore chargé
-    let _acteurs44Loading = null;  // promesse en cours du fetch initial (dedupe)
-
-    async function getActeurs44() {
-      if (_acteurs44) return _acteurs44;
-      if (_acteurs44Loading) return _acteurs44Loading;
-      _acteurs44Loading = (async () => {
-        try {
-          const resp = await fetch('src/data/acteurs-loire-atlantique.json');
-          if (!resp.ok) throw new Error(`Erreur chargement données 44 : ${resp.status}`);
-          _acteurs44 = await resp.json();
-          return _acteurs44;
-        } finally {
-          _acteurs44Loading = null;
-        }
-      })();
-      return _acteurs44Loading;
-    }
-
-    // Filtre les acteurs 44 en mémoire pour reproduire le format de réponse ADEME API
-    function filterLocal44(lat, lon, rayonKm, ficheId) {
-      const slugs = ficheId ? (FICHE_SLUGS[ficheId] || []) : [];
-      const rayonMeters = rayonKm * 1000;
-      const results = [];
-      for (const a of _acteurs44) {
-        const aLat = parseFloat(a.latitude);
-        const aLon = parseFloat(a.longitude);
-        if (isNaN(aLat) || isNaN(aLon)) continue;
-        // Distance haversine en m (approximation rapide pour pré-filtrage cercle)
-        const d = haversineKm(lat, lon, aLat, aLon) * 1000;
-        if (d > rayonMeters) continue;
-        // Si on filtre par slug, l'acteur doit avoir le slug dans au moins un champ d'action
-        // Les champs utilisent '|' comme séparateur (ex: "chaussures|vetement|linge_de_maison")
-        if (slugs.length > 0) {
-          const allActionsText = [a.reparer, a.donner, a.revendre, a.echanger, a.trier, a.emprunter, a.preter]
-            .filter(Boolean).join('|');
-          const actorSlugs = allActionsText.split('|').map(s => s.trim());
-          if (!slugs.some(s => actorSlugs.includes(s))) continue;
-        }
-        results.push(a);
-      }
-      // Reproduit la structure { total, results } de l'API ADEME
-      return { total: results.length, results };
-    }
-
     async function fetchActeursProches(lat, lon, rayonKm, ficheId, opts) {
       opts = opts || {};
-      const postcode = appState.selectedAddress?.postcode;
 
-      // === DONNÉES LOCALES 44 ===
-      // Si on est en Loire-Atlantique, on filtre les données locales (rapide + 0 API)
-      if (isInLoireAtlantique(lat, lon, postcode)) {
-        await getActeurs44();
-        return filterLocal44(lat, lon, rayonKm, ficheId);
-      }
-
-      // === API ADEME (fallback hors 44) ===
+      // === API ADEME (data-fair Koumoul) ===
       const slugs = ficheId ? (FICHE_SLUGS[ficheId] || []) : [];
       // Arrondi des coordonnées à 4 décimales (~11m) : stabilise la clé de cache
       const latR = Math.round(lat * 10000) / 10000;
@@ -5648,13 +5585,6 @@
       setTimeout(sendHeight, 1500);
     })();
 
-    // Pré-charge les données Loire-Atlantique en arrière-plan dès le démarrage,
-    // pour qu'elles soient en mémoire quand l'usager arrive sur la fiche.
-    // (Si l'utilisateur cherche hors 44, le tableau sera chargé pour rien — 2.7 Mo,
-    //  mais c'est sans incidence sur l'expérience.)
-    if (typeof getActeurs44 === 'function') {
-      getActeurs44().catch(err => console.warn('Préchargement données 44 :', err));
-    }
   </script>
 </body>
 </html>
