@@ -781,7 +781,6 @@
       }
 
       .search-section__title {
-        font-size: 1rem;
         line-height: 1.5;
         padding-right: 0;
         margin-bottom: var(--spacing-4v);
@@ -1623,88 +1622,234 @@
     }
 
     .solutions-header {
-      padding: 0;
-    }
-
-    .solutions-header__top {
+      padding: var(--spacing-3v) var(--spacing-4v) var(--spacing-4v);
       background-color: var(--green-menthe-975);
-      padding: var(--spacing-4v) var(--spacing-4v) var(--spacing-3v);
     }
 
-    /* Bouton retour dans la section solutions (partage les classes fiche-header__*) */
-    .fiche-header__searchbox {
+    /* Bouton retour enrichi : flèche + nom objet + geste(s), bordure verte fil rouge */
+    .solutions-header__back {
       display: flex;
-      flex-direction: column;
-      background-color: var(--background-default);
+      align-items: center;
+      gap: var(--spacing-2v);
+      width: 100%;
+      padding: var(--spacing-2v) var(--spacing-3v);
+      background: transparent;
       border: 2px solid var(--green-menthe-sun-373);
-      border-radius: var(--radius-md);
-      padding: var(--spacing-2v);
+      border-radius: 4px;
       cursor: pointer;
-      transition: background-color 0.2s ease;
-      margin-bottom: var(--spacing-1v);
       text-align: left;
       font-family: 'Marianne', arial, sans-serif;
-      width: 100%;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-3v);
     }
 
-    .fiche-header__searchbox:hover {
-      background-color: var(--background-alt-grey);
+    .solutions-header__back:hover {
+      background-color: rgba(255, 255, 255, 0.4);
     }
 
-    .fiche-header__searchbox:focus-visible {
+    .solutions-header__back:focus-visible {
       outline: 2px solid var(--green-menthe-sun-373);
       outline-offset: 2px;
     }
 
-    .fiche-header__back-row {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-1v);
-    }
-
-    .fiche-header__back-row svg {
+    .solutions-header__back-arrow {
       flex-shrink: 0;
-      width: 12px;
-      height: 12px;
+      color: var(--text-default);
     }
 
-    .fiche-header__object-name {
+    .solutions-header__back-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .solutions-header__back-object {
       font-size: 0.875rem;
       font-weight: 700;
+      line-height: 1.4;
       color: var(--text-default);
-      line-height: 1.5;
+    }
+
+    .solutions-header__back-gestes {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--spacing-2v);
+      font-size: 0.875rem;
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--text-default);
+    }
+
+    .solutions-header__back-geste {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .solutions-header__back-geste-icon {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .solutions-header__back-geste-icon svg {
+      width: 100%;
+      height: 100%;
     }
 
     .solutions-header__body {
-      padding: var(--spacing-3v) var(--spacing-4v) 0;
-      background-color: var(--background-default);
+      padding: 0;
+    }
+
+    .solutions-header__label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-1v);
     }
 
     .solutions-header__count {
       font-size: 0.875rem;
-      color: var(--text-mention-grey);
-      margin: var(--spacing-1v) 0 0;
+      font-weight: 700;
+      color: var(--green-menthe-sun-373);
+      margin: var(--spacing-2v) 0 0;
     }
 
+    /* Ligne d'actions : segmented control (full-width) + bouton filtres icon-only */
     .solutions-actions {
-      padding: var(--spacing-3v) var(--spacing-4v);
+      padding: var(--spacing-3v) var(--spacing-4v) var(--spacing-2v);
       display: flex;
-      flex-direction: column;
+      align-items: center;
       gap: var(--spacing-2v);
-      border-bottom: 1px solid var(--border-default);
     }
 
+    /* ===== Contrôle segmenté DSFR (réplique sans dépendance DSFR) ===== */
+    .fr-segmented {
+      border: 0;
+      padding: 0;
+      margin: 0;
+      min-inline-size: 0;
+      flex: 1;
+    }
+
+    .fr-segmented__elements {
+      display: flex;
+      align-items: stretch;
+      width: 100%;
+      background-color: var(--background-alt-grey);
+      border-radius: 4px;
+      padding: 4px;
+      gap: 4px;
+    }
+
+    .fr-segmented__element {
+      display: flex;
+      flex: 1;
+      position: relative;
+    }
+
+    .fr-segmented__element input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .fr-segmented__element .fr-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+      padding: 0 12px;
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--text-default);
+      background-color: transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+      user-select: none;
+    }
+
+    .fr-segmented--sm .fr-label {
+      min-height: 2rem;
+      padding: 0 10px;
+      font-size: 0.875rem;
+    }
+
+    .fr-segmented__element .fr-label svg {
+      flex-shrink: 0;
+    }
+
+    .fr-segmented__element .fr-label:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    /* État sélectionné DSFR : fond blanc + contour bleu inset + texte bleu */
+    .fr-segmented__element input:checked + .fr-label {
+      background-color: var(--background-default);
+      box-shadow: inset 0 0 0 1px var(--blue-france);
+      color: var(--blue-france);
+    }
+
+    .fr-segmented__element input:focus-visible + .fr-label {
+      outline: 2px solid var(--blue-france);
+      outline-offset: 2px;
+    }
+
+    /* Bouton Filtres en tertiary SM, icon-only avec bordure */
+    .solutions-actions__filter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      padding: 0;
+      background-color: var(--background-default);
+      color: var(--text-default);
+      border: 1px solid var(--border-default);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .solutions-actions__filter:hover {
+      background-color: var(--background-alt-grey);
+    }
+
+    .solutions-actions__filter:focus-visible {
+      outline: 2px solid var(--blue-france);
+      outline-offset: 2px;
+    }
+
+    /* Bouton "Proposer un nouveau lieu à ajouter" — secondary SM, placé en bas */
     .solutions-actions__propose {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: var(--spacing-2v);
-      min-height: 2.5rem;
-      padding: 0.5rem 1rem;
-      background-color: var(--blue-france);
-      color: #fff;
+      gap: var(--spacing-1v);
+      min-height: 2rem;
+      padding: 0.25rem 0.75rem;
+      margin: var(--spacing-3v) var(--spacing-4v) 0;
+      background-color: var(--background-default);
+      color: var(--blue-france);
       border: 1px solid var(--blue-france);
-      border-radius: 0;
+      border-radius: 4px;
       font-family: 'Marianne', arial, sans-serif;
       font-size: 0.875rem;
       font-weight: 500;
@@ -1714,42 +1859,23 @@
     }
 
     .solutions-actions__propose:hover {
-      background-color: var(--blue-france-hover);
-      border-color: var(--blue-france-hover);
-    }
-
-    .solutions-actions__secondary {
-      display: flex;
-      gap: var(--spacing-2v);
-    }
-
-    .solutions-actions__filter,
-    .solutions-actions__toggle {
-      flex: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--spacing-1v);
-      min-height: 2.5rem;
-      padding: 0.5rem 0.75rem;
-      background-color: var(--background-default);
-      color: var(--blue-france);
-      border: 1px solid var(--blue-france);
-      border-radius: 0;
-      font-family: 'Marianne', arial, sans-serif;
-      font-size: 0.875rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.15s;
-    }
-
-    .solutions-actions__filter:hover,
-    .solutions-actions__toggle:hover {
       background-color: var(--background-action-low-blue);
     }
 
+    .solutions-actions__propose:focus-visible {
+      outline: 2px solid var(--blue-france);
+      outline-offset: 2px;
+    }
+
+    /* En mode liste, le bouton est inséré dans .solutions-list au-dessus de la pagination */
+    .solutions-list .solutions-actions__propose {
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 0;
+    }
+
     .solutions-list {
-      padding: var(--spacing-4v);
+      padding: var(--spacing-1v) var(--spacing-4v) var(--spacing-4v);
       display: flex;
       flex-direction: column;
       gap: var(--spacing-3v);
@@ -1763,29 +1889,6 @@
 
     .solutions-map .maplibregl-canvas {
       outline: none;
-    }
-
-    /* Bouton "Revenir au mode liste" en mode carte — DSFR tertiary (taille MD = 40px) */
-    .solutions-map-btn--list-mode {
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      height: 2.5rem !important;
-      min-height: 2.5rem;
-      background-image: none !important;
-      background-color: var(--background-default);
-      border: 1px solid var(--blue-france);
-      padding: 0 16px;
-    }
-
-    .solutions-map-btn--list-mode .solutions-map-btn__label {
-      position: static;
-      transform: none;
-      width: auto;
-      background: transparent;
-      box-shadow: none;
-      border: none;
-      padding: 0;
     }
 
     /* Marker SVG pin (acteur) — SVG inline avec width/height intrinsèques */
@@ -1891,35 +1994,10 @@
       border-bottom: 1px solid var(--border-default-grey);
     }
 
-    /* Titre geste avec icône — plus petit, style fiche */
-    .solutions-header__geste {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-1v);
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: var(--text-default);
-      margin: 0 0 var(--spacing-2v);
-    }
-
-    .solutions-header__geste-icon {
-      flex-shrink: 0;
-      width: 20px;
-      height: 20px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .solutions-header__geste-icon svg {
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Champ adresse DSFR + dropdown autocomplete */
+    /* Champ adresse + dropdown autocomplete */
     .solutions-header__address {
       position: relative;
-      margin: 0 0 var(--spacing-2v);
+      margin: 0;
     }
 
     .solutions-header__address .search-bar {
@@ -1932,44 +2010,6 @@
       left: 0;
       right: 0;
       z-index: 10;
-    }
-
-    /* Bouton "Voir les lieux sur la carte" — fond carte + label DSFR centré */
-    .solutions-map-btn {
-      position: relative;
-      width: 100%;
-      height: 72px;
-      padding: 0;
-      background-image: url('src/assets/fond-carte.png');
-      background-size: cover;
-      background-position: center;
-      background-color: #F2F2F2;
-      border: 1px solid var(--blue-france);
-      border-radius: 0;
-      cursor: pointer;
-      overflow: hidden;
-      font-family: 'Marianne', arial, sans-serif;
-    }
-
-    .solutions-map-btn:hover {
-      filter: brightness(0.97);
-    }
-
-    .solutions-map-btn__label {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: inline-flex;
-      align-items: center;
-      gap: var(--spacing-2v);
-      background: #fff;
-      color: var(--blue-france);
-      font-size: 0.875rem;
-      font-weight: 500;
-      padding: 8px 16px;
-      border: 1px solid var(--blue-france);
-      white-space: nowrap;
     }
 
     /* Solution card — style DSFR (bordure + ombre légère) */
@@ -2070,11 +2110,32 @@
     }
 
     .solution-card__link {
-      align-self: flex-start;
-      font-size: 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 2rem;
+      padding: 0.25rem 0.75rem;
+      margin-top: var(--spacing-1v);
+      background-color: var(--background-default);
       color: var(--blue-france);
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      border: 1px solid var(--blue-france);
+      border-radius: 4px;
+      font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .solution-card__link:hover {
+      background-color: var(--background-action-low-blue);
+    }
+
+    .solution-card__link:focus-visible {
+      outline: 2px solid var(--blue-france);
+      outline-offset: 2px;
     }
 
     /* Pagination */
@@ -2177,32 +2238,357 @@
       animation: fadeSlideIn 0.35s ease-out;
     }
 
+    /* Header vert : reprend le style du back button solutions */
     .lieu-header {
-      padding: var(--spacing-4v);
-      border-bottom: 1px solid var(--border-default);
+      padding: var(--spacing-3v) var(--spacing-4v);
+      background-color: var(--green-menthe-975);
     }
 
     .lieu-header__back {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: var(--spacing-2v);
-      font-size: 0.875rem;
-      color: var(--blue-france);
-      background: none;
-      border: none;
-      padding: 0;
+      width: 100%;
+      padding: var(--spacing-2v) var(--spacing-3v);
+      background: transparent;
+      border: 2px solid var(--green-menthe-sun-373);
+      border-radius: 4px;
       cursor: pointer;
-      text-decoration: underline;
-      text-underline-offset: 2px;
+      text-align: left;
       font-family: 'Marianne', arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-default);
     }
 
     .lieu-header__back:hover {
-      text-decoration: none;
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .lieu-header__back:focus-visible {
+      outline: 2px solid var(--green-menthe-sun-373);
+      outline-offset: 2px;
+    }
+
+    .lieu-header__back svg {
+      flex-shrink: 0;
     }
 
     .lieu-content {
       padding: var(--spacing-4v);
+    }
+
+    /* ---- Bandeau tag + croix ---- */
+    .lieu-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--spacing-2v);
+      margin-bottom: var(--spacing-2v);
+    }
+
+    .lieu-top__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-1v);
+      flex: 1;
+      min-width: 0;
+    }
+
+    .lieu-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 3px 12px 3px 6px;
+      border-radius: 999px;
+      background-color: #EEEEEE;
+      color: #161616;
+      line-height: 1.4;
+    }
+
+    .lieu-tag svg,
+    .lieu-tag img {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .lieu-close {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      color: var(--blue-france);
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .lieu-close:hover { background-color: var(--background-alt-grey); }
+    .lieu-close:focus-visible {
+      outline: 2px solid var(--blue-france);
+      outline-offset: 2px;
+    }
+
+    /* ---- Identité ---- */
+    .lieu-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text-default);
+      margin: 0 0 var(--spacing-1v);
+    }
+
+    .lieu-meta {
+      font-size: 0.875rem;
+      color: var(--text-mention-grey);
+      margin: 0 0 var(--spacing-3v);
+    }
+
+    /* ---- Boutons d'actions ---- */
+    .lieu-actions {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: var(--spacing-2v);
+      overflow-x: auto;
+      padding-top: var(--spacing-3v);
+      padding-bottom: var(--spacing-1v);
+      margin: 0 calc(-1 * var(--spacing-4v)) var(--spacing-3v);
+      padding-left: var(--spacing-4v);
+      padding-right: var(--spacing-4v);
+      border-top: 1px solid var(--border-default);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .lieu-action {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-1v);
+      flex: 0 0 auto;
+      min-width: 64px;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: 'Marianne', arial, sans-serif;
+      color: var(--blue-france);
+    }
+
+    .lieu-action__icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      background-color: var(--background-action-low-blue);
+      border-radius: 999px;
+    }
+
+    .lieu-action__icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .lieu-action__label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--blue-france);
+      text-align: center;
+    }
+
+    .lieu-action:hover .lieu-action__icon {
+      background-color: #E3E3FD;
+    }
+
+    .lieu-action:focus-visible {
+      outline: 2px solid var(--blue-france);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* Variante primary : pastille bleue pleine + icône blanche (mise en avant) */
+    .lieu-action--primary .lieu-action__icon {
+      background-color: var(--blue-france);
+      color: #fff;
+    }
+
+    .lieu-action--primary:hover .lieu-action__icon {
+      background-color: var(--blue-france-hover);
+    }
+
+    /* ---- Titres de section ---- */
+    .lieu-section-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0 0 var(--spacing-2v);
+    }
+
+    /* ---- Mini-carte ---- */
+    .lieu-map {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: var(--spacing-2v);
+    }
+
+    .lieu-map .maplibregl-canvas { outline: none; }
+    .lieu-map .map-marker, .lieu-map .map-user { cursor: default; line-height: 0; }
+    .lieu-map .map-marker svg, .lieu-map .map-user svg { display: block; }
+
+    /* ---- Adresse ---- */
+    .lieu-address {
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      color: var(--text-default);
+      margin: 0 0 var(--spacing-3v);
+    }
+
+    /* ---- Infos importantes (puces) avec barre verticale bleue à gauche ---- */
+    .lieu-infos {
+      list-style: disc;
+      padding-left: 1.25rem;
+      margin: 0 0 var(--spacing-4v);
+      border-left: 3px solid var(--blue-france);
+      padding-top: var(--spacing-1v);
+      padding-bottom: var(--spacing-1v);
+      padding-left: 1.75rem;
+    }
+
+    .lieu-infos li {
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--text-default);
+      margin-bottom: var(--spacing-1v);
+    }
+
+    .lieu-infos li:last-child { margin-bottom: 0; }
+
+    .lieu-infos__link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--blue-france);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      font-weight: 500;
+    }
+
+    /* ---- Accordéons ---- */
+    .lieu-accordions {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: var(--spacing-4v);
+      border-top: 1px solid var(--border-default);
+    }
+
+    .lieu-accordion {
+      border-bottom: 1px solid var(--border-default);
+    }
+
+    .lieu-accordion__summary {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-2v);
+      padding: var(--spacing-3v) 0;
+      cursor: pointer;
+      list-style: none;
+      font-family: 'Marianne', arial, sans-serif;
+    }
+
+    .lieu-accordion__summary::-webkit-details-marker { display: none; }
+    .lieu-accordion__summary::marker { content: ''; }
+
+    .lieu-accordion__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--blue-france);
+      flex-shrink: 0;
+    }
+
+    .lieu-accordion__preview {
+      font-size: 0.875rem;
+      color: var(--text-mention-grey);
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .lieu-accordion__chevron {
+      margin-left: auto;
+      color: var(--blue-france);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .lieu-accordion[open] .lieu-accordion__chevron {
+      transform: rotate(180deg);
+    }
+
+    .lieu-accordion__pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .lieu-accordion__body {
+      padding: 0 0 var(--spacing-3v);
+      font-size: 0.875rem;
+      line-height: 1.5;
+      color: var(--text-default);
+    }
+
+    .lieu-geste-block {
+      margin-bottom: var(--spacing-3v);
+    }
+
+    .lieu-geste-block:last-child { margin-bottom: 0; }
+
+    .lieu-geste-block__cats {
+      margin: var(--spacing-1v) 0 0;
+      color: var(--text-default);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .lieu-meta-block { margin-bottom: var(--spacing-3v); }
+    .lieu-meta-block:last-child { margin-bottom: 0; }
+    .lieu-meta-block h4 {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0 0 var(--spacing-1v);
+    }
+    .lieu-meta-block ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .lieu-meta-block ul li, .lieu-meta-block p {
+      font-size: 0.875rem;
+      color: var(--text-default);
+      margin: 0 0 var(--spacing-1v);
+    }
+
+    /* ---- Date MAJ + bouton modifier ---- */
+    .lieu-update-date {
+      font-size: 0.75rem;
+      color: var(--text-mention-grey);
+      text-align: right;
+      margin: 0;
     }
 
     /* Quand le panneau de recherche est ouvert */
@@ -2679,18 +3065,17 @@
          ============================================= -->
     <section class="solutions-section" id="solutions-section">
 
-      <!-- En-tête -->
+      <!-- En-tête vert : bouton retour enrichi + champ localisation + compteur -->
       <div class="solutions-header">
-        <div class="solutions-header__top">
-          <button class="fiche-header__searchbox" id="solutions-back" type="button" aria-label="Revenir aux recommandations">
-            <div class="fiche-header__back-row">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-              <span class="fiche-header__object-name" id="solutions-back-label">Revenir aux recommandations</span>
-            </div>
-          </button>
-        </div>
+        <button class="solutions-header__back" id="solutions-back" type="button" aria-label="Revenir aux recommandations">
+          <svg class="solutions-header__back-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+          <span class="solutions-header__back-content">
+            <span class="solutions-header__back-object" id="solutions-back-object"></span>
+            <span class="solutions-header__back-gestes" id="solutions-back-gestes"></span>
+          </span>
+        </button>
         <div class="solutions-header__body">
-          <h2 class="solutions-header__geste" id="solutions-geste-title"></h2>
+          <label class="solutions-header__label" for="solutions-address-input">Localisation</label>
           <div class="solutions-header__address">
             <div class="search-bar" role="search">
               <div class="search-bar__icon" aria-hidden="true">
@@ -2699,7 +3084,6 @@
                   <line x1="21" y1="21" x2="16.65" y2="16.65"/>
                 </svg>
               </div>
-              <label for="solutions-address-input" class="sr-only">Adresse</label>
               <input type="search" id="solutions-address-input" class="search-bar__input" placeholder="ex : 1 rue Simone Veil 93140 Bondy" autocomplete="off">
             </div>
             <ul class="address-results" id="solutions-address-results" role="listbox" aria-label="Suggestions d'adresses"></ul>
@@ -2708,23 +3092,29 @@
         </div>
       </div>
 
-      <!-- Actions -->
+      <!-- Actions : contrôle segmenté Liste/Carte + bouton Filtres icon-only -->
       <div class="solutions-actions">
-        <a class="solutions-actions__propose fr-btn" id="solutions-propose" href="https://tally.so/r/wzy9ZZ" target="_blank" rel="noopener noreferrer">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          Proposer un nouveau lieu
-        </a>
-        <div class="solutions-actions__secondary">
-          <button class="solutions-actions__filter fr-btn fr-btn--secondary" id="solutions-filter" type="button">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
-            Filtres
-          </button>
-        </div>
-        <button class="solutions-map-btn" id="solutions-toggle-view" type="button" aria-label="Voir les lieux sur la carte">
-          <span class="solutions-map-btn__label" id="solutions-toggle-label">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-            Voir les lieux sur la carte
-          </span>
+        <fieldset class="fr-segmented fr-segmented--sm" id="solutions-view-segmented">
+          <legend class="sr-only">Affichage des résultats</legend>
+          <div class="fr-segmented__elements">
+            <div class="fr-segmented__element">
+              <input value="list" type="radio" id="solutions-view-list" name="solutions-view" checked>
+              <label class="fr-label" for="solutions-view-list">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                Liste
+              </label>
+            </div>
+            <div class="fr-segmented__element">
+              <input value="map" type="radio" id="solutions-view-map" name="solutions-view">
+              <label class="fr-label" for="solutions-view-map">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Carte
+              </label>
+            </div>
+          </div>
+        </fieldset>
+        <button class="solutions-actions__filter" id="solutions-filter" type="button" title="Filtres" aria-label="Filtres">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
         </button>
       </div>
 
@@ -2732,6 +3122,12 @@
       <div class="solutions-list" id="solutions-list">
         <!-- Cards de lieux — à implémenter -->
       </div>
+
+      <!-- Bouton "Proposer un nouveau lieu" — déplacé dynamiquement entre la liste et la carte -->
+      <a class="solutions-actions__propose" id="solutions-propose" href="https://tally.so/r/wzy9ZZ" target="_blank" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Proposer un nouveau lieu à ajouter
+      </a>
 
       <!-- Vue carte -->
       <div class="solutions-map" id="solutions-map" style="display:none;">
@@ -2752,21 +3148,22 @@
     </section>
 
     <!-- =============================================
-         Section Lieu détail (scaffold)
+         Section Lieu détail
          ============================================= -->
     <section class="lieu-section" id="lieu-section">
 
+      <!-- Header vert : bouton retour (réutilise le style solutions-header__back) -->
       <div class="lieu-header">
-        <button class="lieu-header__back" id="lieu-back" type="button">
+        <button class="lieu-header__back" id="lieu-back" type="button" aria-label="Revenir aux solutions">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-          <span id="lieu-back-label">Revenir aux solutions</span>
+          <span>Revenir aux solutions</span>
         </button>
       </div>
 
-      <div class="lieu-content" id="lieu-content">
-        <!-- Contenu du lieu — à implémenter -->
-      </div>
+      <!-- Contenu de la fiche — rempli par renderLieuContent() -->
+      <div class="lieu-content" id="lieu-content"></div>
 
+      <!-- Footer commun -->
       <div class="lieu-footer">
         <a href="https://quefairedemesdechets.ademe.fr" class="section-footer-link" target="_blank" rel="noopener noreferrer">En savoir plus sur cet outil</a>
         <div class="footer-logos">
@@ -2897,6 +3294,11 @@
     // =============================================
     // State Management
     // =============================================
+    // Lecture des paramètres d'URL pour piloter le comportement par défaut
+    // (ex. ?view=map pour afficher la carte par défaut dans l'écran solutions — utile pour A/B testing)
+    const urlParams = new URLSearchParams(window.location.search);
+    const DEFAULT_SOLUTIONS_VIEW = urlParams.get('view') === 'map' ? 'map' : 'list';
+
     const appState = {
       currentStep: 'search',
       selectedFiche: null,
@@ -2904,8 +3306,19 @@
       categoryCounts: null,
       consignesData: null,
       selectedGesteIndex: null,
-      searchLabel: null
+      searchLabel: null,
+      defaultSolutionsView: DEFAULT_SOLUTIONS_VIEW
     };
+
+    // Si la vue "carte par défaut" est demandée, on réordonne le contrôle segmenté
+    // (bouton Carte en première position, Liste en deuxième) pour refléter la priorité visuelle.
+    if (DEFAULT_SOLUTIONS_VIEW === 'map') {
+      const segmentedElements = document.querySelector('#solutions-view-segmented .fr-segmented__elements');
+      const mapElement = document.getElementById('solutions-view-map')?.closest('.fr-segmented__element');
+      if (segmentedElements && mapElement) {
+        segmentedElements.insertBefore(mapElement, segmentedElements.firstElementChild);
+      }
+    }
 
     // =============================================
     // Références DOM
@@ -3876,73 +4289,10 @@
     const _acteursCache = new Map();      // url → réponse JSON
     const _inflightAceturs = new Map();    // url → promesse en cours
 
-    // Bbox Loire-Atlantique (44) — quand on est dedans, on utilise les données locales
-    // au lieu de taper l'API ADEME (qui est instable). Couvre 99.5% des acteurs 44.
-    const LA_BBOX = { minLat: 46.85, maxLat: 47.85, minLon: -2.65, maxLon: -1.05 };
-    function isInLoireAtlantique(lat, lon, postcode) {
-      if (postcode && /^44\d{3}$/.test(postcode)) return true;
-      return lat >= LA_BBOX.minLat && lat <= LA_BBOX.maxLat
-          && lon >= LA_BBOX.minLon && lon <= LA_BBOX.maxLon;
-    }
-
-    // Données locales 44 : chargées une fois au démarrage, gardées en mémoire pour la session
-    let _acteurs44 = null;        // tableau d'acteurs ou null si pas encore chargé
-    let _acteurs44Loading = null;  // promesse en cours du fetch initial (dedupe)
-
-    async function getActeurs44() {
-      if (_acteurs44) return _acteurs44;
-      if (_acteurs44Loading) return _acteurs44Loading;
-      _acteurs44Loading = (async () => {
-        try {
-          const resp = await fetch('src/data/acteurs-loire-atlantique.json');
-          if (!resp.ok) throw new Error(`Erreur chargement données 44 : ${resp.status}`);
-          _acteurs44 = await resp.json();
-          return _acteurs44;
-        } finally {
-          _acteurs44Loading = null;
-        }
-      })();
-      return _acteurs44Loading;
-    }
-
-    // Filtre les acteurs 44 en mémoire pour reproduire le format de réponse ADEME API
-    function filterLocal44(lat, lon, rayonKm, ficheId) {
-      const slugs = ficheId ? (FICHE_SLUGS[ficheId] || []) : [];
-      const rayonMeters = rayonKm * 1000;
-      const results = [];
-      for (const a of _acteurs44) {
-        const aLat = parseFloat(a.latitude);
-        const aLon = parseFloat(a.longitude);
-        if (isNaN(aLat) || isNaN(aLon)) continue;
-        // Distance haversine en m (approximation rapide pour pré-filtrage cercle)
-        const d = haversineKm(lat, lon, aLat, aLon) * 1000;
-        if (d > rayonMeters) continue;
-        // Si on filtre par slug, l'acteur doit avoir le slug dans au moins un champ d'action
-        // Les champs utilisent '|' comme séparateur (ex: "chaussures|vetement|linge_de_maison")
-        if (slugs.length > 0) {
-          const allActionsText = [a.reparer, a.donner, a.revendre, a.echanger, a.trier, a.emprunter, a.preter]
-            .filter(Boolean).join('|');
-          const actorSlugs = allActionsText.split('|').map(s => s.trim());
-          if (!slugs.some(s => actorSlugs.includes(s))) continue;
-        }
-        results.push(a);
-      }
-      // Reproduit la structure { total, results } de l'API ADEME
-      return { total: results.length, results };
-    }
-
     async function fetchActeursProches(lat, lon, rayonKm, ficheId, opts) {
       opts = opts || {};
-      const postcode = appState.selectedAddress?.postcode;
 
-      // === DONNÉES LOCALES 44 ===
-      // Si on est en Loire-Atlantique, on filtre les données locales (rapide + 0 API)
-      if (isInLoireAtlantique(lat, lon, postcode)) {
-        await getActeurs44();
-        return filterLocal44(lat, lon, rayonKm, ficheId);
-      }
-
-      // === API ADEME (fallback hors 44) ===
+      // === API ADEME (data-fair Koumoul) ===
       const slugs = ficheId ? (FICHE_SLUGS[ficheId] || []) : [];
       // Arrondi des coordonnées à 4 décimales (~11m) : stabilise la clé de cache
       const latR = Math.round(lat * 10000) / 10000;
@@ -3950,7 +4300,7 @@
       const params = new URLSearchParams({
         geo_distance: `${lonR},${latR},${rayonKm * 1000}`,
         size:   '300',
-        select: 'nom,nom_commercial,adresse,complement_dadresse,code_postal,ville,latitude,longitude,type_dacteur,type_de_services,qualites_et_labels,reparer,donner,revendre,echanger,trier,emprunter,preter,horaires_description,telephone,site_web,identifiant',
+        select: 'nom,nom_commercial,adresse,complement_dadresse,code_postal,ville,latitude,longitude,type_dacteur,type_de_services,qualites_et_labels,reparer,donner,revendre,echanger,trier,emprunter,preter,acheter,mettreenlocation,louer,rapporter,horaires_description,horaires_osm,telephone,site_web,identifiant,description,public_accueilli,reprise,exclusivite_de_reprisereparation,uniquement_sur_rdv,propositions_de_services,lieu_prestation,perimetreadomicile,paternite,date_de_derniere_modification',
       });
       if (slugs.length > 0) {
         params.append('q', slugs[0]);
@@ -4049,9 +4399,7 @@
         .map(k => `<span class="solution-card__pill solution-card__pill--${k}">${PILL_ICONS[k] || ''}${ACTION_LABELS[k]}</span>`)
         .join('');
 
-      const ficheUrl = acteur.site_web
-        ? acteur.site_web
-        : (acteur.identifiant ? `https://quefairedemesdechets.ademe.fr/acteur/${acteur.identifiant}/` : '#');
+      const acteurId = acteur.identifiant || acteur._id || '';
 
       return `
         <div class="solution-card">
@@ -4059,7 +4407,7 @@
           ${labelsHtml.length ? `<div class="solution-card__labels">${labelsHtml.join('')}</div>` : ''}
           ${pillsHtml ? `<div class="solution-card__gestes">${pillsHtml}</div>` : ''}
           <p class="solution-card__distance">${formatDistance(acteur._distance)}</p>
-          <a class="solution-card__link" href="${ficheUrl}" target="_blank" rel="noopener noreferrer">Voir la fiche</a>
+          <button class="solution-card__link" type="button" data-acteur-id="${acteurId}">Voir la fiche</button>
         </div>`;
     }
 
@@ -4092,6 +4440,8 @@
 
       document.getElementById('solutions-list').innerHTML = cardsHtml + paginationHtml;
       appState.solutionsPage = page;
+      // Réinsère le bouton "Proposer un nouveau lieu" entre la dernière card et la pagination
+      if (typeof positionProposeButton === 'function') positionProposeButton('list');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -4110,16 +4460,21 @@
       const acc = appState.sortedAccordeons ? appState.sortedAccordeons[gesteIndex] : null;
       const ficheNom = appState.selectedFiche ? appState.selectedFiche.nom : '';
 
-      // Bouton retour avec nom de l'objet
-      document.getElementById('solutions-back-label').textContent = ficheNom
-        ? `Revenir aux recommandations pour ${ficheNom}`
-        : 'Revenir aux recommandations';
-
-      // Titre avec icône du geste
-      const gesteIcon = acc && GESTE_ICONS[acc.icone] ? GESTE_ICONS[acc.icone] : '';
-      document.getElementById('solutions-geste-title').innerHTML = acc
-        ? `<span class="solutions-header__geste-icon">${gesteIcon}</span>${acc.titre}`
-        : '';
+      // Bouton retour enrichi : nom objet + ligne geste(s) avec icône(s)
+      const backBtn = document.getElementById('solutions-back');
+      if (backBtn) {
+        backBtn.setAttribute('aria-label',
+          ficheNom ? `Revenir aux recommandations pour ${ficheNom}` : 'Revenir aux recommandations');
+      }
+      document.getElementById('solutions-back-object').textContent = ficheNom || '';
+      const gestes = acc ? [acc] : []; // Structure prête pour plusieurs gestes
+      document.getElementById('solutions-back-gestes').innerHTML = gestes.map(g => {
+        const icon = GESTE_ICONS[g.icone] || '';
+        return `<span class="solutions-header__back-geste">
+          <span class="solutions-header__back-geste-icon">${icon}</span>
+          <span>${g.titre}</span>
+        </span>`;
+      }).join('');
 
       // Pré-remplit le champ adresse avec l'adresse courante
       const addrInput = document.getElementById('solutions-address-input');
@@ -4164,13 +4519,19 @@
         const total = acteurs.length;
         document.getElementById('solutions-count').textContent =
           total > 0
-            ? `${total} lieu${total > 1 ? 'x' : ''} du plus proche au plus loin`
-            : 'Aucun lieu trouvé';
+            ? `${total} solution${total > 1 ? 's' : ''} à moins de 20 km`
+            : 'Aucune solution à moins de 20 km';
 
         if (total === 0) {
           document.getElementById('solutions-list').innerHTML = '<p class="solutions-empty">Aucun lieu trouvé dans ce rayon.</p>';
         } else {
           renderSolutionsPage(1);
+        }
+
+        // Si l'environnement demande la carte par défaut (?view=map), on bascule maintenant
+        // (la liste est visible à ce stade ; toggleSolutionsView va l'inverser et initialiser la carte).
+        if (appState.defaultSolutionsView === 'map') {
+          toggleSolutionsView();
         }
 
       } catch (err) {
@@ -4181,12 +4542,23 @@
       }
     }
 
-    // Délégation pour les clics de pagination
+    // Délégation pour les clics de pagination et d'ouverture de fiche lieu
     document.getElementById('solutions-list').addEventListener('click', function(e) {
-      const btn = e.target.closest('.solutions-pagination__btn');
-      if (!btn || btn.disabled) return;
-      const page = parseInt(btn.dataset.page, 10);
-      if (!isNaN(page)) renderSolutionsPage(page);
+      const paginationBtn = e.target.closest('.solutions-pagination__btn');
+      if (paginationBtn && !paginationBtn.disabled) {
+        const page = parseInt(paginationBtn.dataset.page, 10);
+        if (!isNaN(page)) renderSolutionsPage(page);
+        return;
+      }
+
+      const ficheBtn = e.target.closest('.solution-card__link');
+      if (ficheBtn) {
+        const id = ficheBtn.dataset.acteurId;
+        const acteur = (appState.solutionsActeurs || []).find(
+          a => (a.identifiant || a._id) === id
+        );
+        if (acteur) goToLieu(acteur);
+      }
     });
 
     // =============================================
@@ -4322,7 +4694,407 @@
       appState.currentStep = 'solutions';
       container.classList.remove('step-lieu');
       container.classList.add('step-solutions');
+      // Détruit la mini-carte lieu pour libérer la mémoire et éviter conflits avec la carte solutions
+      if (lieuMapInstance) {
+        lieuMapInstance.remove();
+        lieuMapInstance = null;
+      }
       window.scrollTo(0, 0);
+    }
+
+    // =============================================
+    // Fiche détaillée d'un lieu
+    // =============================================
+
+    let lieuMapInstance = null;
+
+    // Mappings type_de_services → libellé lisible (sous-titre de la fiche)
+    const TYPE_SERVICE_LABELS = {
+      structure_de_collecte: 'Structure de collecte',
+      service_de_reparation: 'Service de réparation',
+      achat_revente_particuliers: 'Achat-revente entre particuliers',
+      achat_revente_professionnel: 'Achat-revente professionnel',
+      recyclerie: 'Recyclerie',
+      depot_vente: 'Dépôt-vente',
+      atelier_pour_reparer_soi_meme: 'Atelier pour réparer soi-même',
+      relai_acteurs_et_evenements: 'Relai d\'acteurs et événements',
+      don_particuliers: 'Don entre particuliers',
+      echanges_particuliers: 'Échanges entre particuliers',
+      espace_de_partage: 'Espace de partage',
+      localtion_particuliers: 'Location entre particuliers',
+      location_professionnel: 'Location professionnelle',
+      partage_particuliers: 'Partage entre particuliers',
+      pieces_detachees: 'Pièces détachées',
+      structure_qui_sous_traite_la_reparation: 'Structure qui sous-traite la réparation',
+      tutoriels_et_diagnostics_en_ligne: 'Tutoriels et diagnostics en ligne',
+    };
+
+    function escapeHtml(s) {
+      if (s == null) return '';
+      return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    }
+
+    function humanizeSlug(slug) {
+      if (!slug) return '';
+      return slug.replace(/_/g, ' ').replace(/^./, c => c.toUpperCase());
+    }
+
+    function lieuTypeServiceLabel(acteur) {
+      const raw = acteur.type_de_services || '';
+      const first = raw.split('|')[0].trim();
+      return TYPE_SERVICE_LABELS[first] || (first ? humanizeSlug(first) : (TYPE_ACTEUR_LABELS[acteur.type_dacteur] || ''));
+    }
+
+    async function goToLieu(acteur) {
+      appState.currentStep = 'lieu';
+      appState.selectedActeur = acteur;
+      container.classList.remove('step-solutions', 'step-fiche');
+      container.classList.add('step-lieu');
+      renderLieuContent(acteur);
+      history.pushState({ step: 'lieu', acteurId: acteur.identifiant || acteur._id }, '');
+      window.scrollTo(0, 0);
+    }
+
+    // -- Rendus HTML par bloc --
+
+    function renderLieuTopBar(acteur) {
+      const isBonus = isBonusReparation(acteur);
+      const isRepar = isReparActeur(acteur);
+      const isESS = acteur.type_dacteur === 'ess';
+
+      // Un seul tag prioritaire : Bonus > Répar'Acteurs > ESS
+      let tagHtml = '';
+      if (isBonus) tagHtml = `<span class="lieu-tag lieu-tag--bonus">${ICON_BONUS}Propose le Bonus Réparation</span>`;
+      else if (isRepar) tagHtml = `<span class="lieu-tag lieu-tag--repar">${ICON_REPARACTEUR}Répar'Acteurs</span>`;
+      else if (isESS) tagHtml = `<span class="lieu-tag lieu-tag--ess">${ICON_ESS}Économie sociale et solidaire</span>`;
+
+      return `
+        <div class="lieu-top">
+          <div class="lieu-top__tags">${tagHtml}</div>
+          <button class="lieu-close" id="lieu-close" type="button" aria-label="Fermer la fiche">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>`;
+    }
+
+    function renderLieuIdentity(acteur) {
+      const nom = acteur.nom_commercial || acteur.nom || 'Lieu sans nom';
+      const service = lieuTypeServiceLabel(acteur);
+      const dist = (typeof acteur._distance === 'number') ? formatDistance(acteur._distance) : '';
+      const metaParts = [service, dist].filter(Boolean).join(' · ');
+      return `
+        <h2 class="lieu-name">${escapeHtml(nom)}</h2>
+        ${metaParts ? `<p class="lieu-meta">${escapeHtml(metaParts)}</p>` : ''}`;
+    }
+
+    function renderLieuActions(acteur) {
+      const lat = parseFloat(acteur.latitude);
+      const lon = parseFloat(acteur.longitude);
+      const actions = [];
+
+      if (!isNaN(lat) && !isNaN(lon)) {
+        actions.push({
+          href: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`,
+          label: 'Itinéraire',
+          icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>',
+          external: true,
+          primary: true, // mise en avant : fond bleu, icône blanche
+        });
+      }
+      if (acteur.site_web) {
+        actions.push({
+          href: acteur.site_web,
+          label: 'Site web',
+          icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+          external: true,
+        });
+      }
+      if (acteur.telephone) {
+        actions.push({
+          href: `tel:${acteur.telephone.replace(/\s+/g, '')}`,
+          label: 'Téléphone',
+          icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+          external: false,
+        });
+      }
+      // Partager : action JS gérée dans attachLieuEvents
+      actions.push({
+        id: 'lieu-share',
+        label: 'Partager',
+        icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
+        button: true,
+      });
+
+      const itemsHtml = actions.map(a => {
+        const primaryClass = a.primary ? ' lieu-action--primary' : '';
+        const inner = `<span class="lieu-action__icon">${a.icon}</span><span class="lieu-action__label">${a.label}</span>`;
+        if (a.button) {
+          return `<button class="lieu-action${primaryClass}" id="${a.id}" type="button">${inner}</button>`;
+        }
+        const target = a.external ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return `<a class="lieu-action${primaryClass}" href="${escapeHtml(a.href)}"${target}>${inner}</a>`;
+      }).join('');
+
+      return `<div class="lieu-actions">${itemsHtml}</div>`;
+    }
+
+    function renderLieuMap() {
+      return `
+        <h3 class="lieu-section-title">Adresse</h3>
+        <div class="lieu-map" id="lieu-map" aria-label="Carte du lieu"></div>`;
+    }
+
+    function renderLieuAddress(acteur) {
+      const line1 = [acteur.adresse, acteur.complement_dadresse].filter(Boolean).join(', ');
+      const line2 = [acteur.code_postal, acteur.ville].filter(Boolean).join(' ');
+      if (!line1 && !line2) return '';
+      return `
+        <p class="lieu-address">
+          ${line1 ? escapeHtml(line1) : ''}${line1 && line2 ? '<br>' : ''}${line2 ? escapeHtml(line2) : ''}
+        </p>`;
+    }
+
+    function renderLieuInfos(acteur) {
+      const infos = [];
+
+      if (isBonusReparation(acteur)) {
+        infos.push(`Ce lieu propose le Bonus Réparation. <a class="lieu-infos__link" href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">En savoir plus →</a>`);
+      }
+      const presta = (acteur.lieu_prestation || '').toLowerCase();
+      const perim = (acteur.perimetreadomicile || '').toString().trim();
+      if (presta.includes('domicile') || perim) {
+        infos.push('Ce lieu propose des services à domicile.');
+      }
+      if (String(acteur.uniquement_sur_rdv || '').toLowerCase() === 'oui') {
+        infos.push('Les services de cet établissement ne sont disponibles que sur rendez-vous.');
+      }
+      if (String(acteur.exclusivite_de_reprisereparation || '').toLowerCase() === 'oui') {
+        infos.push('Ce lieu ne répare que les produits de ses marques.');
+      }
+      if (String(acteur.reprise || '').trim() === '1 pour 1') {
+        infos.push('Ce lieu ne reprend vos objets que dans le cadre d\'un achat neuf.');
+      }
+
+      if (infos.length === 0) return '';
+      return `<ul class="lieu-infos">${infos.map(t => `<li>${t}</li>`).join('')}</ul>`;
+    }
+
+    function renderLieuAccordions(acteur) {
+      // Description : titre fermé = "Description" + preview 80 chars ; ouvert = texte complet
+      const description = (acteur.description || '').trim();
+      const descPreview = description ? (description.length > 80 ? description.slice(0, 80).trim() + '…' : description) : '';
+
+      // Gestes + sous-catégories acceptées (parse propositions_de_services)
+      const gestesBlocks = parsePropositionsDeServices(acteur);
+
+      const horaires = (acteur.horaires_description || acteur.horaires_osm || '').trim();
+
+      // En savoir plus : sources (paternite), type d'enseigne, labels
+      const sources = (acteur.paternite || '').split('|').map(s => s.trim()).filter(Boolean);
+      const typeEnseigne = TYPE_ACTEUR_LABELS[acteur.type_dacteur] || (acteur.type_dacteur ? humanizeSlug(acteur.type_dacteur) : '');
+      const labels = (acteur.qualites_et_labels || '').split('|').map(s => s.trim()).filter(Boolean);
+
+      const accordions = [];
+
+      // Accordéon Description
+      if (description) {
+        accordions.push(`
+          <details class="lieu-accordion">
+            <summary class="lieu-accordion__summary">
+              <span class="lieu-accordion__title">Description</span>
+              ${descPreview ? `<span class="lieu-accordion__preview">${escapeHtml(descPreview)}</span>` : ''}
+              <svg class="lieu-accordion__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="lieu-accordion__body">${escapeHtml(description).replace(/\n+/g, '<br>')}</div>
+          </details>`);
+      }
+
+      // Accordéon Gestes et objets accueillis
+      if (gestesBlocks.length > 0) {
+        const previewPills = gestesBlocks.map(g => {
+          const icon = PILL_ICONS[g.action] || '';
+          const label = ACTION_LABELS[g.action] || humanizeSlug(g.action);
+          return `<span class="solution-card__pill solution-card__pill--${g.action}">${icon}${label}</span>`;
+        }).join('');
+        const bodyHtml = gestesBlocks.map(g => {
+          const icon = PILL_ICONS[g.action] || '';
+          const label = ACTION_LABELS[g.action] || humanizeSlug(g.action);
+          const cats = g.sous_categories.map(humanizeSlug).join(', ');
+          return `
+            <div class="lieu-geste-block">
+              <span class="solution-card__pill solution-card__pill--${g.action}">${icon}${label}</span>
+              ${cats ? `<p class="lieu-geste-block__cats">${escapeHtml(cats)}</p>` : ''}
+            </div>`;
+        }).join('');
+        accordions.push(`
+          <details class="lieu-accordion">
+            <summary class="lieu-accordion__summary lieu-accordion__summary--pills">
+              <div class="lieu-accordion__pills">${previewPills}</div>
+              <svg class="lieu-accordion__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="lieu-accordion__body">${bodyHtml}</div>
+          </details>`);
+      }
+
+      // Accordéon Horaires
+      if (horaires) {
+        accordions.push(`
+          <details class="lieu-accordion">
+            <summary class="lieu-accordion__summary">
+              <span class="lieu-accordion__title">Horaires</span>
+              <svg class="lieu-accordion__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="lieu-accordion__body">${escapeHtml(horaires).replace(/\n+/g, '<br>')}</div>
+          </details>`);
+      }
+
+      // Accordéon En savoir plus (sources + type + labels)
+      if (sources.length || typeEnseigne || labels.length) {
+        const sourcesHtml = sources.length
+          ? `<div class="lieu-meta-block"><h4>Sources</h4><ul>${sources.map(s => `<li>${escapeHtml(s)}</li>`).join('')}</ul></div>`
+          : '';
+        const typeHtml = typeEnseigne
+          ? `<div class="lieu-meta-block"><h4>Type d'enseigne</h4><p>${escapeHtml(typeEnseigne)}</p></div>`
+          : '';
+        const labelsHtml = labels.length
+          ? `<div class="lieu-meta-block"><h4>Labels</h4><ul>${labels.map(l => `<li>${escapeHtml(humanizeSlug(l))}</li>`).join('')}</ul></div>`
+          : '';
+        accordions.push(`
+          <details class="lieu-accordion">
+            <summary class="lieu-accordion__summary">
+              <span class="lieu-accordion__title">En savoir plus sur ce lieu</span>
+              <svg class="lieu-accordion__chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="lieu-accordion__body">${sourcesHtml}${typeHtml}${labelsHtml}</div>
+          </details>`);
+      }
+
+      if (accordions.length === 0) return '';
+      return `
+        <h3 class="lieu-section-title">Description et services détaillés</h3>
+        <div class="lieu-accordions">${accordions.join('')}</div>`;
+    }
+
+    function parsePropositionsDeServices(acteur) {
+      const raw = acteur.propositions_de_services;
+      if (!raw) return [];
+      try {
+        const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
+        if (!Array.isArray(parsed)) return [];
+        return parsed
+          .filter(p => p && p.action)
+          .map(p => ({
+            action: String(p.action).toLowerCase().replace(/\s+/g, ''),
+            sous_categories: Array.isArray(p.sous_categories) ? p.sous_categories : [],
+          }));
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function renderLieuFooter(acteur) {
+      const dateMaj = acteur.date_de_derniere_modification ? formatDateFr(acteur.date_de_derniere_modification) : '';
+      return dateMaj ? `<p class="lieu-update-date">Mise à jour le ${dateMaj}</p>` : '';
+    }
+
+    function formatDateFr(iso) {
+      // "2025-09-24" → "24/09/2025"
+      const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+      return m ? `${m[3]}/${m[2]}/${m[1]}` : iso;
+    }
+
+    function renderLieuContent(acteur) {
+      const root = document.getElementById('lieu-content');
+      root.innerHTML = `
+        ${renderLieuTopBar(acteur)}
+        ${renderLieuIdentity(acteur)}
+        ${renderLieuActions(acteur)}
+        ${renderLieuMap()}
+        ${renderLieuAddress(acteur)}
+        ${renderLieuInfos(acteur)}
+        ${renderLieuAccordions(acteur)}
+        ${renderLieuFooter(acteur)}
+      `;
+      initLieuMap(acteur);
+      attachLieuEvents(acteur);
+    }
+
+    function initLieuMap(acteur) {
+      if (lieuMapInstance) {
+        lieuMapInstance.remove();
+        lieuMapInstance = null;
+      }
+      const lat = parseFloat(acteur.latitude);
+      const lon = parseFloat(acteur.longitude);
+      if (isNaN(lat) || isNaN(lon)) return;
+
+      const cf = window.CarteFacile && CarteFacile.mapStyles;
+      const style = (cf && (cf.desaturated || cf.desature || cf.gris))
+        || (cf && cf.simple)
+        || 'https://tiles.openfreemap.org/styles/positron';
+
+      lieuMapInstance = new maplibregl.Map({
+        container: 'lieu-map',
+        style,
+        center: [lon, lat],
+        zoom: 14,
+        interactive: false,
+        attributionControl: false,
+      });
+      lieuMapInstance.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+
+      lieuMapInstance.on('load', () => {
+        // Pin du lieu : même logique que la grande carte — reflète le geste choisi par l'usager
+        const gesteIcone = currentGesteIcone();
+        const primary = gesteIcone ? getPrimaryActionForGeste(acteur, gesteIcone) : getPrimaryAction(acteur);
+        const useBonus = primary === 'reparer' && isBonusReparation(acteur);
+        const pinSvg = useBonus ? PIN_BONUS_REPARATION : (PIN_BY_ACTION[primary] || PIN_TRI);
+        const lieuEl = document.createElement('div');
+        lieuEl.className = 'map-marker lieu-map__marker';
+        lieuEl.innerHTML = pinSvg;
+        new maplibregl.Marker({ element: lieuEl, anchor: 'bottom' })
+          .setLngLat([lon, lat])
+          .addTo(lieuMapInstance);
+
+        // Pin utilisateur "vous êtes ici" — même SVG que sur la grande carte
+        if (appState.selectedAddress) {
+          const userEl = document.createElement('div');
+          userEl.className = 'map-user lieu-map__user';
+          userEl.innerHTML = PIN_USER;
+          new maplibregl.Marker({ element: userEl, anchor: 'center' })
+            .setLngLat([appState.selectedAddress.lon, appState.selectedAddress.lat])
+            .addTo(lieuMapInstance);
+        }
+      });
+    }
+
+    function attachLieuEvents(acteur) {
+      // Bouton croix → revient aux solutions
+      const closeBtn = document.getElementById('lieu-close');
+      if (closeBtn) closeBtn.addEventListener('click', goBackToSolutions);
+
+      // Bouton partager → copie l'URL Que faire de mes objets et déchets dans le presse-papier
+      const shareBtn = document.getElementById('lieu-share');
+      if (shareBtn) {
+        shareBtn.addEventListener('click', async () => {
+          const url = acteur.identifiant
+            ? `https://quefairedemesdechets.ademe.fr/acteur/${encodeURIComponent(acteur.identifiant)}/`
+            : window.location.href;
+          try {
+            await navigator.clipboard.writeText(url);
+            shareBtn.classList.add('is-copied');
+            const label = shareBtn.querySelector('.lieu-action__label');
+            const original = label.textContent;
+            label.textContent = 'Lien copié !';
+            setTimeout(() => {
+              label.textContent = original;
+              shareBtn.classList.remove('is-copied');
+            }, 2000);
+          } catch (e) {
+            console.error('[lieu-share] échec copie URL :', e);
+          }
+        });
+      }
     }
 
     // =============================================
@@ -4336,6 +5108,25 @@
         if (acteur[a] && acteur[a].trim()) return a;
       }
       return 'trier';
+    }
+
+    // Sélectionne le pin selon le geste choisi par l'usager (pas l'action principale brute de l'acteur) :
+    // on ne considère que les actions liées au geste (cf. GESTE_ACTION_FIELDS).
+    // Ex : geste "donner" → on cherche parmi donner/revendre/echanger, en ignorant reparer même si l'acteur le propose.
+    function getPrimaryActionForGeste(acteur, gesteIcone) {
+      const fields = GESTE_ACTION_FIELDS[gesteIcone];
+      if (!fields || fields.length === 0) return getPrimaryAction(acteur);
+      for (const a of fields) {
+        if (acteur[a] && acteur[a].trim()) return a;
+      }
+      return fields[0]; // fallback : le 1er champ du geste (couleur cohérente avec le contexte)
+    }
+
+    function currentGesteIcone() {
+      const acc = appState.sortedAccordeons && appState.selectedGesteIndex != null
+        ? appState.sortedAccordeons[appState.selectedGesteIndex]
+        : null;
+      return acc ? acc.icone : null;
     }
 
     // SVG pins fournis par le design system (35x47, sauf le bonus = 43x52)
@@ -4367,8 +5158,10 @@
     };
 
     function createActeurMarkerEl(acteur) {
-      const primary = getPrimaryAction(acteur);
-      // Si bonus réparation ET action principale = reparer → punaise bonus
+      // Le pin reflète le geste sélectionné par l'usager (pas l'action principale brute de l'acteur).
+      const gesteIcone = currentGesteIcone();
+      const primary = gesteIcone ? getPrimaryActionForGeste(acteur, gesteIcone) : getPrimaryAction(acteur);
+      // Si bonus réparation ET action retenue = reparer → punaise bonus
       const useBonus = primary === 'reparer' && isBonusReparation(acteur);
       const pinSvg = useBonus ? PIN_BONUS_REPARATION : (PIN_BY_ACTION[primary] || PIN_TRI);
 
@@ -4377,7 +5170,7 @@
       el.innerHTML = pinSvg;
       el.addEventListener('click', (e) => {
         e.stopPropagation();
-        openMapPopup(acteur);
+        goToLieu(acteur);
       });
       return el;
     }
@@ -4399,27 +5192,6 @@
       mapMarkers = [];
       if (userMarker) { userMarker.remove(); userMarker = null; }
       if (currentPopup) { currentPopup.remove(); currentPopup = null; }
-    }
-
-    function openMapPopup(acteur) {
-      if (!mapInstance) return;
-      if (currentPopup) currentPopup.remove();
-      const adresseParts = [acteur.adresse, acteur.complement_dadresse].filter(Boolean).join(', ');
-      const ville = [acteur.code_postal, acteur.ville].filter(Boolean).join(' ');
-      const adresseLabel = [adresseParts, ville].filter(Boolean).join(' — ');
-      const ficheUrl = acteur.site_web
-        ? acteur.site_web
-        : (acteur.identifiant ? `https://quefairedemesdechets.ademe.fr/acteur/${acteur.identifiant}/` : '#');
-
-      currentPopup = new maplibregl.Popup({ offset: 28, closeButton: true, maxWidth: '240px' })
-        .setLngLat([parseFloat(acteur.longitude), parseFloat(acteur.latitude)])
-        .setHTML(`
-          <h4 class="map-popup__name">${acteur.nom || 'Lieu sans nom'}</h4>
-          ${adresseLabel ? `<p class="map-popup__address">${adresseLabel}</p>` : ''}
-          <p class="map-popup__distance">${formatDistance(acteur._distance)}</p>
-          <a class="map-popup__link" href="${ficheUrl}" target="_blank" rel="noopener noreferrer">Voir la fiche →</a>
-        `)
-        .addTo(mapInstance);
     }
 
     function initSolutionsMap() {
@@ -4530,8 +5302,8 @@
         const total = acteurs.length;
         const countEl = document.getElementById('solutions-count');
         if (countEl) countEl.textContent = total > 0
-          ? `${total} lieu${total > 1 ? 'x' : ''} du plus proche au plus loin`
-          : 'Aucun lieu trouvé';
+          ? `${total} solution${total > 1 ? 's' : ''} à moins de 20 km`
+          : 'Aucune solution à moins de 20 km';
         if (total === 0) {
           document.getElementById('solutions-list').innerHTML = '<p class="solutions-empty">Aucun lieu trouvé dans ce rayon.</p>';
         } else {
@@ -4552,23 +5324,38 @@
       }
     }
 
+    // Met à jour l'état du contrôle segmenté Liste/Carte et repositionne
+    // le bouton "Proposer un nouveau lieu" selon le mode.
     function setToggleButtonMode(mode) {
-      const btn = document.getElementById('solutions-toggle-view');
-      const label = document.getElementById('solutions-toggle-label');
+      const listRadio = document.getElementById('solutions-view-list');
+      const mapRadio = document.getElementById('solutions-view-map');
+      if (listRadio && mapRadio) {
+        if (mode === 'map') mapRadio.checked = true;
+        else listRadio.checked = true;
+      }
+      positionProposeButton(mode);
+    }
+
+    // Le bouton "Proposer un nouveau lieu à ajouter" est unique dans le DOM ;
+    // on le déplace selon le mode : juste avant la pagination en mode liste,
+    // juste après la carte en mode carte.
+    function positionProposeButton(mode) {
+      const propose = document.getElementById('solutions-propose');
+      if (!propose) return;
+      const listEl = document.getElementById('solutions-list');
+      const mapEl = document.getElementById('solutions-map');
       if (mode === 'map') {
-        btn.classList.add('solutions-map-btn--list-mode');
-        btn.setAttribute('aria-label', 'Revenir au mode liste');
-        label.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-          Revenir au mode liste
-        `;
+        // Insère juste après la carte
+        mapEl.parentNode.insertBefore(propose, mapEl.nextSibling);
       } else {
-        btn.classList.remove('solutions-map-btn--list-mode');
-        btn.setAttribute('aria-label', 'Voir les lieux sur la carte');
-        label.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
-          Voir les lieux sur la carte
-        `;
+        // Mode liste : insère dans #solutions-list avant la pagination si elle existe,
+        // sinon en fin de liste.
+        const pagination = listEl.querySelector('.solutions-pagination');
+        if (pagination) {
+          listEl.insertBefore(propose, pagination);
+        } else {
+          listEl.appendChild(propose);
+        }
       }
     }
 
@@ -4766,9 +5553,18 @@
       goBackToSolutions();
     });
 
-    // Toggle liste / carte dans solutions
-    document.getElementById('solutions-toggle-view').addEventListener('click', () => {
-      toggleSolutionsView();
+    // Toggle liste / carte dans solutions — via le contrôle segmenté DSFR
+    document.getElementById('solutions-view-segmented').addEventListener('change', (e) => {
+      const target = e.target;
+      if (target && target.name === 'solutions-view') {
+        const listEl = document.getElementById('solutions-list');
+        const isListVisible = listEl.style.display !== 'none';
+        const wantsMap = target.value === 'map';
+        // toggleSolutionsView bascule selon l'état courant ; on l'appelle uniquement
+        // si l'état actuel ne correspond pas à la sélection.
+        if (wantsMap && isListVisible) toggleSolutionsView();
+        else if (!wantsMap && !isListVisible) toggleSolutionsView();
+      }
     });
 
     // Bouton "Nouvelle recherche dans cette zone" (apparaît au pan)
@@ -4787,13 +5583,13 @@
       document.body.style.overflow = 'hidden';
 
       function sendHeight() {
-        // Mesurer la hauteur réelle du contenu en prenant le max de toutes les sources
-        var height = Math.max(
-          document.body.scrollHeight,
-          document.body.offsetHeight,
-          document.documentElement.scrollHeight,
-          document.documentElement.offsetHeight
-        );
+        // Mesure de la hauteur réelle du contenu via le conteneur principal de l'app.
+        // (On évite documentElement.scrollHeight qui inclut au minimum la hauteur du viewport
+        // de l'iframe — ce qui empêcherait l'iframe parente de rétrécir quand le contenu est court.)
+        var container = document.querySelector('.iframe-container');
+        var height = container
+          ? Math.ceil(container.getBoundingClientRect().height)
+          : document.body.scrollHeight;
         window.parent.postMessage({ type: 'assistant-tri-resize', height: height }, '*');
       }
 
@@ -4810,13 +5606,6 @@
       setTimeout(sendHeight, 1500);
     })();
 
-    // Pré-charge les données Loire-Atlantique en arrière-plan dès le démarrage,
-    // pour qu'elles soient en mémoire quand l'usager arrive sur la fiche.
-    // (Si l'utilisateur cherche hors 44, le tableau sera chargé pour rien — 2.7 Mo,
-    //  mais c'est sans incidence sur l'expérience.)
-    if (typeof getActeurs44 === 'function') {
-      getActeurs44().catch(err => console.warn('Préchargement données 44 :', err));
-    }
   </script>
 </body>
 </html>
