@@ -2356,12 +2356,14 @@
     .lieu-actions {
       display: flex;
       flex-wrap: nowrap;
-      gap: var(--spacing-1v);
+      gap: var(--spacing-2v);
       overflow-x: auto;
+      padding-top: var(--spacing-3v);
       padding-bottom: var(--spacing-1v);
       margin: 0 calc(-1 * var(--spacing-4v)) var(--spacing-3v);
       padding-left: var(--spacing-4v);
       padding-right: var(--spacing-4v);
+      border-top: 1px solid var(--border-default);
       -webkit-overflow-scrolling: touch;
     }
 
@@ -2411,6 +2413,16 @@
       outline: 2px solid var(--blue-france);
       outline-offset: 2px;
       border-radius: 4px;
+    }
+
+    /* Variante primary : pastille bleue pleine + icône blanche (mise en avant) */
+    .lieu-action--primary .lieu-action__icon {
+      background-color: var(--blue-france);
+      color: #fff;
+    }
+
+    .lieu-action--primary:hover .lieu-action__icon {
+      background-color: var(--blue-france-hover);
     }
 
     /* ---- Titres de section ---- */
@@ -2577,32 +2589,7 @@
       font-size: 0.75rem;
       color: var(--text-mention-grey);
       text-align: right;
-      margin: 0 0 var(--spacing-2v);
-    }
-
-    .lieu-modify {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--spacing-1v);
-      width: 100%;
-      min-height: 2.5rem;
-      padding: 0.5rem 1rem;
-      background-color: var(--background-default);
-      color: var(--blue-france);
-      border: 1px solid var(--blue-france);
-      border-radius: 4px;
-      font-family: 'Marianne', arial, sans-serif;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: background-color 0.15s ease;
-    }
-
-    .lieu-modify:hover { background-color: var(--background-action-low-blue); }
-    .lieu-modify:focus-visible {
-      outline: 2px solid var(--blue-france);
-      outline-offset: 2px;
+      margin: 0;
     }
 
     /* Quand le panneau de recherche est ouvert */
@@ -4853,6 +4840,7 @@
           label: 'Itinéraire',
           icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>',
           external: true,
+          primary: true, // mise en avant : fond bleu, icône blanche
         });
       }
       if (acteur.site_web) {
@@ -4878,22 +4866,15 @@
         icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>',
         button: true,
       });
-      if (acteur.identifiant) {
-        actions.push({
-          href: `https://quefairedemesdechets.ademe.fr/acteur/${encodeURIComponent(acteur.identifiant)}/`,
-          label: 'Modifier',
-          icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
-          external: true,
-        });
-      }
 
       const itemsHtml = actions.map(a => {
+        const primaryClass = a.primary ? ' lieu-action--primary' : '';
         const inner = `<span class="lieu-action__icon">${a.icon}</span><span class="lieu-action__label">${a.label}</span>`;
         if (a.button) {
-          return `<button class="lieu-action" id="${a.id}" type="button">${inner}</button>`;
+          return `<button class="lieu-action${primaryClass}" id="${a.id}" type="button">${inner}</button>`;
         }
         const target = a.external ? ' target="_blank" rel="noopener noreferrer"' : '';
-        return `<a class="lieu-action" href="${escapeHtml(a.href)}"${target}>${inner}</a>`;
+        return `<a class="lieu-action${primaryClass}" href="${escapeHtml(a.href)}"${target}>${inner}</a>`;
       }).join('');
 
       return `<div class="lieu-actions">${itemsHtml}</div>`;
@@ -5055,15 +5036,7 @@
 
     function renderLieuFooter(acteur) {
       const dateMaj = acteur.date_de_derniere_modification ? formatDateFr(acteur.date_de_derniere_modification) : '';
-      const modifyUrl = acteur.identifiant
-        ? `https://quefairedemesdechets.ademe.fr/acteur/${encodeURIComponent(acteur.identifiant)}/`
-        : 'https://quefairedemesdechets.ademe.fr';
-      return `
-        ${dateMaj ? `<p class="lieu-update-date">Mise à jour le ${dateMaj}</p>` : ''}
-        <a class="lieu-modify" href="${escapeHtml(modifyUrl)}" target="_blank" rel="noopener noreferrer">
-          Proposer une modification
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>`;
+      return dateMaj ? `<p class="lieu-update-date">Mise à jour le ${dateMaj}</p>` : '';
     }
 
     function formatDateFr(iso) {
@@ -5113,21 +5086,23 @@
       lieuMapInstance.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
 
       lieuMapInstance.on('load', () => {
-        // Pin du lieu (rouge contour)
-        const lieuPinSvg = '<svg width="32" height="42" viewBox="0 0 35 47" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M28.6676 30.3648C32.5362 27.2179 35 22.4689 35 17.1557C35 7.68088 27.165 0 17.5 0C7.83502 0 0 7.68088 0 17.1557C0 22.4658 2.4609 27.2124 6.32565 30.3593L10.2164 34.3272C13.4986 37.6744 16.0433 41.6476 17.6923 46C19.2133 41.651 21.6616 37.6693 24.8741 34.3198L28.6676 30.3648Z" fill="white"/><path d="M17.5 0C27.165 0 35 7.68088 35 17.1557C35 22.4689 32.5362 27.2179 28.6676 30.3648L24.8741 34.3198C21.6616 37.6693 19.2133 41.651 17.6923 46C16.0433 41.6476 13.4986 37.6744 10.2164 34.3272L6.32565 30.3593C2.4609 27.2124 0 22.4658 0 17.1557C0 7.68088 7.83502 0 17.5 0ZM17.5 2.28482C9.12251 2.28482 2.33077 8.94304 2.33077 17.1557C2.33077 21.6138 4.32922 25.6127 7.50368 28.3415L7.81475 28.6018L11.8966 32.744C14.1474 35.0393 16.0725 37.6109 17.6287 40.388C19.113 37.6163 20.9777 35.0477 23.1764 32.7553L26.9692 28.7997L27.1794 28.6064C30.5371 25.875 32.6695 21.7603 32.6695 17.1557C32.6695 8.94304 25.8775 2.28482 17.5 2.28482Z" fill="#CE614A"/><path d="M21.6536 16.9097L21.6536 21.0807L17.4826 21.0807L23.7391 25.2517L17.4826 29.4227L17.4826 25.2517L13.3116 25.2517L13.3116 16.9097L21.6536 16.9097Z" fill="#CE614A"/></svg>';
+        // Pin du lieu : même logique que la grande carte — reflète le geste choisi par l'usager
+        const gesteIcone = currentGesteIcone();
+        const primary = gesteIcone ? getPrimaryActionForGeste(acteur, gesteIcone) : getPrimaryAction(acteur);
+        const useBonus = primary === 'reparer' && isBonusReparation(acteur);
+        const pinSvg = useBonus ? PIN_BONUS_REPARATION : (PIN_BY_ACTION[primary] || PIN_TRI);
         const lieuEl = document.createElement('div');
         lieuEl.className = 'map-marker lieu-map__marker';
-        lieuEl.innerHTML = lieuPinSvg;
+        lieuEl.innerHTML = pinSvg;
         new maplibregl.Marker({ element: lieuEl, anchor: 'bottom' })
           .setLngLat([lon, lat])
           .addTo(lieuMapInstance);
 
-        // Pin utilisateur (rouge plein) si une adresse a été saisie
+        // Pin utilisateur "vous êtes ici" — même SVG que sur la grande carte
         if (appState.selectedAddress) {
-          const userPinSvg = '<svg width="28" height="28" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#CE614A" stroke="white" stroke-width="3"/><circle cx="12" cy="12" r="4" fill="white"/></svg>';
           const userEl = document.createElement('div');
           userEl.className = 'map-user lieu-map__user';
-          userEl.innerHTML = userPinSvg;
+          userEl.innerHTML = PIN_USER;
           new maplibregl.Marker({ element: userEl, anchor: 'center' })
             .setLngLat([appState.selectedAddress.lon, appState.selectedAddress.lat])
             .addTo(lieuMapInstance);
@@ -5177,6 +5152,25 @@
       return 'trier';
     }
 
+    // Sélectionne le pin selon le geste choisi par l'usager (pas l'action principale brute de l'acteur) :
+    // on ne considère que les actions liées au geste (cf. GESTE_ACTION_FIELDS).
+    // Ex : geste "donner" → on cherche parmi donner/revendre/echanger, en ignorant reparer même si l'acteur le propose.
+    function getPrimaryActionForGeste(acteur, gesteIcone) {
+      const fields = GESTE_ACTION_FIELDS[gesteIcone];
+      if (!fields || fields.length === 0) return getPrimaryAction(acteur);
+      for (const a of fields) {
+        if (acteur[a] && acteur[a].trim()) return a;
+      }
+      return fields[0]; // fallback : le 1er champ du geste (couleur cohérente avec le contexte)
+    }
+
+    function currentGesteIcone() {
+      const acc = appState.sortedAccordeons && appState.selectedGesteIndex != null
+        ? appState.sortedAccordeons[appState.selectedGesteIndex]
+        : null;
+      return acc ? acc.icone : null;
+    }
+
     // SVG pins fournis par le design system (35x47, sauf le bonus = 43x52)
     const PIN_REPARATION = '<svg width="28" height="38" viewBox="0 0 35 47" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M28.6676 31.0249C32.5362 27.8096 35 22.9574 35 17.5287C35 7.84786 27.165 0 17.5 0C7.83502 0 0 7.84786 0 17.5287C0 22.9542 2.4609 27.804 6.32565 31.0192L10.2164 35.0734C13.4986 38.4934 16.0433 42.553 17.6923 47C19.2133 42.5564 21.6616 38.4882 24.8741 35.0659L28.6676 31.0249Z" fill="#009081"/><path d="M17.4997 0C27.1646 0 35.0001 7.84772 35.0002 17.5284C35.0002 22.9571 32.5359 27.8093 28.6672 31.0245L24.8744 35.066C21.662 38.4881 19.2135 42.5562 17.6924 46.9996C16.0434 42.5527 13.4981 38.4934 10.2161 35.0736L6.3254 31.0192C2.46075 27.8039 0 22.9538 0 17.5284C0.000141758 7.84781 7.83496 0.000141982 17.4997 0ZM17.4997 2.33459C9.12221 2.33473 2.33091 9.13717 2.33077 17.5284C2.33077 22.0835 4.32922 26.1693 7.50368 28.9574L7.81475 29.2234L7.91566 29.307L11.8966 33.4556C14.1474 35.8009 16.0725 38.4283 17.6287 41.2657C19.113 38.4339 20.9777 35.8093 23.1764 33.467L26.9692 29.4256L27.0686 29.3207L27.1794 29.228C30.5371 26.4373 32.6695 22.2332 32.6695 17.5284C32.6693 9.13708 25.8774 2.33459 17.4997 2.33459Z" fill="#37635F"/><path d="M11.8605 8.47997C12.9869 8.07887 14.293 8.32983 15.1945 9.23287C16.0963 10.1362 16.3468 11.4448 15.9458 12.5733L25.8521 22.4958L23.9144 24.4367L14.0071 14.5146C12.8807 14.9157 11.5747 14.6647 10.6731 13.7617C9.77129 12.8584 9.52085 11.5497 9.92178 10.4213L11.9649 12.4677C12.5 13.0037 13.3676 13.0037 13.9027 12.4677C14.4378 11.9318 14.4378 11.0628 13.9027 10.5268L11.8605 8.47997ZM21.3307 10.2033L24.2374 8.58589L25.5292 9.87984L23.9144 12.7912L22.2995 13.1147L20.3618 15.0557L19.07 13.7617L21.0077 11.8208L21.3307 10.2033ZM14.8716 17.32L16.8093 19.261L12.2879 23.7898C11.7528 24.3258 10.8852 24.3258 10.3502 23.7898C9.84653 23.2854 9.81691 22.4859 10.2613 21.9468L10.3502 21.8489L14.8716 17.32Z" fill="white"/></svg>';
 
@@ -5206,8 +5200,10 @@
     };
 
     function createActeurMarkerEl(acteur) {
-      const primary = getPrimaryAction(acteur);
-      // Si bonus réparation ET action principale = reparer → punaise bonus
+      // Le pin reflète le geste sélectionné par l'usager (pas l'action principale brute de l'acteur).
+      const gesteIcone = currentGesteIcone();
+      const primary = gesteIcone ? getPrimaryActionForGeste(acteur, gesteIcone) : getPrimaryAction(acteur);
+      // Si bonus réparation ET action retenue = reparer → punaise bonus
       const useBonus = primary === 'reparer' && isBonusReparation(acteur);
       const pinSvg = useBonus ? PIN_BONUS_REPARATION : (PIN_BY_ACTION[primary] || PIN_TRI);
 
@@ -5216,7 +5212,7 @@
       el.innerHTML = pinSvg;
       el.addEventListener('click', (e) => {
         e.stopPropagation();
-        openMapPopup(acteur);
+        goToLieu(acteur);
       });
       return el;
     }
@@ -5238,27 +5234,6 @@
       mapMarkers = [];
       if (userMarker) { userMarker.remove(); userMarker = null; }
       if (currentPopup) { currentPopup.remove(); currentPopup = null; }
-    }
-
-    function openMapPopup(acteur) {
-      if (!mapInstance) return;
-      if (currentPopup) currentPopup.remove();
-      const adresseParts = [acteur.adresse, acteur.complement_dadresse].filter(Boolean).join(', ');
-      const ville = [acteur.code_postal, acteur.ville].filter(Boolean).join(' ');
-      const adresseLabel = [adresseParts, ville].filter(Boolean).join(' — ');
-      const ficheUrl = acteur.site_web
-        ? acteur.site_web
-        : (acteur.identifiant ? `https://quefairedemesdechets.ademe.fr/acteur/${acteur.identifiant}/` : '#');
-
-      currentPopup = new maplibregl.Popup({ offset: 28, closeButton: true, maxWidth: '240px' })
-        .setLngLat([parseFloat(acteur.longitude), parseFloat(acteur.latitude)])
-        .setHTML(`
-          <h4 class="map-popup__name">${acteur.nom || 'Lieu sans nom'}</h4>
-          ${adresseLabel ? `<p class="map-popup__address">${adresseLabel}</p>` : ''}
-          <p class="map-popup__distance">${formatDistance(acteur._distance)}</p>
-          <a class="map-popup__link" href="${ficheUrl}" target="_blank" rel="noopener noreferrer">Voir la fiche →</a>
-        `)
-        .addTo(mapInstance);
     }
 
     function initSolutionsMap() {
