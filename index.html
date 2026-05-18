@@ -3295,6 +3295,11 @@
     // =============================================
     // State Management
     // =============================================
+    // Lecture des paramètres d'URL pour piloter le comportement par défaut
+    // (ex. ?view=map pour afficher la carte par défaut dans l'écran solutions — utile pour A/B testing)
+    const urlParams = new URLSearchParams(window.location.search);
+    const DEFAULT_SOLUTIONS_VIEW = urlParams.get('view') === 'map' ? 'map' : 'list';
+
     const appState = {
       currentStep: 'search',
       selectedFiche: null,
@@ -3302,8 +3307,19 @@
       categoryCounts: null,
       consignesData: null,
       selectedGesteIndex: null,
-      searchLabel: null
+      searchLabel: null,
+      defaultSolutionsView: DEFAULT_SOLUTIONS_VIEW
     };
+
+    // Si la vue "carte par défaut" est demandée, on réordonne le contrôle segmenté
+    // (bouton Carte en première position, Liste en deuxième) pour refléter la priorité visuelle.
+    if (DEFAULT_SOLUTIONS_VIEW === 'map') {
+      const segmentedElements = document.querySelector('#solutions-view-segmented .fr-segmented__elements');
+      const mapElement = document.getElementById('solutions-view-map')?.closest('.fr-segmented__element');
+      if (segmentedElements && mapElement) {
+        segmentedElements.insertBefore(mapElement, segmentedElements.firstElementChild);
+      }
+    }
 
     // =============================================
     // Références DOM
@@ -4513,6 +4529,12 @@
           renderSolutionsPage(1);
         }
 
+        // Si l'environnement demande la carte par défaut (?view=map), on bascule maintenant
+        // (la liste est visible à ce stade ; toggleSolutionsView va l'inverser et initialiser la carte).
+        if (appState.defaultSolutionsView === 'map') {
+          toggleSolutionsView();
+        }
+
       } catch (err) {
         console.error(err);
         document.getElementById('solutions-count').textContent = '';
@@ -5562,13 +5584,13 @@
       document.body.style.overflow = 'hidden';
 
       function sendHeight() {
-        // Mesurer la hauteur réelle du contenu en prenant le max de toutes les sources
-        var height = Math.max(
-          document.body.scrollHeight,
-          document.body.offsetHeight,
-          document.documentElement.scrollHeight,
-          document.documentElement.offsetHeight
-        );
+        // Mesure de la hauteur réelle du contenu via le conteneur principal de l'app.
+        // (On évite documentElement.scrollHeight qui inclut au minimum la hauteur du viewport
+        // de l'iframe — ce qui empêcherait l'iframe parente de rétrécir quand le contenu est court.)
+        var container = document.querySelector('.iframe-container');
+        var height = container
+          ? Math.ceil(container.getBoundingClientRect().height)
+          : document.body.scrollHeight;
         window.parent.postMessage({ type: 'assistant-tri-resize', height: height }, '*');
       }
 
