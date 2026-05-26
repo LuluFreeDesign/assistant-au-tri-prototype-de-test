@@ -94,13 +94,20 @@ Le widget intègre un mécanisme d'auto-resize : il envoie sa hauteur au parent 
   id="assistant-tri"
   src="https://votre-hebergement.fr/assistant-tri/index.html"
   width="100%"
-  style="height: 800px; border: none;"
+  style="height: 400px; border: none;"
   title="Assistant au tri, au réemploi et à la réparation"
 ></iframe>
 <script>
+  var iframe = document.getElementById('assistant-tri');
   window.addEventListener('message', function(e) {
-    if (e.data && e.data.type === 'assistant-tri-resize') {
-      document.getElementById('assistant-tri').style.height = e.data.height + 'px';
+    if (!e.data) return;
+    // Auto-resize : ajuste la hauteur de l'iframe à son contenu
+    if (e.data.type === 'assistant-tri-resize') {
+      iframe.style.height = e.data.height + 'px';
+    }
+    // Scroll en haut de l'iframe lors d'une transition d'étape
+    if (e.data.type === 'assistant-tri-scroll-to-top') {
+      iframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
 </script>

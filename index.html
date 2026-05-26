@@ -159,7 +159,8 @@
       background: transparent;
       padding: var(--spacing-3v) var(--spacing-3v);
       font-family: 'Public Sans', arial, sans-serif;
-      font-size: 0.875rem;
+      /* 16px minimum pour empêcher iOS Safari de zoomer au focus */
+      font-size: 1rem;
       color: var(--text-default);
       outline: none;
     }
@@ -3700,8 +3701,8 @@
           infoTri: 'sapin-de-noel.svg',
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=268',
           accordeons: [
-            { titre: 'Sapin naturel', icone: 'deposer', consigne: '<p>Retirez les décorations, déposez le sapin naturel en point de collecte ou déchèterie, broyez-le pour compost ou paillage, ou replantez-le s\'il est en pot, tandis que les sapins floqués ou traités vont aux ordures ménagères ou en déchèterie, sans les brûler.</p>', condition: null },
-            { titre: 'Sapin artificiel', icone: 'donner', icones: ['donner', 'deposer'], consigne: '<p>Lorsqu\'il est en bon état, il peut être conservé pour l\'année suivante, revendu ou donné à une structure de réemploi s\'il n\'est plus utilisé. Lorsqu\'il est en mauvais état, il doit être déposé en déchèterie.</p>', condition: null }
+            { titre: 'Donner', icone: 'donner', consigne: '<p>Vous avez un sapin <strong>artificiel</strong> en bon état dont vous ne vous servez plus ? Donnez-le à une association ou à une structure de réemploi, ou revendez-le à des particuliers. Cela évite qu\'il finisse en déchet alors qu\'il peut encore servir plusieurs années.</p>', condition: null },
+            { titre: 'Déposer', icone: 'deposer', consigne: '<p>Pour un sapin <strong>naturel</strong> : retirez les décorations puis déposez-le en point de collecte municipal ou en déchèterie. Il sera broyé pour devenir compost ou paillage. Vous pouvez aussi le replanter s\'il est en pot. Évitez de brûler les sapins floqués ou traités.</p><p>Pour un sapin <strong>artificiel</strong> hors d\'usage : déposez-le en déchèterie.</p>', condition: null }
           ]
         },
         {
@@ -3736,8 +3737,8 @@
           infoTriInline: true,
           carteIframeSrc: 'https://quefairedemesdechets.ademe.fr/carte/ass-deposer-uniquement/?sc_id=270&sc_id=272&sc_id=273&sc_id=274&sc_id=275&sc_id=276&sc_id=278',
           accordeons: [
-            { titre: 'Emballages en plastique, carton, métal ou bois', icone: 'trier', consigne: '<p>Bouteilles ou pots de yaourt en plastique, boîtes en carton, canettes ou boîtes de conserves, cagettes ou boîtes en bois\u2026 c\u2019est un emballage, il se trie\u00a0! Déposez-les dans le bac, le sac ou le conteneur de tri (poubelle jaune). Inutile de les laver, il suffit de bien les vider. Ne les imbriquez pas les uns dans les autres.</p>', condition: null },
-            { titre: 'Emballages en verre', icone: 'trier', consigne: '<p>Bouteilles, bocaux, pots en verre\u2026 déposez-les dans les conteneurs à verre dédiés. Inutile de les laver, il suffit de bien les vider. Retirez les bouchons et couvercles (ils vont dans le bac de tri). Le verre se recycle à l\u2019infini\u00a0! ⚠️ Ne mettez pas dans le conteneur à verre\u00a0: la vaisselle, les miroirs, les vitres, les ampoules ou la faïence. Ces objets ne sont pas des emballages en verre et perturbent le recyclage.</p>', condition: null }
+            { titre: 'Déposer vos emballages en plastique, carton, métal ou bois', icone: 'trier', consigne: '<p>Bouteilles ou pots de yaourt en plastique, boîtes en carton, canettes ou boîtes de conserves, cagettes ou boîtes en bois\u2026 c\u2019est un emballage, il se trie\u00a0! Déposez-les dans le bac, le sac ou le conteneur de tri (poubelle jaune). Inutile de les laver, il suffit de bien les vider. Ne les imbriquez pas les uns dans les autres.</p>', condition: null },
+            { titre: 'Déposer vos emballages en verre', icone: 'trier', consigne: '<p>Bouteilles, bocaux, pots en verre\u2026 déposez-les dans les conteneurs à verre dédiés. Inutile de les laver, il suffit de bien les vider. Retirez les bouchons et couvercles (ils vont dans le bac de tri). Le verre se recycle à l\u2019infini\u00a0! ⚠️ Ne mettez pas dans le conteneur à verre\u00a0: la vaisselle, les miroirs, les vitres, les ampoules ou la faïence. Ces objets ne sont pas des emballages en verre et perturbent le recyclage.</p>', condition: null }
           ]
         },
         {
@@ -3799,6 +3800,7 @@
       container.classList.add('step-fiche');
       renderFiche();
       window.scrollTo(0, 0);
+      if (typeof notifyParentNavigated === 'function') notifyParentNavigated();
       history.pushState({
         step: 'fiche',
         ficheId: appState.selectedFiche.id,
@@ -4657,6 +4659,7 @@
       container.classList.remove('step-fiche');
       container.classList.add('step-solutions');
       window.scrollTo(0, 0);
+      notifyParentNavigated();
 
       // Toujours afficher la vue liste par défaut quand on entre/met à jour les solutions
       document.getElementById('solutions-list').style.display = '';
@@ -4907,11 +4910,20 @@
       });
     })();
 
+    // Demande à la page hôte (parent de l'iframe) de scroller jusqu'au haut de l'iframe.
+    // Utile lors d'une transition d'étape : sinon l'iframe se redimensionne mais le scroll
+    // du parent reste là où il était, donnant l'impression d'arriver au milieu du nouveau contenu.
+    function notifyParentNavigated() {
+      if (window.self === window.top) return;
+      window.parent.postMessage({ type: 'assistant-tri-scroll-to-top' }, '*');
+    }
+
     function goBackToFiche() {
       appState.currentStep = 'fiche';
       container.classList.remove('step-solutions', 'step-lieu');
       container.classList.add('step-fiche');
       window.scrollTo(0, 0);
+      notifyParentNavigated();
       history.pushState({ step: 'fiche', ficheId: appState.selectedFiche.id, address: appState.selectedAddress }, '');
     }
 
@@ -4925,6 +4937,7 @@
         lieuMapInstance = null;
       }
       window.scrollTo(0, 0);
+      notifyParentNavigated();
     }
 
     // =============================================
@@ -4978,6 +4991,7 @@
       renderLieuContent(acteur);
       history.pushState({ step: 'lieu', acteurId: acteur.identifiant || acteur._id }, '');
       window.scrollTo(0, 0);
+      notifyParentNavigated();
     }
 
     // -- Rendus HTML par bloc --

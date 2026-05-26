@@ -120,9 +120,16 @@
   </footer>
 
   <script>
+    var iframe = document.getElementById('assistant-tri');
     window.addEventListener('message', function(e) {
-      if (e.data && e.data.type === 'assistant-tri-resize') {
-        document.getElementById('assistant-tri').style.height = e.data.height + 'px';
+      if (!e.data) return;
+      // Auto-resize : ajuste la hauteur de l'iframe à son contenu
+      if (e.data.type === 'assistant-tri-resize') {
+        iframe.style.height = e.data.height + 'px';
+      }
+      // Scroll en haut de l'iframe lors d'une transition d'étape — simule une navigation entre pages
+      if (e.data.type === 'assistant-tri-scroll-to-top') {
+        iframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   </script>
