@@ -4,16 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>L'assistant au tri, au réemploi et à la réparation</title>
-  <link rel="stylesheet" href="src/css/fonts.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
     /* ============================================
        DSFR-based Design Tokens
        ============================================ */
     :root {
       /* Couleurs DSFR */
-      --blue-france: #000091;
-      --blue-france-hover: #1212FF;
-      --blue-france-active: #2323FF;
+      --blue-france: #0C5956;
+      --blue-france-hover: #137772;
+      --blue-france-active: #169C95;
       --red-marianne: #E1000F;
 
       /* Couleurs fonctionnelles */
@@ -29,11 +31,11 @@
 
       --border-default: #DDDDDD;
       --border-plain: #CECECE;
-      --border-active-blue: #000091;
+      --border-active-blue: #0C5956;
 
       /* Couleurs DSFR - Green Menthe */
-      --green-menthe-975: #dffdf7;
-      --green-menthe-sun-373: #37635f;
+      --green-menthe-975: #E0F4F3;
+      --green-menthe-sun-373: #26827C;
       --green-menthe-main: #009081;
 
       /* Espacement DSFR (multiples de 4px) */
@@ -73,7 +75,7 @@
     }
 
     body {
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       color: var(--text-default);
       background-color: var(--background-default);
       line-height: 1.5;
@@ -95,7 +97,7 @@
       margin: 0 auto;
       overflow-wrap: break-word;
       word-wrap: break-word;
-      border: 2px solid #4f9d91;
+      border: 2px solid #35A099;
       border-radius: 4px;
       overflow: hidden;
     }
@@ -156,7 +158,7 @@
       border: none;
       background: transparent;
       padding: var(--spacing-3v) var(--spacing-3v);
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 0.875rem;
       color: var(--text-default);
       outline: none;
@@ -321,14 +323,14 @@
     .fr-tag {
       display: inline-flex;
       align-items: center;
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 0.875rem;
       line-height: 1.5rem;
       min-height: 2rem;
       padding: 0.25rem 0.75rem;
       border-radius: 1rem;
       background-color: var(--background-action-low-blue-france, #E3E3FD);
-      color: var(--text-action-high-blue-france, #000091);
+      color: var(--text-action-high-blue-france, #0C5956);
       border: none;
       cursor: pointer;
       transition: background-color 0.2s ease;
@@ -560,7 +562,7 @@
       padding: 0.75rem 1rem;
       cursor: pointer;
       text-align: left;
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 1rem;
       font-weight: 500;
       color: var(--blue-france);
@@ -631,7 +633,7 @@
       align-items: center;
       gap: var(--spacing-2v);
       padding: var(--spacing-1v) var(--spacing-3v);
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--blue-france);
@@ -731,7 +733,7 @@
       justify-content: center;
       gap: var(--spacing-2v);
       padding: var(--spacing-2v) var(--spacing-4v);
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 0.875rem;
       font-weight: 500;
       border-radius: var(--radius-sm);
@@ -1098,7 +1100,7 @@
       align-items: center;
       gap: var(--spacing-2v);
       padding: var(--spacing-2v) var(--spacing-3v);
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 0.8125rem;
       font-weight: 500;
       color: var(--blue-france);
@@ -1370,7 +1372,7 @@
       color: #fff;
       border: 1px solid var(--blue-france);
       border-radius: 0;
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 1rem;
       font-weight: 500;
       line-height: 1.5rem;
@@ -1395,21 +1397,6 @@
       outline-offset: 2px;
     }
 
-    .search-landing__link {
-      display: block;
-      text-align: center;
-      margin-top: var(--spacing-4v);
-      font-size: 0.875rem;
-      color: var(--blue-france);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-
-    .search-landing__link:hover {
-      color: var(--blue-france);
-      text-decoration: none;
-    }
-
     /* ============================================
        Geste cards (fiche V2)
        ============================================ */
@@ -1420,10 +1407,10 @@
       gap: var(--spacing-3v);
     }
 
+    /* Contenu fluide (plus de "carte" visuelle : ni bordure ni radius) */
     .geste-card {
       background-color: var(--background-default);
-      border: 1px solid var(--border-default);
-      padding: var(--spacing-4v);
+      padding: var(--spacing-3v) 0;
     }
 
     .geste-card__badges {
@@ -1433,37 +1420,53 @@
       margin-bottom: var(--spacing-3v);
     }
 
+    /* Pills arrondies, casse normale, plus discrètes que les anciens "tags" DSFR */
     .geste-badge {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 700;
-      line-height: 20px;
-      padding: 0 6px;
-      border-radius: 4px;
-      text-transform: uppercase;
+      gap: 4px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      line-height: 1.4;
+      padding: 4px 10px;
+      border-radius: 999px;
       white-space: nowrap;
+      letter-spacing: 0.1px;
     }
 
     .geste-badge--reparable {
-      background-color: #BAFAEE;
-      color: #37635F;
+      background-color: #E0F4F3;
+      color: #0C5956;
     }
 
     .geste-badge--bon-etat {
-      background-color: #C3FAD5;
-      color: #297254;
+      background-color: #DEF6E6;
+      color: #1F6840;
     }
 
     .geste-badge--mauvais-etat {
-      background-color: #FEE7FC;
+      background-color: #F7E2F4;
       color: #6E445A;
     }
 
     .geste-badge--bonus {
-      background-color: #FEECC2;
-      color: #716043;
+      background-color: #FFF4D9;
+      color: #6B5429;
+    }
+
+    .geste-badge__icon {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+    }
+
+    .geste-badge__icon svg,
+    .geste-badge__icon img {
+      width: 100%;
+      height: 100%;
     }
 
     .geste-card__header {
@@ -1487,18 +1490,18 @@
     }
 
     .geste-card__title {
-      font-size: 1rem;
+      font-size: 1.125rem;
       font-weight: 700;
       color: var(--text-default);
       margin: 0;
-      line-height: 1.4;
+      line-height: 1.3;
     }
 
     .geste-card__description {
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       color: var(--text-default);
-      margin-bottom: var(--spacing-3v);
-      line-height: 1.5;
+      margin-bottom: var(--spacing-4v);
+      line-height: 1.6;
     }
 
     .geste-card__description p {
@@ -1509,53 +1512,99 @@
       margin-bottom: 0;
     }
 
-.geste-card__description a {
+    .geste-card__description a {
       color: var(--blue-france);
+      text-underline-offset: 3px;
     }
 
+    /* CTA plein couleur primary avec flèche qui glisse au hover.
+       Pleine largeur sur mobile, plafonné en desktop pour ne pas devenir énorme. */
     .geste-card__cta {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       width: 100%;
-      min-height: 2.5rem;
-      padding: 0.5rem 1rem;
-      background-color: transparent;
-      color: var(--blue-france);
-      border: 1px solid var(--blue-france);
-      border-radius: 0;
-      font-family: 'Marianne', arial, sans-serif;
-      font-size: 0.875rem;
-      font-weight: 500;
-      line-height: 1.5rem;
+      max-width: 20rem;
+      min-height: 2.75rem;
+      padding: 0.625rem 1.25rem;
+      background-color: var(--blue-france);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Public Sans', arial, sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      line-height: 1.4;
       cursor: pointer;
       text-decoration: none;
       transition: background-color 0.15s ease;
     }
 
+    .geste-card__cta-arrow {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .geste-card__cta:hover .geste-card__cta-arrow {
+      transform: translateX(4px);
+    }
+
     .geste-card__cta:hover {
-      background-color: var(--background-action-low-blue-hover, #EBEBFF);
+      background-color: var(--blue-france-hover);
     }
 
     .geste-card__cta:active {
-      background-color: var(--background-action-low-blue-active, #ADADF7);
+      background-color: var(--blue-france-active);
     }
 
-    /* Pied de page partagé (fiche, solutions, lieu) */
-    .section-footer-link {
-      display: block;
-      text-align: center;
-      padding: var(--spacing-4v);
+    .geste-card__cta:focus-visible {
+      outline: 2px solid var(--blue-france);
+      outline-offset: 2px;
+    }
+
+    /* État "pas d'adresse saisie" : message d'invite à la place du CTA */
+    .geste-card__hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 22rem;
       font-size: 0.875rem;
-      color: var(--blue-france);
-      text-decoration: underline;
-      text-underline-offset: 3px;
+      color: var(--text-mention-grey);
+      background: var(--background-alt-grey);
+      border-radius: 8px;
+      padding: 0.625rem 1rem;
+      margin: 0;
+      line-height: 1.4;
     }
 
-    .section-footer-link:hover {
-      text-decoration: none;
+    .geste-card__hint-icon {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
     }
 
+    .geste-card__hint-icon svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* En dessous de 470px : full width pour le CTA et le hint (le max-width n'a plus de sens) */
+    @media (max-width: 470px) {
+      .geste-card__cta,
+      .geste-card__hint {
+        max-width: none;
+      }
+    }
+
+    /* Pied de page partagé (fiche, solutions, lieu) — fond blanc avec
+       le bouton "En savoir plus" au-dessus des logos */
     .fiche-footer,
     .solutions-footer,
     .lieu-footer {
@@ -1565,9 +1614,10 @@
     .footer-logos {
       background: white;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      padding: 16px 0;
+      gap: 12px;
+      padding: 16px;
       border-top: 1px solid var(--border-default);
     }
 
@@ -1575,6 +1625,40 @@
       width: min(220px, 70%);
       height: auto;
       display: block;
+    }
+
+    /* Bouton "En savoir plus sur cet outil" — tertiary SM sans bordure, icône externe à droite */
+    .footer-external-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 2rem;
+      padding: 0.25rem 0.75rem;
+      background-color: transparent;
+      color: var(--blue-france);
+      border: none;
+      border-radius: 4px;
+      font-family: 'Public Sans', arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+    }
+
+    .footer-external-link:hover {
+      background-color: var(--background-action-low-blue);
+    }
+
+    .footer-external-link:focus-visible {
+      outline: 2px solid var(--blue-france);
+      outline-offset: 2px;
+    }
+
+    .footer-external-link svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
     }
 
     /* Sur la page d'accueil, le footer-logos doit casser hors du padding de search-section */
@@ -1626,80 +1710,90 @@
       background-color: var(--green-menthe-975);
     }
 
-    /* Bouton retour enrichi : flèche + nom objet + geste(s), bordure verte fil rouge */
+    /* Bouton "Changer le geste" : style primary plein vert, texte blanc.
+       flex-wrap autorisé pour ne jamais tronquer le nom du geste. */
     .solutions-header__back {
       display: flex;
       align-items: center;
-      gap: var(--spacing-2v);
+      flex-wrap: wrap;
+      gap: 8px;
       width: 100%;
-      padding: var(--spacing-2v) var(--spacing-3v);
-      background: transparent;
-      border: 2px solid var(--green-menthe-sun-373);
-      border-radius: 4px;
+      padding: 0.625rem 1rem;
+      background-color: var(--blue-france);
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
       text-align: left;
-      font-family: 'Marianne', arial, sans-serif;
-      color: var(--text-default);
+      font-family: 'Public Sans', arial, sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #fff;
       margin-bottom: var(--spacing-3v);
+      transition: background-color 0.15s ease;
     }
 
     .solutions-header__back:hover {
-      background-color: rgba(255, 255, 255, 0.4);
+      background-color: var(--blue-france-hover);
+    }
+
+    .solutions-header__back:active {
+      background-color: var(--blue-france-active);
     }
 
     .solutions-header__back:focus-visible {
-      outline: 2px solid var(--green-menthe-sun-373);
+      outline: 2px solid var(--blue-france);
       outline-offset: 2px;
     }
 
     .solutions-header__back-arrow {
       flex-shrink: 0;
-      color: var(--text-default);
+      color: #fff;
     }
 
-    .solutions-header__back-content {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
-
-    .solutions-header__back-object {
-      font-size: 0.875rem;
+    .solutions-header__back-label {
       font-weight: 700;
-      line-height: 1.4;
-      color: var(--text-default);
+      white-space: nowrap;
     }
 
-    .solutions-header__back-gestes {
-      display: inline-flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: var(--spacing-2v);
-      font-size: 0.875rem;
-      font-weight: 400;
-      line-height: 1.4;
-      color: var(--text-default);
-    }
-
+    /* Bloc geste sélectionné : icône(s) (cercle blanc autour) + nom */
     .solutions-header__back-geste {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
+      font-weight: 400;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Conteneur pour 1 ou plusieurs icônes (ex. "Donner ou revendre" → 2 icônes) */
+    .solutions-header__back-geste-icons {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      flex-shrink: 0;
     }
 
     .solutions-header__back-geste-icon {
       flex-shrink: 0;
-      width: 16px;
-      height: 16px;
+      width: 22px;
+      height: 22px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      background-color: #fff;
+      border-radius: 50%;
+      padding: 1px;
     }
 
     .solutions-header__back-geste-icon svg {
       width: 100%;
       height: 100%;
+    }
+
+    /* Le libellé du geste peut wrapper sur plusieurs lignes si besoin */
+    .solutions-header__back-geste-label {
+      word-break: break-word;
     }
 
     .solutions-header__body {
@@ -1773,7 +1867,7 @@
       gap: 6px;
       width: 100%;
       padding: 0 12px;
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 0.875rem;
       font-weight: 500;
       line-height: 1.5;
@@ -1850,7 +1944,7 @@
       color: var(--blue-france);
       border: 1px solid var(--blue-france);
       border-radius: 4px;
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 0.875rem;
       font-weight: 500;
       text-decoration: none;
@@ -1937,7 +2031,7 @@
       color: var(--blue-france);
       border: 1px solid var(--blue-france);
       border-radius: 4px;
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 0.875rem;
       font-weight: 500;
       line-height: 1.5;
@@ -1952,7 +2046,7 @@
 
     /* Popup acteur */
     .maplibregl-popup-content {
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       padding: var(--spacing-3v) var(--spacing-4v);
       border-radius: 4px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -2012,22 +2106,28 @@
       z-index: 10;
     }
 
-    /* Solution card — style DSFR (bordure + ombre légère) */
+    /* Solution card — contenu fluide (pas de bordure encadrante, juste un séparateur entre cards) */
     .solution-card {
-      border: 1px solid #DDDDDD;
-      border-radius: 4px;
-      padding: var(--spacing-4v);
+      padding: var(--spacing-4v) 0;
       background: var(--background-default);
       display: flex;
       flex-direction: column;
       gap: var(--spacing-2v);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
-      transition: box-shadow 0.15s ease, border-color 0.15s ease;
+      border-bottom: 1px solid #ECECEC;
     }
 
-    .solution-card:hover {
-      border-color: #BBBBBB;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    /* Pas de séparateur après la dernière card (utilise :has pour éviter les pièges
+       de :last-of-type quand d'autres éléments suivent les cards) */
+    .solution-card:not(:has(~ .solution-card)) {
+      border-bottom: none;
+    }
+
+    /* Header : nom à gauche, tag distance à droite */
+    .solution-card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--spacing-2v);
     }
 
     .solution-card__name {
@@ -2036,6 +2136,30 @@
       color: var(--text-default);
       line-height: 1.4;
       margin: 0;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Tag distance : badge arrondi avec icône pin */
+    .solution-card__distance-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+      padding: 4px 10px;
+      background-color: var(--background-alt-grey);
+      color: var(--text-default);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    .solution-card__distance-tag svg {
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
     }
 
     .solution-card__labels {
@@ -2044,7 +2168,7 @@
       gap: var(--spacing-1v);
     }
 
-    /* Label tags : style fr-tag DSFR neutre — fond gris, texte sombre, sans bordure */
+    /* Labels (Bonus, ESS, Répar'Acteurs) : tags neutres discrets */
     .solution-card__label {
       display: inline-flex;
       align-items: center;
@@ -2054,7 +2178,7 @@
       padding: 3px 12px 3px 6px;
       border-radius: 999px;
       border: none;
-      background-color: #EEEEEE;
+      background-color: #F4F4F5;
       color: #161616;
       line-height: 1.4;
     }
@@ -2066,7 +2190,7 @@
       flex-shrink: 0;
     }
 
-    /* Pills gestes — bg coloré + bordure colorée + texte sombre */
+    /* Pills gestes — variantes de luminosité (sans bordure) basées sur la couleur d'origine du geste */
     .solution-card__gestes {
       display: flex;
       flex-wrap: wrap;
@@ -2077,13 +2201,11 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 2px 12px 2px 4px;
+      padding: 3px 12px 3px 4px;
       border-radius: 999px;
-      border: 1px solid;
       font-size: 0.8125rem;
       font-weight: 500;
       line-height: 1.4;
-      color: #161616;
     }
 
     .solution-card__pill svg {
@@ -2092,50 +2214,70 @@
       flex-shrink: 0;
     }
 
-    .solution-card__pill--reparer  { background: #DFFDF7; border-color: #009081; }
-    .solution-card__pill--donner   { background: #F3F6FE; border-color: #417DC4; }
-    .solution-card__pill--echanger { background: #F3F6FE; border-color: #417DC4; }
-    .solution-card__pill--preter   { background: #FEF4F3; border-color: #CE614A; }
-    .solution-card__pill--emprunter{ background: #FEF4F3; border-color: #CE614A; }
-    .solution-card__pill--louer    { background: #FEF4F3; border-color: #CE614A; }
-    .solution-card__pill--trier    { background: #FEF3FD; border-color: #A558A0; }
-    .solution-card__pill--acheter  { background: #F7ECDB; border-color: #D1B781; }
-    .solution-card__pill--vendre   { background: #F7ECDB; border-color: #D1B781; }
-    .solution-card__pill--revendre { background: #F7ECDB; border-color: #D1B781; }
+    .solution-card__pill--reparer   { background: #E0F4F3; color: #0C5956; }
+    .solution-card__pill--donner    { background: #DDE9F6; color: #1E4F8C; }
+    .solution-card__pill--echanger  { background: #DDE9F6; color: #1E4F8C; }
+    .solution-card__pill--preter    { background: #F8DFD6; color: #8C3920; }
+    .solution-card__pill--emprunter { background: #F8DFD6; color: #8C3920; }
+    .solution-card__pill--louer     { background: #F8DFD6; color: #8C3920; }
+    .solution-card__pill--trier     { background: #EDDDEB; color: #6E3F69; }
+    .solution-card__pill--acheter   { background: #F3E9D2; color: #6B4F1F; }
+    .solution-card__pill--vendre    { background: #F3E9D2; color: #6B4F1F; }
+    .solution-card__pill--revendre  { background: #F3E9D2; color: #6B4F1F; }
 
-    .solution-card__distance {
-      font-size: 0.875rem;
-      color: var(--text-default);
-      margin: var(--spacing-1v) 0 0;
-    }
-
+    /* CTA "Voir la fiche" — même style que le CTA des cards consignes (plein vert + flèche) */
     .solution-card__link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       width: 100%;
-      min-height: 2rem;
-      padding: 0.25rem 0.75rem;
+      max-width: 20rem;
+      min-height: 2.75rem;
+      padding: 0.625rem 1.25rem;
       margin-top: var(--spacing-1v);
-      background-color: var(--background-default);
-      color: var(--blue-france);
-      border: 1px solid var(--blue-france);
-      border-radius: 4px;
-      font-family: 'Marianne', arial, sans-serif;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-decoration: none;
+      background-color: var(--blue-france);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Public Sans', arial, sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      line-height: 1.4;
       cursor: pointer;
+      text-decoration: none;
       transition: background-color 0.15s ease;
     }
 
+    .solution-card__link-arrow {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .solution-card__link:hover .solution-card__link-arrow {
+      transform: translateX(4px);
+    }
+
     .solution-card__link:hover {
-      background-color: var(--background-action-low-blue);
+      background-color: var(--blue-france-hover);
+    }
+
+    .solution-card__link:active {
+      background-color: var(--blue-france-active);
     }
 
     .solution-card__link:focus-visible {
       outline: 2px solid var(--blue-france);
       outline-offset: 2px;
+    }
+
+    /* En dessous de 470px : CTA "Voir la fiche" en full width */
+    @media (max-width: 470px) {
+      .solution-card__link {
+        max-width: none;
+      }
     }
 
     /* Pagination */
@@ -2159,7 +2301,7 @@
       border: none;
       border-radius: 4px;
       color: var(--text-default);
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 0.875rem;
       cursor: pointer;
     }
@@ -2216,6 +2358,25 @@
       color: #CE0500;
     }
 
+    /* Message d'invite "saisir une adresse" overlay sur la vue carte */
+    .solutions-map__empty {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--background-default);
+      color: var(--text-mention-grey);
+      font-size: 0.875rem;
+      padding: var(--spacing-4v);
+      text-align: center;
+      margin: 0;
+    }
+
     /* ============================================
        Section Lieu détail
        ============================================ */
@@ -2244,34 +2405,41 @@
       background-color: var(--green-menthe-975);
     }
 
+    /* Bouton "Revenir aux solutions" : style primary plein vert, comme "Changer le geste" */
     .lieu-header__back {
       display: flex;
       align-items: center;
-      gap: var(--spacing-2v);
+      gap: 8px;
       width: 100%;
-      padding: var(--spacing-2v) var(--spacing-3v);
-      background: transparent;
-      border: 2px solid var(--green-menthe-sun-373);
-      border-radius: 4px;
+      padding: 0.625rem 1rem;
+      background-color: var(--blue-france);
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
       text-align: left;
-      font-family: 'Marianne', arial, sans-serif;
-      font-size: 0.875rem;
+      font-family: 'Public Sans', arial, sans-serif;
+      font-size: 0.9375rem;
       font-weight: 700;
-      color: var(--text-default);
+      color: #fff;
+      transition: background-color 0.15s ease;
     }
 
     .lieu-header__back:hover {
-      background-color: rgba(255, 255, 255, 0.4);
+      background-color: var(--blue-france-hover);
+    }
+
+    .lieu-header__back:active {
+      background-color: var(--blue-france-active);
     }
 
     .lieu-header__back:focus-visible {
-      outline: 2px solid var(--green-menthe-sun-373);
+      outline: 2px solid var(--blue-france);
       outline-offset: 2px;
     }
 
     .lieu-header__back svg {
       flex-shrink: 0;
+      color: #fff;
     }
 
     .lieu-content {
@@ -2378,7 +2546,7 @@
       border: 0;
       cursor: pointer;
       text-decoration: none;
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       color: var(--blue-france);
     }
 
@@ -2502,7 +2670,7 @@
       padding: var(--spacing-3v) 0;
       cursor: pointer;
       list-style: none;
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
     }
 
     .lieu-accordion__summary::-webkit-details-marker { display: none; }
@@ -2648,7 +2816,7 @@
       border: 1px solid var(--blue-france);
       border-radius: var(--radius-sm);
       color: var(--blue-france);
-      font-family: 'Marianne', arial, sans-serif;
+      font-family: 'Public Sans', arial, sans-serif;
       font-size: 0.875rem;
       font-weight: 500;
       cursor: pointer;
@@ -2850,7 +3018,7 @@
         </svg>
       </button>
       <h1 class="search-section__title" id="search-title">
-        Quel objet ou déchet souhaitez-vous recycler, donner ou réparer&nbsp;?
+        Quel objet ou déchet souhaitez-vous recycler, donner, revendre ou réparer&nbsp;?
       </h1>
 
       <div class="search-bar" role="search">
@@ -2874,7 +3042,7 @@
       <div class="search-landing" id="search-landing">
         <p id="search-error-msg" class="search-landing__error" style="display:none;" aria-live="assertive">Veuillez d'abord saisir un objet ou un déchet.</p>
 
-        <label class="search-landing__label" for="address-input">Localisation</label>
+        <label class="search-landing__label" for="address-input">Où souhaitez-vous trouver des solutions ?</label>
         <div class="search-bar" role="search">
           <div class="search-bar__icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2901,13 +3069,11 @@
           Lancer la recherche
         </button>
 
-        <a
-          href="https://quefairedemesdechets.ademe.fr"
-          class="search-landing__link"
-          target="_blank"
-          rel="noopener noreferrer"
-        >En savoir plus sur cet outil</a>
         <div class="footer-logos">
+          <a href="https://quefairedemesdechets.ademe.fr" class="footer-external-link" target="_blank" rel="noopener noreferrer">
+            En savoir plus sur cet outil
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
           <img src="src/assets/icons/bloc-marque-que-faire.svg" alt="Logos ADEME et République Française — Que faire de mes objets et déchets" width="139" height="37">
         </div>
       </div>
@@ -3010,7 +3176,7 @@
             <line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
-        <label class="fiche-header__label" for="fiche-search-input">Quel objet ou déchet souhaitez-vous recycler, donner ou réparer ?</label>
+        <label class="fiche-header__label" for="fiche-search-input">Quel objet ou déchet souhaitez-vous recycler, donner, revendre ou réparer ?</label>
         <div class="search-bar fiche-header__search-bar" id="fiche-search-bar">
           <div class="search-bar__icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -3021,7 +3187,7 @@
           <input type="search" id="fiche-search-input" class="search-bar__input" placeholder="ex : téléphone..." autocomplete="off">
         </div>
 
-        <label class="fiche-header__label" id="fiche-address-label" for="fiche-address-input">Localisation</label>
+        <label class="fiche-header__label" id="fiche-address-label" for="fiche-address-input">Où souhaitez-vous trouver des solutions ?</label>
         <div class="search-bar fiche-header__search-bar" id="fiche-address-bar">
           <div class="search-bar__icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -3040,7 +3206,6 @@
 
       <!-- Info-tri -->
       <div class="fiche-infotri" id="fiche-infotri">
-        <h2 class="fiche-infotri__title">Recommandations &amp; consignes</h2>
         <div class="fiche-infotri__images" id="fiche-infotri-images"></div>
       </div>
 
@@ -3052,8 +3217,11 @@
 
       <!-- Footer fiche -->
       <div class="fiche-footer">
-        <a href="https://quefairedemesdechets.ademe.fr" class="section-footer-link" target="_blank" rel="noopener noreferrer">En savoir plus sur cet outil</a>
         <div class="footer-logos">
+          <a href="https://quefairedemesdechets.ademe.fr" class="footer-external-link" target="_blank" rel="noopener noreferrer">
+            En savoir plus sur cet outil
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
           <img src="src/assets/icons/bloc-marque-que-faire.svg" alt="Logos ADEME et République Française — Que faire de mes objets et déchets" width="139" height="37">
         </div>
       </div>
@@ -3067,15 +3235,13 @@
 
       <!-- En-tête vert : bouton retour enrichi + champ localisation + compteur -->
       <div class="solutions-header">
-        <button class="solutions-header__back" id="solutions-back" type="button" aria-label="Revenir aux recommandations">
+        <button class="solutions-header__back" id="solutions-back" type="button" aria-label="Changer le geste">
           <svg class="solutions-header__back-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-          <span class="solutions-header__back-content">
-            <span class="solutions-header__back-object" id="solutions-back-object"></span>
-            <span class="solutions-header__back-gestes" id="solutions-back-gestes"></span>
-          </span>
+          <span class="solutions-header__back-label">Changer le geste</span>
+          <span class="solutions-header__back-geste" id="solutions-back-geste"></span>
         </button>
         <div class="solutions-header__body">
-          <label class="solutions-header__label" for="solutions-address-input">Localisation</label>
+          <label class="solutions-header__label" for="solutions-address-input">Où souhaitez-vous trouver des solutions ?</label>
           <div class="solutions-header__address">
             <div class="search-bar" role="search">
               <div class="search-bar__icon" aria-hidden="true">
@@ -3131,6 +3297,8 @@
 
       <!-- Vue carte -->
       <div class="solutions-map" id="solutions-map" style="display:none;">
+        <!-- Message d'invite affiché quand aucune adresse n'est saisie (équivalent à la vue liste) -->
+        <p class="solutions-map__empty" id="solutions-map-empty" style="display:none;">Veuillez saisir une adresse pour voir les lieux proches.</p>
         <button class="solutions-map__search-area" id="solutions-map-search-area" type="button" tabindex="-1" aria-label="Nouvelle recherche dans cette zone">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
           Nouvelle recherche dans cette zone
@@ -3139,8 +3307,11 @@
 
       <!-- Footer -->
       <div class="solutions-footer">
-        <a href="https://quefairedemesdechets.ademe.fr" class="section-footer-link" target="_blank" rel="noopener noreferrer">En savoir plus sur cet outil</a>
         <div class="footer-logos">
+          <a href="https://quefairedemesdechets.ademe.fr" class="footer-external-link" target="_blank" rel="noopener noreferrer">
+            En savoir plus sur cet outil
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
           <img src="src/assets/icons/bloc-marque-que-faire.svg" alt="Logos ADEME et République Française — Que faire de mes objets et déchets" width="139" height="37">
         </div>
       </div>
@@ -3165,8 +3336,11 @@
 
       <!-- Footer commun -->
       <div class="lieu-footer">
-        <a href="https://quefairedemesdechets.ademe.fr" class="section-footer-link" target="_blank" rel="noopener noreferrer">En savoir plus sur cet outil</a>
         <div class="footer-logos">
+          <a href="https://quefairedemesdechets.ademe.fr" class="footer-external-link" target="_blank" rel="noopener noreferrer">
+            En savoir plus sur cet outil
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
           <img src="src/assets/icons/bloc-marque-que-faire.svg" alt="Logos ADEME et République Française — Que faire de mes objets et déchets" width="139" height="37">
         </div>
       </div>
@@ -3731,7 +3905,7 @@
         const exemplesLinks = exemples.map(e =>
           `<button type="button" class="fr-tag" data-query="${e}">${e}</button>`
         ).join('');
-        const errorSvg = `<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 17C7.4486 17 7 16.5514 7 16C7 15.4486 7.4486 15 8 15C8.5514 15 9 15.4486 9 16C9 16.5514 8.5514 17 8 17Z" fill="#ECECFE"/><path fill-rule="evenodd" clip-rule="evenodd" d="M65 72C64.4486 72 64 71.5514 64 71C64 70.4486 64.4486 70 65 70C65.5514 70 66 70.4486 66 71C66 71.5514 65.5514 72 65 72Z" fill="#ECECFE"/><path fill-rule="evenodd" clip-rule="evenodd" d="M66 11C65.4486 11 65 10.5514 65 10C65 9.44855 65.4486 9 66 9C66.5514 9 67 9.44855 67 10C67 10.5514 66.5514 11 66 11Z" fill="#ECECFE"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21 77C20.4486 77 20 76.5514 20 76C20 75.4486 20.4486 75 21 75C21.5514 75 22 75.4486 22 76C22 76.5514 21.5514 77 21 77Z" fill="#ECECFE"/><path d="M40 36.5502L48.4351 28.1151C49.2552 27.295 50.5848 27.295 51.4049 28.1151C52.1774 28.8875 52.227 30.1212 51.5131 30.9678L51.4049 31.0849L42.9699 39.52L52.3649 48.9151L52.4731 49.0322C53.187 49.8788 53.1374 51.1125 52.3649 51.8849C51.5448 52.705 50.2152 52.705 49.3951 51.8849L40 42.4898L30.6049 51.8849C29.7848 52.705 28.4552 52.705 27.6351 51.8849C26.8626 51.1125 26.813 49.8788 27.5269 49.0322L27.6351 48.9151L37.0302 39.52L28.5951 31.0849L28.4869 30.9678C27.773 30.1212 27.8226 28.8875 28.5951 28.1151C29.4152 27.295 30.7448 27.295 31.5649 28.1151L40 36.5502Z" fill="#E1000F"/><path d="M57 12C62.9787 12 67.8434 16.7698 67.9963 22.7116L68 23V29C68 29.5523 67.5523 30 67 30C66.4872 30 66.0645 29.614 66.0067 29.1166L66 29V23C66 18.1182 62.1132 14.1442 57.2654 14.0038L57 14H23C18.1182 14 14.1442 17.8868 14.0038 22.7346L14 23V57C14 61.8818 17.8868 65.8558 22.7346 65.9962L23 66H57C61.8818 66 65.8558 62.1132 65.9962 57.2654L66 57V43C66 42.4477 66.4477 42 67 42C67.5128 42 67.9355 42.386 67.9933 42.8834L68 43V57C68 62.9787 63.2302 67.8434 57.2884 67.9963L57 68H23C17.0213 68 12.1566 63.2302 12.0037 57.2884L12 57V23C12 17.0213 16.7698 12.1566 22.7116 12.0037L23 12H57Z" fill="#000091"/><path d="M70 31C70 30.4477 70.4477 30 71 30C71.5523 30 72 30.4477 72 31C72 31.5523 71.5523 32 71 32C70.4477 32 70 31.5523 70 31Z" fill="#000091"/><path d="M71.9933 34.8834C71.9355 34.386 71.5128 34 71 34C70.4477 34 70 34.4477 70 35V51L70.0067 51.1166C70.0645 51.614 70.4872 52 71 52C71.5523 52 72 51.5523 72 51V35L71.9933 34.8834Z" fill="#000091"/></svg>`;
+        const errorSvg = `<svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 17C7.4486 17 7 16.5514 7 16C7 15.4486 7.4486 15 8 15C8.5514 15 9 15.4486 9 16C9 16.5514 8.5514 17 8 17Z" fill="#ECECFE"/><path fill-rule="evenodd" clip-rule="evenodd" d="M65 72C64.4486 72 64 71.5514 64 71C64 70.4486 64.4486 70 65 70C65.5514 70 66 70.4486 66 71C66 71.5514 65.5514 72 65 72Z" fill="#ECECFE"/><path fill-rule="evenodd" clip-rule="evenodd" d="M66 11C65.4486 11 65 10.5514 65 10C65 9.44855 65.4486 9 66 9C66.5514 9 67 9.44855 67 10C67 10.5514 66.5514 11 66 11Z" fill="#ECECFE"/><path fill-rule="evenodd" clip-rule="evenodd" d="M21 77C20.4486 77 20 76.5514 20 76C20 75.4486 20.4486 75 21 75C21.5514 75 22 75.4486 22 76C22 76.5514 21.5514 77 21 77Z" fill="#ECECFE"/><path d="M40 36.5502L48.4351 28.1151C49.2552 27.295 50.5848 27.295 51.4049 28.1151C52.1774 28.8875 52.227 30.1212 51.5131 30.9678L51.4049 31.0849L42.9699 39.52L52.3649 48.9151L52.4731 49.0322C53.187 49.8788 53.1374 51.1125 52.3649 51.8849C51.5448 52.705 50.2152 52.705 49.3951 51.8849L40 42.4898L30.6049 51.8849C29.7848 52.705 28.4552 52.705 27.6351 51.8849C26.8626 51.1125 26.813 49.8788 27.5269 49.0322L27.6351 48.9151L37.0302 39.52L28.5951 31.0849L28.4869 30.9678C27.773 30.1212 27.8226 28.8875 28.5951 28.1151C29.4152 27.295 30.7448 27.295 31.5649 28.1151L40 36.5502Z" fill="#E1000F"/><path d="M57 12C62.9787 12 67.8434 16.7698 67.9963 22.7116L68 23V29C68 29.5523 67.5523 30 67 30C66.4872 30 66.0645 29.614 66.0067 29.1166L66 29V23C66 18.1182 62.1132 14.1442 57.2654 14.0038L57 14H23C18.1182 14 14.1442 17.8868 14.0038 22.7346L14 23V57C14 61.8818 17.8868 65.8558 22.7346 65.9962L23 66H57C61.8818 66 65.8558 62.1132 65.9962 57.2654L66 57V43C66 42.4477 66.4477 42 67 42C67.5128 42 67.9355 42.386 67.9933 42.8834L68 43V57C68 62.9787 63.2302 67.8434 57.2884 67.9963L57 68H23C17.0213 68 12.1566 63.2302 12.0037 57.2884L12 57V23C12 17.0213 16.7698 12.1566 22.7116 12.0037L23 12H57Z" fill="#0C5956"/><path d="M70 31C70 30.4477 70.4477 30 71 30C71.5523 30 72 30.4477 72 31C72 31.5523 71.5523 32 71 32C70.4477 32 70 31.5523 70 31Z" fill="#0C5956"/><path d="M71.9933 34.8834C71.9355 34.386 71.5128 34 71 34C70.4477 34 70 34.4477 70 35V51L70.0067 51.1166C70.0645 51.614 70.4872 52 71 52C71.5523 52 72 51.5523 72 51V35L71.9933 34.8834Z" fill="#0C5956"/></svg>`;
         searchResults.innerHTML =
           `<li class="search-noresult">
             <div class="search-noresult__illustration" aria-hidden="true">${errorSvg}</div>
@@ -4099,16 +4273,19 @@
           const hasBonus = acc.consigne && acc.consigne.includes('Bonus Réparation');
           const badgeClass = getBadgeClass(acc.condition);
           const iconSvg = GESTE_ICONS[acc.icone] || GESTE_ICONS.deposer;
-          const ctaLabel = 'Je découvre les solutions';
 
           const card = document.createElement('div');
           card.className = 'geste-card';
           card.dataset.gesteIndex = index;
 
+          // Casse normale (R\u00e9parable / Bon \u00e9tat / Mauvais \u00e9tat) au lieu de l'uppercase pr\u00e9c\u00e9dent
           const conditionLabel = getConditionLabel(acc.condition);
+          const conditionLabelFormatted = conditionLabel
+            ? conditionLabel.charAt(0) + conditionLabel.slice(1).toLowerCase()
+            : '';
           const badgesHtml = [
-            conditionLabel ? `<span class="geste-badge ${badgeClass}">${conditionLabel}</span>` : '',
-            hasBonus ? '<span class="geste-badge geste-badge--bonus">Bonus R\u00e9paration</span>' : ''
+            conditionLabel ? `<span class="geste-badge ${badgeClass}">${conditionLabelFormatted}</span>` : '',
+            hasBonus ? `<span class="geste-badge geste-badge--bonus"><span class="geste-badge__icon">${ICON_BONUS}</span>Bonus R\u00e9paration</span>` : ''
           ].join('');
 
           // Ic\u00f4nes : tableau acc.icones prioritaire, sinon "Donner ou revendre" = deux ic\u00f4nes auto
@@ -4122,6 +4299,16 @@
               : `<span class="geste-card__icon">${iconSvg}</span>`;
           }
 
+          // Flèche → pour le CTA
+          const ARROW_SVG = '<svg class="geste-card__cta-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+          // Icône pin pour le message d'invite quand pas d'adresse saisie
+          const PIN_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+
+          // CTA si adresse saisie, sinon message d'invite discret
+          const ctaOrHint = appState.selectedAddress
+            ? `<button class="geste-card__cta" type="button" data-geste-index="${index}"><span class="geste-card__cta-label">Je découvre les solutions</span>${ARROW_SVG}</button>`
+            : `<p class="geste-card__hint"><span class="geste-card__hint-icon">${PIN_SVG}</span>Saisissez une adresse pour voir les solutions disponibles</p>`;
+
           card.innerHTML = `
             <div class="geste-card__badges">${badgesHtml}</div>
             <div class="geste-card__header">
@@ -4129,7 +4316,7 @@
               <h3 class="geste-card__title">${acc.titre}</h3>
             </div>
             <div class="geste-card__description">${acc.consigne}</div>
-            <button class="geste-card__cta" type="button" data-geste-index="${index}">${ctaLabel}</button>
+            ${ctaOrHint}
           `;
 
           gesteCards.appendChild(card);
@@ -4185,9 +4372,13 @@
           const count = inRange.filter(a => matchesAction(a, fields)).length;
           const btn = document.querySelector(`.geste-card__cta[data-geste-index="${index}"]`);
           if (btn) {
-            btn.textContent = count > 0
+            // On met \u00e0 jour uniquement le label (la span d\u00e9di\u00e9e) pour pr\u00e9server la fl\u00e8che SVG
+            const labelEl = btn.querySelector('.geste-card__cta-label');
+            const newLabel = count > 0
               ? `Je d\u00e9couvre les ${formatNumber(count)} solutions`
               : 'Je d\u00e9couvre les solutions';
+            if (labelEl) labelEl.textContent = newLabel;
+            else btn.textContent = newLabel;
           }
           total += count;
         });
@@ -4401,13 +4592,28 @@
 
       const acteurId = acteur.identifiant || acteur._id || '';
 
+      // Tag distance avec icône pin compacte
+      const distanceTag = `
+        <span class="solution-card__distance-tag" aria-label="Distance : ${formatDistance(acteur._distance)}">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          ${formatDistance(acteur._distance)}
+        </span>`;
+
+      // Flèche → pour le CTA (même esprit que les cards consignes)
+      const ARROW_SVG = '<svg class="solution-card__link-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+
       return `
         <div class="solution-card">
-          <h3 class="solution-card__name">${acteur.nom || 'Lieu sans nom'}</h3>
-          ${labelsHtml.length ? `<div class="solution-card__labels">${labelsHtml.join('')}</div>` : ''}
+          <div class="solution-card__header">
+            <h3 class="solution-card__name">${acteur.nom || 'Lieu sans nom'}</h3>
+            ${distanceTag}
+          </div>
           ${pillsHtml ? `<div class="solution-card__gestes">${pillsHtml}</div>` : ''}
-          <p class="solution-card__distance">${formatDistance(acteur._distance)}</p>
-          <button class="solution-card__link" type="button" data-acteur-id="${acteurId}">Voir la fiche</button>
+          ${labelsHtml.length ? `<div class="solution-card__labels">${labelsHtml.join('')}</div>` : ''}
+          <button class="solution-card__link" type="button" data-acteur-id="${acteurId}">
+            <span>Voir la fiche</span>
+            ${ARROW_SVG}
+          </button>
         </div>`;
     }
 
@@ -4460,21 +4666,33 @@
       const acc = appState.sortedAccordeons ? appState.sortedAccordeons[gesteIndex] : null;
       const ficheNom = appState.selectedFiche ? appState.selectedFiche.nom : '';
 
-      // Bouton retour enrichi : nom objet + ligne geste(s) avec icône(s)
+      // Bouton "Changer le geste [icône] [nom]" : permet de revenir à la fiche pour changer
       const backBtn = document.getElementById('solutions-back');
       if (backBtn) {
         backBtn.setAttribute('aria-label',
-          ficheNom ? `Revenir aux recommandations pour ${ficheNom}` : 'Revenir aux recommandations');
+          acc ? `Changer le geste (actuellement : ${acc.titre})` : 'Changer le geste');
       }
-      document.getElementById('solutions-back-object').textContent = ficheNom || '';
-      const gestes = acc ? [acc] : []; // Structure prête pour plusieurs gestes
-      document.getElementById('solutions-back-gestes').innerHTML = gestes.map(g => {
-        const icon = GESTE_ICONS[g.icone] || '';
-        return `<span class="solutions-header__back-geste">
-          <span class="solutions-header__back-geste-icon">${icon}</span>
-          <span>${g.titre}</span>
-        </span>`;
-      }).join('');
+      const gesteDisplay = document.getElementById('solutions-back-geste');
+      if (gesteDisplay) {
+        if (acc) {
+          // Détermine les icônes à afficher — même logique que les cards consignes :
+          // acc.icones prioritaire (tableau), sinon détection "Donner ou revendre", sinon icône unique.
+          let iconKeys;
+          if (acc.icones && acc.icones.length > 1) {
+            iconKeys = acc.icones;
+          } else if (acc.titre && acc.titre.toLowerCase().includes('revendre')) {
+            iconKeys = ['donner', 'revendre'];
+          } else {
+            iconKeys = [acc.icone];
+          }
+          const iconsHtml = iconKeys
+            .map(k => `<span class="solutions-header__back-geste-icon">${GESTE_ICONS[k] || ''}</span>`)
+            .join('');
+          gesteDisplay.innerHTML = `<span class="solutions-header__back-geste-icons">${iconsHtml}</span><span class="solutions-header__back-geste-label">${acc.titre}</span>`;
+        } else {
+          gesteDisplay.innerHTML = '';
+        }
+      }
 
       // Pré-remplit le champ adresse avec l'adresse courante
       const addrInput = document.getElementById('solutions-address-input');
@@ -4484,6 +4702,11 @@
       document.getElementById('solutions-list').innerHTML = renderSolutionsLoading();
 
       history.pushState({ step: 'solutions', ficheId: appState.selectedFiche.id, gesteIndex }, '');
+
+      // Affiche / masque le message d'invite "saisir une adresse" sur la vue carte
+      // (la vue liste a son propre message rendu plus bas dans innerHTML).
+      const mapEmpty = document.getElementById('solutions-map-empty');
+      if (mapEmpty) mapEmpty.style.display = appState.selectedAddress ? 'none' : '';
 
       if (!appState.selectedAddress) {
         document.getElementById('solutions-count').textContent = '';
@@ -4517,10 +4740,12 @@
         appState.solutionsActeurs = acteurs;
 
         const total = acteurs.length;
+        // Phrase enrichie avec le nom de l'objet : "78 solutions pour votre Cafetière à moins de 20 km"
+        const objectFragment = ficheNom ? ` pour votre ${ficheNom}` : '';
         document.getElementById('solutions-count').textContent =
           total > 0
-            ? `${total} solution${total > 1 ? 's' : ''} à moins de 20 km`
-            : 'Aucune solution à moins de 20 km';
+            ? `${total} solution${total > 1 ? 's' : ''}${objectFragment} à moins de 20 km`
+            : `Aucune solution${objectFragment} à moins de 20 km`;
 
         if (total === 0) {
           document.getElementById('solutions-list').innerHTML = '<p class="solutions-empty">Aucun lieu trouvé dans ce rayon.</p>';
@@ -5130,7 +5355,7 @@
     }
 
     // SVG pins fournis par le design system (35x47, sauf le bonus = 43x52)
-    const PIN_REPARATION = '<svg width="28" height="38" viewBox="0 0 35 47" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M28.6676 31.0249C32.5362 27.8096 35 22.9574 35 17.5287C35 7.84786 27.165 0 17.5 0C7.83502 0 0 7.84786 0 17.5287C0 22.9542 2.4609 27.804 6.32565 31.0192L10.2164 35.0734C13.4986 38.4934 16.0433 42.553 17.6923 47C19.2133 42.5564 21.6616 38.4882 24.8741 35.0659L28.6676 31.0249Z" fill="#009081"/><path d="M17.4997 0C27.1646 0 35.0001 7.84772 35.0002 17.5284C35.0002 22.9571 32.5359 27.8093 28.6672 31.0245L24.8744 35.066C21.662 38.4881 19.2135 42.5562 17.6924 46.9996C16.0434 42.5527 13.4981 38.4934 10.2161 35.0736L6.3254 31.0192C2.46075 27.8039 0 22.9538 0 17.5284C0.000141758 7.84781 7.83496 0.000141982 17.4997 0ZM17.4997 2.33459C9.12221 2.33473 2.33091 9.13717 2.33077 17.5284C2.33077 22.0835 4.32922 26.1693 7.50368 28.9574L7.81475 29.2234L7.91566 29.307L11.8966 33.4556C14.1474 35.8009 16.0725 38.4283 17.6287 41.2657C19.113 38.4339 20.9777 35.8093 23.1764 33.467L26.9692 29.4256L27.0686 29.3207L27.1794 29.228C30.5371 26.4373 32.6695 22.2332 32.6695 17.5284C32.6693 9.13708 25.8774 2.33459 17.4997 2.33459Z" fill="#37635F"/><path d="M11.8605 8.47997C12.9869 8.07887 14.293 8.32983 15.1945 9.23287C16.0963 10.1362 16.3468 11.4448 15.9458 12.5733L25.8521 22.4958L23.9144 24.4367L14.0071 14.5146C12.8807 14.9157 11.5747 14.6647 10.6731 13.7617C9.77129 12.8584 9.52085 11.5497 9.92178 10.4213L11.9649 12.4677C12.5 13.0037 13.3676 13.0037 13.9027 12.4677C14.4378 11.9318 14.4378 11.0628 13.9027 10.5268L11.8605 8.47997ZM21.3307 10.2033L24.2374 8.58589L25.5292 9.87984L23.9144 12.7912L22.2995 13.1147L20.3618 15.0557L19.07 13.7617L21.0077 11.8208L21.3307 10.2033ZM14.8716 17.32L16.8093 19.261L12.2879 23.7898C11.7528 24.3258 10.8852 24.3258 10.3502 23.7898C9.84653 23.2854 9.81691 22.4859 10.2613 21.9468L10.3502 21.8489L14.8716 17.32Z" fill="white"/></svg>';
+    const PIN_REPARATION = '<svg width="28" height="38" viewBox="0 0 35 47" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M28.6676 31.0249C32.5362 27.8096 35 22.9574 35 17.5287C35 7.84786 27.165 0 17.5 0C7.83502 0 0 7.84786 0 17.5287C0 22.9542 2.4609 27.804 6.32565 31.0192L10.2164 35.0734C13.4986 38.4934 16.0433 42.553 17.6923 47C19.2133 42.5564 21.6616 38.4882 24.8741 35.0659L28.6676 31.0249Z" fill="#009081"/><path d="M17.4997 0C27.1646 0 35.0001 7.84772 35.0002 17.5284C35.0002 22.9571 32.5359 27.8093 28.6672 31.0245L24.8744 35.066C21.662 38.4881 19.2135 42.5562 17.6924 46.9996C16.0434 42.5527 13.4981 38.4934 10.2161 35.0736L6.3254 31.0192C2.46075 27.8039 0 22.9538 0 17.5284C0.000141758 7.84781 7.83496 0.000141982 17.4997 0ZM17.4997 2.33459C9.12221 2.33473 2.33091 9.13717 2.33077 17.5284C2.33077 22.0835 4.32922 26.1693 7.50368 28.9574L7.81475 29.2234L7.91566 29.307L11.8966 33.4556C14.1474 35.8009 16.0725 38.4283 17.6287 41.2657C19.113 38.4339 20.9777 35.8093 23.1764 33.467L26.9692 29.4256L27.0686 29.3207L27.1794 29.228C30.5371 26.4373 32.6695 22.2332 32.6695 17.5284C32.6693 9.13708 25.8774 2.33459 17.4997 2.33459Z" fill="#26827C"/><path d="M11.8605 8.47997C12.9869 8.07887 14.293 8.32983 15.1945 9.23287C16.0963 10.1362 16.3468 11.4448 15.9458 12.5733L25.8521 22.4958L23.9144 24.4367L14.0071 14.5146C12.8807 14.9157 11.5747 14.6647 10.6731 13.7617C9.77129 12.8584 9.52085 11.5497 9.92178 10.4213L11.9649 12.4677C12.5 13.0037 13.3676 13.0037 13.9027 12.4677C14.4378 11.9318 14.4378 11.0628 13.9027 10.5268L11.8605 8.47997ZM21.3307 10.2033L24.2374 8.58589L25.5292 9.87984L23.9144 12.7912L22.2995 13.1147L20.3618 15.0557L19.07 13.7617L21.0077 11.8208L21.3307 10.2033ZM14.8716 17.32L16.8093 19.261L12.2879 23.7898C11.7528 24.3258 10.8852 24.3258 10.3502 23.7898C9.84653 23.2854 9.81691 22.4859 10.2613 21.9468L10.3502 21.8489L14.8716 17.32Z" fill="white"/></svg>';
 
     const PIN_DON = '<svg width="28" height="38" viewBox="0 0 35 47" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M28.6676 30.3648C32.5362 27.2179 35 22.4689 35 17.1557C35 7.68088 27.165 0 17.5 0C7.83502 0 0 7.68088 0 17.1557C0 22.4658 2.4609 27.2124 6.32565 30.3593L10.2164 34.3272C13.4986 37.6744 16.0433 41.6476 17.6923 46C19.2133 41.651 21.6616 37.6693 24.8741 34.3198L28.6676 30.3648Z" fill="white"/><path d="M17.4997 0C27.1646 0 35.0001 7.68075 35.0002 17.1555C35.0002 22.4686 32.5359 27.2176 28.6672 30.3644L24.8744 34.3199C21.662 37.6692 19.2135 41.6507 17.6924 45.9996C16.0434 41.6474 13.4981 37.6744 10.2161 34.3273L6.3254 30.3592C2.46075 27.2123 0 22.4655 0 17.1555C0.000141758 7.68083 7.83496 0.000138961 17.4997 0ZM17.4997 2.28492C9.12221 2.28506 2.33091 8.94276 2.33077 17.1555C2.33077 21.6136 4.32922 25.6125 7.50368 28.3413L7.81475 28.6016L7.91566 28.6835L11.8966 32.7438C14.1474 35.0391 16.0725 37.6107 17.6287 40.3877C19.113 37.6161 20.9777 35.0474 23.1764 32.755L26.9692 28.7995L27.0686 28.6968L27.1794 28.6061C30.5371 25.8748 32.6695 21.7601 32.6695 17.1555C32.6693 8.94267 25.8774 2.28492 17.4997 2.28492Z" fill="#417DC4"/><path d="M15.3404 15.2394L17.1004 15.2398C19.1162 15.2398 20.7502 16.8417 20.7502 18.8178L15.0719 18.8171L15.0727 19.6129L21.5613 19.6123V18.8178C21.5613 17.9571 21.3032 17.1456 20.8426 16.4318L23.1834 16.4324C24.7993 16.4324 26.1945 17.3589 26.8463 18.6996C24.9283 21.1809 21.8224 22.7934 18.317 22.7934C16.0774 22.7934 14.1801 22.3238 12.6391 21.5015L12.6403 14.1035C13.6505 14.2454 14.575 14.6479 15.3404 15.2394ZM11.0173 13.252C11.4333 13.252 11.7761 13.5589 11.823 13.9543L11.8284 14.0464V21.2031C11.8284 21.6423 11.4653 21.9983 11.0173 21.9983H9.39518C8.94724 21.9983 8.58411 21.6423 8.58411 21.2031V14.0471C8.58411 13.6079 8.94724 13.252 9.39518 13.252H11.0173Z" fill="#417DC4"/></svg>';
 
@@ -5140,7 +5365,7 @@
 
     const PIN_VENTE = '<svg width="28" height="38" viewBox="0 0 35 47" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M28.6676 31.0249C32.5362 27.8096 35 22.9574 35 17.5287C35 7.84786 27.165 0 17.5 0C7.83502 0 0 7.84786 0 17.5287C0 22.9542 2.4609 27.804 6.32565 31.0192L10.2164 35.0734C13.4986 38.4934 16.0433 42.553 17.6923 47C19.2133 42.5564 21.6616 38.4882 24.8741 35.0659L28.6676 31.0249Z" fill="white"/><path d="M17.4997 0C27.1646 0 35.0001 7.84772 35.0002 17.5284C35.0002 22.9571 32.5359 27.8093 28.6672 31.0245L24.8744 35.066C21.662 38.4881 19.2135 42.5562 17.6924 46.9996C16.0434 42.5527 13.4981 38.4934 10.2161 35.0736L6.3254 31.0192C2.46075 27.8039 0 22.9538 0 17.5284C0.000141758 7.84781 7.83496 0.000141982 17.4997 0ZM17.4997 2.33459C9.12221 2.33473 2.33091 9.13717 2.33077 17.5284C2.33077 22.0835 4.32922 26.1693 7.50368 28.9574L7.81475 29.2234L7.91566 29.307L11.8966 33.4556C14.1474 35.8009 16.0725 38.4283 17.6287 41.2657C19.113 38.4339 20.9777 35.8093 23.1764 33.467L26.9692 29.4256L27.0686 29.3207L27.1794 29.228C30.5371 26.4373 32.6695 22.2332 32.6695 17.5284C32.6693 9.13708 25.8774 2.33459 17.4997 2.33459Z" fill="#BB8568"/><path d="M17.5061 25.6562C13.0266 25.6562 9.39532 22.019 9.39532 17.5322C9.39532 13.0455 13.0266 9.4082 17.5061 9.4082C21.9855 9.4082 25.6168 13.0455 25.6168 17.5322C25.6168 22.019 21.9855 25.6562 17.5061 25.6562ZM17.5061 24.0314C21.0896 24.0314 23.9947 21.1216 23.9947 17.5322C23.9947 13.9428 21.0896 11.033 17.5061 11.033C13.9225 11.033 11.0175 13.9428 11.0175 17.5322C11.0175 21.1216 13.9225 24.0314 17.5061 24.0314ZM15.9245 16.7198H19.9393V18.3446H15.9245C16.1123 19.2717 16.9306 19.9694 17.9116 19.9694C18.4106 19.9694 18.8674 19.789 19.2206 19.4895L20.6002 20.4108C19.9331 21.1383 18.9755 21.5942 17.9116 21.5942C16.0329 21.5942 14.4858 20.1725 14.284 18.3446H13.4507V16.7198H14.284C14.4858 14.8919 16.0329 13.4702 17.9116 13.4702C18.9755 13.4702 19.9331 13.9262 20.6002 14.6537L19.2207 15.575C18.8675 15.2755 18.4106 15.095 17.9116 15.095C16.9306 15.095 16.1123 15.7928 15.9245 16.7198Z" fill="#BB8568"/></svg>';
 
-    const PIN_BONUS_REPARATION = '<svg width="34" height="42" viewBox="0 0 43 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.4996 4.95117C27.1645 4.95117 34.9999 12.786 35 22.4508C35 27.9209 32.4894 32.8044 28.5586 36.0135L24.8659 39.9527C21.6583 43.3743 19.2134 47.4378 17.6923 51.8743C16.0422 47.4317 13.5225 43.3622 10.2813 39.9049L7.14173 36.556C2.81111 33.3703 0 28.2392 0 22.4508C0.000141748 12.7861 7.83491 4.95131 17.4996 4.95117Z" fill="#009081"/><path d="M32.6692 22.4508C32.6691 14.0733 25.8773 7.28193 17.4996 7.28193C9.25305 7.28206 2.54385 13.8628 2.33606 22.0593L2.33075 22.4508C2.33075 27.4661 4.76323 31.9126 8.52258 34.6781L8.69556 34.8056L11.9815 38.3108C14.1963 40.6733 16.094 43.3044 17.6347 46.1362C19.116 43.3138 20.9743 40.6961 23.1657 38.3586L26.8583 34.4194L26.9645 34.3064L27.0844 34.2077C30.4965 31.4222 32.6692 27.1912 32.6692 22.4508ZM35 22.4508C35 27.9209 32.4894 32.8044 28.5586 36.0135L24.8659 39.9527C21.6583 43.3743 19.2134 47.4378 17.6923 51.8743C16.0422 47.4317 13.5225 43.3622 10.2813 39.9049L7.14173 36.556C2.81111 33.3703 0 28.2392 0 22.4508C0.000141748 12.7861 7.83491 4.95131 17.4996 4.95117C27.1645 4.95117 34.9999 12.786 35 22.4508Z" fill="#37635F"/><path d="M11.4068 14.4777C12.5331 14.0773 13.8392 14.3278 14.7407 15.2294C15.6426 16.1312 15.893 17.4377 15.4921 18.5643L25.3982 28.4705L23.4605 30.4083L13.5533 20.5024C12.427 20.9028 11.1209 20.6523 10.2194 19.7507C9.31756 18.8489 9.06712 17.5424 9.46804 16.4158L11.5112 18.4589C12.0463 18.994 12.9138 18.994 13.4489 18.4589C13.984 17.9238 13.984 17.0563 13.4489 16.5212L11.4068 14.4777ZM20.8769 16.1982L23.7835 14.5835L25.0753 15.8753L23.4605 18.7819L21.8457 19.1048L19.908 21.0426L18.6162 19.7507L20.5539 17.813L20.8769 16.1982ZM14.4178 23.3032L16.3555 25.241L11.8341 29.7624C11.2991 30.2975 10.4315 30.2975 9.89641 29.7624C9.3928 29.2588 9.36318 28.4606 9.80753 27.9224L9.89641 27.8246L14.4178 23.3032Z" fill="white"/><circle cx="33" cy="10" r="5" fill="#3A3A3A"/><path d="M34.6217 1.74566C33.6873 0.94936 32.313 0.949369 31.3786 1.74565L30.2553 2.70295C30.1218 2.81669 29.9559 2.88543 29.781 2.89938L28.3098 3.01679C27.086 3.11444 26.1143 4.08622 26.0166 5.30999L25.8992 6.78122C25.8853 6.95602 25.8165 7.12201 25.7028 7.25548L24.7455 8.37882C23.9492 9.31324 23.9492 10.6875 24.7455 11.6218L25.7028 12.7452C25.8165 12.8787 25.8852 13.0447 25.8992 13.2195L26.0166 14.6907C26.1143 15.9144 27.0861 16.8862 28.3098 16.9838L29.7811 17.1013C29.9559 17.1152 30.1218 17.184 30.2552 17.2977L31.3786 18.255C32.313 19.0512 33.6873 19.0513 34.6217 18.255L35.7451 17.2977C35.8785 17.184 36.0444 17.1152 36.2192 17.1012L37.6905 16.9838C38.9142 16.8862 39.886 15.9145 39.9837 14.6907L40.1011 13.2195C40.115 13.0447 40.1838 12.8787 40.2975 12.7452L41.2548 11.6219C42.0511 10.6875 42.0511 9.31315 41.2548 8.37882L40.2975 7.25544C40.1837 7.12197 40.1151 6.95602 40.1011 6.78123L39.9837 5.30999C39.8861 4.08624 38.9142 3.11443 37.6905 3.01678L36.2192 2.89937C36.0444 2.88542 35.8785 2.81669 35.7451 2.70295L34.6217 1.74566ZM35.357 6.46489L36.5355 7.6434L30.6429 13.536L29.4644 12.3574L35.357 6.46489ZM31.5268 8.52724C31.0386 9.0154 30.2472 9.0154 29.759 8.52724C29.2709 8.03915 29.2709 7.24767 29.759 6.75951C30.2472 6.27135 31.0386 6.27135 31.5268 6.75951C32.015 7.24767 32.015 8.03915 31.5268 8.52724ZM34.4731 13.2413C33.9849 12.7532 33.9849 11.9617 34.4731 11.4736C34.9612 10.9854 35.7526 10.9854 36.2408 11.4736C36.729 11.9617 36.729 12.7532 36.2408 13.2413C35.7526 13.7295 34.9612 13.7295 34.4731 13.2413Z" fill="#EFCB3A"/></svg>';
+    const PIN_BONUS_REPARATION = '<svg width="34" height="42" viewBox="0 0 43 52" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M17.4996 4.95117C27.1645 4.95117 34.9999 12.786 35 22.4508C35 27.9209 32.4894 32.8044 28.5586 36.0135L24.8659 39.9527C21.6583 43.3743 19.2134 47.4378 17.6923 51.8743C16.0422 47.4317 13.5225 43.3622 10.2813 39.9049L7.14173 36.556C2.81111 33.3703 0 28.2392 0 22.4508C0.000141748 12.7861 7.83491 4.95131 17.4996 4.95117Z" fill="#009081"/><path d="M32.6692 22.4508C32.6691 14.0733 25.8773 7.28193 17.4996 7.28193C9.25305 7.28206 2.54385 13.8628 2.33606 22.0593L2.33075 22.4508C2.33075 27.4661 4.76323 31.9126 8.52258 34.6781L8.69556 34.8056L11.9815 38.3108C14.1963 40.6733 16.094 43.3044 17.6347 46.1362C19.116 43.3138 20.9743 40.6961 23.1657 38.3586L26.8583 34.4194L26.9645 34.3064L27.0844 34.2077C30.4965 31.4222 32.6692 27.1912 32.6692 22.4508ZM35 22.4508C35 27.9209 32.4894 32.8044 28.5586 36.0135L24.8659 39.9527C21.6583 43.3743 19.2134 47.4378 17.6923 51.8743C16.0422 47.4317 13.5225 43.3622 10.2813 39.9049L7.14173 36.556C2.81111 33.3703 0 28.2392 0 22.4508C0.000141748 12.7861 7.83491 4.95131 17.4996 4.95117C27.1645 4.95117 34.9999 12.786 35 22.4508Z" fill="#26827C"/><path d="M11.4068 14.4777C12.5331 14.0773 13.8392 14.3278 14.7407 15.2294C15.6426 16.1312 15.893 17.4377 15.4921 18.5643L25.3982 28.4705L23.4605 30.4083L13.5533 20.5024C12.427 20.9028 11.1209 20.6523 10.2194 19.7507C9.31756 18.8489 9.06712 17.5424 9.46804 16.4158L11.5112 18.4589C12.0463 18.994 12.9138 18.994 13.4489 18.4589C13.984 17.9238 13.984 17.0563 13.4489 16.5212L11.4068 14.4777ZM20.8769 16.1982L23.7835 14.5835L25.0753 15.8753L23.4605 18.7819L21.8457 19.1048L19.908 21.0426L18.6162 19.7507L20.5539 17.813L20.8769 16.1982ZM14.4178 23.3032L16.3555 25.241L11.8341 29.7624C11.2991 30.2975 10.4315 30.2975 9.89641 29.7624C9.3928 29.2588 9.36318 28.4606 9.80753 27.9224L9.89641 27.8246L14.4178 23.3032Z" fill="white"/><circle cx="33" cy="10" r="5" fill="#3A3A3A"/><path d="M34.6217 1.74566C33.6873 0.94936 32.313 0.949369 31.3786 1.74565L30.2553 2.70295C30.1218 2.81669 29.9559 2.88543 29.781 2.89938L28.3098 3.01679C27.086 3.11444 26.1143 4.08622 26.0166 5.30999L25.8992 6.78122C25.8853 6.95602 25.8165 7.12201 25.7028 7.25548L24.7455 8.37882C23.9492 9.31324 23.9492 10.6875 24.7455 11.6218L25.7028 12.7452C25.8165 12.8787 25.8852 13.0447 25.8992 13.2195L26.0166 14.6907C26.1143 15.9144 27.0861 16.8862 28.3098 16.9838L29.7811 17.1013C29.9559 17.1152 30.1218 17.184 30.2552 17.2977L31.3786 18.255C32.313 19.0512 33.6873 19.0513 34.6217 18.255L35.7451 17.2977C35.8785 17.184 36.0444 17.1152 36.2192 17.1012L37.6905 16.9838C38.9142 16.8862 39.886 15.9145 39.9837 14.6907L40.1011 13.2195C40.115 13.0447 40.1838 12.8787 40.2975 12.7452L41.2548 11.6219C42.0511 10.6875 42.0511 9.31315 41.2548 8.37882L40.2975 7.25544C40.1837 7.12197 40.1151 6.95602 40.1011 6.78123L39.9837 5.30999C39.8861 4.08624 38.9142 3.11443 37.6905 3.01678L36.2192 2.89937C36.0444 2.88542 35.8785 2.81669 35.7451 2.70295L34.6217 1.74566ZM35.357 6.46489L36.5355 7.6434L30.6429 13.536L29.4644 12.3574L35.357 6.46489ZM31.5268 8.52724C31.0386 9.0154 30.2472 9.0154 29.759 8.52724C29.2709 8.03915 29.2709 7.24767 29.759 6.75951C30.2472 6.27135 31.0386 6.27135 31.5268 6.75951C32.015 7.24767 32.015 8.03915 31.5268 8.52724ZM34.4731 13.2413C33.9849 12.7532 33.9849 11.9617 34.4731 11.4736C34.9612 10.9854 35.7526 10.9854 36.2408 11.4736C36.729 11.9617 36.729 12.7532 36.2408 13.2413C35.7526 13.7295 34.9612 13.7295 34.4731 13.2413Z" fill="#EFCB3A"/></svg>';
 
     const PIN_USER = '<svg width="32" height="32" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="25" cy="25" r="23.5" fill="white" stroke="#E1000F" stroke-width="3"/><path d="M33.4853 32.1512L25 40.6366L16.5147 32.1512C14.8365 30.473 13.6936 28.3348 13.2306 26.007C12.7676 23.6793 13.0052 21.2665 13.9135 19.0738C14.8217 16.8811 16.3598 15.0069 18.3332 13.6884C20.3066 12.3698 22.6266 11.666 25 11.666C27.3734 11.666 29.6934 12.3698 31.6668 13.6884C33.6402 15.0069 35.1783 16.8811 36.0865 19.0738C36.9948 21.2665 37.2324 23.6793 36.7694 26.007C36.3064 28.3348 35.1636 30.473 33.4853 32.1512ZM25 26.3326C25.7072 26.3326 26.3855 26.0516 26.8856 25.5515C27.3857 25.0514 27.6667 24.3732 27.6667 23.6659C27.6667 22.9587 27.3857 22.2804 26.8856 21.7803C26.3855 21.2802 25.7072 20.9992 25 20.9992C24.2928 20.9992 23.6145 21.2802 23.1144 21.7803C22.6143 22.2804 22.3333 22.9587 22.3333 23.6659C22.3333 24.3732 22.6143 25.0514 23.1144 25.5515C23.6145 26.0516 24.2928 26.3326 25 26.3326Z" fill="#E1000F"/></svg>';
 
@@ -5300,10 +5525,12 @@
         appState.solutionsActeurs = acteurs;
         // Met à jour la liste (en mémoire, sera visible quand l'usager repasse en mode liste)
         const total = acteurs.length;
+        const ficheNomMap = appState.selectedFiche ? appState.selectedFiche.nom : '';
+        const objectFragmentMap = ficheNomMap ? ` pour votre ${ficheNomMap}` : '';
         const countEl = document.getElementById('solutions-count');
         if (countEl) countEl.textContent = total > 0
-          ? `${total} solution${total > 1 ? 's' : ''} à moins de 20 km`
-          : 'Aucune solution à moins de 20 km';
+          ? `${total} solution${total > 1 ? 's' : ''}${objectFragmentMap} à moins de 20 km`
+          : `Aucune solution${objectFragmentMap} à moins de 20 km`;
         if (total === 0) {
           document.getElementById('solutions-list').innerHTML = '<p class="solutions-empty">Aucun lieu trouvé dans ce rayon.</p>';
         } else {
