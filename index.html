@@ -1566,7 +1566,43 @@
       outline-offset: 2px;
     }
 
-    /* État "pas d'adresse saisie" : message d'invite à la place du CTA */
+    /* Variante outline (mode géolocalisation) : bordure verte + texte vert + fond blanc.
+       Texte plus long ("Je découvre les solutions près de moi") → max-width élargi
+       et nowrap pour rester sur une ligne en desktop/tablette */
+    .geste-card__cta--geolocate {
+      background-color: var(--background-default);
+      color: var(--blue-france);
+      border: 1px solid var(--blue-france);
+      max-width: 26rem;
+      white-space: nowrap;
+    }
+
+    .geste-card__cta--geolocate:hover {
+      background-color: var(--background-action-low-blue);
+    }
+
+    .geste-card__cta--geolocate:active {
+      background-color: var(--background-action-low-blue);
+    }
+
+    /* État loading (pendant la géolocalisation) : désactivé visuellement */
+    .geste-card__cta--loading {
+      opacity: 0.7;
+      cursor: progress;
+    }
+
+    /* Spinner dans le bouton (réutilise l'animation solutions-spin déjà définie) */
+    .geste-card__cta-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: solutions-spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    /* État "pas d'adresse saisie" / "0 résultats" : message d'invite à la place du CTA */
     .geste-card__hint {
       display: inline-flex;
       align-items: center;
@@ -1580,6 +1616,12 @@
       padding: 0.625rem 1rem;
       margin: 0;
       line-height: 1.4;
+    }
+
+    /* Variante hint d'erreur (échec géolocalisation) : ton rouge-orangé doux */
+    .geste-card__hint--error {
+      color: #8C3920;
+      background: #FCE5E1;
     }
 
     .geste-card__hint-icon {
@@ -2482,27 +2524,6 @@
       width: 16px;
       height: 16px;
       flex-shrink: 0;
-    }
-
-    .lieu-close {
-      flex-shrink: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 2rem;
-      height: 2rem;
-      padding: 0;
-      background: transparent;
-      border: 0;
-      color: var(--blue-france);
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    .lieu-close:hover { background-color: var(--background-alt-grey); }
-    .lieu-close:focus-visible {
-      outline: 2px solid var(--blue-france);
-      outline-offset: 2px;
     }
 
     /* ---- Identité ---- */
@@ -4203,6 +4224,129 @@
       return 'MAUVAIS ÉTAT';
     }
 
+    // SVGs réutilisés pour le bloc d'action des cards gestes
+    const ARROW_SVG = '<svg class="geste-card__cta-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+    const PIN_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+    const INFO_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>';
+
+    /**
+     * Remplace le bloc d'action (dernier enfant) d'une card geste par le bon
+     * élément selon le mode demandé. Permet d'updater une card sans la rerender
+     * entièrement (idempotent : on peut passer plusieurs fois entre les états).
+     *
+     * @param {HTMLElement} cardEl - élément .geste-card
+     * @param {'cta'|'empty'|'geolocate'|'loading'|'error'} mode
+     * @param {object} [data] - { count, gesteIndex }
+     */
+    function setGesteCardAction(cardEl, mode, data) {
+      if (!cardEl) return;
+      const gesteIndex = (data && data.gesteIndex != null)
+        ? data.gesteIndex
+        : (cardEl.dataset.gesteIndex || '');
+
+      // Construction du nouvel élément d'action selon le mode
+      let html = '';
+      switch (mode) {
+        case 'cta': {
+          const count = data && typeof data.count === 'number' ? data.count : null;
+          const label = (count !== null && count > 0)
+            ? `Je découvre les ${formatNumber(count)} solutions`
+            : 'Je découvre les solutions';
+          html = `<button class="geste-card__cta" type="button" data-geste-index="${gesteIndex}"><span class="geste-card__cta-label">${label}</span>${ARROW_SVG}</button>`;
+          break;
+        }
+        case 'empty': {
+          html = `<p class="geste-card__hint"><span class="geste-card__hint-icon">${INFO_SVG}</span>Aucune solution trouvée à cette adresse. Essayez une autre adresse pour voir des solutions à proximité.</p>`;
+          break;
+        }
+        case 'geolocate': {
+          html = `<button class="geste-card__cta geste-card__cta--geolocate" type="button" data-geste-index="${gesteIndex}"><span class="geste-card__hint-icon">${PIN_SVG}</span><span class="geste-card__cta-label">Je découvre les solutions près de moi</span></button>`;
+          break;
+        }
+        case 'loading': {
+          html = `<button class="geste-card__cta geste-card__cta--geolocate geste-card__cta--loading" type="button" disabled><span class="geste-card__cta-spinner" aria-hidden="true"></span><span class="geste-card__cta-label">Localisation en cours…</span></button>`;
+          break;
+        }
+        case 'error': {
+          html = `<p class="geste-card__hint geste-card__hint--error"><span class="geste-card__hint-icon">${INFO_SVG}</span>Géolocalisation indisponible. Saisissez votre adresse manuellement.</p>`;
+          break;
+        }
+      }
+
+      // Remplace le dernier enfant (qui est le bloc d'action : bouton ou hint)
+      const last = cardEl.lastElementChild;
+      if (last && (last.classList.contains('geste-card__cta') || last.classList.contains('geste-card__hint'))) {
+        last.outerHTML = html;
+      } else {
+        // Fallback : on ajoute simplement
+        cardEl.insertAdjacentHTML('beforeend', html);
+      }
+    }
+
+    /**
+     * Géolocalise l'usager, fait un reverse geocoding via l'API Adresse,
+     * remplit le champ d'adresse global, puis ouvre directement la page solutions
+     * du geste cliqué. En cas d'erreur (refus, indisponible, hors France),
+     * restaure le bouton et affiche un message d'erreur sous la card concernée.
+     */
+    function tryGeolocate(gesteIndex) {
+      const card = document.querySelector(`.geste-card[data-geste-index="${gesteIndex}"]`);
+      if (!card) return;
+
+      // Si l'API n'est pas dispo (navigateurs anciens, contexte non-secure HTTP)
+      if (!navigator.geolocation) {
+        setGesteCardAction(card, 'error', { gesteIndex });
+        return;
+      }
+
+      // 1) Loading state
+      setGesteCardAction(card, 'loading', { gesteIndex });
+
+      // 2) Demande la position
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          try {
+            // 3) Reverse geocoding via l'API Adresse (BAN)
+            const url = `https://api-adresse.data.gouv.fr/reverse/?lon=${lon}&lat=${lat}&limit=1`;
+            const resp = await fetch(url);
+            if (!resp.ok) throw new Error(`Reverse geocoding HTTP ${resp.status}`);
+            const data = await resp.json();
+            const feature = (data.features || [])[0];
+            if (!feature) throw new Error('Aucune adresse trouvée pour cette position (probablement hors France).');
+
+            const props = feature.properties || {};
+            const coords = (feature.geometry && feature.geometry.coordinates) || [lon, lat];
+
+            // 4) Met à jour le state + tous les champs d'adresse présents dans le DOM
+            appState.selectedAddress = {
+              label:    props.label || '',
+              citycode: props.citycode || '',
+              postcode: props.postcode || '',
+              lat:      coords[1],
+              lon:      coords[0],
+            };
+            ['address-input', 'fiche-address-input', 'solutions-address-input'].forEach(id => {
+              const input = document.getElementById(id);
+              if (input) input.value = appState.selectedAddress.label;
+            });
+
+            // 5) Ouvre directement la page solutions du geste cliqué
+            goToSolutions(parseInt(gesteIndex, 10));
+          } catch (err) {
+            console.error('[tryGeolocate] erreur reverse geocoding :', err);
+            setGesteCardAction(card, 'error', { gesteIndex });
+          }
+        },
+        (err) => {
+          console.warn('[tryGeolocate] géolocalisation refusée/indisponible :', err && err.message);
+          setGesteCardAction(card, 'error', { gesteIndex });
+        },
+        { timeout: 10000, maximumAge: 60000 }
+      );
+    }
+
     function renderFiche() {
       const ficheId = appState.selectedFiche.id;
       const address = appState.selectedAddress;
@@ -4301,15 +4445,11 @@
               : `<span class="geste-card__icon">${iconSvg}</span>`;
           }
 
-          // Flèche → pour le CTA
-          const ARROW_SVG = '<svg class="geste-card__cta-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
-          // Icône pin pour le message d'invite quand pas d'adresse saisie
-          const PIN_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
-
-          // CTA si adresse saisie, sinon message d'invite discret
-          const ctaOrHint = appState.selectedAddress
-            ? `<button class="geste-card__cta" type="button" data-geste-index="${index}"><span class="geste-card__cta-label">Je découvre les solutions</span>${ARROW_SVG}</button>`
-            : `<p class="geste-card__hint"><span class="geste-card__hint-icon">${PIN_SVG}</span>Saisissez une adresse pour voir les solutions disponibles</p>`;
+          // Mode initial du bloc d'action :
+          // - si pas d'adresse → bouton géoloc "Je découvre les solutions près de moi"
+          // - si adresse → placeholder CTA (sera mis à jour avec le count par updateFicheCountsFromAPI,
+          //   ou remplacé par un hint "Aucune solution trouvée" si count === 0)
+          const initialMode = appState.selectedAddress ? 'cta' : 'geolocate';
 
           card.innerHTML = `
             <div class="geste-card__badges">${badgesHtml}</div>
@@ -4318,8 +4458,8 @@
               <h3 class="geste-card__title">${acc.titre}</h3>
             </div>
             <div class="geste-card__description">${acc.consigne}</div>
-            ${ctaOrHint}
           `;
+          setGesteCardAction(card, initialMode, { gesteIndex: index });
 
           gesteCards.appendChild(card);
         });
@@ -4372,15 +4512,10 @@
         accordeons.forEach((acc, index) => {
           const fields = GESTE_ACTION_FIELDS[acc.icone] || ['trier'];
           const count = inRange.filter(a => matchesAction(a, fields)).length;
-          const btn = document.querySelector(`.geste-card__cta[data-geste-index="${index}"]`);
-          if (btn) {
-            // On met \u00e0 jour uniquement le label (la span d\u00e9di\u00e9e) pour pr\u00e9server la fl\u00e8che SVG
-            const labelEl = btn.querySelector('.geste-card__cta-label');
-            const newLabel = count > 0
-              ? `Je d\u00e9couvre les ${formatNumber(count)} solutions`
-              : 'Je d\u00e9couvre les solutions';
-            if (labelEl) labelEl.textContent = newLabel;
-            else btn.textContent = newLabel;
+          const card = document.querySelector(`.geste-card[data-geste-index="${index}"]`);
+          if (card) {
+            // Bascule entre CTA (count > 0) et hint "Aucune solution" (count === 0)
+            setGesteCardAction(card, count > 0 ? 'cta' : 'empty', { count, gesteIndex: index });
           }
           total += count;
         });
@@ -4401,7 +4536,15 @@
     // Délégation permanente sur le conteneur de geste cards
     document.getElementById('geste-cards').addEventListener('click', function(e) {
       const btn = e.target.closest('.geste-card__cta');
-      if (btn) goToSolutions(parseInt(btn.dataset.gesteIndex, 10));
+      if (!btn || btn.disabled) return;
+      const gesteIndex = parseInt(btn.dataset.gesteIndex, 10);
+      if (isNaN(gesteIndex)) return;
+      // Route selon la variante : bouton géoloc → tryGeolocate, sinon → goToSolutions
+      if (btn.classList.contains('geste-card__cta--geolocate')) {
+        tryGeolocate(gesteIndex);
+      } else {
+        goToSolutions(gesteIndex);
+      }
     });
 
     // =============================================
@@ -4922,6 +5065,12 @@
       appState.currentStep = 'fiche';
       container.classList.remove('step-solutions', 'step-lieu');
       container.classList.add('step-fiche');
+      // Re-render des cards : si l'adresse a été saisie/géolocalisée entre-temps,
+      // les boutons "Je découvre les solutions près de moi" doivent redevenir des
+      // CTA "Je découvre les N solutions". Sans ça, un bouton resté en état "loading"
+      // (après géoloc OK puis retour) garderait son texte "Localisation en cours…".
+      // Le cache _acteursCache évite tout appel API supplémentaire au updateFicheCountsFromAPI.
+      if (appState.selectedFiche) renderFiche();
       window.scrollTo(0, 0);
       notifyParentNavigated();
       history.pushState({ step: 'fiche', ficheId: appState.selectedFiche.id, address: appState.selectedAddress }, '');
@@ -5007,12 +5156,12 @@
       else if (isRepar) tagHtml = `<span class="lieu-tag lieu-tag--repar">${ICON_REPARACTEUR}Répar'Acteurs</span>`;
       else if (isESS) tagHtml = `<span class="lieu-tag lieu-tag--ess">${ICON_ESS}Économie sociale et solidaire</span>`;
 
+      // Si pas de tag, on n'affiche pas du tout la zone (évite un espace blanc inutile).
+      if (!tagHtml) return '';
+
       return `
         <div class="lieu-top">
           <div class="lieu-top__tags">${tagHtml}</div>
-          <button class="lieu-close" id="lieu-close" type="button" aria-label="Fermer la fiche">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
         </div>`;
     }
 
@@ -5308,10 +5457,6 @@
     }
 
     function attachLieuEvents(acteur) {
-      // Bouton croix → revient aux solutions
-      const closeBtn = document.getElementById('lieu-close');
-      if (closeBtn) closeBtn.addEventListener('click', goBackToSolutions);
-
       // Bouton partager → copie l'URL Que faire de mes objets et déchets dans le presse-papier
       const shareBtn = document.getElementById('lieu-share');
       if (shareBtn) {
