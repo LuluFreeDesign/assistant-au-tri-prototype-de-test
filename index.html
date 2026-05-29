@@ -2068,6 +2068,168 @@
       outline-offset: 2px;
     }
 
+    /* Bouton filtre actif (au moins un filtre coché) */
+    .solutions-actions__filter.is-active {
+      background-color: var(--background-action-low-blue);
+      border-color: var(--blue-france);
+      color: var(--blue-france);
+      position: relative;
+    }
+
+    /* Pastille compteur sur le bouton filtre */
+    .solutions-actions__filter-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 4px;
+      border-radius: 999px;
+      background: var(--blue-france);
+      color: #fff;
+      font-size: 0.625rem;
+      font-weight: 700;
+      line-height: 16px;
+      text-align: center;
+    }
+
+    /* ===== Panneau de filtres (dépliable) ===== */
+    .solutions-filters {
+      padding: var(--spacing-3v) var(--spacing-4v);
+      border-bottom: 1px solid var(--border-default);
+      background: var(--background-alt-grey);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-3v);
+    }
+    /* L'attribut hidden doit l'emporter sur le display:flex ci-dessus */
+    .solutions-filters[hidden] { display: none; }
+
+    .solutions-filters__title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0;
+    }
+
+    .solutions-filter-option {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-2v);
+      cursor: pointer;
+    }
+
+    .solutions-filter-option input[type="checkbox"] {
+      flex-shrink: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      margin: 2px 0 0;
+      accent-color: var(--blue-france);
+      cursor: pointer;
+    }
+
+    /* Icône du filtre (ESS / Répar'Acteurs / Bonus) entre la case et le titre */
+    .solutions-filter-option__icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .solutions-filter-option__icon svg,
+    .solutions-filter-option__icon img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .solutions-filter-option__body {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .solutions-filter-option__title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-default);
+      line-height: 1.4;
+    }
+
+    .solutions-filter-option__desc {
+      font-size: 0.8125rem;
+      color: var(--text-mention-grey);
+      line-height: 1.4;
+    }
+
+    .solutions-filter-option__desc a {
+      color: var(--blue-france);
+      text-underline-offset: 2px;
+    }
+
+    /* ===== Chips des filtres actifs ===== */
+    .solutions-active-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-1v);
+      padding: var(--spacing-3v) var(--spacing-4v);
+      border-bottom: 1px solid var(--border-default);
+    }
+    /* L'attribut hidden doit l'emporter sur le display:flex ci-dessus */
+    .solutions-active-filters[hidden] { display: none; }
+
+    .solutions-filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 6px 4px 8px;
+      border-radius: 999px;
+      background: var(--background-action-low-blue);
+      color: var(--blue-france);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      line-height: 1.4;
+      border: 1px solid var(--blue-france);
+    }
+
+    /* Icône dans le chip (avant le texte) */
+    .solutions-filter-chip__icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .solutions-filter-chip__icon svg,
+    .solutions-filter-chip__icon img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .solutions-filter-chip__remove {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--blue-france);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .solutions-filter-chip__remove:hover { background: rgba(12, 89, 86, 0.12); }
+    .solutions-filter-chip__remove:focus-visible {
+      outline: 2px solid var(--blue-france);
+      outline-offset: 1px;
+    }
+
+    .solutions-filter-chip__remove svg { width: 12px; height: 12px; }
+
     /* Bouton "Proposer un nouveau lieu à ajouter" — secondary SM, placé en bas */
     .solutions-actions__propose {
       display: flex;
@@ -2180,6 +2342,27 @@
     .solutions-map__search-area.is-visible { display: inline-flex; }
     .solutions-map__search-area:hover { background-color: var(--background-alt-grey); }
     .solutions-map__search-area svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    /* Bandeau non-bloquant "aucun lieu avec ces critères" — la carte reste interactive dessous */
+    .solutions-map__noresult {
+      position: absolute;
+      top: var(--spacing-3v);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 6;
+      max-width: calc(100% - 32px);
+      padding: 8px 14px;
+      background: var(--background-default);
+      color: var(--text-default);
+      border: 1px solid var(--border-default);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+      font-size: 0.8125rem;
+      line-height: 1.4;
+      text-align: center;
+      pointer-events: none;
+    }
+    .solutions-map__noresult[hidden] { display: none; }
 
     /* Popup acteur */
     .maplibregl-popup-content {
@@ -2489,6 +2672,35 @@
       text-align: center;
       color: var(--text-mention-grey);
       font-size: 0.875rem;
+    }
+
+    /* Variante "aucun résultat" enrichie (icône + titre marqué + invite) */
+    .solutions-empty--rich {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-2v);
+    }
+
+    .solutions-empty__icon {
+      width: 40px;
+      height: 40px;
+      color: var(--text-mention-grey);
+    }
+
+    .solutions-empty__title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-default);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .solutions-empty__hint {
+      font-size: 0.875rem;
+      color: var(--text-mention-grey);
+      margin: 0;
+      line-height: 1.5;
     }
 
     .solutions-error {
@@ -3395,10 +3607,50 @@
             </div>
           </div>
         </fieldset>
-        <button class="solutions-actions__filter" id="solutions-filter" type="button" title="Filtres" aria-label="Filtres">
+        <button class="solutions-actions__filter" id="solutions-filter" type="button" title="Filtres" aria-label="Filtres" aria-expanded="false">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+          <span class="solutions-actions__filter-badge" id="solutions-filter-badge" hidden></span>
         </button>
       </div>
+
+      <!-- Panneau de filtres (dépliable au clic sur le bouton Filtres) -->
+      <div class="solutions-filters" id="solutions-filters" hidden>
+        <p class="solutions-filters__title">Filtrer les solutions</p>
+        <label class="solutions-filter-option">
+          <input type="checkbox" id="filter-bonus">
+          <span class="solutions-filter-option__icon" data-filter-icon="bonus"></span>
+          <span class="solutions-filter-option__body">
+            <span class="solutions-filter-option__title">Lieux proposant le Bonus Réparation</span>
+            <span class="solutions-filter-option__desc">Uniquement les acteurs proposant le Bonus Réparation.</span>
+          </span>
+        </label>
+        <label class="solutions-filter-option">
+          <input type="checkbox" id="filter-ess">
+          <span class="solutions-filter-option__icon" data-filter-icon="ess"></span>
+          <span class="solutions-filter-option__body">
+            <span class="solutions-filter-option__title">Lieux de l'économie sociale et solidaire</span>
+            <span class="solutions-filter-option__desc">Afficher uniquement les adresses recensées comme relevant de l'économie sociale et solidaire. <a href="https://www.economie.gouv.fr/economie-sociale-et-solidaire-ess" target="_blank" rel="noopener noreferrer">En savoir plus sur economie.gouv.fr</a>.</span>
+          </span>
+        </label>
+        <label class="solutions-filter-option">
+          <input type="checkbox" id="filter-reparacteur">
+          <span class="solutions-filter-option__icon" data-filter-icon="reparActeur"></span>
+          <span class="solutions-filter-option__body">
+            <span class="solutions-filter-option__title">Lieux labellisés Répar'Acteurs</span>
+            <span class="solutions-filter-option__desc">Afficher uniquement les artisans labellisés. Les Répar'Acteurs sont une initiative de <a href="https://www.artisanat.fr/nous-connaitre/vous-accompagner/reparacteurs" target="_blank" rel="noopener noreferrer">la Chambre des Métiers et de l'Artisanat</a>.</span>
+          </span>
+        </label>
+        <label class="solutions-filter-option">
+          <input type="checkbox" id="filter-hide-exclusivite" checked>
+          <span class="solutions-filter-option__body">
+            <span class="solutions-filter-option__title">Masquer les lieux qui réparent uniquement les produits de leurs marques</span>
+            <span class="solutions-filter-option__desc">Les adresses ne réparant que les produits de leur propre marque n'apparaîtront pas si cette case est cochée.</span>
+          </span>
+        </label>
+      </div>
+
+      <!-- Chips des filtres actifs (avec croix pour retirer) -->
+      <div class="solutions-active-filters" id="solutions-active-filters" hidden></div>
 
       <!-- Vue liste (défaut) -->
       <div class="solutions-list" id="solutions-list">
@@ -3415,6 +3667,8 @@
       <div class="solutions-map" id="solutions-map" style="display:none;">
         <!-- Message d'invite affiché quand aucune adresse n'est saisie (équivalent à la vue liste) -->
         <p class="solutions-map__empty" id="solutions-map-empty" style="display:none;">Veuillez saisir une adresse pour voir les lieux proches.</p>
+        <!-- Bandeau non-bloquant : aucun lieu avec les critères actuels (la carte reste explorable) -->
+        <div class="solutions-map__noresult" id="solutions-map-noresult" hidden>Aucun lieu trouvé avec ces critères ici. Déplacez la carte ou modifiez les filtres.</div>
         <button class="solutions-map__search-area" id="solutions-map-search-area" type="button" tabindex="-1" aria-label="Nouvelle recherche dans cette zone">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
           Nouvelle recherche dans cette zone
@@ -3612,7 +3866,10 @@
       consignesData: null,
       selectedGesteIndex: null,
       searchLabel: null,
-      defaultSolutionsView: DEFAULT_SOLUTIONS_VIEW
+      defaultSolutionsView: DEFAULT_SOLUTIONS_VIEW,
+      // Filtres solutions : "hideExclusivite" coché par défaut (masque les réparateurs de marque propre)
+      solutionsActeursAll: [],
+      solutionsFilters: { bonus: false, ess: false, reparActeur: false, hideExclusivite: true }
     };
 
     // Si la vue "carte par défaut" est demandée, on réordonne le contrôle segmenté
@@ -4995,21 +5252,10 @@
           .filter(a => a._distance <= 20)
           .sort((a, b) => a._distance - b._distance);
 
-        appState.solutionsActeurs = acteurs;
-
-        const total = acteurs.length;
-        // Phrase enrichie avec le nom de l'objet : "78 solutions pour votre Cafetière à moins de 20 km"
-        const objectFragment = ficheNom ? ` pour votre ${ficheNom}` : '';
-        document.getElementById('solutions-count').textContent =
-          total > 0
-            ? `${total} solution${total > 1 ? 's' : ''}${objectFragment} à moins de 20 km`
-            : `Aucune solution${objectFragment} à moins de 20 km`;
-
-        if (total === 0) {
-          document.getElementById('solutions-list').innerHTML = '<p class="solutions-empty">Aucun lieu trouvé dans ce rayon.</p>';
-        } else {
-          renderSolutionsPage(1);
-        }
+        // Liste source (non filtrée) ; applySolutionsFilters() en dérive solutionsActeurs
+        // en appliquant les cases cochées (dont "masquer marques propres" coché par défaut).
+        appState.solutionsActeursAll = acteurs;
+        applySolutionsFilters();
 
         // Si l'environnement demande la carte par défaut (?view=map), on bascule maintenant
         // (la liste est visible à ce stade ; toggleSolutionsView va l'inverser et initialiser la carte).
@@ -5723,6 +5969,9 @@
         if (!e.originalEvent) return;
         const btn = document.getElementById('solutions-map-search-area');
         if (btn) btn.classList.add('is-visible');
+        // Masque le bandeau "aucun lieu" pendant l'exploration (le bouton ci-dessus prend le relais)
+        const mapNoResult = document.getElementById('solutions-map-noresult');
+        if (mapNoResult) mapNoResult.hidden = true;
       });
     }
 
@@ -5797,22 +6046,10 @@
           .filter(a => a._distance <= radius)
           .sort((a, b) => a._distance - b._distance);
 
-        appState.solutionsActeurs = acteurs;
-        // Met à jour la liste (en mémoire, sera visible quand l'usager repasse en mode liste)
-        const total = acteurs.length;
-        const ficheNomMap = appState.selectedFiche ? appState.selectedFiche.nom : '';
-        const objectFragmentMap = ficheNomMap ? ` pour votre ${ficheNomMap}` : '';
-        const countEl = document.getElementById('solutions-count');
-        if (countEl) countEl.textContent = total > 0
-          ? `${total} solution${total > 1 ? 's' : ''}${objectFragmentMap} à moins de 20 km`
-          : `Aucune solution${objectFragmentMap} à moins de 20 km`;
-        if (total === 0) {
-          document.getElementById('solutions-list').innerHTML = '<p class="solutions-empty">Aucun lieu trouvé dans ce rayon.</p>';
-        } else {
-          renderSolutionsPage(1);
-        }
-        // Re-rend les markers sans re-centrer la carte (on garde la vue actuelle)
-        renderSolutionsMapMarkers({ fit: false });
+        // Liste source ; applySolutionsFilters() applique les filtres + maj compteur + render
+        // (liste, chips) et re-rend les markers sans re-centrer la carte.
+        appState.solutionsActeursAll = acteurs;
+        applySolutionsFilters();
       } catch (err) {
         console.error('[searchInMapArea] erreur :', err);
         // Affiche brièvement un message d'erreur sur le bouton pour notifier l'usager
@@ -6077,6 +6314,139 @@
     // Le tabindex="-1" sur le bouton empêche le focus au clic → pas de scroll induit
     document.getElementById('solutions-map-search-area').addEventListener('click', () => {
       searchInMapArea();
+    });
+
+    // =============================================
+    // Filtres des solutions
+    // =============================================
+
+    // Définition des filtres : clé d'état, libellé court (chips), prédicat de rejet.
+    // Les filtres "inclusion" gardent l'acteur s'il matche ; "hideExclusivite" l'exclut s'il matche.
+    const SOLUTIONS_FILTER_DEFS = [
+      { key: 'bonus',           icon: ICON_BONUS,       chipLabel: 'Bonus Réparation',              reject: a => !isBonusReparation(a) },
+      { key: 'ess',             icon: ICON_ESS,         chipLabel: 'Économie sociale et solidaire', reject: a => a.type_dacteur !== 'ess' },
+      { key: 'reparActeur',     icon: ICON_REPARACTEUR, chipLabel: "Répar'Acteurs",                 reject: a => !isReparActeur(a) },
+      { key: 'hideExclusivite', icon: null,             chipLabel: 'Sans réparateurs de marque',    reject: a => String(a.exclusivite_de_reprisereparation || '').toLowerCase() === 'oui' },
+    ];
+
+    // Injecte les icônes dans le panneau de filtres (HTML statique → on remplit les emplacements)
+    SOLUTIONS_FILTER_DEFS.forEach(def => {
+      if (!def.icon) return;
+      const slot = document.querySelector(`.solutions-filter-option__icon[data-filter-icon="${def.key}"]`);
+      if (slot) slot.innerHTML = def.icon;
+    });
+
+    // Applique les filtres cochés sur la liste source → met à jour solutionsActeurs,
+    // le compteur, la liste (page 1), les markers carte et les chips de filtres actifs.
+    function applySolutionsFilters() {
+      const all = appState.solutionsActeursAll || [];
+      const f = appState.solutionsFilters;
+      const filtered = all.filter(a =>
+        SOLUTIONS_FILTER_DEFS.every(def => !f[def.key] || !def.reject(a))
+      );
+      appState.solutionsActeurs = filtered;
+
+      // Compteur "N solutions pour votre X à moins de 20 km"
+      const total = filtered.length;
+      const ficheNom = appState.selectedFiche ? appState.selectedFiche.nom : '';
+      const objectFragment = ficheNom ? ` pour votre ${ficheNom}` : '';
+      const countEl = document.getElementById('solutions-count');
+      if (countEl) {
+        countEl.textContent = total > 0
+          ? `${total} solution${total > 1 ? 's' : ''}${objectFragment} à moins de 20 km`
+          : `Aucune solution${objectFragment} à moins de 20 km`;
+      }
+
+      // Liste
+      if (total === 0) {
+        document.getElementById('solutions-list').innerHTML = `
+          <div class="solutions-empty solutions-empty--rich">
+            <svg class="solutions-empty__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            <p class="solutions-empty__title">Aucun lieu trouvé avec ces critères</p>
+            <p class="solutions-empty__hint">Essayez de modifier les filtres ou l'adresse renseignée.</p>
+          </div>`;
+        if (typeof positionProposeButton === 'function') positionProposeButton('list');
+      } else {
+        renderSolutionsPage(1);
+      }
+
+      // Carte (si déjà initialisée) — sans recentrer
+      if (typeof mapInstance !== 'undefined' && mapInstance) {
+        renderSolutionsMapMarkers({ fit: false });
+      }
+
+      // Bandeau non-bloquant sur la carte : visible si une adresse est saisie mais 0 résultat
+      const mapNoResult = document.getElementById('solutions-map-noresult');
+      if (mapNoResult) mapNoResult.hidden = !(appState.selectedAddress && total === 0);
+
+      // Indicateurs (chips + badge)
+      renderActiveFilterChips();
+    }
+
+    // Affiche les chips des filtres actifs (avec croix pour retirer) + le badge du bouton filtre.
+    function renderActiveFilterChips() {
+      const container = document.getElementById('solutions-active-filters');
+      const badge = document.getElementById('solutions-filter-badge');
+      const filterBtn = document.getElementById('solutions-filter');
+      if (!container) return;
+
+      const active = SOLUTIONS_FILTER_DEFS.filter(def => appState.solutionsFilters[def.key]);
+
+      // Chips
+      const CLOSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+      container.innerHTML = active.map(def => {
+        const iconHtml = def.icon ? `<span class="solutions-filter-chip__icon">${def.icon}</span>` : '';
+        return `<span class="solutions-filter-chip">${iconHtml}${def.chipLabel}<button class="solutions-filter-chip__remove" type="button" data-filter-key="${def.key}" aria-label="Retirer le filtre ${def.chipLabel}">${CLOSE_SVG}</button></span>`;
+      }).join('');
+      container.hidden = active.length === 0;
+
+      // Badge + état du bouton filtre
+      if (badge) {
+        badge.textContent = active.length;
+        badge.hidden = active.length === 0;
+      }
+      if (filterBtn) filterBtn.classList.toggle('is-active', active.length > 0);
+    }
+
+    // Synchronise une case à cocher du panneau → état + ré-application des filtres
+    function setSolutionFilter(key, checked) {
+      appState.solutionsFilters[key] = checked;
+      const checkboxId = {
+        bonus: 'filter-bonus',
+        ess: 'filter-ess',
+        reparActeur: 'filter-reparacteur',
+        hideExclusivite: 'filter-hide-exclusivite',
+      }[key];
+      const cb = document.getElementById(checkboxId);
+      if (cb) cb.checked = checked;
+      applySolutionsFilters();
+    }
+
+    // Bouton "Filtres" → ouvre/ferme le panneau
+    document.getElementById('solutions-filter').addEventListener('click', () => {
+      const panel = document.getElementById('solutions-filters');
+      const btn = document.getElementById('solutions-filter');
+      const willOpen = panel.hidden;
+      panel.hidden = !willOpen;
+      btn.setAttribute('aria-expanded', String(willOpen));
+    });
+
+    // Cases à cocher du panneau → maj état
+    [
+      ['filter-bonus', 'bonus'],
+      ['filter-ess', 'ess'],
+      ['filter-reparacteur', 'reparActeur'],
+      ['filter-hide-exclusivite', 'hideExclusivite'],
+    ].forEach(([id, key]) => {
+      const cb = document.getElementById(id);
+      if (cb) cb.addEventListener('change', () => setSolutionFilter(key, cb.checked));
+    });
+
+    // Croix sur un chip → retire le filtre correspondant
+    document.getElementById('solutions-active-filters').addEventListener('click', (e) => {
+      const btn = e.target.closest('.solutions-filter-chip__remove');
+      if (!btn) return;
+      setSolutionFilter(btn.dataset.filterKey, false);
     });
 
     // =============================================
