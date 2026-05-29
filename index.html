@@ -1704,6 +1704,100 @@
       flex-shrink: 0;
     }
 
+    /* ============================================
+       Liens externes (ouverture nouvel onglet)
+       ============================================ */
+    /* Icône "lien externe" ajoutée automatiquement après le texte des liens
+       target="_blank" décorés en JS (classe .is-external). Masque SVG → hérite la couleur du lien. */
+    .is-external::after {
+      content: "";
+      display: inline-block;
+      width: 0.85em;
+      height: 0.85em;
+      margin-left: 0.25em;
+      vertical-align: -0.08em;
+      background-color: currentColor;
+      -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") center / contain no-repeat;
+      mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E") center / contain no-repeat;
+    }
+
+    /* Voile plein-iframe capté pour fermer la confirmation au clic extérieur */
+    .external-link-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10000;
+      background: rgba(0, 0, 0, 0.08);
+      display: none;
+    }
+    .external-link-overlay.is-visible { display: block; }
+
+    /* Popover de confirmation, ancré près du lien cliqué (positionné en JS) */
+    .external-link-confirm {
+      position: absolute;
+      z-index: 10001;
+      width: min(320px, calc(100% - 32px));
+      background: var(--background-default);
+      border: 1px solid var(--border-default);
+      border-radius: 10px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+      padding: var(--spacing-4v);
+      display: none;
+      font-family: 'Public Sans', arial, sans-serif;
+    }
+    .external-link-confirm.is-visible { display: block; }
+
+    .external-link-confirm__text {
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      color: var(--text-default);
+      margin: 0 0 var(--spacing-3v);
+    }
+
+    .external-link-confirm__domain {
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .external-link-confirm__actions {
+      display: flex;
+      gap: var(--spacing-2v);
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .external-link-confirm__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 2.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-family: 'Public Sans', arial, sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background-color 0.15s ease;
+    }
+
+    .external-link-confirm__btn--cancel {
+      background: transparent;
+      color: var(--blue-france);
+      border-color: transparent;
+    }
+    .external-link-confirm__btn--cancel:hover { background: var(--background-action-low-blue); }
+
+    .external-link-confirm__btn--confirm {
+      background: var(--blue-france);
+      color: #fff;
+    }
+    .external-link-confirm__btn--confirm:hover { background: var(--blue-france-hover); }
+
+    .external-link-confirm__btn:focus-visible {
+      outline: 2px solid var(--blue-france);
+      outline-offset: 2px;
+    }
+
     /* Sur la page d'accueil, le footer-logos doit casser hors du padding de search-section */
     .search-section .footer-logos {
       margin-top: 16px;
@@ -3372,6 +3466,21 @@
 
   </div>
 
+  <!-- Confirmation avant ouverture d'un lien externe (nouvel onglet) -->
+  <div class="external-link-overlay" id="external-link-overlay" aria-hidden="true"></div>
+  <div class="external-link-confirm" id="external-link-confirm" role="dialog" aria-modal="true" aria-labelledby="external-link-confirm-text">
+    <p class="external-link-confirm__text" id="external-link-confirm-text">
+      Vous allez ouvrir <span class="external-link-confirm__domain" id="external-link-confirm-domain"></span> dans un nouvel onglet et quitter cette page. Cette page restera ouverte dans vos onglets.
+    </p>
+    <div class="external-link-confirm__actions">
+      <button class="external-link-confirm__btn external-link-confirm__btn--cancel" id="external-link-cancel" type="button">Annuler</button>
+      <button class="external-link-confirm__btn external-link-confirm__btn--confirm" id="external-link-confirm-btn" type="button">
+        Continuer
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </button>
+    </div>
+  </div>
+
   <script>
     // =============================================
     // Data Store — Fiches objets/déchets
@@ -4482,6 +4591,9 @@
       if (address && consigneFiche && consigneFiche.accordeons) {
         updateFicheCountsFromAPI(ficheId, address.lat, address.lon, appState.sortedAccordeons);
       }
+
+      // Décore les liens externes des consignes (Bonus Réparation, Ecosystem…)
+      if (typeof decorateExternalLinks === 'function') decorateExternalLinks(gesteCards);
     }
 
     // Récupère les acteurs via l'API et met à jour les compteurs (header + boutons).
@@ -5405,6 +5517,10 @@
       `;
       initLieuMap(acteur);
       attachLieuEvents(acteur);
+      // Décore les liens externes de la fiche lieu (site web, itinéraire, modifier, "En savoir plus")
+      if (typeof decorateExternalLinks === 'function') {
+        decorateExternalLinks(document.getElementById('lieu-content'));
+      }
     }
 
     function initLieuMap(acteur) {
@@ -5725,8 +5841,12 @@
     // Le bouton "Proposer un nouveau lieu à ajouter" est unique dans le DOM ;
     // on le déplace selon le mode : juste avant la pagination en mode liste,
     // juste après la carte en mode carte.
+    // IMPORTANT : on garde une référence JS persistante car renderSolutionsPage()
+    // réécrit le innerHTML de #solutions-list, ce qui détacherait le bouton du DOM —
+    // getElementById('solutions-propose') retournerait alors null et le bouton serait perdu.
+    const _proposeBtn = document.getElementById('solutions-propose');
     function positionProposeButton(mode) {
-      const propose = document.getElementById('solutions-propose');
+      const propose = _proposeBtn;
       if (!propose) return;
       const listEl = document.getElementById('solutions-list');
       const mapEl = document.getElementById('solutions-map');
@@ -5958,6 +6078,108 @@
     document.getElementById('solutions-map-search-area').addEventListener('click', () => {
       searchInMapArea();
     });
+
+    // =============================================
+    // Liens externes : signalétique + confirmation avant ouverture nouvel onglet
+    // =============================================
+
+    // Décore les liens target="_blank" d'un conteneur : icône externe (CSS via .is-external),
+    // mention lecteur d'écran "(nouvelle fenêtre)" et title. Idempotent.
+    function decorateExternalLinks(root) {
+      if (!root) return;
+      const links = root.querySelectorAll('a[target="_blank"]:not([data-ext-decorated])');
+      links.forEach(link => {
+        link.dataset.extDecorated = '1';
+        // Icône CSS : on l'ajoute sauf si le lien embarque déjà sa propre icône
+        // (footer "En savoir plus", boutons d'action de la fiche lieu)
+        const hasOwnIcon = link.classList.contains('footer-external-link')
+          || link.classList.contains('lieu-action')
+          || link.querySelector('svg, img');
+        if (!hasOwnIcon) link.classList.add('is-external');
+        // Mention lecteur d'écran
+        if (!link.querySelector('.sr-only')) {
+          const sr = document.createElement('span');
+          sr.className = 'sr-only';
+          sr.textContent = ' (nouvelle fenêtre)';
+          link.appendChild(sr);
+        }
+        if (!link.getAttribute('title')) {
+          link.setAttribute('title', "S'ouvre dans un nouvel onglet");
+        }
+      });
+    }
+
+    // Popover de confirmation ancré près du lien cliqué
+    const _extOverlay = document.getElementById('external-link-overlay');
+    const _extConfirm = document.getElementById('external-link-confirm');
+    const _extDomainEl = document.getElementById('external-link-confirm-domain');
+    let _extPendingHref = null;
+
+    function openExternalLinkConfirm(href, linkEl) {
+      _extPendingHref = href;
+      // Libellé lisible : le domaine (sans www.)
+      let domain = href;
+      try { domain = new URL(href).hostname.replace(/^www\./, ''); } catch (e) {}
+      _extDomainEl.textContent = domain;
+
+      // Affiche overlay + popover (d'abord visible pour pouvoir mesurer sa hauteur)
+      _extOverlay.classList.add('is-visible');
+      _extConfirm.classList.add('is-visible');
+
+      // Positionnement ancré sous le lien (ou au-dessus s'il déborde en bas).
+      // Pas de scroll interne dans l'iframe → getBoundingClientRect = coords document.
+      const rect = linkEl.getBoundingClientRect();
+      const docW = document.documentElement.clientWidth;
+      const docH = document.documentElement.scrollHeight;
+      const pop = _extConfirm.getBoundingClientRect();
+      const margin = 8;
+
+      let top = rect.bottom + margin;
+      if (top + pop.height > docH) {
+        top = Math.max(margin, rect.top - pop.height - margin);
+      }
+      // Centré horizontalement sur le lien, clampé aux bords
+      let left = rect.left + rect.width / 2 - pop.width / 2;
+      left = Math.max(16, Math.min(left, docW - pop.width - 16));
+
+      _extConfirm.style.top = `${Math.round(top)}px`;
+      _extConfirm.style.left = `${Math.round(left)}px`;
+
+      // Focus sur le bouton "Continuer" pour l'accessibilité clavier
+      document.getElementById('external-link-confirm-btn').focus();
+    }
+
+    function closeExternalLinkConfirm() {
+      _extPendingHref = null;
+      _extOverlay.classList.remove('is-visible');
+      _extConfirm.classList.remove('is-visible');
+    }
+
+    // Interception globale en phase capture : tout clic sur un lien nouvel onglet
+    // déclenche la confirmation au lieu d'ouvrir directement.
+    document.addEventListener('click', (e) => {
+      // On ignore les clics à l'intérieur du popover lui-même
+      if (e.target.closest('#external-link-confirm')) return;
+      const link = e.target.closest('a[target="_blank"]');
+      if (!link || !link.href) return;
+      e.preventDefault();
+      e.stopPropagation();
+      openExternalLinkConfirm(link.href, link);
+    }, true);
+
+    document.getElementById('external-link-confirm-btn').addEventListener('click', () => {
+      const href = _extPendingHref;
+      closeExternalLinkConfirm();
+      if (href) window.open(href, '_blank', 'noopener');
+    });
+    document.getElementById('external-link-cancel').addEventListener('click', closeExternalLinkConfirm);
+    _extOverlay.addEventListener('click', closeExternalLinkConfirm);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && _extConfirm.classList.contains('is-visible')) closeExternalLinkConfirm();
+    });
+
+    // Décoration initiale des liens statiques (footers présents au chargement)
+    decorateExternalLinks(document);
 
     // =============================================
     // Auto-resize iframe : envoie la hauteur au parent
