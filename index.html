@@ -2105,6 +2105,12 @@
     /* L'attribut hidden doit l'emporter sur le display:flex ci-dessus */
     .solutions-filters[hidden] { display: none; }
 
+    .solutions-filters__separator {
+      border: none;
+      border-top: 1px solid var(--border-default-grey);
+      margin: 0;
+    }
+
     .solutions-filters__title {
       font-size: 0.9375rem;
       font-weight: 700;
@@ -3640,6 +3646,7 @@
             <span class="solutions-filter-option__desc">Afficher uniquement les artisans labellisés. Les Répar'Acteurs sont une initiative de <a href="https://www.artisanat.fr/nous-connaitre/vous-accompagner/reparacteurs" target="_blank" rel="noopener noreferrer">la Chambre des Métiers et de l'Artisanat</a>.</span>
           </span>
         </label>
+        <hr class="solutions-filters__separator">
         <label class="solutions-filter-option">
           <input type="checkbox" id="filter-hide-exclusivite" checked>
           <span class="solutions-filter-option__body">
@@ -6390,7 +6397,7 @@
       const filterBtn = document.getElementById('solutions-filter');
       if (!container) return;
 
-      const active = SOLUTIONS_FILTER_DEFS.filter(def => appState.solutionsFilters[def.key]);
+      const active = SOLUTIONS_FILTER_DEFS.filter(def => def.key !== 'hideExclusivite' && appState.solutionsFilters[def.key]);
 
       // Chips
       const CLOSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
@@ -6400,12 +6407,13 @@
       }).join('');
       container.hidden = active.length === 0;
 
-      // Badge + état du bouton filtre
+      // Badge + état du bouton filtre (inclut hideExclusivite dans le décompte)
+      const badgeCount = SOLUTIONS_FILTER_DEFS.filter(def => appState.solutionsFilters[def.key]).length;
       if (badge) {
-        badge.textContent = active.length;
-        badge.hidden = active.length === 0;
+        badge.textContent = badgeCount;
+        badge.hidden = badgeCount === 0;
       }
-      if (filterBtn) filterBtn.classList.toggle('is-active', active.length > 0);
+      if (filterBtn) filterBtn.classList.toggle('is-active', badgeCount > 0);
     }
 
     // Synchronise une case à cocher du panneau → état + ré-application des filtres
