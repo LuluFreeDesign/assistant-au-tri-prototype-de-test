@@ -906,7 +906,6 @@
     .iframe-container.fiche-search-active #fiche-address-bar,
     .iframe-container.fiche-search-active #fiche-address-results,
     .iframe-container.fiche-search-active #fiche-total-solutions,
-    .iframe-container.fiche-search-active .fiche-infotri,
     .iframe-container.fiche-search-active .geste-cards,
     .iframe-container.fiche-search-active .fiche-warnings,
     .iframe-container.fiche-search-active .fiche-footer {
@@ -934,31 +933,6 @@
     }
     .iframe-container.fiche-search-active .fiche-header__close {
       display: flex;
-    }
-
-    /* Info-tri */
-    .fiche-infotri {
-      padding: var(--spacing-4v) var(--spacing-4v) var(--spacing-2v);
-      background-color: var(--background-default);
-    }
-
-    .fiche-infotri__title {
-      font-size: 0.9375rem;
-      font-weight: 700;
-      color: var(--text-default);
-      margin-bottom: var(--spacing-3v);
-    }
-
-    .fiche-infotri__images {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-3v);
-    }
-
-    .fiche-infotri__img {
-      width: 100%;
-      max-width: 320px;
-      height: auto;
     }
 
     /* Accordéons fiche — même style DSFR que l'étape 1 */
@@ -1135,10 +1109,6 @@
         padding: var(--spacing-4v) var(--spacing-6v);
       }
 
-      .fiche-infotri {
-        padding: var(--spacing-4v) var(--spacing-6v) var(--spacing-2v);
-      }
-
       .fiche-accordeons {
         padding: 0 var(--spacing-6v) var(--spacing-6v);
       }
@@ -1168,10 +1138,6 @@
     @media (min-width: 768px) {
       .fiche-header {
         padding: var(--spacing-4v) var(--spacing-12v);
-      }
-
-      .fiche-infotri {
-        padding: var(--spacing-6v) var(--spacing-12v) var(--spacing-2v);
       }
 
       .fiche-accordeons {
@@ -1283,20 +1249,6 @@
       font-size: 0.875rem;
       line-height: 1.6;
       color: var(--text-default);
-    }
-
-    /* Info-tri taille réduite */
-    .fiche-infotri__img--small {
-      max-width: 200px;
-      max-height: 120px;
-      object-fit: contain;
-    }
-
-    /* Info-tri côte à côte */
-    .fiche-infotri__images--inline {
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: flex-start;
     }
 
     @media (min-width: 576px) {
@@ -3538,11 +3490,6 @@
       <!-- Emplacement où le search-panel est déplacé quand l'utilisateur clique sur le champ objet -->
       <div id="fiche-search-panel-slot"></div>
 
-      <!-- Info-tri -->
-      <div class="fiche-infotri" id="fiche-infotri">
-        <div class="fiche-infotri__images" id="fiche-infotri-images"></div>
-      </div>
-
       <!-- Cards des gestes (générées par JS) -->
       <div class="geste-cards" id="geste-cards"></div>
 
@@ -3598,17 +3545,17 @@
           <legend class="sr-only">Affichage des résultats</legend>
           <div class="fr-segmented__elements">
             <div class="fr-segmented__element">
-              <input value="list" type="radio" id="solutions-view-list" name="solutions-view" checked>
-              <label class="fr-label" for="solutions-view-list">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-                Liste
-              </label>
-            </div>
-            <div class="fr-segmented__element">
-              <input value="map" type="radio" id="solutions-view-map" name="solutions-view">
+              <input value="map" type="radio" id="solutions-view-map" name="solutions-view" checked>
               <label class="fr-label" for="solutions-view-map">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                 Carte
+              </label>
+            </div>
+            <div class="fr-segmented__element">
+              <input value="list" type="radio" id="solutions-view-list" name="solutions-view">
+              <label class="fr-label" for="solutions-view-list">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                Liste
               </label>
             </div>
           </div>
@@ -3860,11 +3807,6 @@
     // =============================================
     // State Management
     // =============================================
-    // Lecture des paramètres d'URL pour piloter le comportement par défaut
-    // (ex. ?view=map pour afficher la carte par défaut dans l'écran solutions — utile pour A/B testing)
-    const urlParams = new URLSearchParams(window.location.search);
-    const DEFAULT_SOLUTIONS_VIEW = urlParams.get('view') === 'map' ? 'map' : 'list';
-
     const appState = {
       currentStep: 'search',
       selectedFiche: null,
@@ -3873,21 +3815,11 @@
       consignesData: null,
       selectedGesteIndex: null,
       searchLabel: null,
-      defaultSolutionsView: DEFAULT_SOLUTIONS_VIEW,
+      defaultSolutionsView: 'map',
       // Filtres solutions : "hideExclusivite" coché par défaut (masque les réparateurs de marque propre)
       solutionsActeursAll: [],
       solutionsFilters: { bonus: false, ess: false, reparActeur: false, hideExclusivite: true }
     };
-
-    // Si la vue "carte par défaut" est demandée, on réordonne le contrôle segmenté
-    // (bouton Carte en première position, Liste en deuxième) pour refléter la priorité visuelle.
-    if (DEFAULT_SOLUTIONS_VIEW === 'map') {
-      const segmentedElements = document.querySelector('#solutions-view-segmented .fr-segmented__elements');
-      const mapElement = document.getElementById('solutions-view-map')?.closest('.fr-segmented__element');
-      if (segmentedElements && mapElement) {
-        segmentedElements.insertBefore(mapElement, segmentedElements.firstElementChild);
-      }
-    }
 
     // =============================================
     // Références DOM
@@ -4744,31 +4676,6 @@
         ? 'Recherche des solutions en cours\u2026'
         : '';
 
-      // --- Info-tri ---
-      const infoTriContainer = document.getElementById('fiche-infotri-images');
-      const infoTriSection = document.getElementById('fiche-infotri');
-      infoTriContainer.innerHTML = '';
-
-      if (consigneFiche && consigneFiche.infoTri) {
-        infoTriSection.style.display = '';
-        const infoTris = Array.isArray(consigneFiche.infoTri) ? consigneFiche.infoTri : [consigneFiche.infoTri];
-        infoTris.forEach(src => {
-          const img = document.createElement('img');
-          img.src = 'src/assets/info-tri/' + src;
-          img.alt = 'Info-tri pour ' + appState.selectedFiche.nom;
-          img.className = 'fiche-infotri__img' + (consigneFiche.infoTriSmall ? ' fiche-infotri__img--small' : '');
-          img.loading = 'lazy';
-          infoTriContainer.appendChild(img);
-        });
-        if (consigneFiche.infoTriInline) {
-          infoTriContainer.classList.add('fiche-infotri__images--inline');
-        } else {
-          infoTriContainer.classList.remove('fiche-infotri__images--inline');
-        }
-      } else {
-        infoTriSection.style.display = 'none';
-      }
-
       // --- Geste cards ---
       const gesteCards = document.getElementById('geste-cards');
       gesteCards.innerHTML = '';
@@ -5264,8 +5171,7 @@
         appState.solutionsActeursAll = acteurs;
         applySolutionsFilters();
 
-        // Si l'environnement demande la carte par défaut (?view=map), on bascule maintenant
-        // (la liste est visible à ce stade ; toggleSolutionsView va l'inverser et initialiser la carte).
+        // La carte est la vue par défaut — on bascule depuis la liste (état initial du DOM).
         if (appState.defaultSolutionsView === 'map') {
           toggleSolutionsView();
         }
