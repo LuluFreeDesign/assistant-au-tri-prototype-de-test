@@ -52,8 +52,7 @@ La fiche affiche :
 ├── index.html                    # Application complète (HTML + CSS + JS + données)
 ├── README.md
 ├── demo/
-│   ├── neutre.html               # Démo d'intégration en iframe (vue Liste par défaut sur les solutions)
-│   └── neutre-carte.html         # Variante A/B : vue Carte par défaut sur les solutions
+│   └── neutre.html               # Démo d'intégration en iframe (faux site « fauxsite.fr »)
 ├── scripts/
 │   └── generate-counts.py        # Script de régénération des comptages depuis le CSV ADEME
 └── src/
@@ -115,14 +114,11 @@ Le widget intègre un mécanisme d'auto-resize : il envoie sa hauteur au parent 
 
 ## Environnements de test
 
-Deux pages de démonstration neutres sont disponibles sur **GitHub Pages** pour tester le widget en iframe dans un site fictif. Elles servent à comparer en A/B testing deux entrées par défaut sur l'écran solutions :
+Une page de démonstration neutre est disponible sur **GitHub Pages** pour tester le widget en iframe dans un site fictif (« fauxsite.fr ») :
 
-| Variante | URL | Comportement sur l'écran solutions |
-|---|---|---|
-| **Vue Liste par défaut** | [demo/neutre.html](https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/demo/neutre.html) | Liste des lieux affichée en premier, bouton "Liste" sélectionné dans le contrôle segmenté |
-| **Vue Carte par défaut** | [demo/neutre-carte.html](https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/demo/neutre-carte.html) | Carte affichée en premier, bouton "Carte" en première position dans le contrôle segmenté |
-
-La variante "Carte par défaut" est obtenue en chargeant l'iframe avec le paramètre `?view=map`.
+| Page | URL |
+|---|---|
+| **Démo d'intégration** | [demo/neutre.html](https://lulufreedesign.github.io/assistant-au-tri-prototype-de-test/demo/neutre.html) |
 
 ## Données
 
