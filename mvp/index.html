@@ -1158,17 +1158,17 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 2.5rem;
-      padding: 0.5rem 1rem;
+      min-height: 2.75rem;
+      padding: 0.625rem 1.25rem;
       margin-top: var(--spacing-2v);
       background-color: var(--blue-france);
       color: #fff;
       border: 1px solid var(--blue-france);
-      border-radius: 0;
+      border-radius: 8px;
       font-family: 'Public Sans', arial, sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      line-height: 1.5rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      line-height: 1.4;
       cursor: pointer;
       text-decoration: none;
       box-shadow: none;
@@ -1681,7 +1681,7 @@
     }
 
     .solutions-header__back-label {
-      font-weight: 700;
+      font-weight: 600;
       white-space: nowrap;
     }
 
@@ -2566,7 +2566,8 @@
       text-align: left;
       font-family: 'Public Sans', arial, sans-serif;
       font-size: 0.9375rem;
-      font-weight: 700;
+      font-weight: 600;
+      line-height: 1.4;
       color: #fff;
       transition: background-color 0.15s ease;
     }
@@ -5408,13 +5409,14 @@
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         ficheAddressFocusedIndex = Math.min(ficheAddressFocusedIndex + 1, items.length - 1);
-        items.forEach((el, i) => el.classList.toggle('address-results__item--focused', i === ficheAddressFocusedIndex));
-        items[ficheAddressFocusedIndex]?.focus();
+        items.forEach((el, i) => el.classList.toggle('is-focused', i === ficheAddressFocusedIndex));
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         ficheAddressFocusedIndex = Math.max(ficheAddressFocusedIndex - 1, 0);
-        items.forEach((el, i) => el.classList.toggle('address-results__item--focused', i === ficheAddressFocusedIndex));
-        items[ficheAddressFocusedIndex]?.focus();
+        items.forEach((el, i) => el.classList.toggle('is-focused', i === ficheAddressFocusedIndex));
+      } else if (e.key === 'Enter' && ficheAddressFocusedIndex >= 0) {
+        e.preventDefault();
+        items[ficheAddressFocusedIndex].click();
       } else if (e.key === 'Escape') {
         ficheAddressResults.classList.remove('is-visible');
         ficheAddressResults.innerHTML = '';
