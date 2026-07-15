@@ -4020,6 +4020,7 @@
                         data-postcode="${props.postcode || ''}"
                         data-lon="${coords[0]}"
                         data-lat="${coords[1]}"
+                        data-type="${props.type || ''}"
                         tabindex="-1">${displayLabel}</li>`;
           }).join('');
           addressResults.classList.add('is-visible');
@@ -4046,6 +4047,7 @@
         label: item.dataset.label,
         citycode: item.dataset.citycode,
         postcode: item.dataset.postcode,
+        type: item.dataset.type,
         lat: parseFloat(item.dataset.lat),
         lon: parseFloat(item.dataset.lon)
       };
@@ -4597,11 +4599,12 @@
           });
         });
 
-        // 20 lieux les plus proches, triés par distance croissante
+        // 20 lieux les plus proches, triés par distance croissante (max 20 points)
         acteurs = acteurs
           .map(a => ({ ...a, _distance: haversineKm(lat, lon, parseFloat(a.latitude), parseFloat(a.longitude)) }))
           .filter(a => a._distance <= 20)
-          .sort((a, b) => a._distance - b._distance);
+          .sort((a, b) => a._distance - b._distance)
+          .slice(0, 20);
 
         appState.solutionsActeursAll = acteurs;
         appState.solutionsActeurs = acteurs;
@@ -4664,6 +4667,7 @@
                           data-postcode="${props.postcode || ''}"
                           data-lon="${coords[0]}"
                           data-lat="${coords[1]}"
+                          data-type="${props.type || ''}"
                           tabindex="-1">${displayLabel}</li>`;
               }).join('');
               results.classList.add('is-visible');
@@ -4712,6 +4716,7 @@
           label:    item.dataset.label,
           citycode: item.dataset.citycode,
           postcode: item.dataset.postcode,
+          type:     item.dataset.type,
           lat:      parseFloat(item.dataset.lat),
           lon:      parseFloat(item.dataset.lon),
         };
@@ -4873,7 +4878,7 @@
       if (acteur.site_web) {
         let display = acteur.site_web;
         try { display = new URL(acteur.site_web).hostname.replace(/^www\./, ''); } catch (e) {}
-        rows.push(`<p class="lieu-contact__line"><span class="lieu-contact__label">Site web :</span> <a class="lieu-contact__link" href="${escapeHtml(acteur.site_web)}" target="_blank" rel="noopener noreferrer">${escapeHtml(display)}</a></p>`);
+        rows.push(`<p class="lieu-contact__line"><span class="lieu-contact__label">Site web :</span> ${escapeHtml(display)}</p>`);
       }
       if (rows.length === 0) return '';
       return `
@@ -4885,7 +4890,7 @@
       const infos = [];
 
       if (isBonusReparation(acteur)) {
-        infos.push(`Ce lieu propose le Bonus Réparation. <a class="lieu-infos__link" href="https://quefairedemesdechets.ademe.fr/bonus-reparation/" target="_blank" rel="noopener noreferrer">En savoir plus →</a>`);
+        infos.push('Ce lieu propose le Bonus Réparation.');
       }
       const presta = (acteur.lieu_prestation || '').toLowerCase();
       const perim = (acteur.perimetreadomicile || '').toString().trim();
@@ -5171,8 +5176,8 @@
       });
 
       // PUIS le marqueur utilisateur (dernier dans le DOM = au-dessus)
-      // Reste toujours sur l'adresse saisie, même après "Nouvelle recherche dans cette zone"
-      if (appState.selectedAddress) {
+      // Uniquement pour une adresse précise saisie — jamais pour une commune (règle carte MVP)
+      if (appState.selectedAddress && appState.selectedAddress.type !== 'municipality') {
         userMarker = new maplibregl.Marker({ element: createUserMarkerEl() })
           .setLngLat([appState.selectedAddress.lon, appState.selectedAddress.lat])
           .addTo(mapInstance);
@@ -5219,7 +5224,8 @@
         acteurs = acteurs
           .map(a => ({ ...a, _distance: haversineKm(lat, lon, parseFloat(a.latitude), parseFloat(a.longitude)) }))
           .filter(a => a._distance <= radius)
-          .sort((a, b) => a._distance - b._distance);
+          .sort((a, b) => a._distance - b._distance)
+          .slice(0, 20);
 
         // Met à jour les lieux et re-rend les markers sans re-centrer la carte
         appState.solutionsActeursAll = acteurs;
@@ -5373,6 +5379,7 @@
                 data-postcode="${props.postcode || ''}"
                 data-lon="${coords[0]}"
                 data-lat="${coords[1]}"
+                data-type="${props.type || ''}"
                 tabindex="-1">${displayLabel}</li>`;
             }).join('');
             ficheAddressResults.classList.add('is-visible');
@@ -5392,6 +5399,7 @@
           label: item.dataset.label,
           citycode: item.dataset.citycode,
           postcode: item.dataset.postcode,
+          type: item.dataset.type,
           lat: parseFloat(item.dataset.lat),
           lon: parseFloat(item.dataset.lon)
         };
