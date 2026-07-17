@@ -2113,34 +2113,6 @@
       z-index: 9999 !important;
     }
 
-    /* ========== Bouton "Nouvelle recherche dans cette zone" (apparaît au pan) ========== */
-    .solutions-map__search-area {
-      position: absolute;
-      top: var(--spacing-3v);
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      display: none;
-      align-items: center;
-      gap: var(--spacing-1v);
-      padding: 6px 12px;
-      background: var(--background-default);
-      color: var(--blue-france);
-      border: 1px solid var(--blue-france);
-      border-radius: 4px;
-      font-family: 'Public Sans', arial, sans-serif;
-      font-size: 0.875rem;
-      font-weight: 500;
-      line-height: 1.5;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      white-space: nowrap;
-      transition: background-color 0.15s ease;
-    }
-    .solutions-map__search-area.is-visible { display: inline-flex; }
-    .solutions-map__search-area:hover { background-color: var(--background-alt-grey); }
-    .solutions-map__search-area svg { width: 16px; height: 16px; flex-shrink: 0; }
-
     /* Bandeau non-bloquant "aucun lieu avec ces critères" — la carte reste interactive dessous */
     .solutions-map__noresult {
       position: absolute;
@@ -3287,10 +3259,6 @@
       <div class="solutions-map" id="solutions-map" style="display:none;">
         <!-- Bandeau non-bloquant : aucun lieu avec les critères actuels (la carte reste explorable) -->
         <div class="solutions-map__noresult" id="solutions-map-noresult" hidden>Aucun lieu trouvé ici. Déplacez la carte pour explorer une autre zone.</div>
-        <button class="solutions-map__search-area" id="solutions-map-search-area" type="button" tabindex="-1" aria-label="Nouvelle recherche dans cette zone">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-          Nouvelle recherche dans cette zone
-        </button>
       </div>
 
       <!-- Footer -->
@@ -4336,31 +4304,63 @@
     // geo_distance=lon,lat,mètres (format correct data.gouv.fr)
     // Cache des réponses (clé = URL) ET dédup des requêtes en vol (même promesse partagée)
     // Économise un maximum de requêtes ADEME : 0 doublon, 0 re-fetch après navigation
-    const _acteursCache = new Map();      // url → réponse JSON
+    const _acteursCache = new Map();      // url → réponse JSON (ordre = ancienneté d'usage)
     const _inflightAceturs = new Map();    // url → promesse en cours
+    // Plafond LRU : chaque zone explorée sur la carte crée une entrée pouvant peser
+    // jusqu'à ACTEURS_SIZE enregistrements. Sans limite, la mémoire enflerait à chaque
+    // déplacement de carte.
+    const ACTEURS_CACHE_MAX = 12;
 
-    async function fetchActeursProches(lat, lon, rayonKm, ficheId, opts) {
-      opts = opts || {};
+    // === API ADEME (data-fair Koumoul) ===
+    const ACTEURS_SELECT = 'nom,nom_commercial,adresse,complement_dadresse,code_postal,ville,latitude,longitude,type_dacteur,type_de_services,qualites_et_labels,reparer,donner,revendre,echanger,trier,emprunter,preter,acheter,mettreenlocation,louer,rapporter,horaires_description,horaires_osm,telephone,site_web,identifiant,description,public_accueilli,reprise,exclusivite_de_reprisereparation,uniquement_sur_rdv,propositions_de_services,lieu_prestation,perimetreadomicile,paternite,date_de_derniere_modification';
+    // Plafond accepté par l'API data-fair (au-delà, la requête est refusée)
+    const ACTEURS_SIZE = '1000';
 
-      // === API ADEME (data-fair Koumoul) ===
-      const slugs = ficheId ? (FICHE_SLUGS[ficheId] || []) : [];
+    // Recherche autour d'un point, du plus proche au plus loin.
+    // Aucun paramètre `q` ici : sans lui l'API trie nativement par _geo_dist croissant,
+    // donc les N premiers résultats sont les N vrais plus proches. Un `q` ferait
+    // basculer le tri sur la pertinence. Le filtre geste est appliqué côté client car
+    // les champs d'actions (donner, trier…) ne sont pas indexés côté ADEME.
+    async function fetchActeursProches(lat, lon, rayonKm) {
       // Arrondi des coordonnées à 4 décimales (~11m) : stabilise la clé de cache
       const latR = Math.round(lat * 10000) / 10000;
       const lonR = Math.round(lon * 10000) / 10000;
       const params = new URLSearchParams({
         geo_distance: `${lonR},${latR},${rayonKm * 1000}`,
-        size:   '300',
-        select: 'nom,nom_commercial,adresse,complement_dadresse,code_postal,ville,latitude,longitude,type_dacteur,type_de_services,qualites_et_labels,reparer,donner,revendre,echanger,trier,emprunter,preter,acheter,mettreenlocation,louer,rapporter,horaires_description,horaires_osm,telephone,site_web,identifiant,description,public_accueilli,reprise,exclusivite_de_reprisereparation,uniquement_sur_rdv,propositions_de_services,lieu_prestation,perimetreadomicile,paternite,date_de_derniere_modification',
+        size:   ACTEURS_SIZE,
+        select: ACTEURS_SELECT,
       });
-      if (slugs.length > 0) {
-        params.append('q', slugs[0]);
-        // q_fields restreint la recherche FTS aux champs d'actions → 3x plus rapide côté ADEME
-        params.append('q_fields', 'reparer,donner,revendre,echanger,trier,emprunter,preter');
-      }
-      const url = `${ACTEURS_API}?${params}`;
+      return fetchActeursUrl(`${ACTEURS_API}?${params}`);
+    }
 
-      // 1) Cache hit : réponse mémorisée → 0 appel réseau
-      if (_acteursCache.has(url)) return _acteursCache.get(url);
+    // Recherche dans le rectangle visible de la carte.
+    // Sans geo_distance, l'API ne trie pas par distance : l'échantillon renvoyé est
+    // réparti sur l'ensemble de la zone — et exhaustif dès que total ≤ ACTEURS_SIZE.
+    // C'est ce qui permet de couvrir le viewport au lieu de masser les points en son centre.
+    async function fetchActeursBbox(west, south, east, north) {
+      // Au dézoom maximal, MapLibre renvoie des bornes hors limites géographiques.
+      // L'API les rejette (latitude > 90 → erreur) ou renvoie 0 résultat sans erreur
+      // (longitude > 180) : on borne donc avant d'interroger.
+      const r = (v, lim) => Math.round(Math.max(-lim, Math.min(lim, v)) * 10000) / 10000;
+      const params = new URLSearchParams({
+        bbox:   `${r(west, 180)},${r(south, 90)},${r(east, 180)},${r(north, 90)}`,
+        size:   ACTEURS_SIZE,
+        select: ACTEURS_SELECT,
+      });
+      return fetchActeursUrl(`${ACTEURS_API}?${params}`);
+    }
+
+    // Cœur réseau partagé : cache par URL, mutualisation des requêtes en vol, retry, timeout.
+    async function fetchActeursUrl(url) {
+
+      // 1) Cache hit : réponse mémorisée → 0 appel réseau. On la réinsère pour la
+      //    marquer comme récemment utilisée (l'éviction retire la plus ancienne).
+      if (_acteursCache.has(url)) {
+        const hit = _acteursCache.get(url);
+        _acteursCache.delete(url);
+        _acteursCache.set(url, hit);
+        return hit;
+      }
       // 2) Déjà en cours : on partage la même promesse → 0 appel supplémentaire
       if (_inflightAceturs.has(url)) return _inflightAceturs.get(url);
 
@@ -4379,6 +4379,10 @@
             if (resp.ok) {
               const json = await resp.json();
               _acteursCache.set(url, json);
+              // Éviction LRU : au-delà du plafond, la plus ancienne entrée saute
+              if (_acteursCache.size > ACTEURS_CACHE_MAX) {
+                _acteursCache.delete(_acteursCache.keys().next().value);
+              }
               return json;
             }
             lastErr = new Error(`Erreur API ${resp.status}`);
@@ -4397,6 +4401,29 @@
       } finally {
         _inflightAceturs.delete(url);
       }
+    }
+
+    // Geste actuellement sélectionné sur l'écran Solutions (null si aucun).
+    function currentGesteAccordeon() {
+      return appState.sortedAccordeons && appState.selectedGesteIndex != null
+        ? appState.sortedAccordeons[appState.selectedGesteIndex]
+        : null;
+    }
+
+    // Ne garde que les lieux proposant le geste choisi pour l'objet courant.
+    // Le filtre est forcément côté client : les champs d'actions ne sont pas indexés
+    // côté ADEME, donc non filtrables par requête.
+    function filterActeursByGeste(results, acc) {
+      const ficheId = appState.selectedFiche ? appState.selectedFiche.id : null;
+      const ficheScSlugs = ficheId ? (FICHE_SLUGS[ficheId] || []) : [];
+      const actionFields = GESTE_ACTION_FIELDS[acc?.icone] || ['trier'];
+      return (results || []).filter(a => actionFields.some(field => {
+        const val = a[field] || '';
+        if (!val.trim()) return false;
+        if (ficheScSlugs.length === 0) return true;
+        const actorSlugs = val.split(' | ').map(s => s.trim());
+        return ficheScSlugs.some(slug => actorSlugs.includes(slug));
+      }));
     }
 
     function renderSolutionsLoading() {
@@ -4583,28 +4610,15 @@
 
       try {
         const { lat, lon } = appState.selectedAddress;
-        const ficheId = appState.selectedFiche ? appState.selectedFiche.id : null;
-        const ficheScSlugs = ficheId ? (FICHE_SLUGS[ficheId] || []) : [];
-        const data = await fetchActeursProches(lat, lon, 20, ficheId);
+        const data = await fetchActeursProches(lat, lon, 20);
 
-        const actionFields = GESTE_ACTION_FIELDS[acc?.icone] || ['trier'];
-
-        let acteurs = (data.results || []).filter(a => {
-          return actionFields.some(field => {
-            const val = a[field] || '';
-            if (!val.trim()) return false;
-            if (ficheScSlugs.length === 0) return true;
-            const actorSlugs = val.split(' | ').map(s => s.trim());
-            return ficheScSlugs.some(slug => actorSlugs.includes(slug));
-          });
-        });
-
-        // 20 lieux les plus proches, triés par distance croissante (max 20 points)
-        acteurs = acteurs
+        // L'API a déjà trié par distance croissante : après le filtre geste, les 20
+        // premiers restants sont donc les 20 vrais plus proches de l'adresse saisie.
+        const acteurs = filterActeursByGeste(data.results, acc)
           .map(a => ({ ...a, _distance: haversineKm(lat, lon, parseFloat(a.latitude), parseFloat(a.longitude)) }))
           .filter(a => a._distance <= 20)
           .sort((a, b) => a._distance - b._distance)
-          .slice(0, 20);
+          .slice(0, MAX_MAP_POINTS);
 
         appState.solutionsActeursAll = acteurs;
         appState.solutionsActeurs = acteurs;
@@ -5111,6 +5125,11 @@
     let mapInstance = null;
     let mapMarkers = [];
     let userMarker = null;
+
+    const MAX_MAP_POINTS = 20;      // plafond de repères affichés simultanément
+    const MAP_REFRESH_DELAY = 1000; // ms d'immobilité avant de rafraîchir la zone
+    let _mapRefreshTimer = null;
+    let _mapRefreshSeq = 0;
     let currentPopup = null;
 
     function clearMapMarkers() {
@@ -5143,15 +5162,12 @@
       mapInstance.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
       mapInstance.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
 
-      // Détection du pan utilisateur → affiche le bouton "Nouvelle recherche dans cette zone"
+      // Déplacement ou zoom par l'utilisateur → rafraîchit les lieux de la nouvelle zone
+      // une fois la carte immobile. e.originalEvent n'existe que pour un geste utilisateur,
+      // ce qui évite de relancer une recherche sur un fitBounds programmatique.
       mapInstance.on('moveend', (e) => {
-        // e.originalEvent existe seulement si l'utilisateur a déplacé la carte (pas fitBounds, etc.)
         if (!e.originalEvent) return;
-        const btn = document.getElementById('solutions-map-search-area');
-        if (btn) btn.classList.add('is-visible');
-        // Masque le bandeau "aucun lieu" pendant l'exploration (le bouton ci-dessus prend le relais)
-        const mapNoResult = document.getElementById('solutions-map-noresult');
-        if (mapNoResult) mapNoResult.hidden = true;
+        scheduleMapZoneRefresh();
       });
     }
 
@@ -5189,61 +5205,80 @@
       }
     }
 
-    // Re-fetch les acteurs autour du centre actuel de la carte sans modifier l'adresse saisie
-    async function searchInMapArea() {
+    // Sélectionne au plus MAX_MAP_POINTS lieux répartis sur toute la zone visible.
+    // La zone est découpée en une grille dont chaque cellule ne cède qu'un seul lieu :
+    // le plus proche du centre de la vue. Sans cela, les points s'entasseraient au
+    // centre du viewport et laisseraient le reste de la zone vide.
+    // Les places restantes (cellules sans lieu) sont comblées par les plus proches du centre.
+    function spreadOverView(acteurs, bounds) {
+      const west = bounds.getWest(), south = bounds.getSouth();
+      const spanLon = (bounds.getEast() - west) || 1e-9;
+      const spanLat = (bounds.getNorth() - south) || 1e-9;
+      const COLS = 5, ROWS = 4; // 20 cellules = MAX_MAP_POINTS
+
+      const byDistance = acteurs.slice().sort((a, b) => a._distance - b._distance);
+      const cellOf = (a) => {
+        const clamp = (v, max) => Math.max(0, Math.min(max, v));
+        const col = clamp(Math.floor(((parseFloat(a.longitude) - west) / spanLon) * COLS), COLS - 1);
+        const row = clamp(Math.floor(((parseFloat(a.latitude) - south) / spanLat) * ROWS), ROWS - 1);
+        return `${col}:${row}`;
+      };
+
+      const taken = new Set();
+      const picked = [];
+      for (const a of byDistance) {
+        const cell = cellOf(a);
+        if (taken.has(cell)) continue;
+        taken.add(cell);
+        picked.push(a);
+        if (picked.length >= MAX_MAP_POINTS) return picked;
+      }
+      // Toutes les cellules occupées n'ont pas rempli le quota : on complète par proximité.
+      const pickedSet = new Set(picked);
+      for (const a of byDistance) {
+        if (picked.length >= MAX_MAP_POINTS) break;
+        if (!pickedSet.has(a)) picked.push(a);
+      }
+      return picked;
+    }
+
+    // Met à jour les lieux affichés selon la zone visible, sans modifier l'adresse
+    // saisie ni recentrer la carte.
+    async function refreshMapZone() {
       if (!mapInstance) return;
-      const center = mapInstance.getCenter();
-      const lat = center.lat, lon = center.lng;
-      const ficheId = appState.selectedFiche ? appState.selectedFiche.id : null;
-      const ficheScSlugs = ficheId ? (FICHE_SLUGS[ficheId] || []) : [];
-      const acc = appState.sortedAccordeons && appState.selectedGesteIndex != null
-        ? appState.sortedAccordeons[appState.selectedGesteIndex]
-        : null;
-      const actionFields = GESTE_ACTION_FIELDS[acc?.icone] || ['trier'];
-
-      const btn = document.getElementById('solutions-map-search-area');
-      if (btn) btn.classList.remove('is-visible');
-
-      // Rayon adapté au zoom : 20km en ville, jusqu'à 50km au niveau département
       const bounds = mapInstance.getBounds();
-      const ne = bounds.getNorthEast(), sw = bounds.getSouthWest();
-      const visibleHalfDiagonal = haversineKm(sw.lat, sw.lng, ne.lat, ne.lng) / 2;
-      const radius = Math.min(50, Math.max(20, Math.round(visibleHalfDiagonal)));
+      const center = mapInstance.getCenter();
+      const acc = currentGesteAccordeon();
+
+      // Jeton de séquence : une réponse lente ne doit jamais écraser une plus récente.
+      const seq = ++_mapRefreshSeq;
 
       try {
-        const data = await fetchActeursProches(lat, lon, radius, ficheId);
-        let acteurs = (data.results || []).filter(a => {
-          return actionFields.some(field => {
-            const val = a[field] || '';
-            if (!val.trim()) return false;
-            if (ficheScSlugs.length === 0) return true;
-            const actorSlugs = val.split(' | ').map(s => s.trim());
-            return ficheScSlugs.some(slug => actorSlugs.includes(slug));
-          });
-        });
-        acteurs = acteurs
-          .map(a => ({ ...a, _distance: haversineKm(lat, lon, parseFloat(a.latitude), parseFloat(a.longitude)) }))
-          .filter(a => a._distance <= radius)
-          .sort((a, b) => a._distance - b._distance)
-          .slice(0, 20);
+        const data = await fetchActeursBbox(
+          bounds.getWest(), bounds.getSouth(), bounds.getEast(), bounds.getNorth());
+        if (seq !== _mapRefreshSeq) return;
 
-        // Met à jour les lieux et re-rend les markers sans re-centrer la carte
+        const candidats = filterActeursByGeste(data.results, acc)
+          .filter(a => !isNaN(parseFloat(a.latitude)) && !isNaN(parseFloat(a.longitude)))
+          .map(a => ({ ...a, _distance: haversineKm(
+            center.lat, center.lng, parseFloat(a.latitude), parseFloat(a.longitude)) }));
+
+        const acteurs = spreadOverView(candidats, bounds);
         appState.solutionsActeursAll = acteurs;
         appState.solutionsActeurs = acteurs;
         const noResult = document.getElementById('solutions-map-noresult');
         if (noResult) noResult.hidden = acteurs.length > 0;
         renderSolutionsMapMarkers({ fit: false });
       } catch (err) {
-        console.error('[searchInMapArea] erreur :', err);
-        // Affiche brièvement un message d'erreur sur le bouton pour notifier l'usager
-        if (btn) {
-          btn.classList.add('is-visible');
-          btn.textContent = 'API indisponible, réessayez';
-          setTimeout(() => {
-            btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg> Nouvelle recherche dans cette zone`;
-          }, 3000);
-        }
+        if (seq !== _mapRefreshSeq) return;
+        console.error('[refreshMapZone] erreur :', err);
       }
+    }
+
+    // Rafraîchit après MAP_REFRESH_DELAY d'immobilité : tout mouvement relance le délai.
+    function scheduleMapZoneRefresh() {
+      clearTimeout(_mapRefreshTimer);
+      _mapRefreshTimer = setTimeout(refreshMapZone, MAP_REFRESH_DELAY);
     }
 
     // Met à jour l'état du contrôle segmenté Liste/Carte et repositionne
@@ -5291,9 +5326,6 @@
       const isListVisible = listEl.style.display !== 'none';
 
       if (isListVisible) {
-        // Passer en mode carte — on cache le bouton "Nouvelle recherche" jusqu'au prochain pan
-        const searchBtn = document.getElementById('solutions-map-search-area');
-        if (searchBtn) searchBtn.classList.remove('is-visible');
         listEl.style.display = 'none';
         mapEl.style.display = '';
         if (!mapInstance) {
@@ -5442,12 +5474,6 @@
       goBackToSolutions();
     });
 
-
-    // Bouton "Nouvelle recherche dans cette zone" (apparaît au pan)
-    // Le tabindex="-1" sur le bouton empêche le focus au clic → pas de scroll induit
-    document.getElementById('solutions-map-search-area').addEventListener('click', () => {
-      searchInMapArea();
-    });
 
     // =============================================
     // Filtres des solutions
