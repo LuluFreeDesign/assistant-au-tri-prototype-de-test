@@ -5126,6 +5126,7 @@
     let userMarker = null;
 
     const MAX_MAP_POINTS = 20;      // plafond de repères affichés simultanément
+    const GRID_COLS = 5, GRID_ROWS = 4; // grille de répartition : 5×4 = MAX_MAP_POINTS
     const MAP_REFRESH_DELAY = 1000; // ms d'immobilité avant de rafraîchir la zone
     let _mapRefreshTimer = null;
     let _mapRefreshSeq = 0;
@@ -5210,7 +5211,9 @@
       clearMapMarkers();
       opts = opts || {};
 
-      const acteurs = appState.solutionsActeurs || [];
+      // opts.acteurs permet d'afficher une liste différente de la sélection mémorisée —
+      // notamment aucun repère, sans perdre la sélection (voir zone trop vaste).
+      const acteurs = opts.acteurs || appState.solutionsActeurs || [];
       const bounds = new maplibregl.LngLatBounds();
       if (appState.selectedAddress) bounds.extend([appState.selectedAddress.lon, appState.selectedAddress.lat]);
 
@@ -5239,41 +5242,85 @@
       }
     }
 
-    // Sélectionne au plus MAX_MAP_POINTS lieux répartis sur toute la zone visible.
-    // La zone est découpée en une grille dont chaque cellule ne cède qu'un seul lieu :
-    // le plus proche du centre de la vue. Sans cela, les points s'entasseraient au
-    // centre du viewport et laisseraient le reste de la zone vide.
-    // Les places restantes (cellules sans lieu) sont comblées par les plus proches du centre.
-    function spreadOverView(acteurs, bounds) {
+    // Identité d'un lieu : permet de reconnaître un repère déjà affiché d'un
+    // rafraîchissement à l'autre, l'API renvoyant des objets distincts à chaque appel.
+    function acteurId(a) {
+      return a.identifiant || `${a.latitude},${a.longitude},${a.nom || ''}`;
+    }
+
+    // Vrai si le lieu se trouve dans la zone visible.
+    function isActeurInBounds(a, bounds) {
+      const lat = parseFloat(a.latitude), lon = parseFloat(a.longitude);
+      if (isNaN(lat) || isNaN(lon)) return false;
+      return lon >= bounds.getWest() && lon <= bounds.getEast()
+          && lat >= bounds.getSouth() && lat <= bounds.getNorth();
+    }
+
+    // Découpe la vue en une grille et donne la cellule où tombe un lieu.
+    function gridCellOf(bounds) {
       const west = bounds.getWest(), south = bounds.getSouth();
       const spanLon = (bounds.getEast() - west) || 1e-9;
       const spanLat = (bounds.getNorth() - south) || 1e-9;
-      const COLS = 5, ROWS = 4; // 20 cellules = MAX_MAP_POINTS
-
-      const byDistance = acteurs.slice().sort((a, b) => a._distance - b._distance);
-      const cellOf = (a) => {
-        const clamp = (v, max) => Math.max(0, Math.min(max, v));
-        const col = clamp(Math.floor(((parseFloat(a.longitude) - west) / spanLon) * COLS), COLS - 1);
-        const row = clamp(Math.floor(((parseFloat(a.latitude) - south) / spanLat) * ROWS), ROWS - 1);
+      const clamp = (v, max) => Math.max(0, Math.min(max, v));
+      return (a) => {
+        const col = clamp(Math.floor(((parseFloat(a.longitude) - west) / spanLon) * GRID_COLS), GRID_COLS - 1);
+        const row = clamp(Math.floor(((parseFloat(a.latitude) - south) / spanLat) * GRID_ROWS), GRID_ROWS - 1);
         return `${col}:${row}`;
       };
+    }
 
-      const taken = new Set();
+    // Choisit jusqu'à `limit` lieux répartis sur la zone visible : chaque cellule de la
+    // grille ne cède qu'un lieu, le plus proche du centre. Sans cela, les points
+    // s'entasseraient au centre de la vue en laissant le reste vide.
+    // `cellsPrises` réserve les cellules déjà occupées par des repères conservés.
+    function spreadOverView(acteurs, bounds, limit, cellsPrises) {
+      if (limit <= 0) return [];
+      const cellOf = gridCellOf(bounds);
+      const byDistance = acteurs.slice().sort((a, b) => a._distance - b._distance);
+
+      const taken = new Set(cellsPrises || []);
       const picked = [];
       for (const a of byDistance) {
+        if (picked.length >= limit) return picked;
         const cell = cellOf(a);
         if (taken.has(cell)) continue;
         taken.add(cell);
         picked.push(a);
-        if (picked.length >= MAX_MAP_POINTS) return picked;
       }
-      // Toutes les cellules occupées n'ont pas rempli le quota : on complète par proximité.
+      // Cellules épuisées sans atteindre le quota : on complète par proximité.
       const pickedSet = new Set(picked);
       for (const a of byDistance) {
-        if (picked.length >= MAX_MAP_POINTS) break;
+        if (picked.length >= limit) break;
         if (!pickedSet.has(a)) picked.push(a);
       }
       return picked;
+    }
+
+    // Choisit les repères à afficher pour la vue courante.
+    // Règle : un repère déjà affiché garde sa place tant que son lieu reste en vue —
+    // c'est ce qui l'empêche de disparaître quand l'usager zoome ou déplace la carte.
+    // Dès que le lieu sort de l'écran, sa place se libère au profit de nouveaux lieux,
+    // répartis sur la zone. Au-delà de MAX_MAP_POINTS candidats, la jauge tranche : un
+    // lieu revenu en vue n'est donc pas garanti de retrouver sa place.
+    function selectActeursForView(affiches, candidats, bounds, center) {
+      const avecDistance = (a) => ({ ...a, _distance: haversineKm(
+        center.lat, center.lng, parseFloat(a.latitude), parseFloat(a.longitude)) });
+
+      const gardes = affiches
+        .filter(a => isActeurInBounds(a, bounds))
+        .map(avecDistance);
+
+      const dejaAffiches = new Set(gardes.map(acteurId));
+      const nouveaux = candidats
+        .filter(a => isActeurInBounds(a, bounds))
+        .filter(a => !dejaAffiches.has(acteurId(a)))
+        .map(avecDistance);
+
+      const cellOf = gridCellOf(bounds);
+      const complement = spreadOverView(
+        nouveaux, bounds, MAX_MAP_POINTS - gardes.length, gardes.map(cellOf));
+
+      return gardes.concat(complement);
     }
 
     // Met à jour les lieux affichés selon la zone visible, sans modifier l'adresse
@@ -5288,13 +5335,13 @@
       // Incrémenté avant toute sortie anticipée, pour annuler une réponse encore en vol.
       const seq = ++_mapRefreshSeq;
 
-      // Vue trop large : aucun lieu affiché, on invite à zoomer. Pas d'appel API — les
+      // Vue trop large : aucun repère affiché, on invite à zoomer. Pas d'appel API — les
       // lieux renvoyés ne seraient qu'un échantillon de la zone. Le repère de l'adresse
       // reste affiché : il situe la recherche, ce n'est pas un lieu.
+      // La sélection est masquée mais conservée en mémoire : en revenant à un zoom
+      // exploitable, l'usager retrouve les mêmes repères qu'avant son dézoom.
       if (isZoneTropVaste(bounds)) {
-        appState.solutionsActeursAll = [];
-        appState.solutionsActeurs = [];
-        renderSolutionsMapMarkers({ fit: false });
+        renderSolutionsMapMarkers({ fit: false, acteurs: [] });
         setMapBanner(MSG_ZONE_TROP_VASTE);
         return;
       }
@@ -5304,12 +5351,11 @@
           bounds.getWest(), bounds.getSouth(), bounds.getEast(), bounds.getNorth());
         if (seq !== _mapRefreshSeq) return;
 
-        const candidats = filterActeursByGeste(data.results, acc)
-          .filter(a => !isNaN(parseFloat(a.latitude)) && !isNaN(parseFloat(a.longitude)))
-          .map(a => ({ ...a, _distance: haversineKm(
-            center.lat, center.lng, parseFloat(a.latitude), parseFloat(a.longitude)) }));
+        const acteurs = selectActeursForView(
+          appState.solutionsActeurs || [],
+          filterActeursByGeste(data.results, acc),
+          bounds, center);
 
-        const acteurs = spreadOverView(candidats, bounds);
         appState.solutionsActeursAll = acteurs;
         appState.solutionsActeurs = acteurs;
         setMapBanner(acteurs.length > 0 ? '' : MSG_AUCUN_LIEU);
