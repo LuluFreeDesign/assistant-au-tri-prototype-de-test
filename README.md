@@ -185,31 +185,18 @@ python3 -m http.server 8090
 
 ### Intégration en iframe
 
-Le widget intègre un mécanisme d'auto-resize : il envoie sa hauteur au parent via `postMessage`, supprimant le besoin de définir une hauteur fixe.
+L'intégrateur ajoute un conteneur et le script hébergé avec le MVP, **sans aucun réglage** :
 
 ```html
-<iframe
-  id="assistant-tri"
-  src="https://votre-hebergement.fr/assistant-tri/mvp/index.html"
-  width="100%"
-  style="height: 400px; border: none;"
-  title="Assistant au tri, au réemploi et à la réparation"
-></iframe>
-<script>
-  var iframe = document.getElementById('assistant-tri');
-  window.addEventListener('message', function(e) {
-    if (!e.data) return;
-    // Auto-resize : ajuste la hauteur de l'iframe à son contenu
-    if (e.data.type === 'assistant-tri-resize') {
-      iframe.style.height = e.data.height + 'px';
-    }
-    // Scroll en haut de l'iframe lors d'une transition d'étape
-    if (e.data.type === 'assistant-tri-scroll-to-top') {
-      iframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-</script>
+<div data-assistant-tri></div>
+<script src="https://votre-hebergement.fr/assistant-tri/mvp/integration.js"></script>
 ```
+
+Le script [`mvp/integration.js`](mvp/integration.js) :
+- crée l'iframe et ajuste sa hauteur à son contenu (`assistant-tri-resize`) ;
+- à chaque changement d'étape (`assistant-tri-scroll-to-top`), ramène l'usager en haut de l'assistant **sous les éléments fixes de la page hôte** (header fixe ou sticky, barre qui se déploie au scroll). Il détecte ces éléments automatiquement et corrige le scroll si le header change de taille pendant le défilement. Si le haut de l'assistant est déjà visible, il ne scrolle pas.
+
+Comme le script est chargé depuis notre hébergement, toute correction profite aux intégrateurs sans action de leur part.
 
 ## Environnements de test
 

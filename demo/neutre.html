@@ -8,59 +8,131 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #1a1a1a; background: #fff; }
 
-    /* Header */
-    .header { background: #fff; border-bottom: 1px solid #e5e5e5; padding: 0 32px; display: flex; align-items: center; gap: 16px; height: 64px; }
+    /* Header : fixe au-dessus du contenu (reproduit le cas des sites partenaires) */
+    .header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: #fff; border-bottom: 1px solid #e5e5e5; }
+    .header__bar { padding: 0 32px; display: flex; align-items: center; gap: 16px; height: 64px; }
     .header__logo { font-size: 1.1rem; font-weight: 700; color: #111; letter-spacing: -0.3px; }
     .header__logo span { color: #555; font-weight: 400; }
     .header__note { font-size: 0.75rem; color: #999; }
+    .header__nav { margin-left: auto; display: flex; gap: 24px; font-size: 0.9rem; color: #333; }
+    .header__burger { display: none; margin-left: auto; width: 40px; height: 40px; border: 1px solid #ccc; border-radius: 4px; background: #fff; font-size: 1.2rem; }
+
+    /* Barre de recherche factice : apparaît quand l'usager remonte au milieu de la page */
+    .header__search { height: 0; overflow: hidden; padding: 0 32px; transition: height 0.2s ease; background: #fff; }
+    .header--search-visible .header__search { height: 56px; }
+    .header__search-field { height: 40px; margin-top: 8px; border: 1px solid #999; border-radius: 4px; padding: 0 12px; display: flex; align-items: center; color: #777; font-size: 0.9rem; cursor: default; user-select: none; }
+
+    /* Compense la hauteur du header fixe */
+    body { padding-top: 64px; }
 
     /* Content */
     .content { max-width: 880px; margin: 0 auto; padding: 40px 32px 64px; }
 
     .widget-wrapper { border: 1px solid #e5e5e5; border-radius: 6px; overflow: hidden; }
-    /* Hauteur initiale modeste — sera ajustée automatiquement par postMessage de l'iframe selon le contenu */
     .widget-wrapper iframe { width: 100%; height: 400px; border: none; display: block; transition: height 0.2s ease; }
 
     /* Footer */
     .footer { border-top: 1px solid #e5e5e5; padding: 24px 32px; text-align: center; }
     .footer__copy { font-size: 0.8rem; color: #999; }
 
+    .intro { margin-bottom: 32px; line-height: 1.6; color: #333; }
+    .intro h1 { font-size: 1.6rem; margin-bottom: 12px; }
+    .lorem { margin-top: 32px; margin-bottom: 0; }
+    .lorem h2 { font-size: 1.25rem; margin-bottom: 12px; }
+    .intro p + p { margin-top: 12px; }
+
     @media (max-width: 640px) {
-      .header { padding: 0 16px; }
+      .header__bar { padding: 0 16px; }
+      .header__search { padding: 0 16px; }
+      .header__nav { display: none; }
+      .header__note { display: none; }
+      .header__burger { display: block; }
       .content { padding: 32px 16px 48px; }
     }
   </style>
 </head>
 <body>
 
-  <header class="header">
-    <div class="header__logo">fauxsite<span>.fr</span></div>
-    <span class="header__note">Ceci est un faux site Internet de prototype</span>
+  <header class="header" id="header">
+    <div class="header__bar">
+      <div class="header__logo">fauxsite<span>.fr</span></div>
+      <span class="header__note">Ceci est un faux site Internet de prototype</span>
+      <nav class="header__nav" aria-label="Menu principal">
+        <span>Accueil</span><span>Services</span><span>Environnement</span><span>Contact</span>
+      </nav>
+      <button class="header__burger" type="button" aria-label="Menu">☰</button>
+    </div>
+    <div class="header__search" aria-hidden="true">
+      <div class="header__search-field">Rechercher sur le site (barre fictive)</div>
+    </div>
   </header>
 
   <main class="content">
-    <div class="widget-wrapper">
-      <iframe id="assistant-tri" src="../index.html" title="Assistant au tri, au réemploi et à la réparation"></iframe>
-    </div>
+    <section class="intro">
+      <h1>Que faire de mes déchets ?</h1>
+      <p>Cette page de démonstration reproduit un site partenaire : un header fixe reste visible au scroll, et l'assistant est intégré en iframe sous un contenu éditorial.</p>
+      <p>Lorsque l'usager change d'étape dans l'assistant, l'iframe demande à la page hôte de se repositionner en haut de l'iframe. C'est ce comportement qui doit être étudié avec le header fixe.</p>
+    </section>
+    <section class="intro lorem">
+      <h2>Comprendre la gestion des déchets</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </section>
+    <section class="intro lorem">
+      <h2>Les gestes du quotidien</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </section>
+    <section class="intro lorem">
+      <h2>Agir près de chez vous</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </section>
+    <section class="intro lorem">
+      <h2>Réduire ses déchets</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </section>
+    <!-- Intégration de l'assistant : un conteneur + le script hébergé, aucun réglage -->
+    <div class="widget-wrapper" data-assistant-tri></div>
+    <section class="intro lorem">
+      <h2>Pour aller plus loin</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </section>
+    <section class="intro lorem">
+      <h2>Questions fréquentes</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </section>
+    <section class="intro lorem">
+      <h2>Les acteurs du territoire</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </section>
+    <section class="intro lorem">
+      <h2>Nous contacter</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    </section>
   </main>
 
   <footer class="footer">
     <p class="footer__copy">Site fictif — © 2026</p>
   </footer>
 
+  <script src="../mvp/integration.js"></script>
   <script>
-    var iframe = document.getElementById('assistant-tri');
-    window.addEventListener('message', function(e) {
-      if (!e.data) return;
-      // Auto-resize : ajuste la hauteur de l'iframe à son contenu
-      if (e.data.type === 'assistant-tri-resize') {
-        iframe.style.height = e.data.height + 'px';
-      }
-      // Scroll en haut de l'iframe lors d'une transition d'étape — simule une navigation entre pages
-      if (e.data.type === 'assistant-tri-scroll-to-top') {
-        iframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
+    // Header : la barre de recherche fictive apparaît quand l'usager remonte (et n'est pas tout en haut)
+    var header = document.getElementById('header');
+    var lastY = window.scrollY;
+    window.addEventListener('scroll', function() {
+      var y = window.scrollY;
+      if (Math.abs(y - lastY) < 6) return;
+      var goingUp = y < lastY;
+      header.classList.toggle('header--search-visible', goingUp && y > 200);
+      lastY = y;
+    }, { passive: true });
   </script>
 </body>
 </html>
